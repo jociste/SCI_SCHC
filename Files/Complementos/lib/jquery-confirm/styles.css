@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20-oct-2016, 14:05:52
+    Author     : Joseline Cisternas
+*/
+
+
+
+.item{
+	
+	padding-bottom: 6px;
+	display: inline-block;
+	margin-bottom: 30px;
+	position:relative;
+}
+
+ .delete{
+	background:url(../../../images/admin/action4.gif) no-repeat;
+	position:absolute;
+	cursor:pointer;
+	top:10px;
+	right:-80px;
+	
+	
+}
