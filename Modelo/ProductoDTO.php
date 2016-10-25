@@ -3,6 +3,8 @@ class ProductoDTO {
     public $idProducto;
     public $idCategoria;
     public $nombre;
+    
+    public $categoria;
 
     public function ProductoDTO(){
     }
@@ -30,5 +32,12 @@ class ProductoDTO {
     function setNombre($nombre) {
         return $this->nombre = $nombre;
     }
+    
+    function getCategoria() {
+        return $this->categoria;
+    }
 
+    function setCategoria($categoria) {
+        $this->categoria = $categoria;
+    }
 }

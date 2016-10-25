@@ -19,7 +19,7 @@ class ProductoDAO{
 
     public function findAll() {
         $this->conexion->conectar();
-        $query = "SELECT * FROM producto";
+        $query = "SELECT P.idProducto, P.idCategoria, P.nombre, C.nombre as nombreCategoria FROM producto P JOIN categoria C ON P.idCategoria = C.idCategoria ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $productos = array();
@@ -28,6 +28,7 @@ class ProductoDAO{
             $producto->setIdProducto($fila[0]);
             $producto->setIdCategoria($fila[1]);
             $producto->setNombre($fila[2]);
+            $producto->setCategoria($fila[3]);
             $productos[$i] = $producto;
             $i++;
         }
@@ -47,6 +48,24 @@ class ProductoDAO{
         }
         $this->conexion->desconectar();
         return $producto;
+    }
+    
+    public function findByIiCategoria($idCategoria) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM producto WHERE idCategoria =  ".$idCategoria." ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $productos = array();
+        while ($fila = $result->fetch_row()) {
+            $producto = new ProductoDTO();
+            $producto->setIdProducto($fila[0]);
+            $producto->setIdCategoria($fila[1]);
+            $producto->setNombre($fila[2]);
+            $productos[$i] = $producto;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $productos;
     }
 
     public function findLikeAtrr($cadena) {
@@ -69,8 +88,8 @@ class ProductoDAO{
 
     public function save($producto) {
         $this->conexion->conectar();
-        $query = "INSERT INTO producto (idProducto,idCategoria,nombre)"
-                . " VALUES ( ".$producto->getIdProducto()." ,  ".$producto->getIdCategoria()." , '".$producto->getNombre()."' )";
+        $query = "INSERT INTO producto (idCategoria,nombre)"
+                . " VALUES (".$producto->getIdCategoria()." , '".$producto->getNombre()."' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

@@ -18,6 +18,17 @@
                     <li><a href="FuncionariasHistoricas.php"><i class="icon-archive"></i>Historicas</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="dropdown-toggle" style="text-align: center">
+                    <i class="icon-folder-open" style="text-align: center"></i>
+                    <span style="font-size: 75%; ">INVENTARIO</span>
+                </a>
+                <ul class="submenu" style="text-align: center">                    
+                    <li><a href="AdministrarCategoriasProducto.php"><i class="icon-archive"></i>Categorias de Producto</a></li>
+                    <li><a href="AdministrarLotesProducto.php"><i class="icon-archive"></i>Lotes de Producto</a></li>
+                    <li><a href="AdministrarProductos.php"><i class="icon-archive"></i>Productos</a></li>
+                </ul>
+            </li>
 
           <!--  <li>
                 <a class="dropdown-toggle" style="text-align: center">

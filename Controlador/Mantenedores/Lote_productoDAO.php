@@ -19,7 +19,7 @@ class Lote_productoDAO{
 
     public function findAll() {
         $this->conexion->conectar();
-        $query = "SELECT * FROM lote_producto";
+        $query = "SELECT L.idLote,L.idProducto,L.numeroBoleta,L.proveedor,L.cantidad,L.fechaVencimiento,L.fechaIngreso,P.nombre FROM lote_producto L JOIN producto P ON L.idProducto = P.idProducto ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -32,6 +32,7 @@ class Lote_productoDAO{
             $lote_producto->setCantidad($fila[4]);
             $lote_producto->setFechaVencimiento($fila[5]);
             $lote_producto->setFechaIngreso($fila[6]);
+            $lote_producto->setNombre($fila[7]);
             $lote_productos[$i] = $lote_producto;
             $i++;
         }
@@ -81,8 +82,8 @@ class Lote_productoDAO{
 
     public function save($lote_producto) {
         $this->conexion->conectar();
-        $query = "INSERT INTO lote_producto (idLote,idProducto,numeroBoleta,proveedor,cantidad,fechaVencimiento,fechaIngreso)"
-                . " VALUES ( ".$lote_producto->getIdLote()." ,  ".$lote_producto->getIdProducto()." ,  ".$lote_producto->getNumeroBoleta()." , '".$lote_producto->getProveedor()."' ,  ".$lote_producto->getCantidad()." , ".$lote_producto->getFechaVencimiento()." , ".$lote_producto->getFechaIngreso()." )";
+        $query = "INSERT INTO lote_producto (idProducto,numeroBoleta,proveedor,cantidad,fechaVencimiento,fechaIngreso)"
+                . " VALUES ( ".$lote_producto->getIdProducto()." ,  ".$lote_producto->getNumeroBoleta()." , '".$lote_producto->getProveedor()."' ,  ".$lote_producto->getCantidad()." , '".$lote_producto->getFechaVencimiento()."' , '".$lote_producto->getFechaIngreso()."' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -95,8 +96,8 @@ class Lote_productoDAO{
                 . "  numeroBoleta =  ".$lote_producto->getNumeroBoleta()." ,"
                 . "  proveedor = '".$lote_producto->getProveedor()."' ,"
                 . "  cantidad =  ".$lote_producto->getCantidad()." ,"
-                . "  fechaVencimiento = ".$lote_producto->getFechaVencimiento()." ,"
-                . "  fechaIngreso = ".$lote_producto->getFechaIngreso()." "
+                . "  fechaVencimiento = '".$lote_producto->getFechaVencimiento()."' ,"
+                . "  fechaIngreso = '".$lote_producto->getFechaIngreso()."' "
                 . " WHERE  idLote =  ".$lote_producto->getIdLote()." ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();

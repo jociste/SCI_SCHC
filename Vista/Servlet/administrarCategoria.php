@@ -11,38 +11,40 @@ if ($accion != null) {
         $json = json_encode($categorias);
         echo $json;
     } else if ($accion == "AGREGAR") {
-        $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
 
-        $object = $control->getCategoriaByID($idCategoria);
-        if (($object->getIdCategoria() == null || $object->getIdCategoria() == "")) {
-            $categoria = new CategoriaDTO();
-            $categoria->setIdCategoria($idCategoria);
-            $categoria->setNombre($nombre);
-            $categoria->setDescripcion($descripcion);
+        $categoria = new CategoriaDTO();
+        $categoria->setNombre($nombre);
+        $categoria->setDescripcion($descripcion);
 
-            $result = $control->addCategoria($categoria);
+        $result = $control->addCategoria($categoria);
 
-            if ($result) {
-                echo json_encode(array(
-                    'success' => true,
-                    'mensaje' => "Categoria ingresada correctamente"
-                ));
-            } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
-            }
+        if ($result) {
+            echo json_encode(array(
+                'success' => true,
+                'mensaje' => "Categoria ingresada correctamente"
+            ));
         } else {
-            echo json_encode(array('errorMsg' => 'El o la categoria ya existe, intento nuevamente.'));
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
     } else if ($accion == "BORRAR") {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
 
-        $result = $control->removeCategoria($idCategoria);
-        if ($result) {
-            echo json_encode(array('success' => true, 'mensaje' => "Categoria borrado correctamente"));
+        //Consulta si tiene bienes
+        $bienes = $control->getBienesByIdCategoria($idCategoria);
+        //Consulta si tiene Productos
+        $productos = $control->getProductosByIdCategoria($idCategoria);
+        
+        if (count($bienes) == 0 && count($productos) == 0) {
+            $result = $control->removeCategoria($idCategoria);
+            if ($result) {
+                echo json_encode(array('success' => true, 'mensaje' => "Categoria borrado correctamente"));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            echo json_encode(array('errorMsg' => 'No se puede eliminar la categoria, tiene bienes o productos asociados.'));
         }
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
@@ -60,10 +62,10 @@ if ($accion != null) {
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
 
-            $categoria = new CategoriaDTO();
-            $categoria->setIdCategoria($idCategoria);
-            $categoria->setNombre($nombre);
-            $categoria->setDescripcion($descripcion);
+        $categoria = new CategoriaDTO();
+        $categoria->setIdCategoria($idCategoria);
+        $categoria->setNombre($nombre);
+        $categoria->setDescripcion($descripcion);
 
         $result = $control->updateCategoria($categoria);
         if ($result) {

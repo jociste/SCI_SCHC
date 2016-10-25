@@ -1,8 +1,10 @@
 <?php
+
 include_once 'Nucleo/ConexionMySQL.php';
 include_once '../../Modelo/CategoriaDTO.php';
 
-class CategoriaDAO{
+class CategoriaDAO {
+
     private $conexion;
 
     public function CategoriaDAO() {
@@ -11,7 +13,7 @@ class CategoriaDAO{
 
     public function delete($idCategoria) {
         $this->conexion->conectar();
-        $query = "DELETE FROM categoria WHERE  idCategoria =  ".$idCategoria." ";
+        $query = "DELETE FROM categoria WHERE  idCategoria =  " . $idCategoria . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -37,7 +39,7 @@ class CategoriaDAO{
 
     public function findByID($idCategoria) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM categoria WHERE  idCategoria =  ".$idCategoria." ";
+        $query = "SELECT * FROM categoria WHERE  idCategoria =  " . $idCategoria . " ";
         $result = $this->conexion->ejecutar($query);
         $categoria = new CategoriaDTO();
         while ($fila = $result->fetch_row()) {
@@ -51,7 +53,7 @@ class CategoriaDAO{
 
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM categoria WHERE  upper(idCategoria) LIKE upper(".$cadena.")  OR  upper(nombre) LIKE upper('".$cadena."')  OR  upper(descripcion) LIKE upper('".$cadena."') ";
+        $query = "SELECT * FROM categoria WHERE  upper(idCategoria) LIKE upper(" . $cadena . ")  OR  upper(nombre) LIKE upper('" . $cadena . "')  OR  upper(descripcion) LIKE upper('" . $cadena . "') ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $categorias = array();
@@ -69,8 +71,8 @@ class CategoriaDAO{
 
     public function save($categoria) {
         $this->conexion->conectar();
-        $query = "INSERT INTO categoria (idCategoria,nombre,descripcion)"
-                . " VALUES ( ".$categoria->getIdCategoria()." , '".$categoria->getNombre()."' , '".$categoria->getDescripcion()."' )";
+        $query = "INSERT INTO categoria (nombre,descripcion)"
+                . " VALUES ('" . $categoria->getNombre() . "' , '" . $categoria->getDescripcion() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -79,11 +81,12 @@ class CategoriaDAO{
     public function update($categoria) {
         $this->conexion->conectar();
         $query = "UPDATE categoria SET "
-                . "  nombre = '".$categoria->getNombre()."' ,"
-                . "  descripcion = '".$categoria->getDescripcion()."' "
-                . " WHERE  idCategoria =  ".$categoria->getIdCategoria()." ";
+                . "  nombre = '" . $categoria->getNombre() . "' ,"
+                . "  descripcion = '" . $categoria->getDescripcion() . "' "
+                . " WHERE  idCategoria =  " . $categoria->getIdCategoria() . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
     }
+
 }

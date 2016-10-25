@@ -7,6 +7,8 @@ class Lote_productoDTO {
     public $cantidad;
     public $fechaVencimiento;
     public $fechaIngreso;
+    
+    public $nombre;
 
     public function Lote_productoDTO(){
     }
@@ -67,4 +69,11 @@ class Lote_productoDTO {
         return $this->fechaIngreso = $fechaIngreso;
     }
 
+    function getNombre() {
+        return $this->nombre;
+    }
+
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
 }

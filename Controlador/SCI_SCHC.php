@@ -99,6 +99,10 @@ class SCI_SCHC {
     public function getBienByID($idBien) {
         return $this->bienDAO->findByID($idBien);
     }
+    
+    public function getBienesByIdCategoria($idCategoria){
+        return $this->bienDAO->findByIdCategoria($idCategoria);
+    }
 
     public function getBienLikeAtrr($cadena) {
         return $this->bienDAO->findLikeAtrr($cadena);
@@ -402,6 +406,10 @@ class SCI_SCHC {
 
     public function getProductoByID($idProducto) {
         return $this->productoDAO->findByID($idProducto);
+    }
+    
+    public function getProductosByIdCategoria($idCategoria){
+        return $this->productoDAO->findByIiCategoria($idCategoria);
     }
 
     public function getProductoLikeAtrr($cadena) {

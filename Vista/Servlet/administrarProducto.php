@@ -11,33 +11,28 @@ if ($accion != null) {
         $json = json_encode($productos);
         echo $json;
     } else if ($accion == "AGREGAR") {
-        $idProducto = htmlspecialchars($_REQUEST['idProducto']);
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
 
-        $object = $control->getProductoByID($idProducto);
-        if (($object->getIdProducto() == null || $object->getIdProducto() == "")) {
-            $producto = new ProductoDTO();
-            $producto->setIdProducto($idProducto);
-            $producto->setIdCategoria($idCategoria);
-            $producto->setNombre($nombre);
+        $producto = new ProductoDTO();
+        $producto->setIdCategoria($idCategoria);
+        $producto->setNombre($nombre);
 
-            $result = $control->addProducto($producto);
+        $result = $control->addProducto($producto);
 
-            if ($result) {
-                echo json_encode(array(
-                    'success' => true,
-                    'mensaje' => "Producto ingresada correctamente"
-                ));
-            } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
-            }
+        if ($result) {
+            echo json_encode(array(
+                'success' => true,
+                'mensaje' => "Producto ingresada correctamente"
+            ));
         } else {
-            echo json_encode(array('errorMsg' => 'El o la producto ya existe, intento nuevamente.'));
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
     } else if ($accion == "BORRAR") {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
 
+        //VALIDAR QUE NO ESTE EN NINGUN LOTE DE PRODUCTO (PENDIENTE)        
+        
         $result = $control->removeProducto($idProducto);
         if ($result) {
             echo json_encode(array('success' => true, 'mensaje' => "Producto borrado correctamente"));
@@ -60,10 +55,10 @@ if ($accion != null) {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
 
-            $producto = new ProductoDTO();
-            $producto->setIdProducto($idProducto);
-            $producto->setIdCategoria($idCategoria);
-            $producto->setNombre($nombre);
+        $producto = new ProductoDTO();
+        $producto->setIdProducto($idProducto);
+        $producto->setIdCategoria($idCategoria);
+        $producto->setNombre($nombre);
 
         $result = $control->updateProducto($producto);
         if ($result) {

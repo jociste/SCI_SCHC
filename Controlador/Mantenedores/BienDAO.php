@@ -50,6 +50,25 @@ class BienDAO{
         $this->conexion->desconectar();
         return $bien;
     }
+    
+    public function findByIdCategoria($idCategoria) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM bien WHERE  idCategoria =  ".$idCategoria." ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $biens = array();
+        while ($fila = $result->fetch_row()) {
+            $bien = new BienDTO();
+            $bien->setIdBien($fila[0]);
+            $bien->setIdCategoria($fila[1]);
+            $bien->setNombre($fila[2]);
+            $bien->setUbicacion($fila[3]);
+            $biens[$i] = $bien;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $biens;
+    }
 
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
