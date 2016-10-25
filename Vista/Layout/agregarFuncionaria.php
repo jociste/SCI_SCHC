@@ -73,7 +73,7 @@ $perfil = $_SESSION["idCargo"];
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeft.php';
-                    } 
+                    }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
 //                    } else if ($perfil == 3) {
@@ -86,14 +86,13 @@ $perfil = $_SESSION["idCargo"];
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
                                     <form id="fm-Funcionaria" class="form-horizontal well" style="align-content: center">
-
                                         <div class="form-actions" style="height: 30px;">
                                             <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Datos Funcionaria</h4> 
                                         </div>                                                                                               
                                         <div class="control-group">
                                             <label class="control-label" for="runFuncionaria">Run</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334">
+                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()">
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -108,7 +107,6 @@ $perfil = $_SESSION["idCargo"];
                                                 <input type="text" class="input-xlarge" id="apellidos" name="apellidos" >
                                             </div>
                                         </div>    
-
                                         <div class="control-group">
                                             <label class="control-label" for="sexo">Sexo</label>
                                             <div class="controls">
@@ -184,11 +182,11 @@ $perfil = $_SESSION["idCargo"];
                                                 <input type="date" class="input-xlarge" id="fechaInicioNivel" name="fechaInicioNivel">
                                             </div>
                                         </div> 
-                                       <div class="control-group">
+                                        <div class="control-group">
                                             <label class="control-label" for="fechaTerminoNivel">Fecha Término en Nivel</label>
                                             <div class="controls">
                                                 <input type="date" class="input-xlarge" id="fechaTerminoNivel" name="fechaTerminoNivel">
-                                        <input type="checkbox" id="deshabilitaFecha2" name="deshabilitaFecha2" onclick="deshabilitaCampo2()">&nbsp;Indefinido &nbsp;&nbsp;
+                                                <input type="checkbox" id="deshabilitaFecha2" name="deshabilitaFecha2" onclick="deshabilitaCampo2()">&nbsp;Indefinido &nbsp;&nbsp;
                                             </div>
                                         </div> 
                                         <div class="control-group">
@@ -228,18 +226,17 @@ $perfil = $_SESSION["idCargo"];
                 </p>
             </footer>
         </div>
-    <script src="../../Files/js/modernizr.custom.js"></script>
-    <script src="../../Files/js/toucheffects.js"></script>
-    <!-- Libreria para Validar Rut-->
-    <script src="../../Files/js/validarut.js"></script>
-    <script type="text/javascript">
+        <script src="../../Files/js/modernizr.custom.js"></script>
+        <script src="../../Files/js/toucheffects.js"></script>
+        <!-- Libreria para Validar Rut-->
+        <script src="../../Files/js/validarut.js"></script>
+        <script type="text/javascript">
 
                                                 $(function () {
                                                 });
-
                                                 function guardarFuncionaria() {
                                                     document.getElementById("accion").value = "AGREGAR";
-                                                    //if (validar()) {
+                                                    if (validarFuncionaria() && validarCargoNivelFuncionaria()) {
                                                         //console.log("validado");
                                                         $('#fm-Funcionaria').form('submit', {
                                                             url: "../Servlet/administrarFuncionaria.php",
@@ -260,27 +257,162 @@ $perfil = $_SESSION["idCargo"];
                                                                 }
                                                             }
                                                         });
-                                                   // }
-                                                }
-                                                function deshabilitaCampo(){                                                    
-                                                   if( document.getElementById("deshabilitaFecha").checked == true){
-                                                       document.getElementById("fechaTermino").disabled = 'disabled';
-                                                   }else{
-                                                       document.getElementById("fechaTermino").disabled = false;
-                                                   }                                                    
-                                                }
-                                                 function deshabilitaCampo2(){                                                    
-                                                   if( document.getElementById("deshabilitaFecha2").checked == true){
-                                                       document.getElementById("fechaTerminoNivel").disabled = 'disabled';
-                                                   }else{
-                                                       document.getElementById("fechaTerminoNivel").disabled = false;
-                                                   }                                                    
+                                                    }
                                                 }
 
-                                                function validar() {
-                                                   
+                                                function deshabilitaCampo() {
+                                                    if (document.getElementById("deshabilitaFecha").checked == true) {
+                                                        document.getElementById("fechaTermino").disabled = 'disabled';
+                                                        document.getElementById("fechaTermino").value = '';
+                                                    } else {
+                                                        document.getElementById("fechaTermino").disabled = false;
+                                                    }
                                                 }
 
-    </script>
-</body>
+                                                function deshabilitaCampo2() {
+                                                    if (document.getElementById("deshabilitaFecha2").checked == true) {
+                                                        document.getElementById("fechaTerminoNivel").disabled = 'disabled';
+                                                        document.getElementById("fechaTerminoNivel").value = '';
+                                                    } else {
+                                                        document.getElementById("fechaTerminoNivel").disabled = false;
+                                                    }
+                                                }
+
+                                                function validarFuncionaria() {
+                                                    if (Rut(document.getElementById('runFuncionaria').value)) {
+                                                        if (document.getElementById('nombres').value != "") {
+                                                            if (document.getElementById('apellidos').value != "") {
+                                                                if (document.getElementById('fechaNacimiento').value != "") {
+                                                                    if (document.getElementById('profesion').value != "") {
+                                                                        if (document.getElementById('direccion').value != "") {
+                                                                            var telefono = document.getElementById('telefono').value;
+                                                                            if (telefono != "" && telefono.length > 5) {
+                                                                                if (!isNaN(telefono)) {
+                                                                                    var cadenaPass = document.getElementById('clave').value;
+                                                                                    if (cadenaPass.length >= 4) {
+                                                                                        if (cadenaPass == document.getElementById('claveRepetida').value) {
+                                                                                            return true;
+                                                                                        } else {
+                                                                                            $.messager.alert("Alerta", "Las contraseñas no coinciden");
+                                                                                        }
+                                                                                    } else {
+                                                                                        $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
+                                                                                    }
+                                                                                } else {
+                                                                                    $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
+                                                                                }
+                                                                            } else {
+                                                                                $.messager.alert("Alerta", "Debe ingresar una telefono de contacto con al menos 6 digitos");
+                                                                            }
+                                                                        } else {
+                                                                            $.messager.alert("Alerta", "Debe ingresar una direccion");
+                                                                        }
+                                                                    } else {
+                                                                        $.messager.alert("Alerta", "Debe ingresar una profesion");
+                                                                    }
+                                                                } else {
+                                                                    $.messager.alert("Alerta", "Debe ingresar una fecha de nacimiento");
+                                                                }
+                                                            } else {
+                                                                $.messager.alert("Alerta", "Debe ingresar sus apellidos");
+                                                            }
+                                                        } else {
+                                                            $.messager.alert("Alerta", "Debe ingresar sus nombres");
+                                                        }
+
+                                                    } else {
+                                                        $.messager.alert("Alerta", "El run ingresado no es valido");
+                                                    }
+                                                    return false;
+                                                }
+//
+                                                function validarCargoNivelFuncionaria() {
+                                                    var fechaInicio = document.getElementById('fechaInicio').value;
+                                                    var fechaInicioNivel = document.getElementById('fechaInicioNivel').value;
+                                                    var fechaTermino = document.getElementById('fechaTerminoNivel').value;
+                                                    var fechaTerminoNivel = document.getElementById('fechaTerminoNivel').value;
+                                                    var hoy = fechaActual();
+                                                    if (document.getElementById('idCargo').value != "") {
+                                                        if (document.getElementById('idNivel').value != "") {
+                                                            if (fechaInicio != "") {
+                                                                if (fechaInicioNivel != "") {
+                                                                    if (validaFechas) {
+                                                                        console.log('valido bien cargo nivel y fechas');
+                                                                        return true;
+                                                                        
+                                                                    }
+                                                                } else {
+                                                                    $.messager.alert("Alerta", "Debe ingresar una fecha de inicio en el nivel");
+                                                                }
+                                                            } else {
+                                                                $.messager.alert("Alerta", "Debe ingresar una fecha de inicio del cargo");
+                                                            }
+                                                        } else {
+                                                            $.messager.alert("Alerta", "Debe ingresar un Nivel");
+                                                        }
+                                                    } else {
+                                                        $.messager.alert("Alerta", "Debe ingresar un cargo");
+                                                    }
+                                                    return false;
+                                                }
+                                                function validaFechas() {
+                                                    var result1 = false, result2 = false;
+                                                    var fechaTermino = document.getElementById('fechaTerminoNivel').value;
+                                                    var fechaTerminoNivel = document.getElementById('fechaTerminoNivel').value;
+                                                    var hoy = fechaActual();
+
+                                                    if (document.getElementById("deshabilitaFecha2").checked == true) {
+                                                        result1 = true;
+                                                    } else {
+                                                        if (fechaTerminoNivel != "" && fechaTerminoNivel >= hoy) {
+                                                            result1 = true;
+                                                        } else {
+                                                            result1 = false;
+                                                            $.messager.alert("Alerta", "Debe ingresar una fecha de término del nivel valida o seleccionar la opcion indefinido");
+                                                        }
+                                                    }
+
+                                                    if (document.getElementById("deshabilitaFecha").checked == true) {
+                                                        result2 = true;
+                                                    } else {
+                                                        if (fechaTermino != "" && fechaTermino >= hoy) {
+                                                            result2 = true;
+                                                        } else {
+                                                            result2 = false;
+                                                            $.messager.alert("Alerta", "Debe ingresar una fecha de término del cargo o seleccionar la opcion indefinido");
+                                                        }
+                                                    }
+                                                    if (result1 && result2) {
+                                                        console.log('valido bien las fechas');
+                                                        return true;
+                                                    } else {
+                                                        console.log('NO valido bien las fechas');
+                                                        return false
+                                                    }
+                                                }
+
+                                                function eliminarCaracteres() {
+                                                    var aux = String(document.getElementById("runFuncionaria").value);
+                                                    aux = aux.replace('.', '');
+                                                    aux = aux.replace('.', '');
+                                                    aux = aux.replace('-', '');
+                                                    document.getElementById("runFuncionaria").value = aux;
+                                                }
+                                                function fechaActual() {
+                                                    var hoy = new Date();
+                                                    var dd = hoy.getDate();
+                                                    var mm = hoy.getMonth() + 1; //hoy es 0!
+                                                    var yyyy = hoy.getFullYear();
+                                                    if (dd < 10) {
+                                                        dd = '0' + dd
+                                                    }
+                                                    if (mm < 10) {
+                                                        mm = '0' + mm
+                                                    }
+                                                    hoy = yyyy + "-" + mm + "-" + dd;
+                                                    return hoy;
+                                                }
+
+        </script>
+    </body>
 </html>

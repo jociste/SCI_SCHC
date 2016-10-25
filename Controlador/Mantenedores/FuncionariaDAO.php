@@ -104,7 +104,7 @@ class FuncionariaDAO {
 //lO USO
     public function findDesHabilitados() {
         $this->conexion->conectar();
-        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo FROM funcionaria as F ";
+        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo FROM funcionaria as F WHERE F.idEstado = 2";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $funcionarias = array();
