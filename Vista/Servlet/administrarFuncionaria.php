@@ -11,51 +11,63 @@ if ($accion != null) {
         $json = json_encode($funcionarias);
         echo $json;
     }//listo
-
     if ($accion == "LISTADOHABILITADAS") {
         $funcionarias = $control->getAllFuncionariasHabilitadas();
-        
+
         for ($i = 0; $i < count($funcionarias); $i++) {
             $cargo = $control->cargoFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
             $nivel = $control->nivelFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
-            
+
             $funcionarias[$i]->setIdCargoFuncionaria($cargo->getIdCargoFuncionaria());
             $funcionarias[$i]->setIdCargo($cargo->getIdCargo());
             $funcionarias[$i]->setFechaInicio($cargo->getFechaInicio());
             $funcionarias[$i]->setFechaTermino($cargo->getFechaTermino());
             $funcionarias[$i]->setNombreCargo($cargo->getNombreCargo());
-            
+
             $funcionarias[$i]->setIdNivelFuncionaria($nivel->getIdNivelFuncionaria());
             $funcionarias[$i]->setIdNivel($nivel->getIdNivel());
             $funcionarias[$i]->setFechaInicioNivel($nivel->getFechaInicio());
             $funcionarias[$i]->setFechaTerminoNivel($nivel->getFechaTermino());
             $funcionarias[$i]->setNombreNivel($nivel->getNombreNivel());
         }
-                
+
         $json = json_encode($funcionarias);
         echo $json;
+    }//listo
+    if ($accion == "REESTABLECER_FUNCIONARIA") {
+        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
+        $funcionaria = $control->getFuncionariaByID($runFuncionaria);
+        $funcionaria->setIdEstado(1);
+        $resultFuncionaria = $control->updateFuncionaria($funcionaria);
+        if ($resultFuncionaria) {
+            echo json_encode(array(
+                'success' => true,
+                'mensaje' => "Funcionaria actualizada correctamente"
+            ));
+        } else {
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+        }
     }//listo
 
     if ($accion == "LISTADODESHABILITADAS") {
         $funcionarias = $control->getAllFuncionariasDesHabilitadas();
-        
         for ($i = 0; $i < count($funcionarias); $i++) {
             $cargo = $control->cargoFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
             $nivel = $control->nivelFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
-            
+
             $funcionarias[$i]->setIdCargoFuncionaria($cargo->getIdCargoFuncionaria());
             $funcionarias[$i]->setIdCargo($cargo->getIdCargo());
             $funcionarias[$i]->setFechaInicio($cargo->getFechaInicio());
             $funcionarias[$i]->setFechaTermino($cargo->getFechaTermino());
             $funcionarias[$i]->setNombreCargo($cargo->getNombreCargo());
-            
+
             $funcionarias[$i]->setIdNivelFuncionaria($nivel->getIdNivelFuncionaria());
             $funcionarias[$i]->setIdNivel($nivel->getIdNivel());
             $funcionarias[$i]->setFechaInicioNivel($nivel->getFechaInicio());
             $funcionarias[$i]->setFechaTerminoNivel($nivel->getFechaTermino());
             $funcionarias[$i]->setNombreNivel($nivel->getNombreNivel());
         }
-        
+
         $json = json_encode($funcionarias);
         echo $json;
     }//listo
@@ -141,12 +153,12 @@ if ($accion != null) {
         $funcionaria = $control->getFuncionariaByID($runFuncionaria);
         $funcionaria->setIdEstado(2);
         $resultFuncionaria = $control->updateFuncionaria($funcionaria);
-        
+
         $cargo = $control->cargoFuncionariaRecienteByRun($funcionaria->getRunFuncionaria());
         $nivel = $control->nivelFuncionariaRecienteByRun($funcionaria->getRunFuncionaria());
-                    
+
         $hoy = date('Y') . "-" . date('m') . "-" . date('d');
-        
+
         $cargo->setFechaTermino($hoy);
         $resultCargoFuncionaria = $control->updateFuncionaria_cargo($cargo);
 
@@ -160,39 +172,37 @@ if ($accion != null) {
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
-    } 
-    else if ($accion == "BUSCAR") {
+    } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
         $funcionarias = $control->getFuncionariaLikeAtrr($cadena);
-        
+
         for ($i = 0; $i < count($funcionarias); $i++) {
             $cargo = $control->cargoFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
             $nivel = $control->nivelFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
-            
+
             $funcionarias[$i]->setIdCargoFuncionaria($cargo->getIdCargoFuncionaria());
             $funcionarias[$i]->setIdCargo($cargo->getIdCargo());
             $funcionarias[$i]->setFechaInicio($cargo->getFechaInicio());
             $funcionarias[$i]->setFechaTermino($cargo->getFechaTermino());
             $funcionarias[$i]->setNombreCargo($cargo->getNombreCargo());
-            
+
             $funcionarias[$i]->setIdNivelFuncionaria($nivel->getIdNivelFuncionaria());
             $funcionarias[$i]->setIdNivel($nivel->getIdNivel());
             $funcionarias[$i]->setFechaInicioNivel($nivel->getFechaInicio());
             $funcionarias[$i]->setFechaTerminoNivel($nivel->getFechaTermino());
             $funcionarias[$i]->setNombreNivel($nivel->getNombreNivel());
         }
-        
+
         $json = json_encode($funcionarias);
         echo $json;
-    } 
-    else if ($accion == "BUSCAR_BY_ID") {
+    } else if ($accion == "BUSCAR_BY_ID") {
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
 
         $funcionaria = $control->getFuncionariaByID($runFuncionaria);
         $cargo = $control->cargoFuncionariaRecienteByRun($funcionaria->getRunFuncionaria());
         $nivel = $control->nivelFuncionariaRecienteByRun($funcionaria->getRunFuncionaria());
         $funcionaria->setIdCargoFuncionaria($cargo->getIdCargoFuncionaria());
-        
+
         $funcionaria->setIdCargo($cargo->getIdCargo());
         $funcionaria->setFechaInicio($cargo->getFechaInicio());
         $funcionaria->setFechaTermino($cargo->getFechaTermino());
@@ -203,11 +213,10 @@ if ($accion != null) {
         $funcionaria->setFechaInicioNivel($nivel->getFechaInicio());
         $funcionaria->setFechaTerminoNivel($nivel->getFechaTermino());
         $funcionaria->setNombreNivel($nivel->getNombreNivel());
-            
+
         $json = json_encode($funcionaria);
         echo $json;
-    } 
-    else if ($accion == "ACTUALIZAR") {
+    } else if ($accion == "ACTUALIZAR") {
         $hoy = date('Y') . "-" . date('m') . "-" . date('d');
         // recibe datos Funcionaria
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
@@ -235,7 +244,7 @@ if ($accion != null) {
         $idCargoFuncionaria = htmlspecialchars($_REQUEST['idCargoFuncionariaEditar']);
         $idCargoNuevo = htmlspecialchars($_REQUEST['idCargo']);
         $idCargoAnterior = htmlspecialchars($_REQUEST['idCargoEditar']);
-        $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']); 
+        $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
         $fechaTermino = null;
         if (isset($_REQUEST['fechaTermino'])) {
             $fechaTermino = htmlspecialchars($_REQUEST['fechaTermino']);
@@ -265,11 +274,11 @@ if ($accion != null) {
             $fechaTerminoNivel = htmlspecialchars($_REQUEST['fechaTerminoNivel']);
         }
         $nivel_funcionaria = $control->getNivel_FuncionariaById($idNivelFuncionaria);
-        if($idNivelNuevo == $idNivelAnterior){
+        if ($idNivelNuevo == $idNivelAnterior) {
             $nivel_funcionaria->setFechaInicio($fechaInicioNivel);
             $nivel_funcionaria->setFechaTermino($fechaTerminoNivel);
             $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
-        }else{
+        } else {
             $nivel_funcionaria->setFechaTermino($hoy);
             $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
             $nivel_funcionaria_nueva = new Nivel_funcionariaDTO();

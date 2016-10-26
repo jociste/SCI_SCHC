@@ -30,7 +30,9 @@ $perfil = $_SESSION["idCargo"];
 
         <script src="../../Files/js/jquery.js"></script>
         <script src="../../Files/Complementos/lib/selectize/selectize.js"></script>        
-        <script src="../../Files/Complementos/bootstrap/js/bootstrap.min.js"></script>        
+        <script src="../../Files/Complementos/bootstrap/js/bootstrap.min.js"></script>  
+             
+        <script src="../../Files/Complementos/bootstrap/css/bootstrap.min.css"></script> 
 
         <script src="../../Files/js/charts/jquery.sparkline.min.js?v1.4.0"></script>
         <script src="../../Files/js/charts/jquery.easy-pie-chart.js?v1.4.0"></script>
@@ -39,10 +41,23 @@ $perfil = $_SESSION["idCargo"];
 
         <script src="../../Files/Complementos/lib/scroll-slim/jquery.slimscroll.min.js"></script>
         <script src="../../Files/js/common.js"></script>
-        
-        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/default/easyui.css">
+
+        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/metro-green/easyui.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
+        <script src="../../Files/Complementos/lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+        <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>-->
+
+        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/datatables/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="../../Files/Complementos/lib/datatables/jquery.dataTables.js"></script>
+
+
+
 
     </head>
     <body >
@@ -59,7 +74,6 @@ $perfil = $_SESSION["idCargo"];
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
         <div class="wrap">
-
             <!-- ALERTA -->
             <div class="container-fluid" style="display: none;">
                 <div class="row-fluid">
@@ -70,118 +84,128 @@ $perfil = $_SESSION["idCargo"];
                 </div>
             </div>
             <!-- FIN ALERTA -->
-
-            <div class="container-fluid">
-                <div class="row-fluid">
-
-                    <!-- AQUI VA EL MENU LEFT-->
-                    <?php
-                    if ($perfil == 1) {
-                        include '../Menus/directoraLeft.php';
-                    } 
+            <div class="container-fluid" >
+                <!-- AQUI VA EL MENU LEFT-->
+                <?php
+                if ($perfil == 1) {
+                    include '../Menus/directoraLeft.php';
+                }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
 //                    } else if ($perfil == 3) {
 //                        include '../Menus/apoderadoLeft.php';
 //                    }
-                    ?>
-                    <!-- FIN MENU LEFT-->
-
-                    <div id="content" class="span9" >
-
+                ?>
+                <!-- FIN MENU LEFT-->
+                <hr>
+                <div class="span12"  style="width: 90%">       
+                    <div class="body">
                         <!-- AQUI VA EL MENU INTERIOR-->
 
-                        <!-- FIN MENU INTERIOR-->
-
-                        <hr>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <div class="social-box social-bordered social-blue">
-                                    <div class="header">
-                                        <h4>Funcionarias Historicas</h4>
-                                    </div>
-                                    <div class="body" style="text-align: center;">
-                                        <div class="row-fluid">
-                                            <!-- CONTENIDO AQUI -->
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead> 
-                                                        <tr> 
-                                                            <th>Run</th> 
-                                                            <th>Nombres</th> 
-                                                            <th>Apellidos</th> 
-                                                            <th>Sexo</th>
-                                                            <th>Direccion</th>
-                                                            <th>Telefono</th>
-                                                            <th>Cargo</th>
-                                                            <th>Profesion</th>
-                                                            <th>Nivel</th>
-                                                            <!--<th>Accion</th>-->
-                                                        </tr> 
-                                                    </thead>
-                                                    <tbody id="tablaFuncionarias">
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                  
-
+                        <!-- AQUI VA EL MENU INTERIOR-->
+                        <div class="clearfix"></div>
+                        <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+                            <h4>Funcionarias Historicas</h4>
+                            <hr>
+                            <div></div>
+                            <div class="clearfix"></div>
+                            <div class="clearfix"></div>                           
+                            <div class="table-responsive">
+                                <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Run</th> 
+                                            <th>Nombres</th> 
+                                            <th>Apellidos</th> 
+                                            <th>Sexo</th>
+                                            <th>Direccion</th>
+                                            <th>Telefono</th>
+                                            <th>Cargo</th>
+                                            <th>Profesion</th>
+                                            <th>Nivel</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="grid">
+                                    </tbody>
+                                </table>
+                                <input type="hidden" id="accion" name="accion" value="">
+                            </div>
                         </div>
                     </div>
-                  </div>  
-
-            </div><!--/#content.span19-->
-
-            <div class="clearfix"></div>
-            <div class="container-fluid m-t-large">
-                <footer>
-                    <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
-                    </p>
-                </footer>
-            </div>
+                </div>
+            </div>                  
         </div>
-        <script src="../../Files/js/modernizr.custom.js"></script>
-        <script src="../../Files/js/toucheffects.js"></script>
-        
+        <div class="clearfix"></div>
+        <div class="container-fluid m-t-large">
+            <footer>
+                <p>
+                    <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
+                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
+                </p>
+            </footer>
+        </div>
+    </div>
+    <script src="../../Files/js/modernizr.custom.js"></script>
+    <script src="../../Files/js/toucheffects.js"></script>
 
-        <script>
-            $(function () {
-                cargarFuncionarias();
-            })
+    <script>
+                                    $(function () {
+                                        //$('#tablaFuncionarias').DataTable();
+                                        //$('#grid').DataTable();
+                                        cargarFuncionarias();
+                                    })
 
-            function cargarFuncionarias() {
-                $("#tablaFuncionarias").empty();
-                var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADODESHABILITADAS';
-                $.getJSON(
-                        url_json,
-                        function (datos) {
-                            $.each(datos, function (k, v) {
-                                var contenido = "<tr>";
-                                contenido += "<td>" + v.runFuncionaria + "</td>";
-                                contenido += "<td>" + v.nombres + "</td>";
-                                contenido += "<td>" + v.apellidos + "</td>";
-                                contenido += "<td>" + v.sexo + "</td>";
-                                contenido += "<td>" + v.direccion + "</td>";
-                                contenido += "<td>" + v.telefono + "</td>";
-                                contenido += "<td>" + v.nombreCargo + "</td>";
-                                contenido += "<td>" + v.profesion + "</td>";
-                                contenido += "<td>" + v.nombreNivel + "</td>";
-//                                contenido += "<td>";
-//                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-//                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.runFuncionaria + ")'></button>";
-//                                contenido += "</td>";
-                                contenido += "</tr>";
-                                $("#tablaFuncionarias").append(contenido);
-                            });
-                        }
-                );
-            }
-        </script>
-    </body>
+                                    function cargarFuncionarias() {
+                                        $("#tablaFuncionarias").empty();
+                                        var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADODESHABILITADAS';
+                                        $.getJSON(
+                                                url_json,
+                                                function (datos) {
+                                                    $.each(datos, function (k, v) {
+                                                        var contenido = "<tr>";
+                                                            contenido += "<td>" + v.runFuncionaria + "</td>";
+                                                            contenido += "<td>" + v.nombres + "</td>";
+                                                            contenido += "<td>" + v.apellidos + "</td>";
+                                                            contenido += "<td>" + v.sexo + "</td>";
+                                                            contenido += "<td>" + v.direccion + "</td>";
+                                                            contenido += "<td>" + v.telefono + "</td>";
+                                                            contenido += "<td>" + v.nombreCargo + "</td>";
+                                                            contenido += "<td>" + v.profesion + "</td>";
+                                                            contenido += "<td>" + v.nombreNivel + "</td>";
+                                                            contenido += "<td>";
+                                                            contenido += "<button type='button'  class='btn btn-warning btn-circle icon-credit-card' onclick='reestablecerFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                                            contenido += "</td>";
+                                                            contenido += "</tr>";
+                                                        $("#grid").append(contenido);
+                                                    });
+                                                    $('#grid').DataTable();
+                                                }
+                                        );
+                                    }
+
+                                   function reestablecerFuncionaria(runFuncionaria) {
+                                            $.messager.confirm('Restituir Funcionaria', 'Esta segura(o) que desea restituir a la funcionaria?', function (r) {
+                                                if (r) {
+                                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=REESTABLECER_FUNCIONARIA&runFuncionaria=' + runFuncionaria;
+                                                    console.log('url_json' + url_json);
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                console.log('datos: ' + datos);
+                                                                if (datos.errorMsg) {
+                                                                    $.messager.alert('Error', datos.errorMsg, 'error');
+                                                                } else {
+                                                                    window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+                                                                }
+                                                            }
+                                                    );
+                                                } else {
+
+                                                }
+                                            });
+                                        }
+    </script>
+</body>
 </html>
 

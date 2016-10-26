@@ -91,8 +91,7 @@ $runFuncionaria = $_SESSION["run"];
                         <!-- AQUI VA EL MENU INTERIOR-->
 
                         <!-- FIN MENU INTERIOR-->
-
-                        <hr>
+                                                <hr>
                         <div class="row-fluid">
                             <div class="span12">
                                 <div class="social-box social-bordered social-blue">
@@ -108,49 +107,6 @@ $runFuncionaria = $_SESSION["run"];
                                                 <fieldset>
                                                     <legend>Mis Datos</legend>
 
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="runFuncionaria">Run</label>
-                                                        <div class="controls">
-                                                            <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="nombres">Nombres</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="nombres" class="input-xlarge" id="nombres" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="apellidos">Apellidos</label>
-                                                        <div class="controls">
-                                                            <input type="text" name="apellidos" class="input-xlarge" id="apellidos" readonly>
-                                                        </div>
-                                                    </div>    
-
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="sexo">Sexo</label>
-                                                        <div class="controls">
-                                                            <input type="text" id="sexo" name="sexo" class="input-xlarge" readonly>
-                                                        </div>
-                                                    </div>                                                    
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="fechaNacimiento">Fecha Nacimiento</label>
-                                                        <div class="controls">
-                                                            <input type="date" name="fechaNacimiento" class="input-xlarge" id="fechaNacimiento" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="profesion">Profesión</label>
-                                                        <div class="controls">
-                                                            <input type="text" id="profesion" name="profesion" class="input-xlarge" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label" for="cargo">Cargo</label>
-                                                        <div class="controls">
-                                                            <input type="text" id="cargo" name="cargo" class="input-xlarge" readonly>
-                                                        </div>
-                                                    </div>
                                                     <div class="control-group">
                                                         <label class="control-label" for="telefono">Telefono</label>
                                                         <div class="controls">
@@ -240,13 +196,6 @@ $runFuncionaria = $_SESSION["run"];
                         url_json,
                         function (dato) {  
                             //console.log(dato);
-                            document.getElementById("runFuncionaria").value = dato.runFuncionaria;
-                            document.getElementById("nombres").value = dato.nombres;
-                            document.getElementById("apellidos").value = dato.apellidos;                            
-                            document.getElementById("sexo").value = dato.sexo;                                                        
-                            document.getElementById("fechaNacimiento").value = dato.fechaNacimiento;
-                            document.getElementById("profesion").value = dato.profesion;
-                            document.getElementById("cargo").value = dato.nombreCargo;
                             document.getElementById("telefono").value = dato.telefono;
                             document.getElementById("direccion").value = dato.direccion;                            
                             document.getElementById("clave").value = dato.clave;
@@ -269,7 +218,7 @@ $runFuncionaria = $_SESSION["run"];
                             if (result.errorMsg) {
                                 $.messager.alert('Error', result.errorMsg);
                             } else {
-                                window.location = "home.php";
+                                window.location = "MiPerfil.php";
                             }
                         }
                     });

@@ -27,7 +27,7 @@ $sexo = $_SESSION["sexo"];
                             <img  width="27" height="27"  class="img-circle" src="../../Files/img/<?php echo $sexo;?>.jpg" alt='amdin user'>&nbsp;<?php echo $nombre;?>
                         </a>
                         <ul class="dropdown-menu" style="margin-top: 6px">
-                           <li><a href="editarMiPefilFuncionaria.php"><i class="icon-user icon-white"></i> Mi Perfil</a></li>
+                           <li><a href="MiPerfil.php"><i class="icon-user icon-white"></i> Mi Perfil</a></li>
                             <li><a href="../Servlet/loginOFF.php"><i class="icon-off icon-white"></i> Salir</a></li>
                         </ul>
                     </li>

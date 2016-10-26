@@ -96,7 +96,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         <div class="control-group">
                                             <label class="control-label" for="runFuncionaria">Run</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334">
+                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()">
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -243,6 +243,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
     <script src="../../Files/js/toucheffects.js"></script>
     <!-- Libreria para Validar Rut-->
     <script src="../../Files/js/validarut.js"></script>
+    <script src="../../Files/js/ValidaCamposFormulario.js"></script>
     <script>
                                                 //APODERADOS
                                                 $(function () {
@@ -253,11 +254,9 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                 function obtenerDatosFuncionaria() {
                                                     var runEditar = document.getElementById("runEditar").value;
                                                     var url_json = '../Servlet/administrarFuncionaria.php?accion=BUSCAR_BY_ID&runFuncionaria=' + runEditar;
-                                                    console.log(url_json);
                                                     $.getJSON(
                                                             url_json,
                                                             function (dato) {
-                                                                console.log(dato);
                                                                 document.getElementById("runFuncionaria").value = dato.runFuncionaria;
                                                                 document.getElementById("nombres").value = dato.nombres;
                                                                 document.getElementById("apellidos").value = dato.apellidos;
@@ -273,24 +272,25 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                     document.getElementById("sexoM").checked = true;
                                                                 }
                                                                 document.getElementById("idCargo").value = dato.idCargo;
-                                                                 document.getElementById("idCargoEditar").value = dato.idCargo;
+                                                                document.getElementById("idCargoEditar").value = dato.idCargo;
                                                                 document.getElementById("idCargoFuncionariaEditar").value = dato.idCargoFuncionaria;
                                                                 document.getElementById("fechaInicio").value = dato.fechaInicio;
-                                                                if (document.getElementById("fechaTermino").value == '' || document.getElementById("fechaTermino").value == null) {
+                                                                if (dato.fechaTermino != '0000-00-00' && dato.fechaTermino != null && dato.fechaTermino != '') {
+                                                                    document.getElementById("fechaTermino").value = dato.fechaTermino;
+
+                                                                } else {
                                                                     document.getElementById("deshabilitaFecha").checked = true;
                                                                     deshabilitaCampo();
-                                                                } else {
-                                                                    document.getElementById("fechaTermino").value = dato.fechaTermino;
                                                                 }
                                                                 document.getElementById("idNivel").value = dato.idNivel;
                                                                 document.getElementById("idNivelEditar").value = dato.idNivel;
                                                                 document.getElementById("idNivelFuncionariaEditar").value = dato.idNivelFuncionaria;
                                                                 document.getElementById("fechaInicioNivel").value = dato.fechaInicioNivel;
-                                                                if (document.getElementById("fechaTerminoNivel").value == '' || document.getElementById("fechaTerminoNivel").value == null) {
+                                                                if (dato.fechaTerminoNivel != '0000-00-00' && dato.fechaTerminoNivel != null && dato.fechaTerminoNivel != '') {
+                                                                    document.getElementById("fechaTerminoNivel").value = dato.fechaTerminoNivel;
+                                                                } else {
                                                                     document.getElementById("deshabilitaFecha2").checked = true;
                                                                     deshabilitaCampo2();
-                                                                } else {
-                                                                    document.getElementById("fechaTerminoNivel").value = dato.fechaTerminoNivel;
                                                                 }
                                                             }
                                                     );
@@ -298,40 +298,26 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
 
                                                 function guardarFuncionaria() {
                                                     document.getElementById("accion").value = "ACTUALIZAR";
-                                                    //if (validar()) {
-                                                    $('#fm-Funcionaria').form('submit', {
-                                                        url: "../Servlet/administrarFuncionaria.php",
-                                                        onSubmit: function () {
-                                                            return $(this).form('validate');
-                                                        },
-                                                        success: function (result) {
-                                                            console.log(result);
-                                                            var result = eval('(' + result + ')');
-                                                            if (result.errorMsg) {
-                                                                $.messager.alert('Error', result.errorMsg);
-                                                            } else {
-                                                                window.location = "administrarFuncionariasHabilitadas.php";
+                                                    if (validarFuncionaria() && validarCargoNivelFuncionaria()) {
+                                                        $('#fm-Funcionaria').form('submit', {
+                                                            url: "../Servlet/administrarFuncionaria.php",
+                                                            onSubmit: function () {
+                                                                return $(this).form('validate');
+                                                            },
+                                                            success: function (result) {
+                                                                console.log(result);
+                                                                var result = eval('(' + result + ')');
+                                                                if (result.errorMsg) {
+                                                                    $.messager.alert('Error', result.errorMsg);
+                                                                } else {
+                                                                    window.location = "administrarFuncionariasHabilitadas.php";
+                                                                }
                                                             }
-                                                        }
-                                                    });
+                                                        });
+                                                    }
                                                 }
 
-                                                function deshabilitaCampo() {
-                                                    if (document.getElementById("deshabilitaFecha").checked == true) {
-                                                        //document.getElementById("fechaTermino").value = null;
-                                                        document.getElementById("fechaTermino").disabled = 'disabled';
-                                                    } else {
-                                                        document.getElementById("fechaTermino").disabled = false;
-                                                    }
-                                                }
-                                                function deshabilitaCampo2() {
-                                                    if (document.getElementById("deshabilitaFecha2").checked == true) {
-                                                        //document.getElementById("fechaTerminoNivel").value = null;
-                                                        document.getElementById("fechaTerminoNivel").disabled = 'disabled';
-                                                    } else {
-                                                        document.getElementById("fechaTerminoNivel").disabled = false;
-                                                    }
-                                                }
+              
                                                 /*
                                                  function validar() {
                                                  if (Rut(document.getElementById('Run').value)) {

@@ -11,11 +11,11 @@
             <li>
                 <a class="dropdown-toggle" style="text-align: center">
                     <i class="icon-group" style="text-align: center"></i>
-                    <span style="font-size: 75%; ">FUNCIONARIAS</span>
+                    <span style="font-size: 75%; ">PERSONAL</span>
                 </a>
                 <ul class="submenu" style="text-align: center">
-                    <li><a href="AdministrarFuncionariasHabilitadas.php"><i class=" icon-folder-open"></i>Funcionarias</a></li>
-                    <li><a href="FuncionariasHistoricas.php"><i class="icon-archive"></i>Historicas</a></li>
+                    <li><a href="AdministrarFuncionariasHabilitadas.php"><i class=" icon-folder-open"></i>Funcionarias Vigentes</a></li>
+                    <li><a href="FuncionariasHistoricas.php"><i class="icon-archive"></i>Funcionarias Historicas</a></li>
                 </ul>
             </li>
             <li>
