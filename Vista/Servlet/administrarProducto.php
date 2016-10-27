@@ -50,6 +50,11 @@ if ($accion != null) {
         $producto = $control->getProductoByID($idProducto);
         $json = json_encode($producto);
         echo $json;
+    } else if ($accion == "BUSCAR_BY_ID_CATEGORIA") {
+        $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
+        $productos = $control->getProductoByIDCategoria($idCategoria);
+        $json = json_encode($productos);
+        echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);

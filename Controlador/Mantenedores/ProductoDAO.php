@@ -50,6 +50,24 @@ class ProductoDAO{
         return $producto;
     }
     
+    public function findByIDCategoria($idCategoria) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM producto WHERE idCategoria =  ".$idCategoria." ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $productos = array();
+        while ($fila = $result->fetch_row()) {
+            $producto = new ProductoDTO();
+            $producto->setIdProducto($fila[0]);
+            $producto->setIdCategoria($fila[1]);
+            $producto->setNombre($fila[2]);
+            $productos[$i] = $producto;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $productos;
+    }
+
     public function findByIiCategoria($idCategoria) {
         $this->conexion->conectar();
         $query = "SELECT * FROM producto WHERE idCategoria =  ".$idCategoria." ";

@@ -1,5 +1,6 @@
 <?php
 class Lote_producto_usadosDTO {
+    public $idLoteProductosUsados;
     public $idLote;
     public $runFuncionaria;
     public $cantidad;
@@ -7,6 +8,14 @@ class Lote_producto_usadosDTO {
     public $destino;
 
     public function Lote_producto_usadosDTO(){
+    }
+
+    function getIdLoteProductosUsados() {
+        return $this->idLoteProductosUsados;
+    }
+
+    function setIdLoteProductosUsados($idLoteProductosUsados) {
+        $this->idLoteProductosUsados = $idLoteProductosUsados;
     }
 
     function getIdLote() {

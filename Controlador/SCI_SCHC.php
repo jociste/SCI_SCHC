@@ -307,6 +307,10 @@ class SCI_SCHC {
     public function getLote_productoByID($idLote) {
         return $this->lote_productoDAO->findByID($idLote);
     }
+    
+    public function getLote_productoByIdProducto($idProducto) {
+        return $this->lote_productoDAO->findByIdProducto($idProducto);
+    }
 
     public function getLote_productoLikeAtrr($cadena) {
         return $this->lote_productoDAO->findLikeAtrr($cadena);
@@ -408,6 +412,10 @@ class SCI_SCHC {
         return $this->productoDAO->findByID($idProducto);
     }
     
+    public function getProductoByIDCategoria($idCategoria){
+        return $this->productoDAO->findByIDCategoria($idCategoria);
+    }
+
     public function getProductosByIdCategoria($idCategoria){
         return $this->productoDAO->findByIiCategoria($idCategoria);
     }

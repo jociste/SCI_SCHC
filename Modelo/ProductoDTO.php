@@ -5,6 +5,7 @@ class ProductoDTO {
     public $nombre;
     
     public $categoria;
+    public $cantidad;
 
     public function ProductoDTO(){
     }
@@ -39,5 +40,13 @@ class ProductoDTO {
 
     function setCategoria($categoria) {
         $this->categoria = $categoria;
+    }
+    
+    function getCantidad() {
+        return $this->cantidad;
+    }
+
+    function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
     }
 }
