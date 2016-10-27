@@ -133,7 +133,7 @@ $runFuncionaria = $_SESSION["run"];
                                                     </div>  
                                                     <div class="form-actions">
                                                         <button type="button" onclick="guardarCambios()" class="btn btn-primary">Guardar Cambios</button>
-                                                        <button type="button" onClick="location.href = 'administrarApoderadoDirectora.php'" class="btn">Cancelar</button>
+                                                        <button type="button" onClick="location.href = 'MiPerfil.php'" class="btn">Cancelar</button>
                                                     </div>
                                                 </fieldset>
 

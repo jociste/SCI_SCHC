@@ -1,17 +1,17 @@
 <div class="row-fluid">
     <div class="span2">
-        <a href="#" class="btn btn-primary btn-circle btn-res "><i class="icon-flag-alt"></i>Avisos</a>
-    </div> 
-    <div class="span2">
-        <a href="#" class="btn btn-success btn-circle btn-res"><i class="icon-ambulance"></i>Emergencias</a>
-    </div> 
-    <div class="span2">
-        <a href="#" class="btn btn-info btn-circle btn-res "><i class="icon-lightbulb"></i>Sugerencias</a>
+        <a href="#" class="btn btn-success btn-circle btn-res"><i class="icon-trash"></i>Dar de Baja Bien</a>
     </div>
     <div class="span2">
-        <a href="#" class="btn btn-inverse btn-circle btn-res"><i class="icon-heart"></i>Felicitaciones</a>
+        <a href="#" class="btn btn-inverse btn-circle btn-res"><i class="icon-edit"></i>Retirar Productos</a>
     </div> 
     <div class="span2">
-        <a href="#" class="btn btn-warning btn-circle btn-res"><i class="icon-comments"></i>Reclamos</a>
+        <a href="#" class="btn btn-danger btn-circle btn-res"><i class="icon-info"></i>Productos Bajo Stock</a>
     </div> 
+    <div class="span2">
+        <a href="#" class="btn btn-warning btn-circle btn-res"><i class="icon-warning-sign"></i>Productos por Vencer</a>
+    </div> 
+    <div class="span2">
+        <a href="#" class="btn btn-info btn-circle btn-res "><i class="icon-file"></i>Generar Reportes</a>
+    </div>
 </div> 

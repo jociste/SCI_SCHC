@@ -139,7 +139,6 @@ $perfil = $_SESSION["idCargo"];
                 </p>
             </footer>
         </div>
-    </div>
     <script src="../../Files/js/modernizr.custom.js"></script>
     <script src="../../Files/js/toucheffects.js"></script>
     <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
@@ -174,9 +173,7 @@ $perfil = $_SESSION["idCargo"];
                                                         contenido += "</tr>";
                                                         $("#grid").append(contenido);
                                                     });
-                                                    $('#grid').DataTable({
-                                                                                                                      
-                                                    });
+                                                    $('#grid').DataTable();
                                                 }
                                         );
                                     }

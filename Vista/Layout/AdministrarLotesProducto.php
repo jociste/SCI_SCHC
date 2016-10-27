@@ -89,9 +89,12 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" >
-
                         <!-- AQUI VA EL MENU INTERIOR-->
-
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInterior.php';
+                        }
+                        ?>
                         <!-- FIN MENU INTERIOR-->
 
                         <hr>

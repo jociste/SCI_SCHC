@@ -89,6 +89,8 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
+                       
+                        
                         <hr><div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
