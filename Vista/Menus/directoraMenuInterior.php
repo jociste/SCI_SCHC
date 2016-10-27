@@ -3,7 +3,7 @@
         <a href="#" class="btn btn-success btn-circle btn-res"><i class="icon-trash"></i>Dar de Baja Bien</a>
     </div>
     <div class="span2">
-        <a href="#" class="btn btn-inverse btn-circle btn-res"><i class="icon-edit"></i>Retirar Productos</a>
+        <a href="../Layout/RetirarProducto.php" class="btn btn-inverse btn-circle btn-res"><i class="icon-edit"></i>Retirar Productos</a>
     </div> 
     <div class="span2">
         <a href="#" class="btn btn-danger btn-circle btn-res"><i class="icon-info"></i>Productos Bajo Stock</a>

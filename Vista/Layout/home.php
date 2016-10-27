@@ -40,6 +40,8 @@ $perfil = $_SESSION["idCargo"];
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/default/easyui.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
+        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/ladda/js/ladda.js">
+
 
     </head>
     <body>
@@ -88,12 +90,10 @@ $perfil = $_SESSION["idCargo"];
                         <hr>
                         <div class="row-fluid">
                             <div class="span12"  style="width: 90%">
-                                
                             </div>                  
                         </div>
                     </div>
                 </div>
             </div>
     </body>
-
 </html>
