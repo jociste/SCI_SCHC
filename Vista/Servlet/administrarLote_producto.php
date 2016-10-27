@@ -6,7 +6,11 @@ $control = SCI_SCHC::getInstancia();
 
 $accion = htmlspecialchars($_REQUEST['accion']);
 if ($accion != null) {
-    if ($accion == "LISTADOPRODUCTOSPORVENCER") {
+     if ($accion == "LISTADO") {
+        $lote_productos = $control->getAllLote_productos1();
+        $json = json_encode($lote_productos);
+        echo $json;
+     } if ($accion == "LISTADOPRODUCTOSPORVENCER") {
         $lote_productos = $control->getAllLote_productos();
         $json = json_encode($lote_productos);
         echo $json;

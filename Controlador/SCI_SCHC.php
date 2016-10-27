@@ -286,6 +286,9 @@ class SCI_SCHC {
     public function getFuncionaria_cargoLikeAtrr($cadena) {
         return $this->funcionaria_cargoDAO->findLikeAtrr($cadena);
     }
+    public function getAllLote_productos1() {
+        return $this->lote_productoDAO->findAll();
+    }
 
     public function getAllLote_productos() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();

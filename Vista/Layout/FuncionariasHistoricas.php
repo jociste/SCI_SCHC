@@ -81,7 +81,7 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                 ?>
                 <!-- FIN MENU LEFT-->
-                <hr>
+              
                 <div class="span12"  style="width: 90%">       
                     <div class="body">
                         <!-- AQUI VA EL MENU INTERIOR-->
@@ -89,8 +89,9 @@ $perfil = $_SESSION["idCargo"];
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <div class="clearfix"></div>
                         <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+<!--                            Menu interionr-->
+                              <hr>
                             <h4>Funcionarias Historicas</h4>
-                            <hr>
                             <div></div>
                             <div class="clearfix"></div>
                             <div class="clearfix"></div>                           

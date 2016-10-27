@@ -87,15 +87,14 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                 ?>
                 <!-- FIN MENU LEFT-->
-                <hr>
+                
                 <div class="span12"  style="width: 90%">       
                     <div class="body">
-                        <!-- AQUI VA EL MENU INTERIOR-->
-                        <!-- AQUI VA EL MENU INTERIOR-->
                         <div class="clearfix"></div>
                         <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-                            <h4>Funcionarias</h4>
+<!--                            menu interior-->
                             <hr>
+                            <h4>Funcionarias</h4>
                             <div></div>
                             <div>
                                 <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarFuncionaria.php'">
