@@ -87,6 +87,14 @@ $runFuncionaria = $_SESSION["run"];
                     <!-- FIN MENU LEFT-->
 
                     <div id="content" class="span9" >
+                         <!-- AQUI VA EL MENU INTERIOR-->
+                            <?php
+                            if ($perfil == 1) {
+                                include '../Menus/directoraMenuInteriorProductos.php';
+                            }
+                            ?>
+                            <!-- FIN MENU INTERIOR-->
+                            <hr>
                         <div class="row-fluid">
                             <div class="social-box social-bordered social-blue" id="vista-solicitud">
 

@@ -96,7 +96,7 @@ $perfil = $_SESSION["idCargo"];
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
-                            include '../Menus/directoraMenuInterior.php';
+                            include '../Menus/directoraMenuInteriorBien.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->

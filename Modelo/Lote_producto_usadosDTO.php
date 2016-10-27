@@ -1,13 +1,51 @@
 <?php
+
 class Lote_producto_usadosDTO {
+
     public $idLoteProductosUsados;
     public $idLote;
     public $runFuncionaria;
     public $cantidad;
     public $fechaRetiro;
     public $destino;
+    public $idProducto;
+    public $nombreProducto;
+    public $nombres;
+    public $apellidos;
 
-    public function Lote_producto_usadosDTO(){
+    public function Lote_producto_usadosDTO() {
+        
+    }
+    function getIdProducto() {
+        return $this->idProducto;
+    }
+
+    function getNombreProducto() {
+        return $this->nombreProducto;
+    }
+
+    function getNombres() {
+        return $this->nombres;
+    }
+
+    function getApellidos() {
+        return $this->apellidos;
+    }
+
+    function setIdProducto($idProducto) {
+        $this->idProducto = $idProducto;
+    }
+
+    function setNombreProducto($nombreProducto) {
+        $this->nombreProducto = $nombreProducto;
+    }
+
+    function setNombres($nombres) {
+        $this->nombres = $nombres;
+    }
+
+    function setApellidos($apellidos) {
+        $this->apellidos = $apellidos;
     }
 
     function getIdLoteProductosUsados() {

@@ -85,7 +85,6 @@ class ProductoDAO{
         $this->conexion->desconectar();
         return $productos;
     }
-
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
         $query = "SELECT * FROM producto WHERE  upper(idProducto) LIKE upper(".$cadena.")  OR  upper(idCategoria) LIKE upper(".$cadena.")  OR  upper(nombre) LIKE upper('".$cadena."') ";

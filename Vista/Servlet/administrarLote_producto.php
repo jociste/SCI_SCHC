@@ -6,10 +6,15 @@ $control = SCI_SCHC::getInstancia();
 
 $accion = htmlspecialchars($_REQUEST['accion']);
 if ($accion != null) {
-    if ($accion == "LISTADO") {
+    if ($accion == "LISTADOPRODUCTOSPORVENCER") {
         $lote_productos = $control->getAllLote_productos();
         $json = json_encode($lote_productos);
         echo $json;
+    } else if ($accion == "LISTADOPRODUCTOSBAJOSTOCK") {
+        $lote_productos = $control->getAllLote_productosBajoStock();
+        $json = json_encode($lote_productos);
+        echo $json;
+        
     } else if ($accion == "AGREGAR") {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
         $numeroBoleta = htmlspecialchars($_REQUEST['numeroBoleta']);

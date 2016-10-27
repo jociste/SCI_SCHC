@@ -6,7 +6,7 @@ $control = SCI_SCHC::getInstancia();
 
 $accion = htmlspecialchars($_REQUEST['accion']);
 if ($accion != null) {
-    if ($accion == "LISTADO") {
+    if ($accion == "LISTADOPRODUCTOSUSADOS") {
         $lote_producto_usadoss = $control->getAllLote_producto_usadoss();
         $json = json_encode($lote_producto_usadoss);
         echo $json;

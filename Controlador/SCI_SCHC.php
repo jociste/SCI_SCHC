@@ -111,7 +111,6 @@ class SCI_SCHC {
     public function getAllBien_nivels() {
         return $this->bien_nivelDAO->findAll();
     }
-
     public function addBien_nivel($bien_nivel) {
         return $this->bien_nivelDAO->save($bien_nivel);
     }
@@ -289,7 +288,10 @@ class SCI_SCHC {
     }
 
     public function getAllLote_productos() {
-        return $this->lote_productoDAO->findAll();
+        return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();
+    }
+     public function getAllLote_productosBajoStock() {
+        return $this->lote_productoDAO->findAllOrdenadosPorBajoStock();
     }
 
     public function addLote_producto($lote_producto) {
@@ -317,7 +319,7 @@ class SCI_SCHC {
     }
 
     public function getAllLote_producto_usadoss() {
-        return $this->lote_producto_usadosDAO->findAll();
+        return $this->lote_producto_usadosDAO->buscarProductosUsados();
     }
 
     public function addLote_producto_usados($lote_producto_usados) {
