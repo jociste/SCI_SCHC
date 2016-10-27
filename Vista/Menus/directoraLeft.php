@@ -27,6 +27,7 @@
                     <li><a href="AdministrarCategoriasProducto.php"><i class="icon-archive"></i>Categorias de Producto</a></li>
                     <li><a href="AdministrarLotesProducto.php"><i class="icon-archive"></i>Lotes de Producto</a></li>
                     <li><a href="AdministrarProductos.php"><i class="icon-archive"></i>Productos</a></li>
+                    <li><a href="AdministrarBienes.php"><i class="icon-archive"></i>Bienes</a></li>
                 </ul>
             </li>
 
