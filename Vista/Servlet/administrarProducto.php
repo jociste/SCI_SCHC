@@ -18,21 +18,47 @@ if ($accion != null) {
         $producto->setIdCategoria($idCategoria);
         $producto->setNombre($nombre);
 
-        $result = $control->addProducto($producto);
+        $productos = $control->getProductoByNombreIdCategoria($nombre, $idCategoria);
+        if (count($productos) == 0) {
+            $result = $control->addProducto($producto);
+            if ($result) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Producto ingresado correctamente"
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
+        }else{
+            echo json_encode(array('errorMsg' => 'Ya existe un producto con el nombre ingresado en esta categoria.'));
+        }
+    } else if ($accion == "AGREGARPRODUCTO") {
+        $idCategoria = htmlspecialchars($_REQUEST['idCategoriaProducto']);
+        $nombre = htmlspecialchars($_REQUEST['nombreProducto']);
 
-        if ($result) {
-            echo json_encode(array(
-                'success' => true,
-                'mensaje' => "Producto ingresada correctamente"
-            ));
-        } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+        $producto = new ProductoDTO();
+        $producto->setIdCategoria($idCategoria);
+        $producto->setNombre($nombre);
+
+        $productos = $control->getProductoByNombreIdCategoria($nombre, $idCategoria);
+        if (count($productos) == 0) {
+            $result = $control->addProducto($producto);
+            if ($result) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Producto ingresado correctamente"
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
+        }else{
+            echo json_encode(array('errorMsg' => 'Ya existe un producto con el nombre ingresado en esta categoria.'));
         }
     } else if ($accion == "BORRAR") {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
 
         //VALIDAR QUE NO ESTE EN NINGUN LOTE DE PRODUCTO (PENDIENTE)        
-        
+
         $result = $control->removeProducto($idProducto);
         if ($result) {
             echo json_encode(array('success' => true, 'mensaje' => "Producto borrado correctamente"));

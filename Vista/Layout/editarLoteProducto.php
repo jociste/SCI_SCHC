@@ -111,12 +111,12 @@ $idLote = $_REQUEST["idLote"];
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="cantidad">Cantidad</label>
-                                            <div class="controls">
-                                                <input class="input-xlarge focused" id="cantidad" name="cantidad" type="number" placeholder="Cantidad" required>
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="control-group">
+                                                                                    <label class="control-label" for="cantidad">Cantidad</label>
+                                                                                    <div class="controls">
+                                                                                        <input class="input-xlarge focused" id="cantidad" name="cantidad" type="number" placeholder="Cantidad" required>
+                                                                                    </div>
+                                                                                </div>-->
                                         <div class="control-group">
                                             <label class="control-label" for="proveedor">Proveedor</label>
                                             <div class="controls">
@@ -127,6 +127,7 @@ $idLote = $_REQUEST["idLote"];
                                             <label class="control-label" for="fechaVencimiento">Fecha Vencimiento</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="fechaVencimiento" name="fechaVencimiento" type="date" placeholder="Fecha Vencimiento" required>
+                                                <input type="checkbox" id="deshabilitaFechaVencimiento" name="deshabilitaFechaVencimiento" onclick="deshabilitaCampoVencimiento()">&nbsp;Sin Fecha Vencimiento&nbsp;&nbsp;
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -195,9 +196,19 @@ $idLote = $_REQUEST["idLote"];
                                                                 document.getElementById("idProducto").value = datos.idProducto;
                                                                 document.getElementById("numeroBoleta").value = datos.numeroBoleta;
                                                                 document.getElementById("proveedor").value = datos.proveedor;
-                                                                document.getElementById("cantidad").value = datos.cantidad;
+                                                                //document.getElementById("cantidad").value = datos.cantidad;
                                                                 document.getElementById("fechaIngreso").value = datos.fechaIngreso;
-                                                                document.getElementById("fechaVencimiento").value = datos.fechaVencimiento;
+
+                                                                //document.getElementById("fechaVencimiento").value = datos.fechaVencimiento;
+                                                                
+                                                                 if (datos.fechaVencimiento != '0000-00-00' && datos.fechaVencimiento != null && datos.fechaVencimiento != '') {
+                                                                    document.getElementById("fechaVencimiento").value = datos.fechaVencimiento;
+
+                                                                } else {
+                                                                    document.getElementById("deshabilitaFechaVencimiento").checked = true;
+                                                                    deshabilitaCampoVencimiento();
+                                                                }
+
                                                             }
                                                     );
                                                 }
@@ -228,33 +239,42 @@ $idLote = $_REQUEST["idLote"];
                                                 }
 
                                                 function validar() {
-                                                    var numeroBoleta = document.getElementById("numeroBoleta").value;                                                    
-                                                    var cantidad = document.getElementById("cantidad").value;
+                                                    var numeroBoleta = document.getElementById("numeroBoleta").value;
+                                                    // var cantidad = document.getElementById("cantidad").value;
                                                     var proveedor = document.getElementById("proveedor").value;
                                                     var fechaVencimiento = document.getElementById("fechaVencimiento").value;
                                                     var fechaIngreso = document.getElementById("fechaIngreso").value;
-                                                    
-                                                    if(numeroBoleta == ""){
+
+                                                    if (numeroBoleta == "") {
                                                         $.messager.alert('Error', "Debe ingresar un numero de boleta");
                                                         return false;
                                                     }
-                                                    if(cantidad == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una cantidad");
-                                                        return false;
-                                                    }
-                                                    if(proveedor == ""){
+//                                                    if(cantidad == ""){
+//                                                        $.messager.alert('Error', "Debe ingresar una cantidad");
+//                                                        return false;
+//                                                    }
+                                                    if (proveedor == "") {
                                                         $.messager.alert('Error', "Debe ingresar un proveedor");
                                                         return false;
                                                     }
-                                                    if(fechaVencimiento == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una fecha de vencimiento");
+                                                    var estaDesabilitada = document.getElementById("deshabilitaFechaVencimiento").checked;
+                                                    if (estaDesabilitada == false && fechaVencimiento == "") {
+                                                        $.messager.alert('Error', "Debe ingresar una fecha de vencimiento o seleccionar el campo 'Sin Fecha Vencimiento'.");
                                                         return false;
                                                     }
-                                                    if(fechaIngreso == ""){
+                                                    if (fechaIngreso == "") {
                                                         $.messager.alert('Error', "Debe ingresar una fecha de ingreso");
                                                         return false;
                                                     }
                                                     return true;
+                                                }
+                                                  function deshabilitaCampoVencimiento() {
+                                                    if (document.getElementById("deshabilitaFechaVencimiento").checked == true) {
+                                                        document.getElementById("fechaVencimiento").disabled = 'disabled';
+                                                        document.getElementById("fechaVencimiento").value = '';
+                                                    } else {
+                                                        document.getElementById("fechaVencimiento").disabled = false;
+                                                    }
                                                 }
         </script>
     </body>

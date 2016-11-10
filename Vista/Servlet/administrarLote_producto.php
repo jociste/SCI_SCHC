@@ -24,9 +24,11 @@ if ($accion != null) {
         $numeroBoleta = htmlspecialchars($_REQUEST['numeroBoleta']);
         $proveedor = htmlspecialchars($_REQUEST['proveedor']);
         $cantidad = htmlspecialchars($_REQUEST['cantidad']);
-        $fechaVencimiento = htmlspecialchars($_REQUEST['fechaVencimiento']);
+        $fechaVencimiento = "";
+        if (isset($_REQUEST['fechaVencimiento'])) {
+            $fechaVencimiento = htmlspecialchars($_REQUEST['fechaVencimiento']);
+        }
         $fechaIngreso = htmlspecialchars($_REQUEST['fechaIngreso']);
-
         $lote_producto = new Lote_productoDTO();
         $lote_producto->setIdProducto($idProducto);
         $lote_producto->setNumeroBoleta($numeroBoleta);
@@ -34,7 +36,6 @@ if ($accion != null) {
         $lote_producto->setCantidad($cantidad);
         $lote_producto->setFechaVencimiento($fechaVencimiento);
         $lote_producto->setFechaIngreso($fechaIngreso);
-
         $result = $control->addLote_producto($lote_producto);
 
         if ($result) {
@@ -70,8 +71,12 @@ if ($accion != null) {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
         $numeroBoleta = htmlspecialchars($_REQUEST['numeroBoleta']);
         $proveedor = htmlspecialchars($_REQUEST['proveedor']);
-        $cantidad = htmlspecialchars($_REQUEST['cantidad']);
-        $fechaVencimiento = htmlspecialchars($_REQUEST['fechaVencimiento']);
+       // $cantidad = htmlspecialchars($_REQUEST['cantidad']);
+        $fechaVencimiento = "";
+        if (isset($_REQUEST['fechaVencimiento'])) {
+            $fechaVencimiento = htmlspecialchars($_REQUEST['fechaVencimiento']);
+        }        
+        
         $fechaIngreso = htmlspecialchars($_REQUEST['fechaIngreso']);
 
         $lote_producto = new Lote_productoDTO();
@@ -79,7 +84,7 @@ if ($accion != null) {
         $lote_producto->setIdProducto($idProducto);
         $lote_producto->setNumeroBoleta($numeroBoleta);
         $lote_producto->setProveedor($proveedor);
-        $lote_producto->setCantidad($cantidad);
+       // $lote_producto->setCantidad($cantidad);
         $lote_producto->setFechaVencimiento($fechaVencimiento);
         $lote_producto->setFechaIngreso($fechaIngreso);
 

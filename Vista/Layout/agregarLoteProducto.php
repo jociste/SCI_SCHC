@@ -106,11 +106,12 @@ $perfil = $_SESSION["idCargo"];
                                         <div class="control-group">
                                             <label class="control-label" for="idProducto">Producto</label>
                                             <div class="controls">
-                                                <select  class="input-xlarge focused" id="idProducto" name="idProducto" required>
-                                                    <option value="-1">Seleccionar...</option>
-                                                </select>
-                                            </div>
+                                                <select  class="input-xlarge focused" id="idProducto" name="idProducto" required></select>                                                
+
+                                                <a  class="btn btn-primary" onclick="abrirModalProucto()"><i class="icon-plus"> </i></a> 
+                                            </div> 
                                         </div>
+
                                         <div class="control-group">
                                             <label class="control-label" for="cantidad">Cantidad</label>
                                             <div class="controls">
@@ -127,6 +128,7 @@ $perfil = $_SESSION["idCargo"];
                                             <label class="control-label" for="fechaVencimiento">Fecha Vencimiento</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="fechaVencimiento" name="fechaVencimiento" type="date" placeholder="Fecha Vencimiento" required>
+                                                <input type="checkbox" id="deshabilitaFechaVencimiento" name="deshabilitaFechaVencimiento" onclick="deshabilitaCampoVencimiento()">&nbsp;Sin Fecha Vencimiento&nbsp;&nbsp;
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -134,7 +136,7 @@ $perfil = $_SESSION["idCargo"];
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
                                             </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
@@ -161,88 +163,201 @@ $perfil = $_SESSION["idCargo"];
                 </footer>
             </div>
         </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Agregar Producto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fm-producto" class="form-horizontal well" >
+                            <div class="" style="height: 10%;">
+                                <h4 style="width: 80%; align-content: center; margin: 0; padding-left: 0%">Datos Producto</h4> 
+
+                            </div>
+                            <hr>
+                            <div class="control-group">
+                                <label class="control-label" for="nombreProducto">Nombre</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" id="nombreProducto" name="nombreProducto" type="text" placeholder="Nombre producto" required>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="idCategoriaProducto">Categoria</label>
+                                <div class="controls">
+                                    <select  class="input-xlarge focused" id="idCategoriaProducto" name="idCategoriaProducto" required>
+                                        <option value="-1">Seleccionar...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <input type="hidden" id="accionProducto" name="accion" value="">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" onclick="guardarProducto()" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Modal -->
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                                                $(function () {
-                                                    cargarProductos();
+                            $(function () {
+                                cargarCategorias();
+                                cargarProductos();
+                            });
+
+                            function cargarCategorias() {
+                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
+                                $.getJSON(
+                                        url_json,
+                                        function (datos) {
+                                            $.each(datos, function (k, v) {
+                                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                $("#idCategoriaProducto").append(contenido);
+                                            });
+                                        }
+                                );
+                            }
+
+
+                            function cargarProductos() {
+                                var url_json = '../Servlet/administrarProducto.php?accion=LISTADO';
+                                $.getJSON(
+                                        url_json,
+                                        function (datos) {
+                                            document.getElementById("idProducto").innerHTML = "<option value='-1'>Seleccionar...</option>";
+                                            $.each(datos, function (k, v) {
+                                                var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
+                                                $("#idProducto").append(contenido);
+                                            });
+                                        }
+                                );
+                            }
+
+                            function guardar() {
+                                document.getElementById("accion").value = "AGREGAR";
+                                if (validar()) {
+                                    console.log("validado");
+                                    $('#fm-Categoria').form('submit', {
+                                        url: "../Servlet/administrarLote_producto.php",
+                                        onSubmit: function () {
+                                            return $(this).form('validate');
+                                        },
+                                        success: function (result) {
+                                            console.log(result);
+                                            var result = eval('(' + result + ')');
+                                            if (result.errorMsg) {
+                                                $.messager.alert('Error', result.errorMsg);
+                                            } else {
+                                                $.messager.show({
+                                                    title: 'Aviso',
+                                                    msg: result.mensaje
                                                 });
-                                                
-                                                function cargarProductos(){
-                                                    var url_json = '../Servlet/administrarProducto.php?accion=LISTADO';
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                $.each(datos, function (k, v) {
-                                                                    var contenido = "<option value='"+v.idProducto+"'>"+v.nombre+"</option>";
-                                                                    $("#idProducto").append(contenido);
-                                                                });
-                                                            }
-                                                    );
-                                                }
+                                                window.location = "AdministrarLotesProducto.php";
+                                            }
+                                        }
+                                    });
+                                }
 
-                                                function guardar() {
-                                                    document.getElementById("accion").value = "AGREGAR";
-                                                    if (validar()) {
-                                                        console.log("validado");
-                                                        $('#fm-Categoria').form('submit', {
-                                                            url: "../Servlet/administrarLote_producto.php",
-                                                            onSubmit: function () {
-                                                                return $(this).form('validate');
-                                                            },
-                                                            success: function (result) {
-                                                                console.log(result);
-                                                                var result = eval('(' + result + ')');
-                                                                if (result.errorMsg) {
-                                                                    $.messager.alert('Error', result.errorMsg);
-                                                                } else {
-                                                                    $.messager.show({
-                                                                        title: 'Aviso',
-                                                                        msg: result.mensaje
-                                                                    });
-                                                                    window.location = "AdministrarLotesProducto.php";
-                                                                }
-                                                            }
-                                                        });
-                                                    }
+                            }
 
-                                                }
-                                                
-                                                function validar() {
-                                                    var numeroBoleta = document.getElementById("numeroBoleta").value;
-                                                    var idProducto = document.getElementById("idProducto").value;
-                                                    var cantidad = document.getElementById("cantidad").value;
-                                                    var proveedor = document.getElementById("proveedor").value;
-                                                    var fechaVencimiento = document.getElementById("fechaVencimiento").value;
-                                                    var fechaIngreso = document.getElementById("fechaIngreso").value;
-                                                    
-                                                    if(numeroBoleta == ""){
-                                                        $.messager.alert('Error', "Debe ingresar un numero de boleta");
-                                                        return false;
-                                                    }
-                                                    if(idProducto == -1){
-                                                        $.messager.alert('Error', "Debe seleccionar un producto");
-                                                        return false;
-                                                    }
-                                                    if(cantidad == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una cantidad");
-                                                        return false;
-                                                    }
-                                                    if(proveedor == ""){
-                                                        $.messager.alert('Error', "Debe ingresar un proveedor");
-                                                        return false;
-                                                    }
-                                                    if(fechaVencimiento == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una fecha de vencimiento");
-                                                        return false;
-                                                    }
-                                                    if(fechaIngreso == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una fecha de ingreso");
-                                                        return false;
-                                                    }
-                                                    return true;
-                                                }
+                            function validar() {
+                                var numeroBoleta = document.getElementById("numeroBoleta").value;
+                                var idProducto = document.getElementById("idProducto").value;
+                                var cantidad = document.getElementById("cantidad").value;
+                                var proveedor = document.getElementById("proveedor").value;
+                                var fechaVencimiento = document.getElementById("fechaVencimiento").value;
+                                var fechaIngreso = document.getElementById("fechaIngreso").value;
+
+                                if (numeroBoleta == "") {
+                                    $.messager.alert('Error', "Debe ingresar un numero de boleta");
+                                    return false;
+                                }
+                                if (idProducto == -1) {
+                                    $.messager.alert('Error', "Debe seleccionar un producto");
+                                    return false;
+                                }
+                                if (cantidad == "") {
+                                    $.messager.alert('Error', "Debe ingresar una cantidad");
+                                    return false;
+                                }
+                                if (proveedor == "") {
+                                    $.messager.alert('Error', "Debe ingresar un proveedor");
+                                    return false;
+                                }
+                                var estaDesabilitada = document.getElementById("deshabilitaFechaVencimiento").checked;
+                                if (estaDesabilitada == false && fechaVencimiento == "") {
+                                    $.messager.alert('Error', "Debe ingresar una fecha de vencimiento o seleccionar el campo 'Sin Fecha Vencimiento'.");
+                                    return false;
+                                }
+                                if (fechaIngreso == "") {
+                                    $.messager.alert('Error', "Debe ingresar una fecha de ingreso");
+                                    return false;
+                                }
+                                return true;
+                            }
+                            function deshabilitaCampoVencimiento() {
+                                if (document.getElementById("deshabilitaFechaVencimiento").checked == true) {
+                                    document.getElementById("fechaVencimiento").disabled = 'disabled';
+                                    document.getElementById("fechaVencimiento").value = '';
+                                } else {
+                                    document.getElementById("fechaVencimiento").disabled = false;
+                                }
+                            }
+                            function guardarProducto() {
+                                document.getElementById("accionProducto").value = "AGREGARPRODUCTO";
+                                if (validarProducto()) {
+                                    $('#fm-producto').form('submit', {
+                                        url: "../Servlet/administrarProducto.php",
+                                        onSubmit: function () {
+                                            return $(this).form('validate');
+                                        },
+                                        success: function (result) {
+                                            var result = eval('(' + result + ')');
+                                            if (result.errorMsg) {
+                                                $.messager.alert('Error', result.errorMsg);
+                                            } else {
+                                                document.getElementById("fm-producto").reset();
+                                                $('#myModal').modal('toggle');
+                                                cargarProductos();
+                                                $.messager.show({
+                                                    title: 'Aviso',
+                                                    msg: result.mensaje
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+
+                            }
+                            function validarProducto() {
+                                var nombre = document.getElementById("nombreProducto").value;
+                                var idCategoria = document.getElementById("idCategoriaProducto").value;
+
+                                if (nombre == "") {
+                                    $.messager.alert('Error', "Debe ingresar un nombre de producto");
+                                    return false;
+                                }
+                                if (idCategoria == -1) {
+                                    $.messager.alert('Error', "Debe seleccionar una categoria");
+                                    return false;
+                                }
+                                return true;
+                            }
+                            
+                            function abrirModalProucto() {
+                                $('#myModal').modal('show');
+                            }
         </script>
     </body>
 </html>

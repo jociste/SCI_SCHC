@@ -428,6 +428,10 @@ class SCI_SCHC {
     public function getProductoLikeAtrr($cadena) {
         return $this->productoDAO->findLikeAtrr($cadena);
     }
+    
+    public function getProductoByNombreIdCategoria($nombre, $idCategoria) {
+        return $this->productoDAO->findByNombreAndIdCategoria($nombre, $idCategoria);
+    }
 
 }
 ?>
