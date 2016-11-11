@@ -5,7 +5,7 @@
             <li>
                 <a>
                     <i class="icon-home" onClick="location.href = 'home.php'"></i>
-                    <span>Home</span>
+                    <span>Inicio</span>
                 </a>
             </li>   
              <li>
