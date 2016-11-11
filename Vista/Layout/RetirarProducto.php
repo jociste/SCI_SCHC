@@ -312,6 +312,7 @@ $runFuncionaria = $_SESSION["run"];
                                                                             return $(this).form('validate');
                                                                         },
                                                                         success: function (result) {
+                                                                            console.log(result);
                                                                             var result = eval('(' + result + ')');
                                                                             mostrarProductoDisponible(result.lotesUtilizados)
                                                                             mostrarProductoSinDisponiblilidad(result.productosNoDisponibles);

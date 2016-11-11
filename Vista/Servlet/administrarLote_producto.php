@@ -79,7 +79,7 @@ if ($accion != null) {
         
         $fechaIngreso = htmlspecialchars($_REQUEST['fechaIngreso']);
 
-        $lote_producto = new Lote_productoDTO();
+        $lote_producto = $control->getLote_productoByID($idLote);
         $lote_producto->setIdLote($idLote);
         $lote_producto->setIdProducto($idProducto);
         $lote_producto->setNumeroBoleta($numeroBoleta);
@@ -118,8 +118,8 @@ if ($accion != null) {
             $falta = false;
             do {
                 $loteProducto = $control->getLote_productoByIdProducto($idProducto);
-
-                if ($loteProducto->getCantidad() > 0) {
+                
+                if (count($loteProducto) > 0) {
                     if ($loteProducto->getCantidad() >= $cantidad) {
                         $resto = $loteProducto->getCantidad() - $cantidad;
                         $loteProducto->setCantidad($resto);

@@ -21,7 +21,10 @@ class Lote_productoDAO {
 
     public function findAllOrdenadosPorVencimiento() {
         $this->conexion->conectar();
-        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, p.cantidad, p.fechaVencimiento, p.fechaIngreso, pp.nombre FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto WHERE p.cantidad>0 ORDER by p.fechaVencimiento ";
+        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, p.cantidad, p.fechaVencimiento, p.fechaIngreso, pp.nombre 
+        FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto 
+        WHERE p.cantidad>0 and p.fechaVencimiento <> '0000-00-00'
+        ORDER by p.fechaVencimiento ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -44,7 +47,11 @@ class Lote_productoDAO {
 
     public function findAllOrdenadosPorBajoStock() {
         $this->conexion->conectar();
-        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, p.cantidad, p.fechaVencimiento, p.fechaIngreso, pp.nombre FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto  WHERE p.cantidad < 11 ORDER by p.cantidad";
+        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, pp.nombre 
+        FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto  
+        WHERE p.cantidad < 11 
+        group by p.idProducto
+        ORDER by p.cantidad";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -108,7 +115,7 @@ class Lote_productoDAO {
 
     public function findByIdProducto($idProducto) {
         $this->conexion->conectar();
-        $query = "SELECT LP.idLote, LP.idProducto, LP.numeroBoleta, LP.proveedor, LP.cantidad, LP.fechaVencimiento, LP.fechaIngreso, P.nombre FROM lote_producto LP JOIN producto P ON LP.idProducto = P.idProducto  WHERE LP.idProducto = " . $idProducto . " ORDER BY LP.fechaVencimiento LIMIT 0,1;";
+        $query = "SELECT LP.idLote, LP.idProducto, LP.numeroBoleta, LP.proveedor, LP.cantidad, LP.fechaVencimiento, LP.fechaIngreso, P.nombre FROM lote_producto LP JOIN producto P ON LP.idProducto = P.idProducto  WHERE LP.idProducto = " . $idProducto . " AND LP.cantidad > 0 ORDER BY LP.fechaVencimiento LIMIT 0,1;";
         $result = $this->conexion->ejecutar($query);
         $lote_producto = new Lote_productoDTO();
         while ($fila = $result->fetch_row()) {
@@ -162,7 +169,7 @@ class Lote_productoDAO {
                 . "  idProducto =  " . $lote_producto->getIdProducto() . " ,"
                 . "  numeroBoleta =  " . $lote_producto->getNumeroBoleta() . " ,"
                 . "  proveedor = '" . $lote_producto->getProveedor() . "' ,"
-//                . "  cantidad =  " . $lote_producto->getCantidad() . " ,"
+                . "  cantidad =  " . $lote_producto->getCantidad() . " ,"
                 . "  fechaVencimiento = '" . $lote_producto->getFechaVencimiento() . "' ,"
                 . "  fechaIngreso = '" . $lote_producto->getFechaIngreso() . "' "
                 . " WHERE  idLote =  " . $lote_producto->getIdLote() . " ";

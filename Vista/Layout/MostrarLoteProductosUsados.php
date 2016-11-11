@@ -110,7 +110,7 @@ $perfil = $_SESSION["idCargo"];
 <!--                                            <th></th> -->
                                             <th>Fecha Retiro</th> 
                                             <th>Destino</th> 
-                                            <th>Funcionaria</th>
+                                            <th>Retirado por</th>
                                             <th>Nombre Producto</th>
                                             <th>Cantidad</th>
                                             <!--<th>Accion</th>-->

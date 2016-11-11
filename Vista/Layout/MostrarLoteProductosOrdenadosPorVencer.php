@@ -101,7 +101,7 @@ $perfil = $_SESSION["idCargo"];
                             ?>
                             <!-- FIN MENU INTERIOR-->
                             <hr>
-                            <h4>Detalle de productos Por Vencer</h4>
+                            <h4>Detalle de productos Por Vencer (Menor a 2 meses)</h4>
 
                             <div class="table-responsive">
                                 <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
@@ -109,7 +109,8 @@ $perfil = $_SESSION["idCargo"];
                                         <tr>
                                             <th>Fecha Vencimiento</th>
                                             <th>Producto</th>                                                              
-                                            <th>Cantidad</th>     
+                                            <th>Cantidad</th>   
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
@@ -133,6 +134,7 @@ $perfil = $_SESSION["idCargo"];
         </div>
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
+         <script src="../../Files/js/ValidaCamposFormulario.js"></script>
         <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
         <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
@@ -152,6 +154,11 @@ $perfil = $_SESSION["idCargo"];
                                 contenido += "<td>" + v.fechaVencimiento + "</td>";
                                 contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.cantidad + "</td>";
+                                if (v.fechaVencimiento <= fechaActual()) {
+                                    contenido += "<td style = 'background-color: #ff8585'><b>Vencido</b></td>";                                    
+                                } else {
+                                    contenido += "<td>Por Vencer</td>";
+                                }
                                 contenido += "</tr>";
                                 $("#grid").append(contenido);
                             });

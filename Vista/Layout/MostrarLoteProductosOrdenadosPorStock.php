@@ -101,7 +101,7 @@ $perfil = $_SESSION["idCargo"];
                             ?>
                             <!-- FIN MENU INTERIOR-->
                             <hr>
-                            <h4> Detalle de productos Con Bajo Stock </h4>
+                            <h4> Detalle de productos Con Bajo Stock (Menor a 11 Unidades) </h4>
 
                             <div class="table-responsive">
                                 <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
@@ -111,6 +111,7 @@ $perfil = $_SESSION["idCargo"];
                                             <th>Fecha Vencimiento</th>
                                             <th>Producto</th>                            
                                             <th>Fecha Ingreso</th>
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
@@ -151,9 +152,23 @@ $perfil = $_SESSION["idCargo"];
                             $.each(datos, function (k, v) {
                                 var contenido = "<tr>";
                                 contenido += "<td>" + v.cantidad + "</td>";
-                                contenido += "<td>" + v.fechaVencimiento + "</td>";
+                                if (v.fechaVencimiento == '0000-00-00') {
+                                    contenido += "<td>Sin Fecha Vencimiento</td>";
+                                } else {
+                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
+                                }
                                 contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.fechaIngreso + "</td>";
+                                if(v.cantidad == 0){
+                                    contenido += "<td style = 'background-color: #ff8585'><b>Sin Existencias</b></td>";
+                                }else{
+                                    if(v.cantidad <= 5){
+                                        contenido += "<td style = 'background-color: #f6d616'><b>Menor a 5 unidades</b></td>";
+                                    }else{
+                                         contenido += "<td><b>Menor a 11 unidades</b></td>";
+                                    }
+                                    
+                                }
                                 contenido += "</tr>";
                                 $("#grid").append(contenido);
                             });
