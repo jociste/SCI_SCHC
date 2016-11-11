@@ -74,11 +74,12 @@ $perfil = $_SESSION["idCargo"];
                 </div>
             </div>
             <!-- FIN ALERTA -->
-            <div class="container-fluid" style="background-color: #ebeced" >
+            <div class="container-fluid">
+                <div class="row-fluid">
                 <!-- AQUI VA EL MENU LEFT-->
                 <?php
                 if ($perfil == 1) {
-                    include '../Menus/directoraLeft.php';
+                    include '../Menus/directoraLeftPersonal.php';
                 }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -87,15 +88,11 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                 ?>
                 <!-- FIN MENU LEFT-->
-                
-                <div class="span12"  style="width: 90%">       
-                    <div class="body">
-                        <div class="clearfix"></div>
                         <div id="content" class="span9" style="background-color: #fff; width: 90%" >
 <!--                            menu interior-->
-                            <hr>
+                           
                             <h4>Funcionarias</h4>
-                            <div></div>
+                             <hr>
                             <div>
                                 <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarFuncionaria.php'">
                                     Agregar Funcionaria <i class="icon-book" ></i>
@@ -127,8 +124,7 @@ $perfil = $_SESSION["idCargo"];
                         </div>
                     </div>
                 </div>
-            </div>                  
-        </div>
+            </div>   
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>

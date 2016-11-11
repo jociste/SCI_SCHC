@@ -75,7 +75,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
-                        include '../Menus/directoraLeft.php';
+                        include '../Menus/directoraLeftPersonal.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -85,14 +85,14 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
-                        <hr><div class="row-fluid" style="align-content: center">
+                        <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
                                     <form id="fm-Funcionaria" class="form-horizontal well" style="align-content: center">
 
                                         <div class="form-actions" style="height: 30px;">
                                             <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Editar Funcionaria</h4> 
-                                        </div>                                                                                               
+                                        </div> 
                                         <div class="control-group">
                                             <label class="control-label" for="runFuncionaria">Run</label>
                                             <div class="controls">

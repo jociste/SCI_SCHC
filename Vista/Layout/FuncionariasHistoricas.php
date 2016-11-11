@@ -69,10 +69,11 @@ $perfil = $_SESSION["idCargo"];
             </div>
             <!-- FIN ALERTA -->
             <div class="container-fluid" >
+                <div class="row-fluid">
                 <!-- AQUI VA EL MENU LEFT-->
                 <?php
                 if ($perfil == 1) {
-                    include '../Menus/directoraLeft.php';
+                    include '../Menus/directoraLeftPersonal.php';
                 }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -81,18 +82,11 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                 ?>
                 <!-- FIN MENU LEFT-->
-              
-                <div class="span12"  style="width: 90%">       
-                    <div class="body">
-                        <!-- AQUI VA EL MENU INTERIOR-->
-
-                        <!-- AQUI VA EL MENU INTERIOR-->
-                        <div class="clearfix"></div>
                         <div id="content" class="span9" style="background-color: #fff; width: 90%" >
 <!--                            Menu interionr-->
-                              <hr>
+                            
                             <h4>Funcionarias Historicas</h4>
-                            <div></div>
+                              <hr>
                             <div class="clearfix"></div>
                             <div class="clearfix"></div>                           
                             <div class="table-responsive">
@@ -119,8 +113,7 @@ $perfil = $_SESSION["idCargo"];
                         </div>
                     </div>
                 </div>
-            </div>                  
-        </div>
+            </div>  
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>

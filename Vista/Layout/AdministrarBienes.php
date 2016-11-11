@@ -83,7 +83,7 @@ $perfil = $_SESSION["idCargo"];
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
-                        include '../Menus/directoraLeft.php';
+                        include '../Menus/directoraLeftInventarioBienes.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';

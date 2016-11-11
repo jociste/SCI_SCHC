@@ -1,0 +1,20 @@
+<div class="span1">
+    <!-- start: Main Menu -->
+    <div id="sidebar-nav" >
+        <ul id="dashboard-menu" >
+            <li>
+                <a>
+                    <i class="icon-home" onClick="location.href = 'home.php'"></i>
+                    <span>Inicio</span>
+                </a>
+            </li> 
+            <li>
+                <a>
+                    <i class="icon-forward" onClick="location.href = 'AdministrarBienes.php'"></i>
+                    <span>Bienes</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end: Main Menu -->

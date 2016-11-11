@@ -76,7 +76,7 @@ $runFuncionaria = $_SESSION["run"];
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
-                        include '../Menus/directoraLeft.php';
+                        include '../Menus/directoraLeftInventarioProductos.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
