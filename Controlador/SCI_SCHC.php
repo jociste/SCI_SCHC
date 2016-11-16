@@ -6,14 +6,20 @@ include_once 'Mantenedores/Bien_nivelDAO.php';
 include_once 'Mantenedores/CargoDAO.php';
 include_once 'Mantenedores/CategoriaDAO.php';
 include_once 'Mantenedores/ComprobanteDAO.php';
+include_once 'Mantenedores/Datos_generalesDAO.php';
 include_once 'Mantenedores/Detalle_comprobanteDAO.php';
+include_once 'Mantenedores/DocumentoDAO.php';
+include_once 'Mantenedores/Estado_funcionariaDAO.php';
 include_once 'Mantenedores/FuncionariaDAO.php';
 include_once 'Mantenedores/Funcionaria_cargoDAO.php';
 include_once 'Mantenedores/Lote_productoDAO.php';
 include_once 'Mantenedores/Lote_producto_usadosDAO.php';
 include_once 'Mantenedores/NivelDAO.php';
 include_once 'Mantenedores/Nivel_funcionariaDAO.php';
+include_once 'Mantenedores/Permiso_visualizacion_categoriaDAO.php';
+include_once 'Mantenedores/Permiso_visualizacion_tipo_documentoDAO.php';
 include_once 'Mantenedores/ProductoDAO.php';
+include_once 'Mantenedores/Tipo_documentoDAO.php';
 
 class SCI_SCHC {
     private static $instancia = NULL;
@@ -23,14 +29,20 @@ class SCI_SCHC {
     private $cargoDAO;
     private $categoriaDAO;
     private $comprobanteDAO;
+    private $datos_generalesDAO;
     private $detalle_comprobanteDAO;
+    private $documentoDAO;
+    private $estado_funcionariaDAO;
     private $funcionariaDAO;
     private $funcionaria_cargoDAO;
     private $lote_productoDAO;
     private $lote_producto_usadosDAO;
     private $nivelDAO;
     private $nivel_funcionariaDAO;
+    private $permiso_visualizacion_categoriaDAO;
+    private $permiso_visualizacion_tipo_documentoDAO;
     private $productoDAO;
+    private $tipo_documentoDAO;
 
     public function SCI_SCHC() {
         $this->bajaDAO = new BajaDAO();
@@ -39,14 +51,20 @@ class SCI_SCHC {
         $this->cargoDAO = new CargoDAO();
         $this->categoriaDAO = new CategoriaDAO();
         $this->comprobanteDAO = new ComprobanteDAO();
+        $this->datos_generalesDAO = new Datos_generalesDAO();
         $this->detalle_comprobanteDAO = new Detalle_comprobanteDAO();
+        $this->documentoDAO = new DocumentoDAO();
+        $this->estado_funcionariaDAO = new Estado_funcionariaDAO();
         $this->funcionariaDAO = new FuncionariaDAO();
         $this->funcionaria_cargoDAO = new Funcionaria_cargoDAO();
         $this->lote_productoDAO = new Lote_productoDAO();
         $this->lote_producto_usadosDAO = new Lote_producto_usadosDAO();
         $this->nivelDAO = new NivelDAO();
         $this->nivel_funcionariaDAO = new Nivel_funcionariaDAO();
+        $this->permiso_visualizacion_categoriaDAO = new Permiso_visualizacion_categoriaDAO();
+        $this->permiso_visualizacion_tipo_documentoDAO = new Permiso_visualizacion_tipo_documentoDAO();
         $this->productoDAO = new ProductoDAO();
+        $this->tipo_documentoDAO = new Tipo_documentoDAO();
     }
 
     public static function getInstancia() {
@@ -202,6 +220,30 @@ class SCI_SCHC {
     public function getComprobanteLikeAtrr($cadena) {
         return $this->comprobanteDAO->findLikeAtrr($cadena);
     }
+    
+    public function getAllDatos_generaless() {
+        return $this->datos_generalesDAO->findAll();
+    }
+
+    public function addDatos_generales($datos_generales) {
+        return $this->datos_generalesDAO->save($datos_generales);
+    }
+
+    public function removeDatos_generales($codigoEstablecimiento) {
+        return $this->datos_generalesDAO->delete($codigoEstablecimiento);
+    }
+
+    public function updateDatos_generales($datos_generales) {
+        return $this->datos_generalesDAO->update($datos_generales);
+    }
+
+    public function getDatos_generalesByID($codigoEstablecimiento) {
+        return $this->datos_generalesDAO->findByID($codigoEstablecimiento);
+    }
+
+    public function getDatos_generalesLikeAtrr($cadena) {
+        return $this->datos_generalesDAO->findLikeAtrr($cadena);
+    }
 
     public function getAllDetalle_comprobantes() {
         return $this->detalle_comprobanteDAO->findAll();
@@ -225,6 +267,54 @@ class SCI_SCHC {
 
     public function getDetalle_comprobanteLikeAtrr($cadena) {
         return $this->detalle_comprobanteDAO->findLikeAtrr($cadena);
+    }
+    
+    public function getAllDocumentos() {
+        return $this->documentoDAO->findAll();
+    }
+
+    public function addDocumento($documento) {
+        return $this->documentoDAO->save($documento);
+    }
+
+    public function removeDocumento($idDocumento) {
+        return $this->documentoDAO->delete($idDocumento);
+    }
+
+    public function updateDocumento($documento) {
+        return $this->documentoDAO->update($documento);
+    }
+
+    public function getDocumentoByID($idDocumento) {
+        return $this->documentoDAO->findByID($idDocumento);
+    }
+
+    public function getDocumentoLikeAtrr($cadena) {
+        return $this->documentoDAO->findLikeAtrr($cadena);
+    }
+
+    public function getAllEstado_funcionarias() {
+        return $this->estado_funcionariaDAO->findAll();
+    }
+
+    public function addEstado_funcionaria($estado_funcionaria) {
+        return $this->estado_funcionariaDAO->save($estado_funcionaria);
+    }
+
+    public function removeEstado_funcionaria($idEstado) {
+        return $this->estado_funcionariaDAO->delete($idEstado);
+    }
+
+    public function updateEstado_funcionaria($estado_funcionaria) {
+        return $this->estado_funcionariaDAO->update($estado_funcionaria);
+    }
+
+    public function getEstado_funcionariaByID($idEstado) {
+        return $this->estado_funcionariaDAO->findByID($idEstado);
+    }
+
+    public function getEstado_funcionariaLikeAtrr($cadena) {
+        return $this->estado_funcionariaDAO->findLikeAtrr($cadena);
     }
 
     public function getAllFuncionarias() {
@@ -396,6 +486,54 @@ class SCI_SCHC {
     public function getNivel_funcionariaLikeAtrr($cadena) {
         return $this->nivel_funcionariaDAO->findLikeAtrr($cadena);
     }
+    
+    public function getAllPermiso_visualizacion_categorias() {
+        return $this->permiso_visualizacion_categoriaDAO->findAll();
+    }
+
+    public function addPermiso_visualizacion_categoria($permiso_visualizacion_categoria) {
+        return $this->permiso_visualizacion_categoriaDAO->save($permiso_visualizacion_categoria);
+    }
+
+    public function removePermiso_visualizacion_categoria($idCargo) {
+        return $this->permiso_visualizacion_categoriaDAO->delete($idCargo);
+    }
+
+    public function updatePermiso_visualizacion_categoria($permiso_visualizacion_categoria) {
+        return $this->permiso_visualizacion_categoriaDAO->update($permiso_visualizacion_categoria);
+    }
+
+    public function getPermiso_visualizacion_categoriaByID($idCargo) {
+        return $this->permiso_visualizacion_categoriaDAO->findByID($idCargo);
+    }
+
+    public function getPermiso_visualizacion_categoriaLikeAtrr($cadena) {
+        return $this->permiso_visualizacion_categoriaDAO->findLikeAtrr($cadena);
+    }
+
+    public function getAllPermiso_visualizacion_tipo_documentos() {
+        return $this->permiso_visualizacion_tipo_documentoDAO->findAll();
+    }
+
+    public function addPermiso_visualizacion_tipo_documento($permiso_visualizacion_tipo_documento) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->save($permiso_visualizacion_tipo_documento);
+    }
+
+    public function removePermiso_visualizacion_tipo_documento($idCargo) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->delete($idCargo);
+    }
+
+    public function updatePermiso_visualizacion_tipo_documento($permiso_visualizacion_tipo_documento) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->update($permiso_visualizacion_tipo_documento);
+    }
+
+    public function getPermiso_visualizacion_tipo_documentoByID($idCargo) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->findByID($idCargo);
+    }
+
+    public function getPermiso_visualizacion_tipo_documentoLikeAtrr($cadena) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->findLikeAtrr($cadena);
+    }
 
     public function getAllProductos() {
         return $this->productoDAO->findAll();
@@ -431,6 +569,30 @@ class SCI_SCHC {
     
     public function getProductoByNombreIdCategoria($nombre, $idCategoria) {
         return $this->productoDAO->findByNombreAndIdCategoria($nombre, $idCategoria);
+    }
+    
+    public function getAllTipo_documentos() {
+        return $this->tipo_documentoDAO->findAll();
+    }
+
+    public function addTipo_documento($tipo_documento) {
+        return $this->tipo_documentoDAO->save($tipo_documento);
+    }
+
+    public function removeTipo_documento($idTipoDocumento) {
+        return $this->tipo_documentoDAO->delete($idTipoDocumento);
+    }
+
+    public function updateTipo_documento($tipo_documento) {
+        return $this->tipo_documentoDAO->update($tipo_documento);
+    }
+
+    public function getTipo_documentoByID($idTipoDocumento) {
+        return $this->tipo_documentoDAO->findByID($idTipoDocumento);
+    }
+
+    public function getTipo_documentoLikeAtrr($cadena) {
+        return $this->tipo_documentoDAO->findLikeAtrr($cadena);
     }
 
 }
