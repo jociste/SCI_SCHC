@@ -45,7 +45,9 @@ $perfil = $_SESSION["idCargo"];
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
         <script src="../../Files/Complementos/lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
 
-
+        <!-- Bootstrap Select-->
+        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/bootstrap-select/dist/css/bootstrap-select.css">
+        <script type="text/javascript"charset="utf8" src="../../Files/Complementos/bootstrap-select/dist/js/bootstrap-select.js"></script>
     </head>
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
@@ -76,19 +78,16 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 80%">
-                        <div class="row-fluid">
+                        <div class="row-fluid">                            
                             <div class="span9 text-center">
                                 <form class="">
                                     <div class="input-prepend input-append">
                                         <div class="btn-group">
-                                            <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown"><i class="icon-list-alt"></i> Categorias <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Members</a></li>
-                                                <li><a href="#">Products</a></li>
-                                                <li><a href="#">Post</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Todas</a></li>
-                                            </ul>
+                                            <select class="selectpicker" data-live-search="true">
+                                                <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+                                                <option data-tokens="mustard">Burger, Shake and a Smile</option>
+                                                <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                                            </select>
                                         </div>
                                         <input class="input-block-level" placeholder="Buscar Documento en .." id="appendedPrependedDropdownButton" type="text">
                                         <button type="submit" class="btn btn-primary"> <i class="icon-search">
@@ -96,13 +95,13 @@ $perfil = $_SESSION["idCargo"];
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div>                                                
                         <h4> Resultados Obtenidos </h4>
                         <div class="media well-small">
                             <a class="pull-left" href="#">
                                 <img class="media-object" data-src="holder.js/120x120" alt="120x120" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC">
                             </a>
-                             <div class="media-body">
+                            <div class="media-body">
                                 <h5 class="media-heading"><b>Media heading</b></h5>
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
@@ -132,7 +131,7 @@ $perfil = $_SESSION["idCargo"];
                             <a class="pull-left" href="#">
                                 <img class="media-object" data-src="holder.js/120x120" alt="120x120" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC">
                             </a>
-                             <div class="media-body">
+                            <div class="media-body">
                                 <h5 class="media-heading"><b>Media heading</b></h5>
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
