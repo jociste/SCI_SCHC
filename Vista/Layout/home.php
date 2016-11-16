@@ -64,7 +64,7 @@ $perfil = $_SESSION["idCargo"];
                         <a href="AdministrarFuncionariasHabilitadas.php" class="button button-pill btn btn-warning" style="height: 83px; width: 110px; padding-top: 50px"><i class="icon-group"></i>&nbsp;Personal</a>  &nbsp;                      
                         <a href="AdministrarLotesProducto.php" class="button button-pill btn btn-info" style="height: 83px; width: 110px; padding-top: 50px"><i class="icon-archive"></i>&nbsp;Inventario Productos</a>&nbsp;  &nbsp;                       
                         <a href="AdministrarBienes.php" class="button button-pill btn btn-primary" style="height: 83px; width: 110px; padding-top: 50px"><i class="icon-folder-close"></i>&nbsp;Inventario Bienes</a> &nbsp;                       
-                        <a href="#" class="button button-pill btn btn-danger" style="height: 83px; width: 110px; padding-top: 50px"><i class="icon-folder-open"></i>&nbsp;Documentos</a>                        
+                        <a href="AdministrarDocumentos.php" class="button button-pill btn btn-danger" style="height: 83px; width: 110px; padding-top: 50px"><i class="icon-folder-open"></i>&nbsp;Documentos</a>                        
                     </div>
                 </div>
             </div>
