@@ -106,7 +106,6 @@ if ($accion != null) {
         $nLotes = 0;
         $productosNoDisponibles = array();
         $nProd = 0;
-
         for ($i = 1; $i <= $cantidadProductos; $i++) {
             $idCategoria = $_REQUEST['idCategoria_' . $i];
             $idProducto = $_REQUEST['idProducto_' . $i];
@@ -116,10 +115,9 @@ if ($accion != null) {
             //OBTENER LOTE PRODUCTO A RETIRAR
 
             $falta = false;
-            do {
-                $loteProducto = $control->getLote_productoByIdProducto($idProducto);
-                
-                if (count($loteProducto) > 0) {
+            do {                
+                $loteProducto = $control->getLote_productoByIdProducto($idProducto);                
+                if ($loteProducto->getIdLote() != null) {
                     if ($loteProducto->getCantidad() >= $cantidad) {
                         $resto = $loteProducto->getCantidad() - $cantidad;
                         $loteProducto->setCantidad($resto);
