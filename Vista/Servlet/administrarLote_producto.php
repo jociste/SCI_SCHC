@@ -6,11 +6,11 @@ $control = SCI_SCHC::getInstancia();
 
 $accion = htmlspecialchars($_REQUEST['accion']);
 if ($accion != null) {
-     if ($accion == "LISTADO") {
+    if ($accion == "LISTADO") {
         $lote_productos = $control->getAllLote_productos1();
         $json = json_encode($lote_productos);
         echo $json;
-     } if ($accion == "LISTADOPRODUCTOSPORVENCER") {
+    } if ($accion == "LISTADOPRODUCTOSPORVENCER") {
         $lote_productos = $control->getAllLote_productos();
         $json = json_encode($lote_productos);
         echo $json;
@@ -18,7 +18,6 @@ if ($accion != null) {
         $lote_productos = $control->getAllLote_productosBajoStock();
         $json = json_encode($lote_productos);
         echo $json;
-        
     } else if ($accion == "AGREGAR") {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
         $numeroBoleta = htmlspecialchars($_REQUEST['numeroBoleta']);
@@ -71,12 +70,12 @@ if ($accion != null) {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
         $numeroBoleta = htmlspecialchars($_REQUEST['numeroBoleta']);
         $proveedor = htmlspecialchars($_REQUEST['proveedor']);
-       // $cantidad = htmlspecialchars($_REQUEST['cantidad']);
+        // $cantidad = htmlspecialchars($_REQUEST['cantidad']);
         $fechaVencimiento = "";
         if (isset($_REQUEST['fechaVencimiento'])) {
             $fechaVencimiento = htmlspecialchars($_REQUEST['fechaVencimiento']);
-        }        
-        
+        }
+
         $fechaIngreso = htmlspecialchars($_REQUEST['fechaIngreso']);
 
         $lote_producto = $control->getLote_productoByID($idLote);
@@ -84,7 +83,7 @@ if ($accion != null) {
         $lote_producto->setIdProducto($idProducto);
         $lote_producto->setNumeroBoleta($numeroBoleta);
         $lote_producto->setProveedor($proveedor);
-       // $lote_producto->setCantidad($cantidad);
+        // $lote_producto->setCantidad($cantidad);
         $lote_producto->setFechaVencimiento($fechaVencimiento);
         $lote_producto->setFechaIngreso($fechaIngreso);
 
@@ -114,59 +113,61 @@ if ($accion != null) {
             $destino = $_REQUEST['destino_' . $i];
             //OBTENER LOTE PRODUCTO A RETIRAR
 
-            $falta = false;
-            do {                
-                $loteProducto = $control->getLote_productoByIdProducto($idProducto);                
-                if ($loteProducto->getIdLote() != null) {
-                    if ($loteProducto->getCantidad() >= $cantidad) {
-                        $resto = $loteProducto->getCantidad() - $cantidad;
-                        $loteProducto->setCantidad($resto);
-                        //Descontar Producto Retirado
-                        $control->updateLote_producto($loteProducto);
-                        //Resgitro Producto Usado
-                        $lote_producto_usados = new Lote_producto_usadosDTO();
-                        $lote_producto_usados->setIdLote($loteProducto->getIdLote());
-                        $lote_producto_usados->setRunFuncionaria($rutFuncionario);
-                        $lote_producto_usados->setCantidad($cantidad);
-                        $lote_producto_usados->setFechaRetiro($fechaRetiro);
-                        $lote_producto_usados->setDestino($destino);
+            if ($idCategoria != -1) {
+                $falta = false;
+                do {
+                    $loteProducto = $control->getLote_productoByIdProducto($idProducto);
+                    if ($loteProducto->getIdLote() != null) {
+                        if ($loteProducto->getCantidad() >= $cantidad) {
+                            $resto = $loteProducto->getCantidad() - $cantidad;
+                            $loteProducto->setCantidad($resto);
+                            //Descontar Producto Retirado
+                            $control->updateLote_producto($loteProducto);
+                            //Resgitro Producto Usado
+                            $lote_producto_usados = new Lote_producto_usadosDTO();
+                            $lote_producto_usados->setIdLote($loteProducto->getIdLote());
+                            $lote_producto_usados->setRunFuncionaria($rutFuncionario);
+                            $lote_producto_usados->setCantidad($cantidad);
+                            $lote_producto_usados->setFechaRetiro($fechaRetiro);
+                            $lote_producto_usados->setDestino($destino);
 
-                        $control->addLote_producto_usados($lote_producto_usados);
-                        $loteProducto->setCantidad($cantidad);
-                        //Registramos de donde se retiro el producto
-                        $lotesUtilizados[$nLotes] = $loteProducto;
-                        $nLotes++;
-                        $falta = false;
+                            $control->addLote_producto_usados($lote_producto_usados);
+                            $loteProducto->setCantidad($cantidad);
+                            //Registramos de donde se retiro el producto
+                            $lotesUtilizados[$nLotes] = $loteProducto;
+                            $nLotes++;
+                            $falta = false;
+                        } else {
+                            $resto_faltante = $cantidad - $loteProducto->getCantidad();
+                            $loteProducto->setCantidad(0);
+                            //Descontar Producto Retirado
+                            $control->updateLote_producto($loteProducto);
+                            //Resgitro Producto Usado
+                            $lote_producto_usados = new Lote_producto_usadosDTO();
+                            $lote_producto_usados->setIdLote($loteProducto->getIdLote());
+                            $lote_producto_usados->setRunFuncionaria($rutFuncionario);
+                            $lote_producto_usados->setCantidad($cantidad - $resto_faltante);
+                            $lote_producto_usados->setFechaRetiro($fechaRetiro);
+                            $lote_producto_usados->setDestino($destino);
+
+                            $control->addLote_producto_usados($lote_producto_usados);
+                            $loteProducto->setCantidad($cantidad - $resto_faltante);
+                            //Registramos de donde se retiro el producto
+                            $lotesUtilizados[$nLotes] = $loteProducto;
+                            $nLotes++;
+                            $cantidad = $resto_faltante;
+                            $falta = true;
+                        }
                     } else {
-                        $resto_faltante = $cantidad - $loteProducto->getCantidad();
-                        $loteProducto->setCantidad(0);
-                        //Descontar Producto Retirado
-                        $control->updateLote_producto($loteProducto);
-                        //Resgitro Producto Usado
-                        $lote_producto_usados = new Lote_producto_usadosDTO();
-                        $lote_producto_usados->setIdLote($loteProducto->getIdLote());
-                        $lote_producto_usados->setRunFuncionaria($rutFuncionario);
-                        $lote_producto_usados->setCantidad($cantidad - $resto_faltante);
-                        $lote_producto_usados->setFechaRetiro($fechaRetiro);
-                        $lote_producto_usados->setDestino($destino);
-
-                        $control->addLote_producto_usados($lote_producto_usados);
-                        $loteProducto->setCantidad($cantidad - $resto_faltante);
-                        //Registramos de donde se retiro el producto
-                        $lotesUtilizados[$nLotes] = $loteProducto;
-                        $nLotes++;
-                        $cantidad = $resto_faltante;
-                        $falta = true;
+                        //Registramos no disponibilidad de producto
+                        $producto = $control->getProductoByID($idProducto);
+                        $producto->setCantidad($cantidad);
+                        $productosNoDisponibles[$nProd] = $producto;
+                        $nProd++;
+                        $falta = false;
                     }
-                } else {
-                    //Registramos no disponibilidad de producto
-                    $producto = $control->getProductoByID($idProducto);
-                    $producto->setCantidad($cantidad);
-                    $productosNoDisponibles[$nProd] = $producto;
-                    $nProd++;
-                    $falta = false;
-                }
-            } while ($falta);
+                } while ($falta);
+            }
         }
 
         echo json_encode(array(
