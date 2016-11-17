@@ -48,23 +48,7 @@ $perfil = $_SESSION["idCargo"];
         <!-- Bootstrap Select-->
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/bootstrap-select/dist/css/bootstrap-select.css">
         <script type="text/javascript"charset="utf8" src="../../Files/Complementos/bootstrap-select/dist/js/bootstrap-select.js"></script>
-
-        <script type="text/css">
-            #select-categoria .bs-searchbox .form-control{
-                width: 100px; 
-            }
-
-            input[type=text] {
-                appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    height: 30px;
-    width: 200px;
-    background: #CCC;
-    color: orangered;
-            }
-        </script>
+       
     </head>
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
