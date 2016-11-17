@@ -47,7 +47,7 @@ $perfil = $_SESSION["idCargo"];
     <body>
         <?php
         if ($perfil == 1) {
-            include '../Menus/directoraSuperior.php';
+            include '../Menus/directoraSuperiorInicio.php';
         }
 //         else if ($perfil == 2) {
 //            include '../Menus/educadoraSuperior.php';
