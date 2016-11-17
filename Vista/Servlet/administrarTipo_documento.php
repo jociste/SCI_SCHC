@@ -10,32 +10,28 @@ if ($accion != null) {
         $tipo_documentos = $control->getAllTipo_documentos();
         $json = json_encode($tipo_documentos);
         echo $json;
-    } else if ($accion == "AGREGAR") {
-        $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
+    } else if ($accion == "AGREGAR") {        
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
-        $fechaCreacion = htmlspecialchars($_REQUEST['fechaCreacion']);
 
-        $object = $control->getTipo_documentoByID($idTipoDocumento);
+        $object = $control->getTipo_documentoByNombre($nombre);
         if (($object->getIdTipoDocumento() == null || $object->getIdTipoDocumento() == "")) {
-            $tipo_documento = new Tipo_documentoDTO();
-            $tipo_documento->setIdTipoDocumento($idTipoDocumento);
+            $tipo_documento = new Tipo_documentoDTO();            
             $tipo_documento->setNombre($nombre);
             $tipo_documento->setDescripcion($descripcion);
-            $tipo_documento->setFechaCreacion($fechaCreacion);
 
             $result = $control->addTipo_documento($tipo_documento);
 
             if ($result) {
                 echo json_encode(array(
                     'success' => true,
-                    'mensaje' => "Tipo_documento ingresada correctamente"
+                    'mensaje' => "Tipo documento ingresada correctamente"
                 ));
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
         } else {
-            echo json_encode(array('errorMsg' => 'El o la tipo_documento ya existe, intento nuevamente.'));
+            echo json_encode(array('errorMsg' => 'Ya existe una categoria con el nombre ingresado.'));
         }
     } else if ($accion == "BORRAR") {
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);

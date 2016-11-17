@@ -1,8 +1,10 @@
 <?php
+
 include_once 'Nucleo/ConexionMySQL.php';
 include_once '../../Modelo/Tipo_documentoDTO.php';
 
-class Tipo_documentoDAO{
+class Tipo_documentoDAO {
+
     private $conexion;
 
     public function Tipo_documentoDAO() {
@@ -11,7 +13,7 @@ class Tipo_documentoDAO{
 
     public function delete($idTipoDocumento) {
         $this->conexion->conectar();
-        $query = "DELETE FROM tipo_documento WHERE  idTipoDocumento =  ".$idTipoDocumento." ";
+        $query = "DELETE FROM tipo_documento WHERE  idTipoDocumento =  " . $idTipoDocumento . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -38,7 +40,7 @@ class Tipo_documentoDAO{
 
     public function findByID($idTipoDocumento) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM tipo_documento WHERE  idTipoDocumento =  ".$idTipoDocumento." ";
+        $query = "SELECT * FROM tipo_documento WHERE  idTipoDocumento =  " . $idTipoDocumento . " ";
         $result = $this->conexion->ejecutar($query);
         $tipo_documento = new Tipo_documentoDTO();
         while ($fila = $result->fetch_row()) {
@@ -51,9 +53,26 @@ class Tipo_documentoDAO{
         return $tipo_documento;
     }
 
+    public function findByNombre($nombre) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM tipo_documento WHERE upper(nombre) = upper(" . $nombre . ")";
+        $result = $this->conexion->ejecutar($query);
+        $tipo_documento = new Tipo_documentoDTO();
+        if ($result) {
+            while ($fila = $result->fetch_row()) {
+                $tipo_documento->setIdTipoDocumento($fila[0]);
+                $tipo_documento->setNombre($fila[1]);
+                $tipo_documento->setDescripcion($fila[2]);
+                $tipo_documento->setFechaCreacion($fila[3]);
+            }
+        }
+        $this->conexion->desconectar();
+        return $tipo_documento;
+    }
+
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM tipo_documento WHERE  upper(idTipoDocumento) LIKE upper(".$cadena.")  OR  upper(nombre) LIKE upper('".$cadena."')  OR  upper(descripcion) LIKE upper('".$cadena."')  OR  upper(fechaCreacion) LIKE upper('".$cadena."') ";
+        $query = "SELECT * FROM tipo_documento WHERE  upper(idTipoDocumento) LIKE upper(" . $cadena . ")  OR  upper(nombre) LIKE upper('" . $cadena . "')  OR  upper(descripcion) LIKE upper('" . $cadena . "')  OR  upper(fechaCreacion) LIKE upper('" . $cadena . "') ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $tipo_documentos = array();
@@ -72,8 +91,8 @@ class Tipo_documentoDAO{
 
     public function save($tipo_documento) {
         $this->conexion->conectar();
-        $query = "INSERT INTO tipo_documento (idTipoDocumento,nombre,descripcion,fechaCreacion)"
-                . " VALUES ( ".$tipo_documento->getIdTipoDocumento()." , '".$tipo_documento->getNombre()."' , '".$tipo_documento->getDescripcion()."' , '".$tipo_documento->getFechaCreacion()."' )";
+        $query = "INSERT INTO tipo_documento (nombre,descripcion,fechaCreacion)"
+                . " VALUES ('" . $tipo_documento->getNombre() . "' , '" . $tipo_documento->getDescripcion() . "' , now() )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -82,12 +101,13 @@ class Tipo_documentoDAO{
     public function update($tipo_documento) {
         $this->conexion->conectar();
         $query = "UPDATE tipo_documento SET "
-                . "  nombre = '".$tipo_documento->getNombre()."' ,"
-                . "  descripcion = '".$tipo_documento->getDescripcion()."' ,"
-                . "  fechaCreacion = '".$tipo_documento->getFechaCreacion()."' "
-                . " WHERE  idTipoDocumento =  ".$tipo_documento->getIdTipoDocumento()." ";
+                . "  nombre = '" . $tipo_documento->getNombre() . "' ,"
+                . "  descripcion = '" . $tipo_documento->getDescripcion() . "' ,"
+                . "  fechaCreacion = '" . $tipo_documento->getFechaCreacion() . "' "
+                . " WHERE  idTipoDocumento =  " . $tipo_documento->getIdTipoDocumento() . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
     }
+
 }

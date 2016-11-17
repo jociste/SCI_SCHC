@@ -92,10 +92,8 @@ $perfil = $_SESSION["idCargo"];
                         <h4>Categorias Documentos</h4>
                         <hr>
                         <div>
-                            <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarFuncionaria.php'">
-                                Agregar Categoria <i class="icon-book" ></i>
-                            </a>                            
-
+                            <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarCategoriaDocumento.php'">
+                                Agregar Categoria <i class="icon-book" ></i></a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="clearfix"></div>                           
@@ -139,7 +137,7 @@ $perfil = $_SESSION["idCargo"];
 
                                 function cargarCategorias() {
                                     $("#grid").empty();
-                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
+                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
                                     $.getJSON(
                                             url_json,
                                             function (datos) {
@@ -160,21 +158,21 @@ $perfil = $_SESSION["idCargo"];
                                     );
                                 }
 
-                                function editar(runFuncionaria) {
-                                    window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+                                function editar(idTipoDocumento) {
+                                    window.location = "editarCategoriaDocumento.php?idTipoDocumento=" + idTipoDocumento;
                                 }
 
-                                function borrarFuncionaria(runFuncionaria) {
-                                    $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea eliminar a la funcionaria del sistema?', function (r) {
+                                function borrar(idTipoDocumento) {
+                                    $.messager.confirm('Eliminar Categoria', '¿Está Segura(o) que desea eliminar la categoria del sistema?', function (r) {
                                         if (r) {
-                                            var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
+                                            var url_json = '../Servlet/administrarTipo_documento.php?accion=BORRAR&idTipoDocumento=' + idTipoDocumento;
                                             $.getJSON(
                                                     url_json,
                                                     function (datos) {
                                                         if (datos.errorMsg) {
                                                             $.messager.alert('Error', datos.errorMsg, 'error');
                                                         } else {
-                                                            window.location = "FuncionariasHistoricas.php";
+                                                            cargarCategorias();
                                                         }
                                                     }
                                             );

@@ -590,6 +590,10 @@ class SCI_SCHC {
     public function getTipo_documentoByID($idTipoDocumento) {
         return $this->tipo_documentoDAO->findByID($idTipoDocumento);
     }
+    
+    public function getTipo_documentoByNombre($nombre) {
+        return $this->tipo_documentoDAO->findByNombre($nombre);
+    }
 
     public function getTipo_documentoLikeAtrr($cadena) {
         return $this->tipo_documentoDAO->findLikeAtrr($cadena);

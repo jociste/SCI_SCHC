@@ -48,6 +48,23 @@ $perfil = $_SESSION["idCargo"];
         <!-- Bootstrap Select-->
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/bootstrap-select/dist/css/bootstrap-select.css">
         <script type="text/javascript"charset="utf8" src="../../Files/Complementos/bootstrap-select/dist/js/bootstrap-select.js"></script>
+
+        <script type="text/css">
+            #select-categoria .bs-searchbox .form-control{
+                width: 100px; 
+            }
+
+            input[type=text] {
+                appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    height: 30px;
+    width: 200px;
+    background: #CCC;
+    color: orangered;
+            }
+        </script>
     </head>
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
@@ -82,11 +99,8 @@ $perfil = $_SESSION["idCargo"];
                             <div class="span9 text-center">
                                 <form class="">
                                     <div class="input-prepend input-append">
-                                        <div class="btn-group">
-                                            <select class="selectpicker" data-live-search="true">
-                                                <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                                                <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                                                <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                                        <div class="btn-group" id="select-categoria">
+                                            <select class="selectpicker" id="idTipoDocumento" name="idTipoDocumento" data-live-search="true">
                                             </select>
                                         </div>
                                         <input class="input-block-level" placeholder="Buscar Documento en .." id="appendedPrependedDropdownButton" type="text">
@@ -172,8 +186,24 @@ $perfil = $_SESSION["idCargo"];
 
     <script>
         $(function () {
+            cargarCategorias();
+        });
 
-        })
+        function cargarCategorias() {
+            var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
+            $.getJSON(
+                    url_json,
+                    function (datos) {
+                        $("#idTipoDocumento").empty();
+                        $.each(datos, function (k, v) {
+                            var contenido = "<option data-tokens='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
+                            $("#idTipoDocumento").append(contenido);
+                        });
+                        $('.selectpicker').selectpicker('refresh');
+
+                    }
+            );
+        }
     </script>
 </body>
 </html>
