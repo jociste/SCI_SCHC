@@ -14,7 +14,6 @@ if ($accion != null) {
         $idNivel = htmlspecialchars($_REQUEST['idNivel']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
-
         $object = $control->getNivelByID($idNivel);
         if (($object->getIdNivel() == null || $object->getIdNivel() == "")) {
             $nivel = new NivelDTO();

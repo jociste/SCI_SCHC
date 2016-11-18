@@ -17,7 +17,7 @@
             <li>
                 <a>
                     <i class="icon-list" onClick="location.href = 'AdministrarCategoriasDocumentos.php'"></i>
-                    <span>Categorias</span>
+                    <span>Tipos</span>
                 </a>
             </li>          
         </ul>

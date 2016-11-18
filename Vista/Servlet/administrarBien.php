@@ -10,32 +10,63 @@ if ($accion != null) {
         $biens = $control->getAllBiens();
         $json = json_encode($biens);
         echo $json;
+    } else if ($accion == "LISTADOHABILITADOS") {
+        $biens = $control->getAllBiensHabilitados();
+        $json = json_encode($biens);
+        echo $json;
     } else if ($accion == "AGREGAR") {
-        $idBien = htmlspecialchars($_REQUEST['idBien']);
-        $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
-        $nombre = htmlspecialchars($_REQUEST['nombre']);
-        $ubicacion = htmlspecialchars($_REQUEST['ubicacion']);
-
-        $object = $control->getBienByID($idBien);
-        if (($object->getIdBien() == null || $object->getIdBien() == "")) {
-            $bien = new BienDTO();
-            $bien->setIdBien($idBien);
-            $bien->setIdCategoria($idCategoria);
-            $bien->setNombre($nombre);
-            $bien->setUbicacion($ubicacion);
-
-            $result = $control->addBien($bien);
-
-            if ($result) {
-                echo json_encode(array(
-                    'success' => true,
-                    'mensaje' => "Bien ingresada correctamente"
-                ));
-            } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
-            }
+        $idNivel = htmlspecialchars($_REQUEST['idNivel']);
+        $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
+        //Agregar Bien
+        $idCategoria = 5;
+        $nombre = htmlspecialchars($_REQUEST['nombreBien']);
+        $ObjetoNivel = $control->getNivelByID($idNivel);
+        $ubicacion = $ObjetoNivel->getNombre();
+        $idBien = $control->BuscaMaximoIdBien();
+        $bien = new BienDTO();
+        $bien->setIdBien($idBien);
+        $bien->setIdCategoria($idCategoria);
+        $bien->setNombre($nombre);
+        $bien->setUbicacion($ubicacion);
+        $resultBien = $control->addBien($bien);
+        //Comprobante
+        $numeroComprobante = htmlspecialchars($_REQUEST['numeroBoleta']);
+        $proveedor = htmlspecialchars($_REQUEST['proveedor']);
+        $fechaComprobante = htmlspecialchars($_REQUEST['fechaIngreso']);
+        $idRegistro = $control->BuscaMaximoIdRegistro();
+        $comprobante = new ComprobanteDTO();
+        $comprobante->setIdRegistro($idRegistro);
+        $comprobante->setIdBien($idBien);
+        $comprobante->setNumeroComprobante($numeroComprobante);
+        $comprobante->setProveedor($proveedor);
+        $comprobante->setFechaComprobante($fechaComprobante);
+        $resultComprobante = $control->addComprobante($comprobante);
+        //detalle del comprobante
+        $descripcion = htmlspecialchars($_REQUEST['descripcion']);
+        $cantidad = htmlspecialchars($_REQUEST['cantidad']);
+        $precio = htmlspecialchars($_REQUEST['precio']);
+        $detalle_comprobante = new Detalle_comprobanteDTO();
+        $detalle_comprobante->setIdRegistro($idRegistro);
+        $detalle_comprobante->setDescripcion($descripcion);
+        $detalle_comprobante->setCantidad($cantidad);
+        $detalle_comprobante->setPrecio($precio);
+        $resultDetalleComprobante = $control->addDetalle_comprobante($detalle_comprobante);
+        //Nivel-Bien
+        $idNivelBien = $control->BuscaMaximoIdNivelBien();
+        $bien_nivel = new Bien_nivelDTO();
+        $bien_nivel->setIdNivelBien($idNivelBien);       
+        $bien_nivel->setIdNivel($idNivel);
+        $bien_nivel->setIdBien($idBien);
+        $bien_nivel->setFechaInicio($fechaInicio);
+        $bien_nivel->setFechaTermino('0000-00-00');
+        $resultNivel = $control->addBien_nivel($bien_nivel);
+        if ($resultBien && $resultComprobante && $resultDetalleComprobante && $resultNivel) {
+            echo json_encode(array(
+                'success' => true,
+                'mensaje' => "Bien ingresado correctamente."
+            ));
         } else {
-            echo json_encode(array('errorMsg' => 'El o la bien ya existe, intento nuevamente.'));
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
     } else if ($accion == "BORRAR") {
         $idBien = htmlspecialchars($_REQUEST['idBien']);
@@ -63,11 +94,11 @@ if ($accion != null) {
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $ubicacion = htmlspecialchars($_REQUEST['ubicacion']);
 
-            $bien = new BienDTO();
-            $bien->setIdBien($idBien);
-            $bien->setIdCategoria($idCategoria);
-            $bien->setNombre($nombre);
-            $bien->setUbicacion($ubicacion);
+        $bien = new BienDTO();
+        $bien->setIdBien($idBien);
+        $bien->setIdCategoria($idCategoria);
+        $bien->setNombre($nombre);
+        $bien->setUbicacion($ubicacion);
 
         $result = $control->updateBien($bien);
         if ($result) {

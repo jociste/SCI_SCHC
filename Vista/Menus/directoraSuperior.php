@@ -42,7 +42,7 @@ $sexo = $_SESSION["sexo"];
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-folder-open"></i>&nbsp;Documentos</a>
                         <ul class="dropdown-menu messages">
-                            <li><a href="AdministrarCategoriasDocumentos.php">Agregar Tipo Documento</a></li>
+                            <li><a href="AdministrarCategoriasDocumentos.php">Administrar Tipo Documentos</a></li>
                             <li><a href="AdministrarDocumentos.php">Gestionar Documentos</a></li>
                         </ul>
                     </li>

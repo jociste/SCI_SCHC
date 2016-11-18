@@ -52,11 +52,12 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
+//        else if ($perfil == 2) {
+//            include '../Menus/educadoraSuperior.php';
+//        } else if ($perfil == 3) {
+//            include '../Menus/apoderadoSuperior.php';
+//        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -89,55 +90,73 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
-                        <hr><div class="row-fluid" style="align-content: center">
+                        <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
                                     <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
 
                                         <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Agregar Nuevo Bien</h4> 
+                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Agregar Bien</h4> 
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="numeroBoleta">Número Boleta</label>
+                                            <label class="control-label" for="numeroBoleta">Número Boleta *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="numeroBoleta" name="numeroBoleta" type="text" placeholder="Numero Boleta" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="nombreBien">Nombre Bien</label>
+                                            <label class="control-label" for="nombreBien">Nombre del Bien *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="nombreBien" name="nombreBien" type="text" placeholder="Nombre Bien" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="cantidad">Cantidad</label>
+                                            <label class="control-label" for="descripcion">Descripción del Bien *</label>
+                                            <div class="controls">
+                                                <input class="input-xlarge focused" id="descripcion" name="descripcion" type="text" placeholder="descripcion" required>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="cantidad">Cantidad *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="cantidad" name="cantidad" type="number" placeholder="Cantidad" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="proveedor">Proveedor</label>
+                                            <label class="control-label" for="proveedor">Proveedor *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="proveedor" name="proveedor" type="text" placeholder="Proveedor" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="Precio">Precio</label>
+                                            <label class="control-label" for="precio">Precio *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="Precio" name="Precio" type="date" placeholder="Precio" required>
+                                                <input class="input-xlarge focused" id="precio" name="precio" type="number" placeholder="Precio" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaIngreso">Fecha Ingreso</label>
+                                            <label class="control-label" for="fechaIngreso">Fecha Compra *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
                                             </div>
                                         </div>
+
                                         <div class="control-group">
-                                            <label class="control-label" for="ubicacion">Ubicación</label>
+                                            <label class="control-label" for="idNivel">Ubicación en Nivel *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="ubicacion" name="ubicacion" type="date" placeholder="ubicacion" required>
+                                                <select  class="input-xlarge focused" id="idNivel" name="idNivel" required style="height: 32px; width: 286px">
+                                                    <option value="-1">Seleccionar...</option>
+                                                </select>
                                             </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="fechaInicio">Fecha Incorporación en nivel *</label>
+                                            <div class="controls">
+                                                <input type="date" class="input-xlarge" id="fechaInicio" name="fechaInicio">
+                                            </div>
+                                        </div>
+                                        <div class="controls">
+                                            (*) campos Obligatorios
                                         </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
@@ -170,20 +189,18 @@ $perfil = $_SESSION["idCargo"];
 
         <script>
                                                 $(function () {
-                                                    
-                                                });                                               
+                                                    cargarNiveles();
+                                                });
 
                                                 function guardar() {
                                                     document.getElementById("accion").value = "AGREGAR";
                                                     if (validar()) {
-                                                        console.log("validado");
                                                         $('#fm-Categoria').form('submit', {
-                                                            url: "../Servlet/administrarLote_producto.php",
+                                                            url: "../Servlet/administrarBien.php",
                                                             onSubmit: function () {
                                                                 return $(this).form('validate');
                                                             },
                                                             success: function (result) {
-                                                                console.log(result);
                                                                 var result = eval('(' + result + ')');
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
@@ -192,47 +209,69 @@ $perfil = $_SESSION["idCargo"];
                                                                         title: 'Aviso',
                                                                         msg: result.mensaje
                                                                     });
-                                                                    window.location = "AdministrarLotesProducto.php";
+                                                                    window.location = "AdministrarBienes.php";
                                                                 }
                                                             }
                                                         });
                                                     }
 
                                                 }
-                                                
+
                                                 function validar() {
                                                     var numeroBoleta = document.getElementById("numeroBoleta").value;
-                                                    var idProducto = document.getElementById("idProducto").value;
+                                                    var nombreBien = document.getElementById("nombreBien").value;
                                                     var cantidad = document.getElementById("cantidad").value;
                                                     var proveedor = document.getElementById("proveedor").value;
-                                                    var fechaVencimiento = document.getElementById("fechaVencimiento").value;
+                                                    var precio = document.getElementById("precio").value;
                                                     var fechaIngreso = document.getElementById("fechaIngreso").value;
-                                                    
-                                                    if(numeroBoleta == ""){
+                                                    var idNivel = document.getElementById("idNivel").value;
+                                                    var descripcion = document.getElementById("descripcion").value;
+                                                    if (numeroBoleta == "") {
                                                         $.messager.alert('Error', "Debe ingresar un numero de boleta");
                                                         return false;
                                                     }
-                                                    if(idProducto == -1){
-                                                        $.messager.alert('Error', "Debe seleccionar un producto");
+                                                    if (descripcion == "") {
+                                                        $.messager.alert('Error', "Debe ingresar la descripcion del bien");
                                                         return false;
                                                     }
-                                                    if(cantidad == ""){
+                                                    if (nombreBien == "") {
+                                                        $.messager.alert('Error', "Debe ingresar el nombre del bien");
+                                                        return false;
+                                                    }
+                                                    if (cantidad == "") {
                                                         $.messager.alert('Error', "Debe ingresar una cantidad");
                                                         return false;
                                                     }
-                                                    if(proveedor == ""){
+                                                    if (proveedor == "") {
                                                         $.messager.alert('Error', "Debe ingresar un proveedor");
                                                         return false;
                                                     }
-                                                    if(fechaVencimiento == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una fecha de vencimiento");
+                                                    if (idNivel == "") {
+                                                        $.messager.alert('Error', "Debe ingresar la ubicación que tendra el bien");
                                                         return false;
                                                     }
-                                                    if(fechaIngreso == ""){
-                                                        $.messager.alert('Error', "Debe ingresar una fecha de ingreso");
+                                                    if (fechaIngreso == "") {
+                                                        $.messager.alert('Error', "Debe ingresar la fecha de ingreso del bien");
+                                                        return false;
+                                                    }
+                                                    if (precio == "") {
+                                                        $.messager.alert('Error', "Debe ingresar el precio del bien");
                                                         return false;
                                                     }
                                                     return true;
+                                                }
+
+                                                function cargarNiveles() {
+                                                    var url_json = '../Servlet/administrarNivel.php?accion=LISTADO';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var contenido = "<option value='" + v.idNivel + "'>" + v.nombre + "</option>";
+                                                                    $("#idNivel").append(contenido);
+                                                                });
+                                                            }
+                                                    );
                                                 }
         </script>
     </body>

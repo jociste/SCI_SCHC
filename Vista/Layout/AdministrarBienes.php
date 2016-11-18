@@ -159,20 +159,20 @@ $perfil = $_SESSION["idCargo"];
                                             });
 
                                             function cargarLotes() {
-                                                var url_json = '../Servlet/administrarBien_nivel.php?accion=LISTADO';
+                                                var url_json = '../Servlet/administrarBien.php?accion=LISTADOHABILITADOS';
                                                 $.getJSON(
                                                         url_json,
                                                         function (datos) {
                                                             $.each(datos, function (k, v) {
                                                                 var contenido = "<tr>";
-                                                                contenido += "<td>" + v.numeroBoleta + "</td>";
+                                                                contenido += "<td>" + v.numeroComprobante + "</td>";
                                                                 contenido += "<td>" + v.proveedor + "</td>";
-                                                                contenido += "<td>" + v.fechaIngreso + "</td>";
+                                                                contenido += "<td>" + v.fechaComprobante + "</td>";
                                                                 contenido += "<td>" + v.nombre + "</td>";
                                                                 contenido += "<td>" + v.precio + "</td>";
                                                                 contenido += "<td>";
                                                                 contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idBien + ")'></button>";
-                                                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='darDeBaja(" + v.idBien + ")'></button>";
+//                                                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='darDeBaja(" + v.idBien + ")'></button>";
                                                                 contenido += "</td>";
                                                                 contenido += "</tr>";
                                                                 $("#tablaLotes").append(contenido);
@@ -181,31 +181,31 @@ $perfil = $_SESSION["idCargo"];
                                                         }
                                                 );
                                             }
-                                            function editar(idBien) {
-                                              window.location = "editarBien.php?idBien=" + idBien;
-                                            }
-
-                                            function darDeBaja(idBien) {
-                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
-                                                    if (r) {
-                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idBien=' + idBien;
-                                                        $.getJSON(
-                                                                url_json,
-                                                                function (datos) {
-                                                                    if (datos.errorMsg) {
-                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
-                                                                    } else {
-                                                                        $.messager.show({
-                                                                            title: 'Aviso',
-                                                                            msg: datos.mensaje
-                                                                        });
-                                                                        cargarLotes();
-                                                                    }
-                                                                }
-                                                        );
-                                                    }
-                                                });
-                                            }
+//                                            function editar(idBien) {
+//                                              window.location = "editarBien.php?idBien=" + idBien;
+//                                            }
+//
+//                                            function darDeBaja(idBien) {
+//                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
+//                                                    if (r) {
+//                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idBien=' + idBien;
+//                                                        $.getJSON(
+//                                                                url_json,
+//                                                                function (datos) {
+//                                                                    if (datos.errorMsg) {
+//                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
+//                                                                    } else {
+//                                                                        $.messager.show({
+//                                                                            title: 'Aviso',
+//                                                                            msg: datos.mensaje
+//                                                                        });
+//                                                                        cargarLotes();
+//                                                                    }
+//                                                                }
+//                                                        );
+//                                                    }
+//                                                });
+//                                            }
     </script>
 </body>
 </html>

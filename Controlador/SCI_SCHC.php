@@ -101,6 +101,9 @@ class SCI_SCHC {
     public function getAllBiens() {
         return $this->bienDAO->findAll();
     }
+     public function getAllBiensHabilitados() {
+        return $this->bienDAO->findAllHabilitados();
+    }
 
     public function addBien($bien) {
         return $this->bienDAO->save($bien);
@@ -453,7 +456,16 @@ class SCI_SCHC {
 
     public function getNivelByID($idNivel) {
         return $this->nivelDAO->findByID($idNivel);
-    }   
+    }
+    public function BuscaMaximoIdBien() {
+        return $this->bienDAO->BuscaMaximoIdBien();
+    }  
+     public function BuscaMaximoIdRegistro() {
+        return $this->comprobanteDAO->BuscaMaximoIdRegistro();
+    } 
+     public function BuscaMaximoIdNivelBien() {
+        return $this->bien_nivelDAO->BuscaMaximoIdNivelBien();
+    } 
     
     public function getNivelLikeAtrr($cadena) {
         return $this->nivelDAO->findLikeAtrr($cadena);

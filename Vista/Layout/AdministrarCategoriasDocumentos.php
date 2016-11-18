@@ -89,11 +89,11 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >                           
-                        <h4>Categorias Documentos</h4>
+                        <h4>Tipo de Documento</h4>
                         <hr>
                         <div>
-                            <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarCategoriaDocumento.php'">
-                                Agregar Categoria <i class="icon-book" ></i></a>
+                            <a class="btn btn-success  btn-block" style="width: 230px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarCategoriaDocumento.php'">
+                                Agregar Tipo de Documento <i class="icon-book" ></i></a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="clearfix"></div>                           

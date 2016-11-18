@@ -54,6 +54,17 @@ class Bien_nivelDAO {
         return $bien_nivels;
     }
 
+        public function BuscaMaximoIdNivelBien() {
+        $this->conexion->conectar();
+        $query = "select max(idNivelBien)+1 FROM bien_nivel";
+        $result = $this->conexion->ejecutar($query);
+        $IdNivelBien = 0;
+        while ($fila = $result->fetch_row()) {
+            $IdNivelBien = $fila[0];
+        }
+        $this->conexion->desconectar();
+        return $IdNivelBien;
+    }
     public function findByID($idBien) {
         $this->conexion->conectar();
         $query = "SELECT * FROM bien_nivel WHERE  idBien =  " . $idBien . " ";
@@ -91,7 +102,7 @@ class Bien_nivelDAO {
     public function save($bien_nivel) {
         $this->conexion->conectar();
         $query = "INSERT INTO bien_nivel (idNivel,idBien,fechaInicio,fechaTermino)"
-                . " VALUES ( " . $bien_nivel->getIdNivel() . " ,  " . $bien_nivel->getIdBien() . " , " . $bien_nivel->getFechaInicio() . " , " . $bien_nivel->getFechaTermino() . " )";
+                . " VALUES ( " . $bien_nivel->getIdNivel() . " ,  " . $bien_nivel->getIdBien() . " , '" . $bien_nivel->getFechaInicio() . "' , '" . $bien_nivel->getFechaTermino() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
