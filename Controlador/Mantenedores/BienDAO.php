@@ -94,14 +94,34 @@ class BienDAO{
 
     public function findByID($idBien) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM bien WHERE  idBien =  ".$idBien." ";
+        $query = "SELECT bn.idNivelBien, ni.idNivel, b.idBien, bn.fechaInicio, bn.fechaTermino, c.idCategoria, b.nombre, b.ubicacion, co.idRegistro, 
+        co.numeroComprobante, co.proveedor, co.fechaComprobante, de.descripcion, de.cantidad, de.precio, c.nombre, ni.nombre 
+        FROM bien as b JOIN bien_nivel as bn on b.idBien = bn.idBien 
+        JOIN categoria c ON c.idCategoria = b.idCategoria 
+        JOIN comprobante as co ON co.idBien = b.idBien
+        JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
+        JOIN nivel as ni ON ni.idNivel = bn.idNivel
+        WHERE b.idBien = ".$idBien;
         $result = $this->conexion->ejecutar($query);
-        $bien = new BienDTO();
-        while ($fila = $result->fetch_row()) {
-            $bien->setIdBien($fila[0]);
-            $bien->setIdCategoria($fila[1]);
-            $bien->setNombre($fila[2]);
-            $bien->setUbicacion($fila[3]);
+           $bien = new BienDTO();
+        while ($fila = $result->fetch_row()) {         
+            $bien->setIdNivelBien($fila[0]);
+            $bien->setIdNivel($fila[1]);
+            $bien->setIdBien($fila[2]);
+            $bien->setFechaInicio($fila[3]);            
+            $bien->setFechaTermino($fila[4]);
+            $bien->setIdCategoria($fila[5]);
+            $bien->setNombre($fila[6]);
+            $bien->setUbicacion($fila[7]);
+            $bien->setIdRegistro($fila[8]);            
+            $bien->setNumeroComprobante($fila[9]);
+            $bien->setProveedor($fila[10]);
+            $bien->setFechaComprobante($fila[11]);
+            $bien->setDescripcion($fila[12]);
+            $bien->setCantidad($fila[13]);            
+            $bien->setPrecio($fila[14]);
+            $bien->setNombreCategoria($fila[15]);
+            $bien->setNombreNivel($fila[16]);
         }
         $this->conexion->desconectar();
         return $bien;

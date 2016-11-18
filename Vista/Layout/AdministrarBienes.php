@@ -181,9 +181,9 @@ $perfil = $_SESSION["idCargo"];
                                                         }
                                                 );
                                             }
-//                                            function editar(idBien) {
-//                                              window.location = "editarBien.php?idBien=" + idBien;
-//                                            }
+                                            function editar(idBien) {
+                                              window.location = "editarBien.php?idBien=" + idBien;
+                                            }
 //
 //                                            function darDeBaja(idBien) {
 //                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {

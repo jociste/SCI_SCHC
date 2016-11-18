@@ -84,7 +84,6 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
         $idBien = htmlspecialchars($_REQUEST['idBien']);
-
         $bien = $control->getBienByID($idBien);
         $json = json_encode($bien);
         echo $json;
