@@ -1,10 +1,31 @@
 <?php
 ob_start(); //Iniciar Buffer
+
+include_once '../../Controlador/SCI_SCHC.php';
+$control = SCI_SCHC::getInstancia();
+
+$codigoEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['codigoEstablecimiento']));
+$nombreEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['nombreEstablecimiento']));
+$direccionCalleEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['direccionCalleEstablecimiento']));
+$direccionNumeroEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['direccionNumeroEstablecimiento']));
+$ciudadEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['ciudadEstablecimiento']));
+$regionEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['regionEstablecimiento']));
+$telefonoEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['telefonoEstablecimiento']));
+$emailEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['emailEstablecimiento']));
+
+$nombreEntidadAdministradora = utf8_decode(htmlspecialchars($_REQUEST['nombreEntidadAdministradora']));
+$rutEntidadAdministradora = utf8_decode(htmlspecialchars($_REQUEST['rutEntidadAdministradora']));
+$provinciaEntidadAdministradora = utf8_decode(htmlspecialchars($_REQUEST['provinciaEntidadAdministradora']));
+$regionEntidadAdministradora = utf8_decode(htmlspecialchars($_REQUEST['regionEntidadAdministradora']));
+$representanteLegal = utf8_decode(htmlspecialchars($_REQUEST['representanteLegal']));
+$rutRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['rutRepresentanteLegal']));
+$telefonoRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']));
+$emailRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['emailRepresentanteLegal']));
+
+
 ?>
 <html>
     <head>
-        
-        <script src="../../Files/js/jquery.js"></script>
         <style type="text/css">
             body{
                 //font-family: Calibri;
@@ -155,11 +176,11 @@ ob_start(); //Iniciar Buffer
         <div>
             <table class="table">
                 <tr><td class="td-borde alto-xm" colspan="5">2.- IDENTIFICACI&Oacute;N DEL ESTABLECIMIENTO</td></tr>
-                <tr><td class="td-borde alto-xm ancho-137mm" colspan="4"><?php echo "javier"; ?></td><td class="td-borde alto-xm ancho-56mm"></td></tr>
+                <tr><td class="td-borde alto-xm ancho-137mm center" colspan="4"><?= $nombreEstablecimiento ?></td><td class="td-borde alto-xm ancho-56mm center"><?= $codigoEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-137mm" colspan="4" align="center">Nombre del Establecimiento</td><td class="td-borde fondo alto-xs ancho-56mm" align="center">C&oacute;digo del Establecimiento</td></tr>
-                <tr><td class="td-borde alto-xm ancho-94mm" colspan="2"></td><td class="td-borde alto-xm ancho-30mm"></td><td class="td-borde alto-xm ancho-69mm" colspan="2"></td></tr>
+                <tr><td class="td-borde alto-xm ancho-94mm center" colspan="2"><?= $direccionCalleEstablecimiento ?></td><td class="td-borde alto-xm ancho-30mm center"><?= $direccionNumeroEstablecimiento ?></td><td class="td-borde alto-xm ancho-69mm center" colspan="2"><?= $ciudadEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-94mm" colspan="2" align="center">Calle</td><td class="td-borde fondo alto-xs ancho-30mm" align="center">N&deg;</td><td class="td-borde fondo alto-xs ancho-69mm" colspan="2" align="center">Comuna/Localidad</td></tr>
-                <tr><td class="td-borde alto-xm ancho-62mm"></td><td class="td-borde alto-xm ancho-32mm"></td><td class="td-borde alto-xm ancho-100mm" colspan="3"></td></tr>
+                <tr><td class="td-borde alto-xm ancho-62mm center"><?= $regionEstablecimiento ?></td><td class="td-borde alto-xm ancho-32mm center"><?= $telefonoEstablecimiento ?></td><td class="td-borde alto-xm ancho-100mm center" colspan="3"><?= $emailEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-62mm" align="center">Regi&oacute;n</td><td class="td-borde fondo alto-xs ancho-32mm" align="center">Tel&eacute;fono</td><td class="td-borde fondo alto-xs ancho-100mm" colspan="3" align="center">E-Mail</td></tr>
             </table>
         </div>
@@ -167,9 +188,9 @@ ob_start(); //Iniciar Buffer
         <div>
             <table class="table">
                 <tr><td class="td-borde alto-xm" colspan="4">3.- IDENTIFICACI&Oacute;N DE LA ENTIDAD ADMINISTRADORA</td></tr>
-                <tr><td class="td-borde alto-xm ancho-94mm"></td><td class="td-borde alto-xm ancho-43mm"></td><td class="td-borde alto-xm ancho-23mm"></td><td class="td-borde alto-xm ancho-34mm"></td></tr>
+                <tr><td class="td-borde alto-xm ancho-94mm center"><?= $nombreEntidadAdministradora ?></td><td class="td-borde alto-xm ancho-43mm center"><?= $rutEntidadAdministradora ?></td><td class="td-borde alto-xm ancho-23mm center"><?= $provinciaEntidadAdministradora ?></td><td class="td-borde alto-xm ancho-34mm center"><?= $regionEntidadAdministradora ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-94mm" align="center">Nombre de la Entidad</td><td class="td-borde fondo alto-xs ancho-43mm" align="center">RUT</td><td class="td-borde fondo alto-xs ancho-23mm" align="center">Provincia</td><td class="td-borde fondo alto-xs ancho-34mm" align="center">Regi&oacute;n</td></tr>
-                <tr><td class="td-borde alto-xm ancho-94mm"></td><td class="td-borde alto-xm ancho-43mm"></td><td class="td-borde alto-xm ancho-23mm"></td><td class="td-borde alto-xm ancho-34mm"></td></tr>
+                <tr><td class="td-borde alto-xm ancho-94mm center"><?= $representanteLegal ?></td><td class="td-borde alto-xm ancho-43mm center"><?= $rutRepresentanteLegal ?></td><td class="td-borde alto-xm ancho-23mm center"><?= $telefonoRepresentanteLegal ?></td><td class="td-borde alto-xm ancho-34mm center"><?= $emailRepresentanteLegal ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-94mm" align="center">Nombre Representante Legal de la Entidad</td><td class="td-borde fondo alto-xs ancho-43mm" align="center">RUT Representante Legal</td><td class="td-borde fondo alto-xs ancho-23mm" align="center">Tel&eacute;fono</td><td class="td-borde fondo alto-xs ancho-34mm" align="center">E-Mail</td></tr>
             </table>
         </div>
@@ -235,12 +256,6 @@ ob_start(); //Iniciar Buffer
                 <tr><td class="td-borde fondo alto-xl ancho-129mm" colspan="2">7.- NOMBRE, FRIMA Y TIMBRE DE LA DIRECTORA DEL ESTABLECIMIENTO</td><td class="td-borde fondo alto-xl ancho-69mm" align="center">NOMBRE Y FIRMA DE LA ENCARGADA(O) DE LA BODEGA (en el caso de corresponder)</td></tr>
             </table>
         </div>
-
-        <script>
-            $(function () {
-                //$("#nombreEstablecimiento").html("JAVIER");
-            })
-        </script>
     </body>
 </html>
 <?php
@@ -253,7 +268,7 @@ $mpdf = new mPDF('UTF-8', array(216, 330));
 $mpdf->allow_charset_conversion = true;
 $mpdf->charset_in = 'UTF-8';
 $mpdf->WriteHTML($html);
-$mpdf->Output('Nombre', 'I');
+$mpdf->Output('Control Flujos de Existencias', 'I');
 
 exit();
 ?>

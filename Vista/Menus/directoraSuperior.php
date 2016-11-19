@@ -28,15 +28,15 @@ $sexo = $_SESSION["sexo"];
                             <li><a href="RetirarProducto.php">Retirar Productos</a></li>
                             <li><a href="MostrarLoteProductosOrdenadosPorStock.php">Productos Bajo Stock</a></li>
                             <li><a href="MostrarLoteProductosOrdenadosPorVencer.php">Productos Por Vencer</a></li>
-                            <li><a href="#">Generar Reportes</a></li>
+                            <li><a href="AdministrarReportesProductos.php">Generar Reportes</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-folder-close"></i>&nbsp;Inventario Bienes</a>
                         <ul class="dropdown-menu messages">
                             <li><a href="AdministrarBienes.php">Bienes</a></li>
-                            <li><a href=".php">Bienes Dados De Baja</a></li>
-                            <li><a href=".php">Generar Reportes</a></li>
+                            <li><a href="#">Bienes Dados De Baja</a></li>
+                            <li><a href="#">Generar Reportes</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

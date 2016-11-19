@@ -2,7 +2,7 @@
 <?php
 session_start();
 if ($_SESSION['autentificado'] != "SI") {
-    header("Location: ../../../index.php");
+    header("Location: ../../index.php");
 }
 $perfil = $_SESSION["idCargo"];
 ?>
@@ -89,39 +89,149 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                        <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-                            <!-- AQUI VA EL MENU INTERIOR-->
-                            <?php
-                            if ($perfil == 1) {
-                                include '../Menus/directoraMenuInteriorProductos.php';
-                            }
-                            ?>
-                            <!-- FIN MENU INTERIOR-->
-                            <hr>
-                            <h4>Detalle de productos usados</h4>
-
-                            <div class="table-responsive">
-                                <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    <thead>
-                                        <tr>
-<!--                                            <th></th> -->
-                                            <th>Fecha Retiro</th> 
-                                            <th>Destino</th> 
-                                            <th>Retirado por</th>
-                                            <th>Nombre Producto</th>
-                                            <th>Cantidad</th>
-                                            <!--<th>Accion</th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="accion" name="accion" value="">
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+                        <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorProductos.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
+                        <hr>
+                        <div class="row-fluid" style="align-content: center">
+                            <div class="span12" style="align-content: center">
+                                <div class="row-fluid" style="align-content: center">
+                                    <div class="span12">
+                                        <form id="fm-datos-generales" class="form-horizontal well" method="POST" style="align-content: center">
+                                            <div class="row-fluid" style="align-content: center">
+                                                <div class="span12">
+                                                    <div class="form-actions" style="height: 30px;">
+                                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Reporte</h4> 
+                                                    </div>
+                                                </div>
+                                                <div class="span12">
+                                                    <div class="row-fluid" style="align-content: center">
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="codigoEstablecimiento">Código Establecimiento</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="codigoEstablecimiento" name="codigoEstablecimiento" type="text" placeholder="Código Establecimiento" onchange="obtenerDatosGenerales(this.value)" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="nombreEstablecimiento">Nombre Establecimiento</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="nombreEstablecimiento" name="nombreEstablecimiento" type="text" placeholder="Nombre Establecimiento" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="direccionCalleEstablecimiento">Calle</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="direccionCalleEstablecimiento" name="direccionCalleEstablecimiento" type="text" placeholder="Calle" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="direccionNumeroEstablecimiento">Numero</label>
+                                                                <div class="controls">
+                                                                    <input type="number" class="input-xlarge focused" id="direccionNumeroEstablecimiento" name="direccionNumeroEstablecimiento" placeholder="Numero" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="ciudadEstablecimiento">Ciudad Establecimiento</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="ciudadEstablecimiento" name="ciudadEstablecimiento" type="text" placeholder="Ciudad Establecimiento" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="regionEstablecimiento">Región</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="regionEstablecimiento" name="regionEstablecimiento" type="text" placeholder="Región Establecimiento" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="telefonoEstablecimiento">Teléfono</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="telefonoEstablecimiento" name="telefonoEstablecimiento" type="tel" placeholder="Teléfono" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="emailEstablecimiento">E-Mail</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="emailEstablecimiento" name="emailEstablecimiento" type="email" placeholder="E-Mail" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="nombreEntidadAdministradora">Nombre de la Entidad</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="nombreEntidadAdministradora" name="nombreEntidadAdministradora" type="text" placeholder="Nombre de la Entidad Administradora" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="rutEntidadAdministradora">Rut</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="rutEntidadAdministradora" name="rutEntidadAdministradora" type="text" placeholder="Rut Entidad Administradora" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="provinciaEntidadAdministradora">Provincia</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="provinciaEntidadAdministradora" name="provinciaEntidadAdministradora" type="text" placeholder="Provincia" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="regionEntidadAdministradora">Región</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="regionEntidadAdministradora" name="regionEntidadAdministradora" type="text" placeholder="Región" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="representanteLegal">Nombre Representante</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="representanteLegal" name="representanteLegal" type="text" placeholder="Nombre Representante Legal" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="rutRepresentanteLegal">Rut Representante</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="rutRepresentanteLegal" name="rutRepresentanteLegal" type="text" placeholder="Rut Representante Legal" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="telefonoRepresentanteLegal">Teléfono</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="telefonoRepresentanteLegal" name="telefonoRepresentanteLegal" type="tel" placeholder="Telefono Representante Legal" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="emailRepresentanteLegal">E-Mail</label>
+                                                                <div class="controls">
+                                                                    <input class="input-xlarge focused" id="emailRepresentanteLegal" name="emailRepresentanteLegal" type="email" placeholder="E-Mail Representante Legal" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span12">
+                                                    <div class="form-actions" style="width: 82%; margin-left: 0px;">
+                                                        <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
+                                                        <a onclick="reporteControlFlujoExistencia()" class="btn btn-warning"><i class="icon-group"></i>&nbsp;Control Flujo de Existencias</a>
+                                                        <a onclick="reporteInventarioBienesMuebles()" class="btn btn-info"><i class="icon-archive"></i>&nbsp;Inventario de Bienes Muebles</a>
+                                                        <input type="hidden" id="accion" name="accion" value="">
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- FIN FORMULARIO-->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
+        </div>  
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -137,59 +247,167 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
         <script>
-            $(function () {
-                cargarFuncionarias();
-            })
+                                                            $(function () {
+                                                                //cargarFuncionarias();
+                                                            })
 
-            function cargarFuncionarias() {
-                $("#tablaFuncionarias").empty();
-                var url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOS';
-                $.getJSON(
-                        url_json,
-                        function (datos) {
-                            $.each(datos, function (k, v) {
-                                var contenido = "<tr>";
-                                var nombre = v.nombres + " " + v.apellidos;
-                                contenido += "<td>" + v.fechaRetiro + "</td>";
-                                contenido += "<td>" + v.destino + "</td>";
-                                contenido += "<td>" + nombre + "</td>";
-                                contenido += "<td>" + v.nombreProducto + "</td>";
-                                contenido += "<td>" + v.cantidad + "</td>";
-                                //                                                        contenido += "<td>";
-                                ////                                                        contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-                                ////                                                        contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
-                                //                                                        contenido += "</td>";
-                                contenido += "</tr>";
-                                $("#grid").append(contenido);
-                            });
-                            $('#grid').DataTable();
-                        }
-                );
-            }
-            //
-            //                                    function editar(runFuncionaria) {
-            //                                        window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
-            //                                    }
-            //
-            //                                    function borrarFuncionaria(runFuncionaria) {
-            //                                        $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea eliminar a la funcionaria del sistema?', function (r) {
-            //                                            if (r) {
-            //                                                var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
-            //                                                $.getJSON(
-            //                                                        url_json,
-            //                                                        function (datos) {
-            //                                                            if (datos.errorMsg) {
-            //                                                                $.messager.alert('Error', datos.errorMsg, 'error');
-            //                                                            } else {
-            //                                                                window.location = "FuncionariasHistoricas.php";
-            //                                                            }
-            //                                                        }
-            //                                                );
-            //                                            } else {
-            //
-            //                                            }
-            //                                        });
-            //                                    }
+                                                            function obtenerDatosGenerales(codigoEstablecimiento) {
+                                                                var url_json = '../Servlet/administrarDatos_generales.php?accion=BUSCAR_BY_ID&codigoEstablecimiento=' + codigoEstablecimiento;
+                                                                $.getJSON(
+                                                                        url_json,
+                                                                        function (datos) {
+                                                                            document.getElementById("codigoEstablecimiento").value = datos.codigoEstablecimiento;
+                                                                            document.getElementById("nombreEstablecimiento").value = datos.nombreEstablecimiento;
+                                                                            document.getElementById("direccionCalleEstablecimiento").value = datos.direccionCalleEstablecimiento;
+                                                                            document.getElementById("direccionNumeroEstablecimiento").value = datos.direccionNumeroEstablecimiento;
+                                                                            document.getElementById("ciudadEstablecimiento").value = datos.ciudadEstablecimiento;
+                                                                            document.getElementById("regionEstablecimiento").value = datos.regionEstablecimiento;
+                                                                            document.getElementById("telefonoEstablecimiento").value = datos.telefonoEstablecimiento;
+                                                                            document.getElementById("emailEstablecimiento").value = datos.emailEstablecimiento;
+
+                                                                            document.getElementById("nombreEntidadAdministradora").value = datos.nombreEntidadAdministradora;
+                                                                            document.getElementById("rutEntidadAdministradora").value = datos.rutEntidadAdministradora;
+                                                                            document.getElementById("provinciaEntidadAdministradora").value = datos.provinciaEntidadAdministradora;
+                                                                            document.getElementById("regionEntidadAdministradora").value = datos.regionEntidadAdministradora;
+                                                                            document.getElementById("representanteLegal").value = datos.representanteLegal;
+                                                                            document.getElementById("rutRepresentanteLegal").value = datos.rutRepresentanteLegal;
+                                                                            document.getElementById("telefonoRepresentanteLegal").value = datos.telefonoRepresentanteLegal;
+                                                                            document.getElementById("emailRepresentanteLegal").value = datos.emailRepresentanteLegal;
+                                                                        }
+                                                                );
+                                                            }
+
+                                                            function guardar() {
+                                                                document.getElementById("accion").value = "AGREGAR";
+                                                                if (validar()) {
+                                                                    $('#fm-datos-generales').form('submit', {
+                                                                        url: "../Servlet/administrarDatos_generales.php",
+                                                                        onSubmit: function () {
+                                                                            return $(this).form('validate');
+                                                                        },
+                                                                        success: function (result) {
+                                                                            var result = eval('(' + result + ')');
+                                                                            if (result.errorMsg) {
+                                                                                $.messager.alert('Error', result.errorMsg);
+                                                                            } else {
+                                                                                $.messager.show({
+                                                                                    title: 'Aviso',
+                                                                                    msg: result.mensaje
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+
+                                                            function validar() {
+                                                                var codigoEstablecimiento = document.getElementById("codigoEstablecimiento").value;
+                                                                var nombreEstablecimiento = document.getElementById("nombreEstablecimiento").value;
+                                                                var direccionCalleEstablecimiento = document.getElementById("direccionCalleEstablecimiento").value;
+                                                                var direccionNumeroEstablecimiento = document.getElementById("direccionNumeroEstablecimiento").value;
+                                                                var ciudadEstablecimiento = document.getElementById("ciudadEstablecimiento").value;
+                                                                var regionEstablecimiento = document.getElementById("regionEstablecimiento").value;
+                                                                var telefonoEstablecimiento = document.getElementById("telefonoEstablecimiento").value;
+                                                                var emailEstablecimiento = document.getElementById("emailEstablecimiento").value;
+
+                                                                var nombreEntidadAdministradora = document.getElementById("nombreEntidadAdministradora").value;
+                                                                var rutEntidadAdministradora = document.getElementById("rutEntidadAdministradora").value;
+                                                                var provinciaEntidadAdministradora = document.getElementById("provinciaEntidadAdministradora").value;
+                                                                var regionEntidadAdministradora = document.getElementById("regionEntidadAdministradora").value;
+                                                                var representanteLegal = document.getElementById("representanteLegal").value;
+                                                                var rutRepresentanteLegal = document.getElementById("rutRepresentanteLegal").value;
+                                                                var telefonoRepresentanteLegal = document.getElementById("telefonoRepresentanteLegal").value;
+                                                                var emailRepresentanteLegal = document.getElementById("emailRepresentanteLegal").value;
+
+
+                                                                if (codigoEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el codigo del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (nombreEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el nombre del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (direccionCalleEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar la direccion del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (direccionNumeroEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el numero de direccion del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (isNaN(direccionNumeroEstablecimiento)) {
+                                                                    $.messager.alert('Error', "El numero de direccion del establecimiento tiene caracteres no validos.");
+                                                                    return false;
+                                                                }
+                                                                if (ciudadEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar la ciudad del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (regionEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar la región del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (telefonoEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el telefono del establecimiento.");
+                                                                    return false;
+                                                                }
+                                                                if (isNaN(telefonoEstablecimiento)) {
+                                                                    $.messager.alert('Error', "El telefono del establecimiento ingresado, tiene caracteres no validos.");
+                                                                    return false;
+                                                                }
+                                                                if (emailEstablecimiento == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el E-mail del establecimiento.");
+                                                                    return false;
+                                                                }
+
+                                                                if (nombreEntidadAdministradora == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el nombre de la entidad administradora.");
+                                                                    return false;
+                                                                }
+                                                                if (rutEntidadAdministradora == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el rut de la entidad administradora.");
+                                                                    return false;
+                                                                }
+                                                                if (provinciaEntidadAdministradora == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar la provincia de la entidad administradora.");
+                                                                    return false;
+                                                                }
+                                                                if (regionEntidadAdministradora == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar la región de la entidad administradora.");
+                                                                    return false;
+                                                                }
+                                                                if (representanteLegal == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el nombre del representante legal.");
+                                                                    return false;
+                                                                }
+                                                                if (rutRepresentanteLegal == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el rut del representante legal.");
+                                                                    return false;
+                                                                }
+                                                                if (telefonoRepresentanteLegal == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el telefono del representante legal.");
+                                                                    return false;
+                                                                }
+                                                                if (isNaN(telefonoRepresentanteLegal)) {
+                                                                    $.messager.alert('Error', "El telefono del representante legal tiene caracteres no validos.");
+                                                                    return false;
+                                                                }
+                                                                if (emailRepresentanteLegal == "") {
+                                                                    $.messager.alert('Error', "Debe ingresar el E-mail del representante legal.");
+                                                                    return false;
+                                                                }
+                                                                return true;
+                                                            }
+
+                                                            function reporteControlFlujoExistencia() {
+                                                                window.open("generarReporteControlFlujo.php?"+$("#fm-datos-generales").serialize());
+                                                            }
+                                                            
+                                                            function reporteInventarioBienesMuebles() {
+                                                                window.open("generarReporteControlFlujo.php?"+$("#fm-datos-generales").serialize());
+                                                            }
+
         </script>
     </body>
 </html>

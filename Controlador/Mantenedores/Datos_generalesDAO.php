@@ -38,8 +38,9 @@ class Datos_generalesDAO{
             $datos_generales->setProvinciaEntidadAdministradora($fila[10]);
             $datos_generales->setRegionEntidadAdministradora($fila[11]);
             $datos_generales->setRepresentanteLegal($fila[12]);
-            $datos_generales->setTelefonoRepresentanteLegal($fila[13]);
-            $datos_generales->setEmailRepresentanteLegal($fila[14]);
+            $datos_generales->setRutRepresentanteLegal($fila[13]);
+            $datos_generales->setTelefonoRepresentanteLegal($fila[14]);
+            $datos_generales->setEmailRepresentanteLegal($fila[15]);
             $datos_generaless[$i] = $datos_generales;
             $i++;
         }
@@ -66,8 +67,9 @@ class Datos_generalesDAO{
             $datos_generales->setProvinciaEntidadAdministradora($fila[10]);
             $datos_generales->setRegionEntidadAdministradora($fila[11]);
             $datos_generales->setRepresentanteLegal($fila[12]);
-            $datos_generales->setTelefonoRepresentanteLegal($fila[13]);
-            $datos_generales->setEmailRepresentanteLegal($fila[14]);
+            $datos_generales->setRutRepresentanteLegal($fila[13]);
+            $datos_generales->setTelefonoRepresentanteLegal($fila[14]);
+            $datos_generales->setEmailRepresentanteLegal($fila[15]);
         }
         $this->conexion->desconectar();
         return $datos_generales;
@@ -94,8 +96,9 @@ class Datos_generalesDAO{
             $datos_generales->setProvinciaEntidadAdministradora($fila[10]);
             $datos_generales->setRegionEntidadAdministradora($fila[11]);
             $datos_generales->setRepresentanteLegal($fila[12]);
-            $datos_generales->setTelefonoRepresentanteLegal($fila[13]);
-            $datos_generales->setEmailRepresentanteLegal($fila[14]);
+            $datos_generales->setRutRepresentanteLegal($fila[13]);
+            $datos_generales->setTelefonoRepresentanteLegal($fila[14]);
+            $datos_generales->setEmailRepresentanteLegal($fila[15]);
             $datos_generaless[$i] = $datos_generales;
             $i++;
         }
@@ -105,8 +108,8 @@ class Datos_generalesDAO{
 
     public function save($datos_generales) {
         $this->conexion->conectar();
-        $query = "INSERT INTO datos_generales (codigoEstablecimiento,nombreEstablecimiento,direccionCalleEstablecimiento,direccionNumeroEstablecimiento,ciudadEstablecimiento,regionEstablecimiento,telefonoEstablecimiento,emailEstablecimiento,nombreEntidadAdministradora,rutEntidadAdministradora,provinciaEntidadAdministradora,regionEntidadAdministradora,representanteLegal,telefonoRepresentanteLegal,emailRepresentanteLegal)"
-                . " VALUES ( ".$datos_generales->getCodigoEstablecimiento()." , '".$datos_generales->getNombreEstablecimiento()."' , '".$datos_generales->getDireccionCalleEstablecimiento()."' ,  ".$datos_generales->getDireccionNumeroEstablecimiento()." , '".$datos_generales->getCiudadEstablecimiento()."' , '".$datos_generales->getRegionEstablecimiento()."' ,  ".$datos_generales->getTelefonoEstablecimiento()." , '".$datos_generales->getEmailEstablecimiento()."' , '".$datos_generales->getNombreEntidadAdministradora()."' , '".$datos_generales->getRutEntidadAdministradora()."' , '".$datos_generales->getProvinciaEntidadAdministradora()."' , '".$datos_generales->getRegionEntidadAdministradora()."' , '".$datos_generales->getRepresentanteLegal()."' ,  ".$datos_generales->getTelefonoRepresentanteLegal()." , '".$datos_generales->getEmailRepresentanteLegal()."' )";
+        $query = "INSERT INTO datos_generales (codigoEstablecimiento,nombreEstablecimiento,direccionCalleEstablecimiento,direccionNumeroEstablecimiento,ciudadEstablecimiento,regionEstablecimiento,telefonoEstablecimiento,emailEstablecimiento,nombreEntidadAdministradora,rutEntidadAdministradora,provinciaEntidadAdministradora,regionEntidadAdministradora,representanteLegal,rutRepresentanteLegal,telefonoRepresentanteLegal,emailRepresentanteLegal)"
+                . " VALUES ( ".$datos_generales->getCodigoEstablecimiento()." , '".$datos_generales->getNombreEstablecimiento()."' , '".$datos_generales->getDireccionCalleEstablecimiento()."' ,  ".$datos_generales->getDireccionNumeroEstablecimiento()." , '".$datos_generales->getCiudadEstablecimiento()."' , '".$datos_generales->getRegionEstablecimiento()."' ,  ".$datos_generales->getTelefonoEstablecimiento()." , '".$datos_generales->getEmailEstablecimiento()."' , '".$datos_generales->getNombreEntidadAdministradora()."' , '".$datos_generales->getRutEntidadAdministradora()."' , '".$datos_generales->getProvinciaEntidadAdministradora()."' , '".$datos_generales->getRegionEntidadAdministradora()."' , '".$datos_generales->getRepresentanteLegal()."', '".$datos_generales->getRutRepresentanteLegal()."' ,  ".$datos_generales->getTelefonoRepresentanteLegal()." , '".$datos_generales->getEmailRepresentanteLegal()."' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -127,6 +130,7 @@ class Datos_generalesDAO{
                 . "  provinciaEntidadAdministradora = '".$datos_generales->getProvinciaEntidadAdministradora()."' ,"
                 . "  regionEntidadAdministradora = '".$datos_generales->getRegionEntidadAdministradora()."' ,"
                 . "  representanteLegal = '".$datos_generales->getRepresentanteLegal()."' ,"
+                . "  rutRepresentanteLegal = '".$datos_generales->getRutRepresentanteLegal()."' ,"
                 . "  telefonoRepresentanteLegal =  ".$datos_generales->getTelefonoRepresentanteLegal()." ,"
                 . "  emailRepresentanteLegal = '".$datos_generales->getEmailRepresentanteLegal()."' "
                 . " WHERE  codigoEstablecimiento =  ".$datos_generales->getCodigoEstablecimiento()." ";

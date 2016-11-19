@@ -24,11 +24,12 @@ if ($accion != null) {
         $provinciaEntidadAdministradora = htmlspecialchars($_REQUEST['provinciaEntidadAdministradora']);
         $regionEntidadAdministradora = htmlspecialchars($_REQUEST['regionEntidadAdministradora']);
         $representanteLegal = htmlspecialchars($_REQUEST['representanteLegal']);
+        $rutRepresentanteLegal = htmlspecialchars($_REQUEST['rutRepresentanteLegal']);
         $telefonoRepresentanteLegal = htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']);
         $emailRepresentanteLegal = htmlspecialchars($_REQUEST['emailRepresentanteLegal']);
 
-        $object = $control->getDatos_generalesByID($codigoEstablecimiento);
-        if (($object->getCodigoEstablecimiento() == null || $object->getCodigoEstablecimiento() == "")) {
+        $datos_generales = $control->getDatos_generalesByID($codigoEstablecimiento);
+        if (($datos_generales->getCodigoEstablecimiento() == null || $datos_generales->getCodigoEstablecimiento() == "")) {
             $datos_generales = new Datos_generalesDTO();
             $datos_generales->setCodigoEstablecimiento($codigoEstablecimiento);
             $datos_generales->setNombreEstablecimiento($nombreEstablecimiento);
@@ -43,6 +44,7 @@ if ($accion != null) {
             $datos_generales->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
             $datos_generales->setRegionEntidadAdministradora($regionEntidadAdministradora);
             $datos_generales->setRepresentanteLegal($representanteLegal);
+            $datos_generales->setRutRepresentanteLegal($rutRepresentanteLegal);
             $datos_generales->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
             $datos_generales->setEmailRepresentanteLegal($emailRepresentanteLegal);
 
@@ -51,13 +53,38 @@ if ($accion != null) {
             if ($result) {
                 echo json_encode(array(
                     'success' => true,
-                    'mensaje' => "Datos_generales ingresada correctamente"
+                    'mensaje' => "Datos generales ingresada correctamente"
                 ));
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
         } else {
-            echo json_encode(array('errorMsg' => 'El o la datos_generales ya existe, intento nuevamente.'));
+            $datos_generales->setCodigoEstablecimiento($codigoEstablecimiento);
+            $datos_generales->setNombreEstablecimiento($nombreEstablecimiento);
+            $datos_generales->setDireccionCalleEstablecimiento($direccionCalleEstablecimiento);
+            $datos_generales->setDireccionNumeroEstablecimiento($direccionNumeroEstablecimiento);
+            $datos_generales->setCiudadEstablecimiento($ciudadEstablecimiento);
+            $datos_generales->setRegionEstablecimiento($regionEstablecimiento);
+            $datos_generales->setTelefonoEstablecimiento($telefonoEstablecimiento);
+            $datos_generales->setEmailEstablecimiento($emailEstablecimiento);
+            $datos_generales->setNombreEntidadAdministradora($nombreEntidadAdministradora);
+            $datos_generales->setRutEntidadAdministradora($rutEntidadAdministradora);
+            $datos_generales->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
+            $datos_generales->setRegionEntidadAdministradora($regionEntidadAdministradora);
+            $datos_generales->setRepresentanteLegal($representanteLegal);
+            $datos_generales->setRutRepresentanteLegal($rutRepresentanteLegal);
+            $datos_generales->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
+            $datos_generales->setEmailRepresentanteLegal($emailRepresentanteLegal);
+
+            $result = $control->updateDatos_generales($datos_generales);
+            if ($result) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Datos generales actualizada correctamente"
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
         }
     } else if ($accion == "BORRAR") {
         $codigoEstablecimiento = htmlspecialchars($_REQUEST['codigoEstablecimiento']);
@@ -93,25 +120,27 @@ if ($accion != null) {
         $provinciaEntidadAdministradora = htmlspecialchars($_REQUEST['provinciaEntidadAdministradora']);
         $regionEntidadAdministradora = htmlspecialchars($_REQUEST['regionEntidadAdministradora']);
         $representanteLegal = htmlspecialchars($_REQUEST['representanteLegal']);
+        $rutRepresentanteLegal = htmlspecialchars($_REQUEST['rutRepresentanteLegal']);
         $telefonoRepresentanteLegal = htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']);
         $emailRepresentanteLegal = htmlspecialchars($_REQUEST['emailRepresentanteLegal']);
 
-            $datos_generales = new Datos_generalesDTO();
-            $datos_generales->setCodigoEstablecimiento($codigoEstablecimiento);
-            $datos_generales->setNombreEstablecimiento($nombreEstablecimiento);
-            $datos_generales->setDireccionCalleEstablecimiento($direccionCalleEstablecimiento);
-            $datos_generales->setDireccionNumeroEstablecimiento($direccionNumeroEstablecimiento);
-            $datos_generales->setCiudadEstablecimiento($ciudadEstablecimiento);
-            $datos_generales->setRegionEstablecimiento($regionEstablecimiento);
-            $datos_generales->setTelefonoEstablecimiento($telefonoEstablecimiento);
-            $datos_generales->setEmailEstablecimiento($emailEstablecimiento);
-            $datos_generales->setNombreEntidadAdministradora($nombreEntidadAdministradora);
-            $datos_generales->setRutEntidadAdministradora($rutEntidadAdministradora);
-            $datos_generales->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
-            $datos_generales->setRegionEntidadAdministradora($regionEntidadAdministradora);
-            $datos_generales->setRepresentanteLegal($representanteLegal);
-            $datos_generales->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
-            $datos_generales->setEmailRepresentanteLegal($emailRepresentanteLegal);
+        $datos_generales = new Datos_generalesDTO();
+        $datos_generales->setCodigoEstablecimiento($codigoEstablecimiento);
+        $datos_generales->setNombreEstablecimiento($nombreEstablecimiento);
+        $datos_generales->setDireccionCalleEstablecimiento($direccionCalleEstablecimiento);
+        $datos_generales->setDireccionNumeroEstablecimiento($direccionNumeroEstablecimiento);
+        $datos_generales->setCiudadEstablecimiento($ciudadEstablecimiento);
+        $datos_generales->setRegionEstablecimiento($regionEstablecimiento);
+        $datos_generales->setTelefonoEstablecimiento($telefonoEstablecimiento);
+        $datos_generales->setEmailEstablecimiento($emailEstablecimiento);
+        $datos_generales->setNombreEntidadAdministradora($nombreEntidadAdministradora);
+        $datos_generales->setRutEntidadAdministradora($rutEntidadAdministradora);
+        $datos_generales->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
+        $datos_generales->setRegionEntidadAdministradora($regionEntidadAdministradora);
+        $datos_generales->setRepresentanteLegal($representanteLegal);
+        $datos_generales->setRutRepresentanteLegal($rutRepresentanteLegal);
+        $datos_generales->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
+        $datos_generales->setEmailRepresentanteLegal($emailRepresentanteLegal);
 
         $result = $control->updateDatos_generales($datos_generales);
         if ($result) {
