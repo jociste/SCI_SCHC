@@ -134,7 +134,7 @@ $documento = $control->getDocumentoByID($idDocumento);
                                                 <div class='media well-small'>
                                                     <a class='pull-left' href='<?= $documento->getRutaDocumento() ?>'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/<?= $documento->getFormato() ?>.png'></a>
                                                     <div class='media-body'>
-                                                        <h5 class='media-heading'><b></b><?= $documento->getNombre() ?></h5>
+                                                        <h5 class='media-heading'><a href='<?= $documento->getRutaDocumento() ?>'><b><?= $documento->getNombre() ?></b></a></h5>
                                                         <?= $documento->getTamano() ?> Mb
                                                     </div>
                                                 </div>
