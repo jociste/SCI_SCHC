@@ -92,7 +92,7 @@ class DocumentoDAO {
     public function save($documento) {
         $this->conexion->conectar();
         $query = "INSERT INTO documento (runFuncionaria,idTipoDocumento,nombre,descripcion,fechaRegistro,rutaDocumento,tamano,formato)"
-                . " VALUES ( " . $documento->getRunFuncionaria() . " ,  " . $documento->getIdTipoDocumento() . " , '" . $documento->getNombre() . "' , '" . $documento->getDescripcion() . "' , '" . $documento->getFechaRegistro() . "' , '" . $documento->getRutaDocumento() . "' ,  " . $documento->getTamano() . " , '" . $documento->getFormato() . "' )";
+                . " VALUES ( " . $documento->getRunFuncionaria() . " ,  " . $documento->getIdTipoDocumento() . " , '" . $documento->getNombre() . "' , '" . $documento->getDescripcion() . "' , '" . $documento->getFechaRegistro() . "' , '" . $documento->getRutaDocumento() . "' ,  '" . $documento->getTamano() . "' , '" . $documento->getFormato() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -107,7 +107,7 @@ class DocumentoDAO {
                 . "  descripcion = '" . $documento->getDescripcion() . "' ,"
                 . "  fechaRegistro = '" . $documento->getFechaRegistro() . "' ,"
                 . "  rutaDocumento = '" . $documento->getRutaDocumento() . "' ,"
-                . "  tamano =  " . $documento->getTamano() . ", "
+                . "  tamano =  '" . $documento->getTamano() . "', "
                 . "  formato = '" . $documento->getFormato() . "' "
                 . " WHERE  idDocumento =  " . $documento->getIdDocumento() . " ";
         $result = $this->conexion->ejecutar($query);

@@ -97,11 +97,17 @@ if ($accion != null) {
 
         /* Tamaño Archivo */
         $bytes = $_FILES['documento']['size'];
-        $megabyte = round(($bytes / 1048576));
-        $tamano = $megabyte;
+        $kilobyte = round(($bytes / 1024));
+        $megabyte = round(($bytes / 1048576),2);
+        if($megabyte >= 1) {
+            $tamano = $megabyte." Mb";
+        }else {
+            $tamano = $kilobyte." Kb";
+        }
+        
         
         if (array_key_exists(strtolower($extension), $extensionesPermitidas)) {
-            if ($tamano <= 20) {
+            if ($megabyte <= 20) {
                 if (move_uploaded_file($_FILES['documento']['tmp_name'], $rutaDocumento)) {
                     /* Registrar en la BD */
                     $documento = new DocumentoDTO();
