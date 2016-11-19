@@ -11,52 +11,145 @@ if ($accion != null) {
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "AGREGAR") {
-        $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
-        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
+        session_start();
+        $runFuncionaria = $_SESSION["run"];
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
         $fechaRegistro = htmlspecialchars($_REQUEST['fechaRegistro']);
-        $rutaDocumento = htmlspecialchars($_REQUEST['rutaDocumento']);
-        $tamano = htmlspecialchars($_REQUEST['tamano']);
 
-        $object = $control->getDocumentoByID($idDocumento);
-        if (($object->getIdDocumento() == null || $object->getIdDocumento() == "")) {
-            $documento = new DocumentoDTO();
-            $documento->setIdDocumento($idDocumento);
-            $documento->setRunFuncionaria($runFuncionaria);
-            $documento->setIdTipoDocumento($idTipoDocumento);
-            $documento->setNombre($nombre);
-            $documento->setDescripcion($descripcion);
-            $documento->setFechaRegistro($fechaRegistro);
-            $documento->setRutaDocumento($rutaDocumento);
-            $documento->setTamano($tamano);
+        /* Diferenciador nombre archivo */
+        $hoy = getdate();
+        $año = $hoy['year'];
+        $mes = $hoy['mon'];
+        $dia = $hoy['wday'];
+        $hora = $hoy['hours'];
+        $minutos = $hoy['minutes'];
+        $segundos = $hoy['seconds'];
+        $diferenciador = $año . "" . $mes . "" . $dia . "" . $hora . "" . $minutos . "" . $segundos;
 
-            $result = $control->addDocumento($documento);
+        /* Subir Archivo */
+        $tipoDocumento = $control->getTipo_documentoByID($idTipoDocumento);
+        $dir_subida = "../../Files/Documentos";
+        if (!file_exists($dir_subida)) {/* Creamos directorio si no existe */
+            mkdir($dir_subida, 0777, true);
+        }
+        $extensionesPermitidas = array(
+            "pdf" => "Pdf",
+            "txt" => "txt",
+            "xml" => "xml",
+            "xls" => "Excel",
+            "xlsx" => "Excel",
+            "xlsm" => "Excel",
+            "xlsb" => "Excel",
+            "xl" => "Excel",
+            "xla" => "Excel",
+            "xlb" => "Excel",
+            "xlc" => "Excel",
+            "xld" => "Excel",
+            "xlk" => "Excel",
+            "xll" => "Excel",
+            "xlm" => "Excel",
+            "xlsb" => "Excel",
+            "xlshtml" => "Excel",
+            "xlsm" => "Excel",
+            "xlt" => "Excel",
+            "xlv" => "Excel",
+            "xlw" => "Excel",
+            "docx" => "Word",
+            "dotx" => "Word",
+            "doc" => "Word",
+            "dot" => "Word",
+            "dotx" => "Word",
+            "dotm" => "Word",
+            "docm" => "Word",
+            "rtf" => "Word",
+            "pps" => "Power Point",
+            "ppt" => "Power Point",
+            "pptx" => "Power Point",
+            "pptm" => "Power Point",
+            "ppsx" => "Power Point",
+            "ppsm" => "Power Point",
+            "potx" => "Power Point",
+            "potm" => "Power Point",
+            "pot" => "Power Point",
+            "jpg" => "Imagen",
+            "row" => "Imagen",
+            "psd" => "Imagen",
+            "bmp" => "Imagen",
+            "tiff" => "Imagen",
+            "xcf" => "Imagen",
+            "gif" => "Imagen",
+            "png" => "Imagen",
+            "eps" => "Imagen",
+            "pcx" => "Imagen",
+            "pict" => "Imagen",
+            "dng" => "Imagen",
+            "wmp" => "Imagen",
+            "psb" => "Imagen",
+            "jp2" => "Imagen",
+            "jpeg" => "Imagen",
+            "jpge" => "Imagen"
+        );
+        $extension = split('/', $_FILES['documento']['type'])[1];
+        $rutaDocumento = $dir_subida . "/" . $tipoDocumento->getNombre() . "_" . $diferenciador . "." . $extension;
 
-            if ($result) {
-                echo json_encode(array(
-                    'success' => true,
-                    'mensaje' => "Documento ingresada correctamente"
-                ));
+        /* Tamaño Archivo */
+        $bytes = $_FILES['documento']['size'];
+        $megabyte = round(($bytes / 1048576));
+        $tamano = $megabyte;
+
+        var_dump($_FILES['documento']['type']);
+        if (array_key_exists(strtolower($extension), $extensionesPermitidas)) {
+            if ($tamano <= 20) {
+                if (move_uploaded_file($_FILES['documento']['tmp_name'], $rutaDocumento)) {
+                    /* Registrar en la BD */
+                    $documento = new DocumentoDTO();
+                    $documento->setRunFuncionaria($runFuncionaria);
+                    $documento->setIdTipoDocumento($idTipoDocumento);
+                    $documento->setNombre($nombre);
+                    $documento->setDescripcion($descripcion);
+                    $documento->setFechaRegistro($fechaRegistro);
+                    $documento->setRutaDocumento($rutaDocumento);
+                    $documento->setTamano($tamano);
+                    $documento->setFormato($extension);
+
+                    $result = $control->addDocumento($documento);
+
+                    if ($result) {
+                        echo json_encode(array(
+                            'success' => true,
+                            'mensaje' => "Documento ingresada correctamente"
+                        ));
+                    } else {
+                        unlink($rutaDocumento);
+                        echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+                    }
+                } else {
+                    echo json_encode(array('errorMsg' => 'Ocurrio un error al subir el documento.'));
+                }
             } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+                echo json_encode(array('errorMsg' => 'El tamaño del archivo no debe superar los 20 MB'));
             }
         } else {
-            echo json_encode(array('errorMsg' => 'El o la documento ya existe, intento nuevamente.'));
+            echo json_encode(array('errorMsg' => 'El documento ingresado no es un formato permitido. (contactese con el administrador)'));
         }
     } else if ($accion == "BORRAR") {
         $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
 
+        $documento = $control->getDocumentoByID($idDocumento);
         $result = $control->removeDocumento($idDocumento);
         if ($result) {
+            unlink($documento->getRutaDocumento());
             echo json_encode(array('success' => true, 'mensaje' => "Documento borrado correctamente"));
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
-        $documentos = $control->getDocumentoLikeAtrr($cadena);
+        $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
+        
+        $documentos = $control->getDocumentoLikeAtrr($cadena,$idTipoDocumento);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
@@ -75,15 +168,15 @@ if ($accion != null) {
         $rutaDocumento = htmlspecialchars($_REQUEST['rutaDocumento']);
         $tamano = htmlspecialchars($_REQUEST['tamano']);
 
-            $documento = new DocumentoDTO();
-            $documento->setIdDocumento($idDocumento);
-            $documento->setRunFuncionaria($runFuncionaria);
-            $documento->setIdTipoDocumento($idTipoDocumento);
-            $documento->setNombre($nombre);
-            $documento->setDescripcion($descripcion);
-            $documento->setFechaRegistro($fechaRegistro);
-            $documento->setRutaDocumento($rutaDocumento);
-            $documento->setTamano($tamano);
+        $documento = new DocumentoDTO();
+        $documento->setIdDocumento($idDocumento);
+        $documento->setRunFuncionaria($runFuncionaria);
+        $documento->setIdTipoDocumento($idTipoDocumento);
+        $documento->setNombre($nombre);
+        $documento->setDescripcion($descripcion);
+        $documento->setFechaRegistro($fechaRegistro);
+        $documento->setRutaDocumento($rutaDocumento);
+        $documento->setTamano($tamano);
 
         $result = $control->updateDocumento($documento);
         if ($result) {

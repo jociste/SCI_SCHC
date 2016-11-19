@@ -8,6 +8,7 @@ class DocumentoDTO {
     public $fechaRegistro;
     public $rutaDocumento;
     public $tamano;
+    public $formato;
 
     public function DocumentoDTO(){
     }
@@ -75,5 +76,12 @@ class DocumentoDTO {
     function setTamano($tamano) {
         return $this->tamano = $tamano;
     }
+    
+    function getFormato() {
+        return $this->formato;
+    }
 
+    function setFormato($formato) {
+        $this->formato = $formato;
+    }
 }

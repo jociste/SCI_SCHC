@@ -292,8 +292,8 @@ class SCI_SCHC {
         return $this->documentoDAO->findByID($idDocumento);
     }
 
-    public function getDocumentoLikeAtrr($cadena) {
-        return $this->documentoDAO->findLikeAtrr($cadena);
+    public function getDocumentoLikeAtrr($cadena,$idTipoDocumento) {
+        return $this->documentoDAO->findLikeAtrr($cadena,$idTipoDocumento);
     }
 
     public function getAllEstado_funcionarias() {
