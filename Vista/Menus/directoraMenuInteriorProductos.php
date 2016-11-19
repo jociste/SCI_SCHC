@@ -12,6 +12,6 @@
         <a href="MostrarLoteProductosOrdenadosPorVencer.php" class="btn btn-warning btn-circle btn-res"><i class="icon-warning-sign"></i>Productos por Vencer</a>
     </div> 
     <div class="span2">
-        <a href="#" class="btn btn-info btn-circle btn-res "><i class="icon-file"></i>Generar Reportes</a>
+        <a href="AdministrarReportesProductos.php" class="btn btn-info btn-circle btn-res "><i class="icon-file"></i>Generar Reportes</a>
     </div>
 </div> 

@@ -145,7 +145,7 @@ $perfil = $_SESSION["idCargo"];
                                                                 var contenido = "<div class='media well-small'>"
                                                                         + "<a class='pull-left' href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/"+v.formato+".png'></a>"
                                                                         + "<div class='media-body'>"
-                                                                        + "<h5 class='media-heading'><b>" + v.nombre + "</b></h5>" + v.descripcion + "</div></div>";
+                                                                        + "<h5 class='media-heading'><a href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><b>" + v.nombre + "</b></a></h5>" + v.descripcion + "</div></div>";
                                                                 $("#resultado-busqueda").append(contenido);
                                                             });
                                                         }
