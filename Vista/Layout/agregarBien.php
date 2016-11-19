@@ -93,11 +93,11 @@ $perfil = $_SESSION["idCargo"];
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
-
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">                                        
                                         <div class="form-actions" style="height: 30px;">
                                             <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Agregar Bien</h4> 
                                         </div>
+                                        <h5><b>Datos de la Compra del Bien</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="numeroBoleta">Número Boleta *</label>
                                             <div class="controls">
@@ -140,6 +140,7 @@ $perfil = $_SESSION["idCargo"];
                                                 <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
                                             </div>
                                         </div>
+                                       <hr> <h5><b>Datos de Asignación del Bien en la Institución</b></h5><hr>
 
                                         <div class="control-group">
                                             <label class="control-label" for="idNivel">Ubicación en Nivel *</label>

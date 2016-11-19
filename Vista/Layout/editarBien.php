@@ -5,6 +5,7 @@ if ($_SESSION['autentificado'] != "SI") {
     header("Location: ../../../index.php");
 }
 $perfil = $_SESSION["idCargo"];
+$idBien = htmlspecialchars($_REQUEST['idBien']);
 ?>
 <html lang="en">
     <head>
@@ -94,10 +95,10 @@ $perfil = $_SESSION["idCargo"];
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
                                     <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
-
                                         <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Editar Bien</h4> 
+                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%"><b>Editar Bien</b></h4> 
                                         </div>
+                                        <h5><b>Datos de la Compra del Bien</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="numeroBoleta">Número Boleta *</label>
                                             <div class="controls">
@@ -140,7 +141,7 @@ $perfil = $_SESSION["idCargo"];
                                                 <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
                                             </div>
                                         </div>
-
+                                        <hr> <h5><b>Datos de Asignación del Bien en la Institución</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="idNivel">Ubicación en Nivel *</label>
                                             <div class="controls">
@@ -163,6 +164,12 @@ $perfil = $_SESSION["idCargo"];
                                             <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
+                                        <input type="hidden" id="idBien" name="idBien" value="<?php echo $idBien; ?>">
+                                        <input type="hidden" id="idCategoria" name="idCategoria" value="">
+                                        <input type="hidden" id="idRegistro" name="idRegistro" value="">
+                                        <input type="hidden" id="idNivelBien" name="idNivelBien" value="">
+
+
                                     </form>
                                     <!-- FIN FORMULARIO-->
                                 </div>
@@ -195,25 +202,27 @@ $perfil = $_SESSION["idCargo"];
                                                 function cargar() {
                                                     var idBien = document.getElementById("idBien").value;
                                                     var url_json = '../Servlet/administrarBien.php?accion=BUSCAR_BY_ID&idBien=' + idBien;
-                                                    console.log('url_json '+url_json);
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
-                                                                document.getElementById("numeroBoleta").value = datos.numeroBoleta;
-                                                                document.getElementById("nombreBien").value = datos.nombreBien;
+                                                                document.getElementById("numeroBoleta").value = datos.numeroComprobante;
+                                                                document.getElementById("nombreBien").value = datos.nombre;
                                                                 document.getElementById("descripcion").value = datos.descripcion;
                                                                 document.getElementById("cantidad").value = datos.cantidad;
                                                                 document.getElementById("proveedor").value = datos.proveedor;
                                                                 document.getElementById("precio").value = datos.precio;
-                                                                document.getElementById("fechaComprobante").value = datos.fechaComprobante;
+                                                                document.getElementById("fechaIngreso").value = datos.fechaComprobante;
                                                                 document.getElementById("idNivel").value = datos.idNivel;
                                                                 document.getElementById("fechaInicio").value = datos.fechaInicio;
+                                                                document.getElementById("idCategoria").value = datos.idCategoria;
+                                                                document.getElementById("idRegistro").value = datos.idRegistro;
+                                                                document.getElementById("idNivelBien").value = datos.idNivelBien;
                                                             }
                                                     );
                                                 }
 
                                                 function guardar() {
-                                                    document.getElementById("accion").value = "AGREGAR";
+                                                    document.getElementById("accion").value = "ACTUALIZAR";
                                                     if (validar()) {
                                                         $('#fm-Categoria').form('submit', {
                                                             url: "../Servlet/administrarBien.php",

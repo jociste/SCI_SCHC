@@ -65,16 +65,17 @@ class Bien_nivelDAO {
         $this->conexion->desconectar();
         return $IdNivelBien;
     }
-    public function findByID($idBien) {
+    public function findByID($idNivelBien) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM bien_nivel WHERE  idBien =  " . $idBien . " ";
+        $query = "SELECT * FROM bien_nivel WHERE  idNivelBien =  " . idNivelBien . " ";
         $result = $this->conexion->ejecutar($query);
         $bien_nivel = new Bien_nivelDTO();
         while ($fila = $result->fetch_row()) {
-            $bien_nivel->setIdNivel($fila[0]);
-            $bien_nivel->setIdBien($fila[1]);
-            $bien_nivel->setFechaInicio($fila[2]);
-            $bien_nivel->setFechaTermino($fila[3]);
+            $bien_nivel->setIdNivelBien($fila[0]);
+            $bien_nivel->setIdNivel($fila[1]);
+            $bien_nivel->setIdBien($fila[2]);
+            $bien_nivel->setFechaInicio($fila[3]);
+            $bien_nivel->setFechaTermino($fila[4]);
         }
         $this->conexion->desconectar();
         return $bien_nivel;
@@ -101,8 +102,8 @@ class Bien_nivelDAO {
 
     public function save($bien_nivel) {
         $this->conexion->conectar();
-        $query = "INSERT INTO bien_nivel (idNivel,idBien,fechaInicio,fechaTermino)"
-                . " VALUES ( " . $bien_nivel->getIdNivel() . " ,  " . $bien_nivel->getIdBien() . " , '" . $bien_nivel->getFechaInicio() . "' , '" . $bien_nivel->getFechaTermino() . "' )";
+        $query = "INSERT INTO bien_nivel (idNivelBien,idNivel,idBien,fechaInicio,fechaTermino)"
+                . " VALUES ( " . $bien_nivel->getIdNivelBien() . " ,  " . $bien_nivel->getIdNivel(). " ,  " . $bien_nivel->getIdBien() . " , '" . $bien_nivel->getFechaInicio() . "' , '" . $bien_nivel->getFechaTermino() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -112,9 +113,10 @@ class Bien_nivelDAO {
         $this->conexion->conectar();
         $query = "UPDATE bien_nivel SET "
                 . "  idNivel =  " . $bien_nivel->getIdNivel() . " ,"
-                . "  fechaInicio = " . $bien_nivel->getFechaInicio() . " ,"
-                . "  fechaTermino = " . $bien_nivel->getFechaTermino() . " "
-                . " WHERE  idBien =  " . $bien_nivel->getIdBien() . " ";
+                . "  idBien =  " . $bien_nivel->getIdBien() . " ,"
+                . "  fechaInicio = '" . $bien_nivel->getFechaInicio() . "' ,"
+                . "  fechaTermino = '" . $bien_nivel->getFechaTermino() . "' "
+                . " WHERE  idNivelBien =  " . $bien_nivel->getIdNivelBien() . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

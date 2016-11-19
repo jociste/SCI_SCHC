@@ -144,8 +144,8 @@ class SCI_SCHC {
         return $this->bien_nivelDAO->update($bien_nivel);
     }
 
-    public function getBien_nivelByID($idBien) {
-        return $this->bien_nivelDAO->findByID($idBien);
+    public function getBien_nivelByID($idNivelBien) {
+        return $this->bien_nivelDAO->findByID($idNivelBien);
     }
 
     public function getBien_nivelLikeAtrr($cadena) {

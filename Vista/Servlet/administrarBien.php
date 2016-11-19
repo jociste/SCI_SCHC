@@ -54,7 +54,7 @@ if ($accion != null) {
         //Nivel-Bien
         $idNivelBien = $control->BuscaMaximoIdNivelBien();
         $bien_nivel = new Bien_nivelDTO();
-        $bien_nivel->setIdNivelBien($idNivelBien);       
+        $bien_nivel->setIdNivelBien($idNivelBien);
         $bien_nivel->setIdNivel($idNivel);
         $bien_nivel->setIdBien($idBien);
         $bien_nivel->setFechaInicio($fechaInicio);
@@ -88,22 +88,63 @@ if ($accion != null) {
         $json = json_encode($bien);
         echo $json;
     } else if ($accion == "ACTUALIZAR") {
+        //Recibir Datos
+        $idNivel = htmlspecialchars($_REQUEST['idNivel']);
         $idBien = htmlspecialchars($_REQUEST['idBien']);
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
-        $nombre = htmlspecialchars($_REQUEST['nombre']);
-        $ubicacion = htmlspecialchars($_REQUEST['ubicacion']);
+        $idRegistro = htmlspecialchars($_REQUEST['idRegistro']);
+        $idNivelBien = htmlspecialchars($_REQUEST['idNivelBien']);
 
-        $bien = new BienDTO();
-        $bien->setIdBien($idBien);
-        $bien->setIdCategoria($idCategoria);
-        $bien->setNombre($nombre);
-        $bien->setUbicacion($ubicacion);
+        $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
+        $nombre = htmlspecialchars($_REQUEST['nombreBien']);
+        $numeroComprobante = htmlspecialchars($_REQUEST['numeroBoleta']);
+        $proveedor = htmlspecialchars($_REQUEST['proveedor']);
+        $fechaComprobante = htmlspecialchars($_REQUEST['fechaIngreso']);
+        $descripcion = htmlspecialchars($_REQUEST['descripcion']);
+        $cantidad = htmlspecialchars($_REQUEST['cantidad']);
+        $precio = htmlspecialchars($_REQUEST['precio']);
+        $hoy = date('Y') . "-" . date('m') . "-" . date('d');
 
-        $result = $control->updateBien($bien);
-        if ($result) {
+        //Buscar objetos Anteriores
+        $objetoBienAnterior = $control->getBienByID($idBien);
+        $objetoBienAnterior->setNombre($nombre);
+         $ObjetoNivel = $control->getNivelByID($idNivel);
+        $ubicacion = $ObjetoNivel->getNombre();
+
+        $objetoNivelBienAnterior = $control->getBien_nivelByID($idNivelBien);
+        if ($objetoNivelBienAnterior->getIdNivel() != $idNivel) {
+            $objetoNivelBienAnterior->setFechaTermino($hoy);
+            $objetoBienAnterior->setUbicacion($ubicacion);
+
+            $idNivelBien = $control->BuscaMaximoIdNivelBien();
+            $bien_nivel = new Bien_nivelDTO();
+            $bien_nivel->setIdNivelBien($idNivelBien);
+            $bien_nivel->setIdNivel($idNivel);
+            $bien_nivel->setIdBien($idBien);
+            $bien_nivel->setFechaInicio($fechaInicio);
+            $bien_nivel->setFechaTermino('0000-00-00');
+            $resultNivelBien = $control->addBien_nivel($bien_nivel);
+        }
+        $resultBien = $control->updateBien($objetoBienAnterior);
+        //Cambiar los simples
+        $objetoComprobanteAnterior = $control->getComprobanteByID($idRegistro);
+        $objetoComprobanteAnterior->setDescripcion($descripcion);
+        $objetoComprobanteAnterior->setCantidad($cantidad);
+        $objetoComprobanteAnterior->setPrecio($precio);
+        $resultComprobante = $control->updateComprobante($objetoComprobanteAnterior);
+        $objetoDetalleComprobanteAnterior = $control->getDetalle_comprobanteByID($idRegistro);
+        $objetoDetalleComprobanteAnterior->setNumeroComprobante($numeroComprobante);
+        $objetoDetalleComprobanteAnterior->setProveedor($proveedor);
+        $objetoDetalleComprobanteAnterior->setFechaComprobante($fechaComprobante);
+        $resultDetalleComprobante = $control->updateDetalle_comprobante($objetoDetalleComprobanteAnterior);
+
+     
+        
+      
+        if ($resultBien && $resultComprobante && $resultDetalleComprobante && $resultNivel) {
             echo json_encode(array(
                 'success' => true,
-                'mensaje' => "Bien actualizada correctamente"
+                'mensaje' => "Bien ingresado correctamente."
             ));
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
