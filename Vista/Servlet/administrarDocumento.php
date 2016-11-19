@@ -36,8 +36,8 @@ if ($accion != null) {
         }
         $extensionesPermitidas = array(
             "pdf" => "Pdf",
-            "txt" => "txt",
-            "xml" => "xml",
+            "txt" => "Txt",
+            "xml" => "Xml",
             "xls" => "Excel",
             "xlsx" => "Excel",
             "xlsm" => "Excel",
@@ -91,15 +91,15 @@ if ($accion != null) {
             "jpeg" => "Imagen",
             "jpge" => "Imagen"
         );
-        $extension = split('/', $_FILES['documento']['type'])[1];
+        $aux = explode(".", $_FILES['documento']['name']);
+        $extension = $aux[count($aux)-1];
         $rutaDocumento = $dir_subida . "/" . $tipoDocumento->getNombre() . "_" . $diferenciador . "." . $extension;
 
         /* Tamaño Archivo */
         $bytes = $_FILES['documento']['size'];
         $megabyte = round(($bytes / 1048576));
         $tamano = $megabyte;
-
-        var_dump($_FILES['documento']['type']);
+        
         if (array_key_exists(strtolower($extension), $extensionesPermitidas)) {
             if ($tamano <= 20) {
                 if (move_uploaded_file($_FILES['documento']['tmp_name'], $rutaDocumento)) {
@@ -112,7 +112,7 @@ if ($accion != null) {
                     $documento->setFechaRegistro($fechaRegistro);
                     $documento->setRutaDocumento($rutaDocumento);
                     $documento->setTamano($tamano);
-                    $documento->setFormato($extension);
+                    $documento->setFormato($extensionesPermitidas[$extension]);
 
                     $result = $control->addDocumento($documento);
 
@@ -160,23 +160,16 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
-        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
         $fechaRegistro = htmlspecialchars($_REQUEST['fechaRegistro']);
-        $rutaDocumento = htmlspecialchars($_REQUEST['rutaDocumento']);
-        $tamano = htmlspecialchars($_REQUEST['tamano']);
 
-        $documento = new DocumentoDTO();
-        $documento->setIdDocumento($idDocumento);
-        $documento->setRunFuncionaria($runFuncionaria);
+        $documento = $control->getDocumentoByID($idDocumento);
         $documento->setIdTipoDocumento($idTipoDocumento);
         $documento->setNombre($nombre);
         $documento->setDescripcion($descripcion);
         $documento->setFechaRegistro($fechaRegistro);
-        $documento->setRutaDocumento($rutaDocumento);
-        $documento->setTamano($tamano);
 
         $result = $control->updateDocumento($documento);
         if ($result) {

@@ -5,7 +5,13 @@ if ($_SESSION['autentificado'] != "SI") {
     header("Location: ../../../index.php");
 }
 $perfil = $_SESSION["idCargo"];
-$idProducto = $_REQUEST["idProducto"];
+
+$idDocumento = $_REQUEST["idDocumento"];
+
+include_once '../../Controlador/SCI_SCHC.php';
+
+$control = SCI_SCHC::getInstancia();
+$documento = $control->getDocumentoByID($idDocumento);
 ?>
 <html lang="en">
     <head>
@@ -93,10 +99,16 @@ $idProducto = $_REQUEST["idProducto"];
                         <hr><div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Producto" class="form-horizontal well" style="align-content: center">
+                                    <form id="fm-documento" class="form-horizontal well" enctype="multipart/form-data" method="POST" style="align-content: center">
 
                                         <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Documentos</h4> 
+                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Documento</h4> 
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="idTipoDocumento">Categoria Documento</label>
+                                            <div class="controls">
+                                                <select class="input-xlarge focused" id="idTipoDocumento" name="idTipoDocumento" required><option value="-1">Seleccionar...</option></select>
+                                            </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="nombre">Nombre</label>
@@ -105,18 +117,36 @@ $idProducto = $_REQUEST["idProducto"];
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="idCategoria">Categoria</label>
+                                            <label class="control-label" for="descripcion">Descripción</label>
                                             <div class="controls">
-                                                <select  class="input-xlarge focused" id="idCategoria" name="idCategoria" required>                                                    
-                                                </select>
+                                                <textarea class="input-xlarge focused" id="descripcion" name="descripcion" placeholder="Descripción del documento" required></textarea>
                                             </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="fechaRegistro">Fecha Registro</label>
+                                            <div class="controls">
+                                                <input class="input-xlarge focused" id="fechaRegistro" name="fechaRegistro" type="date" required>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="documento">Documento</label>
+                                            <div class="controls">
+                                                <div class='media well-small'>
+                                                    <a class='pull-left' href='<?= $documento->getRutaDocumento() ?>'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/<?= $documento->getFormato() ?>.png'></a>
+                                                    <div class='media-body'>
+                                                        <h5 class='media-heading'><b></b><?= $documento->getNombre() ?></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarProductos.php'" class="btn">Cancelar</button>
+                                            <button type="button" onclick="borrar()" class="btn btn-danger">Eliminar</button>
+                                            <input type="hidden" id="idDocumento" name="idDocumento" value="<?= $idDocumento ?>">
+                                            <button type="button" onClick="location.href = 'AdministrarDocumentos.php'" class="btn">Cancelar</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
-                                        <input type="hidden" id="idProducto" name="idProducto" value="<?= $idProducto ?>">
                                     </form>
                                     <!-- FIN FORMULARIO-->
                                 </div>
@@ -142,32 +172,34 @@ $idProducto = $_REQUEST["idProducto"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                                                $(function () {                                                    
+                                                $(function () {
                                                     cargarCategorias();
                                                 });
-                                                
-                                                function cargarCategorias(){
-                                                    var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
+
+                                                function cargarCategorias() {
+                                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
                                                                 $.each(datos, function (k, v) {
-                                                                    var contenido = "<option value='"+v.idCategoria+"'>"+v.nombre+"</option>";
-                                                                    $("#idCategoria").append(contenido);
+                                                                    var contenido = "<option value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
+                                                                    $("#idTipoDocumento").append(contenido);
                                                                 });
                                                                 cargar();
                                                             }
                                                     );
                                                 }
-                                                function cargar(){
-                                                    var idProducto = document.getElementById("idProducto").value;
-                                                    var url_json = '../Servlet/administrarProducto.php?accion=BUSCAR_BY_ID&idProducto='+idProducto;                                                    
+                                                function cargar() {
+                                                    var idDocumento = document.getElementById("idDocumento").value;
+                                                    var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR_BY_ID&idDocumento=' + idDocumento;
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
-                                                                    document.getElementById("idProducto").value = datos.idProducto;
-                                                                    document.getElementById("nombre").value = datos.nombre;
-                                                                    document.getElementById("idCategoria").value = datos.idCategoria;
+                                                                console.log(datos);
+                                                                $("#idTipoDocumento").val(datos.idTipoDocumento);
+                                                                $("#nombre").val(datos.nombre);
+                                                                $("#descripcion").val(datos.descripcion);
+                                                                $("#fechaRegistro").val(datos.fechaRegistro);
                                                             }
                                                     );
                                                 }
@@ -175,8 +207,8 @@ $idProducto = $_REQUEST["idProducto"];
                                                 function guardar() {
                                                     document.getElementById("accion").value = "ACTUALIZAR";
                                                     if (validar()) {
-                                                        $('#fm-Producto').form('submit', {
-                                                            url: "../Servlet/administrarProducto.php",
+                                                        $('#fm-documento').form('submit', {
+                                                            url: "../Servlet/administrarDocumento.php",
                                                             onSubmit: function () {
                                                                 return $(this).form('validate');
                                                             },
@@ -189,22 +221,60 @@ $idProducto = $_REQUEST["idProducto"];
                                                                         title: 'Aviso',
                                                                         msg: result.mensaje
                                                                     });
-                                                                    window.location = "AdministrarProductos.php";
+                                                                    window.location = "AdministrarDocumentos.php";
                                                                 }
                                                             }
                                                         });
                                                     }
 
                                                 }
-                                                
+
                                                 function validar() {
+                                                    var idTipoDocumento = document.getElementById("idTipoDocumento").value;
                                                     var nombre = document.getElementById("nombre").value;
-                                                    
-                                                    if(nombre == ""){
-                                                        $.messager.alert('Error', "Debe ingresar un nombre");
+                                                    var descripcion = document.getElementById("descripcion").value;
+                                                    var fechaRegistro = document.getElementById("fechaRegistro").value;
+
+                                                    if (idTipoDocumento == -1) {
+                                                        $.messager.alert('Error', "Debe seleccionar una categoria");
+                                                        return false;
+                                                    }
+                                                    if (nombre == "") {
+                                                        $.messager.alert('Error', "Debe ingresar un nombre de documento");
+                                                        return false;
+                                                    }
+                                                    if (descripcion == "") {
+                                                        $.messager.alert('Error', "Debe ingresar una descripción del documento");
+                                                        return false;
+                                                    }
+                                                    if (fechaRegistro == "") {
+                                                        $.messager.alert('Error', "Debe ingresar la fecha de registro");
                                                         return false;
                                                     }
                                                     return true;
+                                                }
+
+                                                function borrar() {
+                                                    $.messager.confirm('Confirmar', '¿Esta seguro de eliminar el documento?', function (r) {
+                                                        if (r) {
+                                                            var idDocumento = document.getElementById("idDocumento").value;
+                                                            var url_json = '../Servlet/administrarDocumento.php?accion=BORRAR&idDocumento=' + idDocumento;
+                                                            $.getJSON(
+                                                                    url_json,
+                                                                    function (datos) {
+                                                                        if (datos.errorMsg) {
+                                                                            $.messager.alert('Error', datos.errorMsg, 'error');
+                                                                        } else {
+                                                                            $.messager.show({
+                                                                                title: 'Aviso',
+                                                                                msg: datos.mensaje
+                                                                            });
+                                                                            window.location = "AdministrarDocumentos.php";
+                                                                        }
+                                                                    }
+                                                            );
+                                                        }
+                                                    });
                                                 }
         </script>
     </body>

@@ -1,0 +1,5 @@
+# Proteger los directorios
+Options -Indexes
+
+# Aumentar limite de subida de archivos (C:\xampp\php\php.ini linea 770
+# post_max_size=20M
