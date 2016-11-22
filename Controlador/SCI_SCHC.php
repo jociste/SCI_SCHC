@@ -386,6 +386,10 @@ class SCI_SCHC {
     public function getLote_productoLikeAtrr($cadena) {
         return $this->lote_productoDAO->findLikeAtrr($cadena);
     }
+    
+    public function getLotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
+        return $this->lote_productoDAO->lotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
+    }
 
     public function getAllLote_producto_usadoss() {
         return $this->lote_producto_usadosDAO->buscarProductosUsados();
@@ -409,6 +413,10 @@ class SCI_SCHC {
 
     public function getLote_producto_usadosLikeAtrr($cadena) {
         return $this->lote_producto_usadosDAO->findLikeAtrr($cadena);
+    }
+    
+    public function getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
+        return $this->lote_producto_usadosDAO->lotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
     }
 
     public function getAllNivels() {
@@ -554,6 +562,10 @@ class SCI_SCHC {
     
     public function getProductoByNombreIdCategoria($nombre, $idCategoria) {
         return $this->productoDAO->findByNombreAndIdCategoria($nombre, $idCategoria);
+    }
+    
+    public function getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
+        return $this->productoDAO->productosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
     }
     
     public function getAllTipo_documentos() {
