@@ -131,7 +131,7 @@ class Lote_productoDAO {
         $this->conexion->desconectar();
         return $lote_producto;
     }
-
+    
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
         $query = "SELECT * FROM lote_producto WHERE  upper(idLote) LIKE upper(" . $cadena . ")  OR  upper(idProducto) LIKE upper(" . $cadena . ")  OR  upper(numeroBoleta) LIKE upper(" . $cadena . ")  OR  upper(proveedor) LIKE upper('" . $cadena . "')  OR  upper(cantidad) LIKE upper(" . $cadena . ")  OR  upper(fechaVencimiento) LIKE upper(" . $cadena . ")  OR  upper(fechaIngreso) LIKE upper(" . $cadena . ") ";
@@ -178,4 +178,28 @@ class Lote_productoDAO {
         return $result;
     }
 
+    public function lotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
+        $this->conexion->conectar();
+        $query = "SELECT lp.idLote, lp.idProducto, lp.numeroBoleta, lp.proveedor, lp.cantidad, lp.fechaVencimiento, lp.fechaIngreso, p.nombre FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY lp.idProducto, lp.fechaIngreso;";
+        $result = $this->conexion->ejecutar($query);
+        $lote_productos = array();
+        while ($fila = $result->fetch_row()) {
+            $lote_producto = new Lote_productoDTO();
+            $lote_producto->setIdLote($fila[0]);
+            $lote_producto->setIdProducto($fila[1]);
+            $lote_producto->setNumeroBoleta($fila[2]);
+            $lote_producto->setProveedor($fila[3]);
+            $lote_producto->setCantidad($fila[4]);
+            $lote_producto->setFechaVencimiento($fila[5]);
+            $lote_producto->setFechaIngreso($fila[6]);
+            $lote_producto->setNombre($fila[7]);
+
+            if (!array_key_exists($fila[1], $lote_productos)) {
+                $lote_productos[$fila[1]] = array();
+            }
+            array_push($lote_productos, $lote_producto);
+        }
+        $this->conexion->desconectar();
+        return $lote_productos;
+    }              
 }

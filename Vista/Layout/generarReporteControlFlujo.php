@@ -4,6 +4,8 @@ ob_start(); //Iniciar Buffer
 include_once '../../Controlador/SCI_SCHC.php';
 $control = SCI_SCHC::getInstancia();
 
+$idCategoria = utf8_decode(htmlspecialchars($_REQUEST['idCategoria']));
+
 $codigoEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['codigoEstablecimiento']));
 $nombreEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['nombreEstablecimiento']));
 $direccionCalleEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['direccionCalleEstablecimiento']));
@@ -22,6 +24,21 @@ $rutRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['rutRepresentant
 $telefonoRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']));
 $emailRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['emailRepresentanteLegal']));
 
+$fechaInicio = utf8_decode(htmlspecialchars($_REQUEST['fechaInicio']));
+$fechaTermino = utf8_decode(htmlspecialchars($_REQUEST['fechaTermino']));
+
+$materialesDidacticos = "X";
+$utilesSaludHigene = "";
+$materialesOficina = "";
+$utilesAseo = "";
+
+if($idCategoria == 1) {
+    
+}
+
+$productos = $control->getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
+$lotesRegistrados = $control->getLotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
+$lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 
 ?>
 <html>
@@ -168,8 +185,8 @@ $emailRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['emailRepresen
         <div>
             <table class="table">
                 <tr><td class="td-borde alto-xs" colspan="4">1.- IDENTIFICAR LA NATURALEZA DE LOS ART&Iacute;CULOS DETALLADOS (marcar con una "X")</td></tr>
-                <tr><td class="td-borde fondo alto-xl ancho-71mm">a) Materiales Did&aacute;cticos y de Ense&ntilde;anza</td><td class="td-borde alto-xl ancho-18mm"></td><td class="td-borde fondo alto-xl ancho-80mm">b) Materiales de Oficina</td><td class="td-borde alto-xl ancho-19mm"></td></tr>
-                <tr><td class="td-borde fondo alto-xl ancho-71mm">c) Materiales y &uacute;tiles de salud e higiene</td><td class="td-borde alto-xl ancho-18mm"></td><td class="td-borde fondo alto-xl ancho-80mm">d) &Uacute;tiles de aseo (Utilizados para la limpieza del recinto)</td><td class="td-borde alto-xl ancho-19mm"></td></tr>
+                <tr><td class="td-borde fondo alto-xl ancho-71mm">a) Materiales Did&aacute;cticos y de Ense&ntilde;anza</td><td class="td-borde alto-xl ancho-18mm center"><?= $materialesDidacticos ?></td><td class="td-borde fondo alto-xl ancho-80mm">b) Materiales de Oficina</td><td class="td-borde alto-xl ancho-19mm center"><?= $materialesOficina ?></td></tr>
+                <tr><td class="td-borde fondo alto-xl ancho-71mm">c) Materiales y &uacute;tiles de salud e higiene</td><td class="td-borde alto-xl ancho-18mm center"><?= $utilesSaludHigene ?></td><td class="td-borde fondo alto-xl ancho-80mm">d) &Uacute;tiles de aseo (Utilizados para la limpieza del recinto)</td><td class="td-borde alto-xl ancho-19mm center"><?= $utilesAseo ?></td></tr>
             </table>
         </div>
         <br>

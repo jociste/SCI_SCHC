@@ -128,4 +128,30 @@ class Lote_producto_usadosDAO {
         return $result;
     }
 
+    public function lotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
+        $this->conexion->conectar();
+        $query = "SELECT lpu.idLoteProductosUsados ,lpu.idLote, lpu.runFuncionaria, f.nombres,f.apellidos,lp.idProducto ,lpu.cantidad, lpu.fechaRetiro,lpu.destino FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto JOIN funcionaria f ON lpu.runFuncionaria = f.runFuncionaria WHERE p.idCategoria = " . $idCategoria . " AND lpu.fechaRetiro BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY lp.idProducto, lpu.fechaRetiro; ";
+        $result = $this->conexion->ejecutar($query);
+        $lote_productos = array();
+        while ($fila = $result->fetch_row()) {
+            $lote_producto = new Lote_producto_usadosDTO();
+            $lote_producto->setIdLoteProductosUsados($fila[0]);
+            $lote_producto->setIdLote($fila[1]);
+            $lote_producto->setRunFuncionaria($fila[2]);
+            $lote_producto->setNombres($fila[3]);
+            $lote_producto->setApellidos($fila[4]);
+            $lote_producto->setIdProducto($fila[5]);
+            $lote_producto->setCantidad($fila[6]);
+            $lote_producto->setFechaRetiro($fila[7]);
+            $lote_producto->setDestino($fila[8]);
+
+            if (!array_key_exists($fila[5], $lote_productos)) {
+                $lote_productos[$fila[5]] = array();
+            }
+            array_push($lote_productos, $lote_producto);
+        }
+        $this->conexion->desconectar();
+        return $lote_productos;
+    }
+
 }
