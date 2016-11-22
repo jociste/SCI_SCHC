@@ -293,7 +293,7 @@ $perfil = $_SESSION["idCargo"];
 
         <script>
                             $(function () {
-                                cargarDatosGenerales();
+                                //cargarDatosGenerales();
                                 cargarCategorias();
                             });
 

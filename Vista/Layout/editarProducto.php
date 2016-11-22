@@ -2,7 +2,7 @@
 <?php
 session_start();
 if ($_SESSION['autentificado'] != "SI") {
-    header("Location: ../../../index.php");
+    header("Location: ../../index.php");
 }
 $perfil = $_SESSION["idCargo"];
 $idProducto = $_REQUEST["idProducto"];
