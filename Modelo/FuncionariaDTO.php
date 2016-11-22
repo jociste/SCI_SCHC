@@ -3,7 +3,7 @@
 class FuncionariaDTO {  
     //Funcionaria
     public $runFuncionaria;
-    public $idEstado;
+    public $indicadorVigente;
     public $nombres;
     public $apellidos;
     public $fechaNacimiento;
@@ -33,12 +33,12 @@ class FuncionariaDTO {
     function getIdCargoFuncionaria() {
         return $this->idCargoFuncionaria;
     }
-    function getIdEstado() {
-        return $this->idEstado;
+    function getIndicadorVigente() {
+        return $this->indicadorVigente;
     }
 
-    function setIdEstado($idEstado) {
-        $this->idEstado = $idEstado;
+    function setIndicadorVigente($indicadorVigente) {
+        $this->indicadorVigente = $indicadorVigente;
     }
 
     

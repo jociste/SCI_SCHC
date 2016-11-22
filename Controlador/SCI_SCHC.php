@@ -9,7 +9,6 @@ include_once 'Mantenedores/ComprobanteDAO.php';
 include_once 'Mantenedores/Datos_generalesDAO.php';
 include_once 'Mantenedores/Detalle_comprobanteDAO.php';
 include_once 'Mantenedores/DocumentoDAO.php';
-include_once 'Mantenedores/Estado_funcionariaDAO.php';
 include_once 'Mantenedores/FuncionariaDAO.php';
 include_once 'Mantenedores/Funcionaria_cargoDAO.php';
 include_once 'Mantenedores/Lote_productoDAO.php';
@@ -33,7 +32,6 @@ class SCI_SCHC {
     private $datos_generalesDAO;
     private $detalle_comprobanteDAO;
     private $documentoDAO;
-    private $estado_funcionariaDAO;
     private $funcionariaDAO;
     private $funcionaria_cargoDAO;
     private $lote_productoDAO;
@@ -55,7 +53,6 @@ class SCI_SCHC {
         $this->datos_generalesDAO = new Datos_generalesDAO();
         $this->detalle_comprobanteDAO = new Detalle_comprobanteDAO();
         $this->documentoDAO = new DocumentoDAO();
-        $this->estado_funcionariaDAO = new Estado_funcionariaDAO();
         $this->funcionariaDAO = new FuncionariaDAO();
         $this->funcionaria_cargoDAO = new Funcionaria_cargoDAO();
         $this->lote_productoDAO = new Lote_productoDAO();
