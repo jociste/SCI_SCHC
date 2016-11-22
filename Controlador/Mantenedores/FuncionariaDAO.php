@@ -57,7 +57,7 @@ class FuncionariaDAO {
 
     public function findByID($runFuncionaria) {
         $this->conexion->conectar();
-        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo, F.idEstado  From funcionaria AS F where F.runFuncionaria= '".$runFuncionaria."'";
+        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo, f.indicadorVigente  From funcionaria AS F where F.runFuncionaria= '".$runFuncionaria."'";
         $result = $this->conexion->ejecutar($query);
         $funcionaria = new FuncionariaDTO();
         while ($fila = $result->fetch_row()) {
@@ -70,7 +70,7 @@ class FuncionariaDAO {
             $funcionaria->setProfesion($fila[6]);
             $funcionaria->setClave($fila[7]);
             $funcionaria->setSexo($fila[8]);
-            $funcionaria->setIdEstado($fila[9]);
+            $funcionaria->setIndicadorVigente($fila[9]);
         }
         $this->conexion->desconectar();
         return $funcionaria;
@@ -79,7 +79,7 @@ class FuncionariaDAO {
     //lO USO
     public function findHabilitados() {
         $this->conexion->conectar();
-        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo FROM funcionaria as F WHERE F.idEstado = 1 ";
+        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo FROM funcionaria as F WHERE F.indicadorVigente = 1 ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $funcionarias = array();
@@ -104,7 +104,7 @@ class FuncionariaDAO {
 //lO USO
     public function findDesHabilitados() {
         $this->conexion->conectar();
-        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo FROM funcionaria as F WHERE F.idEstado = 2";
+        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo FROM funcionaria as F WHERE F.indicadorVigente = 0";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $funcionarias = array();
@@ -152,8 +152,8 @@ class FuncionariaDAO {
 
     public function save($funcionaria) {
         $this->conexion->conectar();
-        $query = "INSERT INTO funcionaria (runFuncionaria, idEstado, clave,nombres,apellidos,fechaNacimiento,telefono,direccion,profesion,sexo)"
-                . " VALUES ( " . $funcionaria->getRunFuncionaria() . " ,  " . $funcionaria->getIdEstado() . " ,  " . $funcionaria->getClave() . " , '" . $funcionaria->getNombres() . "' , '" . $funcionaria->getApellidos() . "' , '" . $funcionaria->getFechaNacimiento() . "' ,  " . $funcionaria->getTelefono() . " , '" . $funcionaria->getDireccion() . "' , '" . $funcionaria->getProfesion() . "' , '" . $funcionaria->getSexo() . "' )";
+        $query = "INSERT INTO funcionaria (runFuncionaria, indicadorVigente, clave,nombres,apellidos,fechaNacimiento,telefono,direccion,profesion,sexo)"
+                . " VALUES ( " . $funcionaria->getRunFuncionaria() . " ,  " . $funcionaria->getIndicadorVigente() . " ,  " . $funcionaria->getClave() . " , '" . $funcionaria->getNombres() . "' , '" . $funcionaria->getApellidos() . "' , '" . $funcionaria->getFechaNacimiento() . "' ,  " . $funcionaria->getTelefono() . " , '" . $funcionaria->getDireccion() . "' , '" . $funcionaria->getProfesion() . "' , '" . $funcionaria->getSexo() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -170,7 +170,7 @@ class FuncionariaDAO {
                 . "  direccion = '" . $funcionaria->getDireccion() . "' ,"
                 . "  profesion = '" . $funcionaria->getProfesion() . "' ,"
                 . "  sexo = '" . $funcionaria->getSexo() . "', "
-                . "  idEstado = " . $funcionaria->getIdEstado() . " "
+                . "  indicadorVigente = " . $funcionaria->getIndicadorVigente() . " "
                 . " WHERE  runFuncionaria =  " . $funcionaria->getRunFuncionaria() . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();

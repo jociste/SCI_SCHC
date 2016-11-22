@@ -9,7 +9,6 @@ include_once 'Mantenedores/ComprobanteDAO.php';
 include_once 'Mantenedores/Datos_generalesDAO.php';
 include_once 'Mantenedores/Detalle_comprobanteDAO.php';
 include_once 'Mantenedores/DocumentoDAO.php';
-include_once 'Mantenedores/Estado_funcionariaDAO.php';
 include_once 'Mantenedores/FuncionariaDAO.php';
 include_once 'Mantenedores/Funcionaria_cargoDAO.php';
 include_once 'Mantenedores/Lote_productoDAO.php';
@@ -32,7 +31,6 @@ class SCI_SCHC {
     private $datos_generalesDAO;
     private $detalle_comprobanteDAO;
     private $documentoDAO;
-    private $estado_funcionariaDAO;
     private $funcionariaDAO;
     private $funcionaria_cargoDAO;
     private $lote_productoDAO;
@@ -54,7 +52,6 @@ class SCI_SCHC {
         $this->datos_generalesDAO = new Datos_generalesDAO();
         $this->detalle_comprobanteDAO = new Detalle_comprobanteDAO();
         $this->documentoDAO = new DocumentoDAO();
-        $this->estado_funcionariaDAO = new Estado_funcionariaDAO();
         $this->funcionariaDAO = new FuncionariaDAO();
         $this->funcionaria_cargoDAO = new Funcionaria_cargoDAO();
         $this->lote_productoDAO = new Lote_productoDAO();
@@ -294,30 +291,6 @@ class SCI_SCHC {
 
     public function getDocumentoLikeAtrr($cadena,$idTipoDocumento) {
         return $this->documentoDAO->findLikeAtrr($cadena,$idTipoDocumento);
-    }
-
-    public function getAllEstado_funcionarias() {
-        return $this->estado_funcionariaDAO->findAll();
-    }
-
-    public function addEstado_funcionaria($estado_funcionaria) {
-        return $this->estado_funcionariaDAO->save($estado_funcionaria);
-    }
-
-    public function removeEstado_funcionaria($idEstado) {
-        return $this->estado_funcionariaDAO->delete($idEstado);
-    }
-
-    public function updateEstado_funcionaria($estado_funcionaria) {
-        return $this->estado_funcionariaDAO->update($estado_funcionaria);
-    }
-
-    public function getEstado_funcionariaByID($idEstado) {
-        return $this->estado_funcionariaDAO->findByID($idEstado);
-    }
-
-    public function getEstado_funcionariaLikeAtrr($cadena) {
-        return $this->estado_funcionariaDAO->findLikeAtrr($cadena);
     }
 
     public function getAllFuncionarias() {
