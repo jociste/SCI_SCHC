@@ -35,6 +35,7 @@ if ($accion != null) {
         $lote_producto->setCantidad($cantidad);
         $lote_producto->setFechaVencimiento($fechaVencimiento);
         $lote_producto->setFechaIngreso($fechaIngreso);
+        $lote_producto->setStockInicial($cantidad);
         $result = $control->addLote_producto($lote_producto);
 
         if ($result) {

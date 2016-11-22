@@ -6,9 +6,10 @@ include_once 'Mantenedores/Bien_nivelDAO.php';
 include_once 'Mantenedores/CargoDAO.php';
 include_once 'Mantenedores/CategoriaDAO.php';
 include_once 'Mantenedores/ComprobanteDAO.php';
-include_once 'Mantenedores/Datos_generalesDAO.php';
 include_once 'Mantenedores/Detalle_comprobanteDAO.php';
 include_once 'Mantenedores/DocumentoDAO.php';
+include_once 'Mantenedores/Entidad_administradoraDAO.php';
+include_once 'Mantenedores/EstablecimientoDAO.php';
 include_once 'Mantenedores/FuncionariaDAO.php';
 include_once 'Mantenedores/Funcionaria_cargoDAO.php';
 include_once 'Mantenedores/Lote_productoDAO.php';
@@ -28,9 +29,10 @@ class SCI_SCHC {
     private $cargoDAO;
     private $categoriaDAO;
     private $comprobanteDAO;
-    private $datos_generalesDAO;
     private $detalle_comprobanteDAO;
     private $documentoDAO;
+    private $entidad_administradoraDAO;
+    private $establecimientoDAO;
     private $funcionariaDAO;
     private $funcionaria_cargoDAO;
     private $lote_productoDAO;
@@ -52,6 +54,8 @@ class SCI_SCHC {
         $this->datos_generalesDAO = new Datos_generalesDAO();
         $this->detalle_comprobanteDAO = new Detalle_comprobanteDAO();
         $this->documentoDAO = new DocumentoDAO();
+        $this->entidad_administradoraDAO = new Entidad_administradoraDAO();
+        $this->establecimientoDAO = new EstablecimientoDAO();
         $this->funcionariaDAO = new FuncionariaDAO();
         $this->funcionaria_cargoDAO = new Funcionaria_cargoDAO();
         $this->lote_productoDAO = new Lote_productoDAO();
@@ -220,30 +224,6 @@ class SCI_SCHC {
     public function getComprobanteLikeAtrr($cadena) {
         return $this->comprobanteDAO->findLikeAtrr($cadena);
     }
-    
-    public function getAllDatos_generaless() {
-        return $this->datos_generalesDAO->findAll();
-    }
-
-    public function addDatos_generales($datos_generales) {
-        return $this->datos_generalesDAO->save($datos_generales);
-    }
-
-    public function removeDatos_generales($codigoEstablecimiento) {
-        return $this->datos_generalesDAO->delete($codigoEstablecimiento);
-    }
-
-    public function updateDatos_generales($datos_generales) {
-        return $this->datos_generalesDAO->update($datos_generales);
-    }
-
-    public function getDatos_generalesByID($codigoEstablecimiento) {
-        return $this->datos_generalesDAO->findByID($codigoEstablecimiento);
-    }
-
-    public function getDatos_generalesLikeAtrr($cadena) {
-        return $this->datos_generalesDAO->findLikeAtrr($cadena);
-    }
 
     public function getAllDetalle_comprobantes() {
         return $this->detalle_comprobanteDAO->findAll();
@@ -291,6 +271,54 @@ class SCI_SCHC {
 
     public function getDocumentoLikeAtrr($cadena,$idTipoDocumento) {
         return $this->documentoDAO->findLikeAtrr($cadena,$idTipoDocumento);
+    }
+    
+    public function getAllEntidad_administradoras() {
+        return $this->entidad_administradoraDAO->findAll();
+    }
+
+    public function addEntidad_administradora($entidad_administradora) {
+        return $this->entidad_administradoraDAO->save($entidad_administradora);
+    }
+
+    public function removeEntidad_administradora($idEntidadAdministradora) {
+        return $this->entidad_administradoraDAO->delete($idEntidadAdministradora);
+    }
+
+    public function updateEntidad_administradora($entidad_administradora) {
+        return $this->entidad_administradoraDAO->update($entidad_administradora);
+    }
+
+    public function getEntidad_administradoraByID($idEntidadAdministradora) {
+        return $this->entidad_administradoraDAO->findByID($idEntidadAdministradora);
+    }
+
+    public function getEntidad_administradoraLikeAtrr($cadena) {
+        return $this->entidad_administradoraDAO->findLikeAtrr($cadena);
+    }
+
+    public function getAllEstablecimientos() {
+        return $this->establecimientoDAO->findAll();
+    }
+
+    public function addEstablecimiento($establecimiento) {
+        return $this->establecimientoDAO->save($establecimiento);
+    }
+
+    public function removeEstablecimiento($codigoEstablecimiento) {
+        return $this->establecimientoDAO->delete($codigoEstablecimiento);
+    }
+
+    public function updateEstablecimiento($establecimiento) {
+        return $this->establecimientoDAO->update($establecimiento);
+    }
+
+    public function getEstablecimientoByID($codigoEstablecimiento) {
+        return $this->establecimientoDAO->findByID($codigoEstablecimiento);
+    }
+
+    public function getEstablecimientoLikeAtrr($cadena) {
+        return $this->establecimientoDAO->findLikeAtrr($cadena);
     }
 
     public function getAllFuncionarias() {

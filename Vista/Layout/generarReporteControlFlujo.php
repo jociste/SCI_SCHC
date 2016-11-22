@@ -27,19 +27,24 @@ $emailRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['emailRepresen
 $fechaInicio = utf8_decode(htmlspecialchars($_REQUEST['fechaInicio']));
 $fechaTermino = utf8_decode(htmlspecialchars($_REQUEST['fechaTermino']));
 
-$materialesDidacticos = "X";
+$materialesDidacticos = "";
 $utilesSaludHigene = "";
 $materialesOficina = "";
 $utilesAseo = "";
 
-if($idCategoria == 1) {
-    
+if ($idCategoria == 1) {
+    $materialesDidacticos = "X";
+} else if ($idCategoria == 2) {
+    $materialesOficina = "X";
+} else if ($idCategoria == 3) {
+    $utilesSaludHigene = "X";
+} else if ($idCategoria == 4) {
+    $utilesAseo = "X";
 }
 
 $productos = $control->getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 $lotesRegistrados = $control->getLotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
-
 ?>
 <html>
     <head>
