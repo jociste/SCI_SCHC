@@ -62,6 +62,16 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
             .center{
                 text-align: center;
             }
+            
+            .right {
+                text-align: right;
+                padding-right: 10px;
+            }
+            
+            .left {
+                text-align: left;
+                padding-left: 10px;
+            }
 
             .table {
                 width: 733.22px;
@@ -239,10 +249,11 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                     <tr><td class="td-borde fondo alto-mm ancho-13mm" align="center" valign="top">N&deg; Factura o Boleta</td><td class="td-borde fondo alto-mm ancho-17mm" align="center" valign="top">Fecha (dd/mm/aa)</td><td class="td-borde fondo alto-mm ancho-32mm" align="center" valign="top">Proveedor</td><td class="td-borde fondo alto-mm ancho-14mm" align="center" valign="top">Cantidad Ingresada</td><td class="td-borde fondo alto-mm ancho-18mm" align="center" valign="top">Fecha del Retiro (dd/mm/aa)</td><td class="td-borde fondo alto-mm ancho-30mm" align="center" valign="top">Nombre y firma de persona que retira</td><td class="td-borde fondo alto-mm ancho-13mm" align="center" valign="top">Cantidad retirada</td><td class="td-borde fondo alto-mm ancho-23mm" align="center" valign="top">Destino</td><td class="td-borde fondo alto-mm ancho-19mm" align="center" valign="top">V&deg; 8&deg;Del Fiscalizador (en el &uacute;ltimo saldo a la fecha de la fiscalizaci&oacute;n)</td></tr>                    
                     <?php
                     $registrados = $lotesRegistrados[$value->getIdProducto()];
-                    $utilizados = $lotesUtilizados[$value->getIdProducto()];
-                    /*
-                     * - Ordernar el array por fechas
-                     */
+                    $utilizados = array();
+                    if (array_key_exists($value->getIdProducto(), $lotesUtilizados)) {
+                        $utilizados = $lotesUtilizados[$value->getIdProducto()];
+                    }
+
                     $registrosYutilizados = array();
                     $i = 0;
                     foreach ($registrados as $registro) {
@@ -254,10 +265,14 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                         $i++;
                     }
 
-                    /*function sortFunction($a, $b) {
-                        return strtotime($a['fecha']) - strtotime($b['fecha']);
-                    }
-                    usort($registrosYutilizados, 'sortFunction');*/
+                    /*
+                     * - Ordernar el array por fechas
+                     */
+                    usort($registrosYutilizados, function($a1, $a2) {
+                        $v1 = strtotime($a1['fecha']);
+                        $v2 = strtotime($a2['fecha']);
+                        return $v1 - $v2; // $v2 - $v1 to reverse direction
+                    });
 
                     $totalRegistros = 0;
                     for ($j = 0; $j < count($registrosYutilizados); $j++) {
@@ -265,36 +280,21 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                             /* Registro */
                             $datos = $registrosYutilizados[$j]['datos'];
                             $stock_inicial = $stock_inicial + $datos->getCantidad();
-                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . $datos->getProveedor() . '</td><td class="td-borde alto-xs">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . $datos->getProveedor() . '</td><td class="td-borde alto-xs right">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
                         } else {
                             /* Utilizado */
                             $datos = $registrosYutilizados[$j]['datos'];
                             $stock_inicial = $stock_inicial - $datos->getCantidad();
-                            echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $datos->getFechaRetiro() . '</td><td class="td-borde alto-xs">' . $datos->getNombres() . '</td><td class="td-borde alto-xs">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs">' . substr($datos->getDestino(), 0, 16) . '...</td><td class="td-borde alto-xs">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                            echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $datos->getFechaRetiro() . '</td><td class="td-borde alto-xs">' . $datos->getNombres() . '</td><td class="td-borde alto-xs right">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs">' . substr($datos->getDestino(), 0, 16) . '...</td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
                         }
                         $totalRegistros++;
                     }
-                    if($totalRegistros < 15) {
-                        for ($j = 0; $j < (15-$totalRegistros); $j++) {
+                    if ($totalRegistros < 15) {
+                        for ($j = 0; $j < (15 - $totalRegistros); $j++) {
                             echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>';
                         }
                     }
                     ?>
-    <!--                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>    
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>-->
                 </table>
             </div>
             <br>

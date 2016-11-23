@@ -19,7 +19,10 @@ foreach ($productos as $value) {
         $stock_inicial = $stock_inicial_productos[$value->getIdProducto()]['stock'];
     }
     $registrados = $lotesRegistrados[$value->getIdProducto()];
-    $utilizados = $lotesUtilizados[$value->getIdProducto()];
+    $utilizados = array();
+    if (array_key_exists($value->getIdProducto(), $lotesUtilizados)) {
+        $utilizados = $lotesUtilizados[$value->getIdProducto()];
+    }
     /*
      * - Ordernar el array por fechas
      */
@@ -34,11 +37,20 @@ foreach ($productos as $value) {
         $i++;
     }
 
-    function sortFunction($a, $b) {
-        return strtotime($a['fecha']) - strtotime($b['fecha']);
-    }
+    /*
+      function sortFunction($a, $b) {
+      return strtotime($a['fecha']) - strtotime($b['fecha']);
+      }
 
-    usort($registrosYutilizados, 'sortFunction');
+      usort($registrosYutilizados, 'sortFunction'); */
+
+
+    usort($registrosYutilizados, function($a1, $a2) {
+        $v1 = strtotime($a1['fecha']);
+        $v2 = strtotime($a2['fecha']);
+        return $v1 - $v2; // $v2 - $v1 to reverse direction
+    });
+
 
     for ($j = 0; $j < count($registrosYutilizados); $j++) {
         if ($registrosYutilizados[$j]['indicador'] == 0) {
@@ -58,31 +70,4 @@ foreach ($productos as $value) {
 
 
 
-$fechas_nacimiento = array(
-    array(
-        'nombre' => 'Paco',
-        'fecha' => '22-12-2012'
-    ),
-    array(
-        'nombre' => 'Luis',
-        'fecha' => '30-08-2012'
-    ),
-    array(
-        'nombre' => 'Mar&iacute;a',
-        'fecha' => '25-01-2013'
-    )
-);
-
-function ordenar($a, $b) {
-    return strtotime($a['fecha']) - strtotime($b['fecha']);
-}
-
-function mostrar_array($datos) {
-    foreach ($datos as $dato)
-        echo "{$dato['fecha']} -&gt; {$dato['nombre']}<br/>";
-}
-
-usort($fechas_nacimiento, 'ordenar');
-
-mostrar_array($fechas_nacimiento);
 ?>
