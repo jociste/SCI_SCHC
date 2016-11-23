@@ -43,6 +43,7 @@ if ($idCategoria == 1) {
 }
 
 $productos = $control->getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
+$stock_inicial_productos = $control->getStockProductosByIdCategoriaAndFecha($idCategoria, $fechaInicio);
 $lotesRegistrados = $control->getLotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 ?>
@@ -206,7 +207,7 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                 <tr><td class="td-borde fondo alto-xs ancho-62mm" align="center">Regi&oacute;n</td><td class="td-borde fondo alto-xs ancho-32mm" align="center">Tel&eacute;fono</td><td class="td-borde fondo alto-xs ancho-100mm" colspan="3" align="center">E-Mail</td></tr>
             </table>
         </div>
-        <br>
+        <br>        
         <div>
             <table class="table">
                 <tr><td class="td-borde alto-xm" colspan="4">3.- IDENTIFICACI&Oacute;N DE LA ENTIDAD ADMINISTRADORA</td></tr>
@@ -216,36 +217,99 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                 <tr><td class="td-borde fondo alto-xs ancho-94mm" align="center">Nombre Representante Legal de la Entidad</td><td class="td-borde fondo alto-xs ancho-43mm" align="center">RUT Representante Legal</td><td class="td-borde fondo alto-xs ancho-23mm" align="center">Tel&eacute;fono</td><td class="td-borde fondo alto-xs ancho-34mm" align="center">E-Mail</td></tr>
             </table>
         </div>
-        <br>
+        <br>        
         <div>
             <table class="table">
                 <tr><td class="td-borde alto-xm">4.- DETALLE DE LAS FICHAS DE EXISTENCIAS</td></tr>
             </table>
         </div>
         <br>
-        <div>
-            <table class="table">
-                <tr><td class="td-borde fondo alto-xs ancho-71mm" colspan="4">DESCRIPCI&Oacute;N DEL ART&Iacute;CULO:</td><td class="td-borde ancho-117mm" colspan="6"></td></tr>
-                <tr><td class="td-borde fondo alto-ms ancho-71mm" colspan="4" align="center">INGRESOS</td><td class="td-borde fondo alto-ms ancho-84mm" colspan="4" align="center">RETIROS PARA SU USO</td><td class="td-borde fondo ancho-15mm" rowspan="2" align="center">SALDO</td><td class="td-borde fondo alto-ms ancho-19mm" align="center">DE USO EXCLUSIVO DE JUNJI</td></tr>
-                <tr><td class="td-borde fondo alto-mm ancho-13mm" align="center" valign="top">N&deg; Factura o Boleta</td><td class="td-borde fondo alto-mm ancho-17mm" align="center" valign="top">Fecha (dd/mm/aa)</td><td class="td-borde fondo alto-mm ancho-32mm" align="center" valign="top">Proveedor</td><td class="td-borde fondo alto-mm ancho-14mm" align="center" valign="top">Cantidad Ingresada</td><td class="td-borde fondo alto-mm ancho-18mm" align="center" valign="top">Fecha del Retiro (dd/mm/aa)</td><td class="td-borde fondo alto-mm ancho-30mm" align="center" valign="top">Nombre y firma de persona que retira</td><td class="td-borde fondo alto-mm ancho-13mm" align="center" valign="top">Cantidad retirada</td><td class="td-borde fondo alto-mm ancho-23mm" align="center" valign="top">Destino</td><td class="td-borde fondo alto-mm ancho-19mm" align="center" valign="top">V&deg; 8&deg;Del Fiscalizador (en el &uacute;ltimo saldo a la fecha de la fiscalizaci&oacute;n)</td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
-            </table>
-        </div>
-        <br>
+        <?php
+        $count = 0;
+        foreach ($productos as $value) {
+            $stock_inicial = 0;
+            if (array_key_exists($value->getIdProducto(), $stock_inicial_productos)) {
+                $stock_inicial = $stock_inicial_productos[$value->getIdProducto()]['stock'];
+            }
+            ?>       
+            <div>
+                <table class="table">
+                    <tr><td class="td-borde fondo alto-xs ancho-71mm" colspan="4">DESCRIPCI&Oacute;N DEL ART&Iacute;CULO:</td><td class="td-borde ancho-117mm" colspan="6">&nbsp;&nbsp;&nbsp;<?= $value->getNombre() ?></td></tr>
+                    <tr><td class="td-borde fondo alto-ms ancho-71mm" colspan="4" align="center">INGRESOS</td><td class="td-borde fondo alto-ms ancho-84mm" colspan="4" align="center">RETIROS PARA SU USO</td><td class="td-borde fondo ancho-15mm" rowspan="2" align="center">SALDO</td><td class="td-borde fondo alto-ms ancho-19mm" align="center">DE USO EXCLUSIVO DE JUNJI</td></tr>
+                    <tr><td class="td-borde fondo alto-mm ancho-13mm" align="center" valign="top">N&deg; Factura o Boleta</td><td class="td-borde fondo alto-mm ancho-17mm" align="center" valign="top">Fecha (dd/mm/aa)</td><td class="td-borde fondo alto-mm ancho-32mm" align="center" valign="top">Proveedor</td><td class="td-borde fondo alto-mm ancho-14mm" align="center" valign="top">Cantidad Ingresada</td><td class="td-borde fondo alto-mm ancho-18mm" align="center" valign="top">Fecha del Retiro (dd/mm/aa)</td><td class="td-borde fondo alto-mm ancho-30mm" align="center" valign="top">Nombre y firma de persona que retira</td><td class="td-borde fondo alto-mm ancho-13mm" align="center" valign="top">Cantidad retirada</td><td class="td-borde fondo alto-mm ancho-23mm" align="center" valign="top">Destino</td><td class="td-borde fondo alto-mm ancho-19mm" align="center" valign="top">V&deg; 8&deg;Del Fiscalizador (en el &uacute;ltimo saldo a la fecha de la fiscalizaci&oacute;n)</td></tr>                    
+                    <?php
+                    $registrados = $lotesRegistrados[$value->getIdProducto()];
+                    $utilizados = $lotesUtilizados[$value->getIdProducto()];
+                    /*
+                     * - Ordernar el array por fechas
+                     */
+                    $registrosYutilizados = array();
+                    $i = 0;
+                    foreach ($registrados as $registro) {
+                        $registrosYutilizados[$i] = array('indicador' => 0, 'fecha' => $registro->getFechaIngreso(), 'datos' => $registro);
+                        $i++;
+                    }
+                    foreach ($utilizados as $utilizado) {
+                        $registrosYutilizados[$i] = array('indicador' => 1, 'fecha' => $utilizado->getFechaRetiro(), 'datos' => $utilizado);
+                        $i++;
+                    }
+
+                    /*function sortFunction($a, $b) {
+                        return strtotime($a['fecha']) - strtotime($b['fecha']);
+                    }
+                    usort($registrosYutilizados, 'sortFunction');*/
+
+                    $totalRegistros = 0;
+                    for ($j = 0; $j < count($registrosYutilizados); $j++) {
+                        if ($registrosYutilizados[$j]['indicador'] == 0) {
+                            /* Registro */
+                            $datos = $registrosYutilizados[$j]['datos'];
+                            $stock_inicial = $stock_inicial + $datos->getCantidad();
+                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . $datos->getProveedor() . '</td><td class="td-borde alto-xs">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                        } else {
+                            /* Utilizado */
+                            $datos = $registrosYutilizados[$j]['datos'];
+                            $stock_inicial = $stock_inicial - $datos->getCantidad();
+                            echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $datos->getFechaRetiro() . '</td><td class="td-borde alto-xs">' . $datos->getNombres() . '</td><td class="td-borde alto-xs">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs">' . substr($datos->getDestino(), 0, 16) . '...</td><td class="td-borde alto-xs">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                        }
+                        $totalRegistros++;
+                    }
+                    if($totalRegistros < 15) {
+                        for ($j = 0; $j < (15-$totalRegistros); $j++) {
+                            echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>';
+                        }
+                    }
+                    ?>
+    <!--                <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>    
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>
+                    <tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>-->
+                </table>
+            </div>
+            <br>
+            <?php
+            $count++;
+            if ($count == 2) {
+                echo "<br><br><br><br>";
+            }
+            if ($count > 2) {
+                if (($count - 2) % 3 == 0) {
+                    echo "<br><br><br>";
+                }
+            }
+        }
+        ?>
         <div>
             <table class="table">
                 <tr><td class="td-borde fondo">5.- OBSERVACIONES DE LA DIRECTORA DEL ESTABLECIMIENTO Y/O DEL ENCARGADO DEL CONTROL DE LAS EXISTENCIAS (indicar fechas de revisi&oacute;n y/o de cuadraturas) y sus respectivas observaciones.</td></tr>

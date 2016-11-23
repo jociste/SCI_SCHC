@@ -205,7 +205,7 @@ class Lote_productoDAO {
             if (!array_key_exists($fila[1], $lote_productos)) {
                 $lote_productos[$fila[1]] = array();
             }
-            array_push($lote_productos, $lote_producto);
+            array_push($lote_productos[$fila[1]], $lote_producto);
         }
         $this->conexion->desconectar();
         return $lote_productos;

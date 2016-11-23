@@ -9,6 +9,8 @@ class EstablecimientoDTO {
     public $regionEstablecimiento;
     public $telefonoEstablecimiento;
     public $emailEstablecimiento;
+    
+    public $entidadAdministradora;
 
     public function EstablecimientoDTO(){
     }
@@ -83,6 +85,14 @@ class EstablecimientoDTO {
 
     function setEmailEstablecimiento($emailEstablecimiento) {
         return $this->emailEstablecimiento = $emailEstablecimiento;
+    }
+    
+    function getEntidadAdministradora() {
+        return $this->entidadAdministradora;
+    }
+
+    function setEntidadAdministradora($entidadAdministradora) {
+        $this->entidadAdministradora = $entidadAdministradora;
     }
 
 }

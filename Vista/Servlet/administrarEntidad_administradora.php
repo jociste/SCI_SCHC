@@ -17,6 +17,7 @@ if ($accion != null) {
         $provinciaEntidadAdministradora = htmlspecialchars($_REQUEST['provinciaEntidadAdministradora']);
         $regionEntidadAdministradora = htmlspecialchars($_REQUEST['regionEntidadAdministradora']);
         $representanteLegal = htmlspecialchars($_REQUEST['representanteLegal']);
+        $rutRepresentanteLegal = htmlspecialchars($_REQUEST['rutRepresentanteLegal']);
         $telefonoRepresentanteLegal = htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']);
         $emailRepresentanteLegal = htmlspecialchars($_REQUEST['emailRepresentanteLegal']);
 
@@ -29,6 +30,7 @@ if ($accion != null) {
             $entidad_administradora->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
             $entidad_administradora->setRegionEntidadAdministradora($regionEntidadAdministradora);
             $entidad_administradora->setRepresentanteLegal($representanteLegal);
+            $entidad_administradora->setRutRepresentanteLegal($rutRepresentanteLegal);
             $entidad_administradora->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
             $entidad_administradora->setEmailRepresentanteLegal($emailRepresentanteLegal);
 
@@ -72,18 +74,20 @@ if ($accion != null) {
         $provinciaEntidadAdministradora = htmlspecialchars($_REQUEST['provinciaEntidadAdministradora']);
         $regionEntidadAdministradora = htmlspecialchars($_REQUEST['regionEntidadAdministradora']);
         $representanteLegal = htmlspecialchars($_REQUEST['representanteLegal']);
+        $rutRepresentanteLegal = htmlspecialchars($_REQUEST['rutRepresentanteLegal']);
         $telefonoRepresentanteLegal = htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']);
         $emailRepresentanteLegal = htmlspecialchars($_REQUEST['emailRepresentanteLegal']);
 
-            $entidad_administradora = new Entidad_administradoraDTO();
-            $entidad_administradora->setIdEntidadAdministradora($idEntidadAdministradora);
-            $entidad_administradora->setNombreEntidadAdministradora($nombreEntidadAdministradora);
-            $entidad_administradora->setRutEntidadAdministradora($rutEntidadAdministradora);
-            $entidad_administradora->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
-            $entidad_administradora->setRegionEntidadAdministradora($regionEntidadAdministradora);
-            $entidad_administradora->setRepresentanteLegal($representanteLegal);
-            $entidad_administradora->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
-            $entidad_administradora->setEmailRepresentanteLegal($emailRepresentanteLegal);
+        $entidad_administradora = new Entidad_administradoraDTO();
+        $entidad_administradora->setIdEntidadAdministradora($idEntidadAdministradora);
+        $entidad_administradora->setNombreEntidadAdministradora($nombreEntidadAdministradora);
+        $entidad_administradora->setRutEntidadAdministradora($rutEntidadAdministradora);
+        $entidad_administradora->setProvinciaEntidadAdministradora($provinciaEntidadAdministradora);
+        $entidad_administradora->setRegionEntidadAdministradora($regionEntidadAdministradora);
+        $entidad_administradora->setRepresentanteLegal($representanteLegal);
+        $entidad_administradora->setRutRepresentanteLegal($rutRepresentanteLegal);
+        $entidad_administradora->setTelefonoRepresentanteLegal($telefonoRepresentanteLegal);
+        $entidad_administradora->setEmailRepresentanteLegal($emailRepresentanteLegal);
 
         $result = $control->updateEntidad_administradora($entidad_administradora);
         if ($result) {

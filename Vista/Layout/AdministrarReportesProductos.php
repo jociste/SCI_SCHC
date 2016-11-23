@@ -215,6 +215,7 @@ $perfil = $_SESSION["idCargo"];
                                                 </div>
                                                 <div class="span12">
                                                     <div class="form-actions" style="width: 82%; margin-left: 0px;">
+                                                        <input class="input-xlarge focused" id="idEntidadAdministradora" name="idEntidadAdministradora" type="hidden">
                                                         <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                                         <a onclick="reporteControlFlujoExistencia()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Control Flujo de Existencias</a>                                                        
                                                         <input type="hidden" id="accion" name="accion" value="">
@@ -293,12 +294,12 @@ $perfil = $_SESSION["idCargo"];
 
         <script>
                             $(function () {
-                                //cargarDatosGenerales();
+                                cargarDatosGenerales();
                                 cargarCategorias();
                             });
 
                             function cargarDatosGenerales() {
-                                var url_json = '../Servlet/administrarDatos_generales.php?accion=LISTADO';
+                                var url_json = '../Servlet/administrarEstablecimiento.php?accion=LISTADO';
                                 $.getJSON(
                                         url_json,
                                         function (datos) {
@@ -312,14 +313,15 @@ $perfil = $_SESSION["idCargo"];
                                                 document.getElementById("telefonoEstablecimiento").value = datos[0].telefonoEstablecimiento;
                                                 document.getElementById("emailEstablecimiento").value = datos[0].emailEstablecimiento;
 
-                                                document.getElementById("nombreEntidadAdministradora").value = datos[0].nombreEntidadAdministradora;
-                                                document.getElementById("rutEntidadAdministradora").value = datos[0].rutEntidadAdministradora;
-                                                document.getElementById("provinciaEntidadAdministradora").value = datos[0].provinciaEntidadAdministradora;
-                                                document.getElementById("regionEntidadAdministradora").value = datos[0].regionEntidadAdministradora;
-                                                document.getElementById("representanteLegal").value = datos[0].representanteLegal;
-                                                document.getElementById("rutRepresentanteLegal").value = datos[0].rutRepresentanteLegal;
-                                                document.getElementById("telefonoRepresentanteLegal").value = datos[0].telefonoRepresentanteLegal;
-                                                document.getElementById("emailRepresentanteLegal").value = datos[0].emailRepresentanteLegal;
+                                                document.getElementById("idEntidadAdministradora").value = datos[0].entidadAdministradora.idEntidadAdministradora;
+                                                document.getElementById("nombreEntidadAdministradora").value = datos[0].entidadAdministradora.nombreEntidadAdministradora;
+                                                document.getElementById("rutEntidadAdministradora").value = datos[0].entidadAdministradora.rutEntidadAdministradora;
+                                                document.getElementById("provinciaEntidadAdministradora").value = datos[0].entidadAdministradora.provinciaEntidadAdministradora;
+                                                document.getElementById("regionEntidadAdministradora").value = datos[0].entidadAdministradora.regionEntidadAdministradora;
+                                                document.getElementById("representanteLegal").value = datos[0].entidadAdministradora.representanteLegal;
+                                                document.getElementById("rutRepresentanteLegal").value = datos[0].entidadAdministradora.rutRepresentanteLegal;
+                                                document.getElementById("telefonoRepresentanteLegal").value = datos[0].entidadAdministradora.telefonoRepresentanteLegal;
+                                                document.getElementById("emailRepresentanteLegal").value = datos[0].entidadAdministradora.emailRepresentanteLegal;
                                             }
                                         }
                                 );
@@ -368,19 +370,20 @@ $perfil = $_SESSION["idCargo"];
                                 document.getElementById("accion").value = "AGREGAR";
                                 if (validar()) {
                                     $('#fm-datos-generales').form('submit', {
-                                        url: "../Servlet/administrarDatos_generales.php",
+                                        url: "../Servlet/administrarEstablecimiento.php",
                                         onSubmit: function () {
                                             return $(this).form('validate');
                                         },
-                                        success: function (result) {
+                                        success: function (result) {                                            
                                             var result = eval('(' + result + ')');
-                                            if (result.errorMsg) {
-                                                $.messager.alert('Error', result.errorMsg);
-                                            } else {
+                                            if (result.success) {
                                                 $.messager.show({
                                                     title: 'Aviso',
                                                     msg: result.mensaje
                                                 });
+                                                cargarDatosGenerales();
+                                            } else {
+                                                $.messager.alert('Error', result.errorMsg);
                                             }
                                         }
                                     });

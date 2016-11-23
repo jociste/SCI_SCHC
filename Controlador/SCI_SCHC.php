@@ -22,6 +22,7 @@ include_once 'Mantenedores/ProductoDAO.php';
 include_once 'Mantenedores/Tipo_documentoDAO.php';
 
 class SCI_SCHC {
+
     private static $instancia = NULL;
     private $bajaDAO;
     private $bienDAO;
@@ -51,7 +52,6 @@ class SCI_SCHC {
         $this->cargoDAO = new CargoDAO();
         $this->categoriaDAO = new CategoriaDAO();
         $this->comprobanteDAO = new ComprobanteDAO();
-        $this->datos_generalesDAO = new Datos_generalesDAO();
         $this->detalle_comprobanteDAO = new Detalle_comprobanteDAO();
         $this->documentoDAO = new DocumentoDAO();
         $this->entidad_administradoraDAO = new Entidad_administradoraDAO();
@@ -102,7 +102,8 @@ class SCI_SCHC {
     public function getAllBiens() {
         return $this->bienDAO->findAll();
     }
-     public function getAllBiensHabilitados() {
+
+    public function getAllBiensHabilitados() {
         return $this->bienDAO->findAllHabilitados();
     }
 
@@ -121,8 +122,8 @@ class SCI_SCHC {
     public function getBienByID($idBien) {
         return $this->bienDAO->findByID($idBien);
     }
-    
-    public function getBienesByIdCategoria($idCategoria){
+
+    public function getBienesByIdCategoria($idCategoria) {
         return $this->bienDAO->findByIdCategoria($idCategoria);
     }
 
@@ -133,6 +134,7 @@ class SCI_SCHC {
     public function getAllBien_nivels() {
         return $this->bien_nivelDAO->findAll();
     }
+
     public function addBien_nivel($bien_nivel) {
         return $this->bien_nivelDAO->save($bien_nivel);
     }
@@ -248,7 +250,7 @@ class SCI_SCHC {
     public function getDetalle_comprobanteLikeAtrr($cadena) {
         return $this->detalle_comprobanteDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getAllDocumentos() {
         return $this->documentoDAO->findAll();
     }
@@ -269,10 +271,14 @@ class SCI_SCHC {
         return $this->documentoDAO->findByID($idDocumento);
     }
 
-    public function getDocumentoLikeAtrr($cadena,$idTipoDocumento) {
-        return $this->documentoDAO->findLikeAtrr($cadena,$idTipoDocumento);
+    public function getDocumentoLikeAtrr($cadena, $idTipoDocumento) {
+        return $this->documentoDAO->findLikeAtrr($cadena, $idTipoDocumento);
     }
-    
+
+    public function getIdEntidadAdministradoraDisponible() {
+        return $this->entidad_administradoraDAO->getIDDisponible();
+    }
+
     public function getAllEntidad_administradoras() {
         return $this->entidad_administradoraDAO->findAll();
     }
@@ -324,9 +330,11 @@ class SCI_SCHC {
     public function getAllFuncionarias() {
         return $this->funcionariaDAO->findAll();
     }
+
     public function getAllFuncionariasHabilitadas() {
         return $this->funcionariaDAO->findHabilitados();
     }
+
     public function getAllFuncionariasDesHabilitadas() {
         return $this->funcionariaDAO->findDesHabilitados();
     }
@@ -346,7 +354,6 @@ class SCI_SCHC {
     public function getFuncionariaByID($runFuncionaria) {
         return $this->funcionariaDAO->findByID($runFuncionaria);
     }
-    
 
     public function getFuncionariaLikeAtrr($cadena) {
         return $this->funcionariaDAO->findLikeAtrr($cadena);
@@ -372,14 +379,14 @@ class SCI_SCHC {
         return $this->funcionaria_cargoDAO->findByID($idCargo);
     }
 
-    public function cargoFuncionariaRecienteByRun($runFuncionaria){
+    public function cargoFuncionariaRecienteByRun($runFuncionaria) {
         return $this->funcionaria_cargoDAO->cargoRecienteByRun($runFuncionaria);
     }
-
 
     public function getFuncionaria_cargoLikeAtrr($cadena) {
         return $this->funcionaria_cargoDAO->findLikeAtrr($cadena);
     }
+
     public function getAllLote_productos1() {
         return $this->lote_productoDAO->findAll();
     }
@@ -387,7 +394,8 @@ class SCI_SCHC {
     public function getAllLote_productos() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();
     }
-     public function getAllLote_productosBajoStock() {
+
+    public function getAllLote_productosBajoStock() {
         return $this->lote_productoDAO->findAllOrdenadosPorBajoStock();
     }
 
@@ -406,7 +414,7 @@ class SCI_SCHC {
     public function getLote_productoByID($idLote) {
         return $this->lote_productoDAO->findByID($idLote);
     }
-    
+
     public function getLote_productoByIdProducto($idProducto) {
         return $this->lote_productoDAO->findByIdProducto($idProducto);
     }
@@ -414,7 +422,7 @@ class SCI_SCHC {
     public function getLote_productoLikeAtrr($cadena) {
         return $this->lote_productoDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getLotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         return $this->lote_productoDAO->lotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
     }
@@ -442,9 +450,13 @@ class SCI_SCHC {
     public function getLote_producto_usadosLikeAtrr($cadena) {
         return $this->lote_producto_usadosDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         return $this->lote_producto_usadosDAO->lotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
+    }
+    
+    public function getStockProductosByIdCategoriaAndFecha($idCategoria, $fecha) {
+        return $this->lote_producto_usadosDAO->getStockFinalProductosByIdCategoriaAndFecha($idCategoria, $fecha);
     }
 
     public function getAllNivels() {
@@ -466,16 +478,19 @@ class SCI_SCHC {
     public function getNivelByID($idNivel) {
         return $this->nivelDAO->findByID($idNivel);
     }
+
     public function BuscaMaximoIdBien() {
         return $this->bienDAO->BuscaMaximoIdBien();
-    }  
-     public function BuscaMaximoIdRegistro() {
+    }
+
+    public function BuscaMaximoIdRegistro() {
         return $this->comprobanteDAO->BuscaMaximoIdRegistro();
-    } 
-     public function BuscaMaximoIdNivelBien() {
+    }
+
+    public function BuscaMaximoIdNivelBien() {
         return $this->bien_nivelDAO->BuscaMaximoIdNivelBien();
-    } 
-    
+    }
+
     public function getNivelLikeAtrr($cadena) {
         return $this->nivelDAO->findLikeAtrr($cadena);
     }
@@ -499,15 +514,15 @@ class SCI_SCHC {
     public function getNivel_funcionariaByID($idNivel) {
         return $this->nivel_funcionariaDAO->findByID($idNivel);
     }
-    
-    public function nivelFuncionariaRecienteByRun($runFuncionaria){
+
+    public function nivelFuncionariaRecienteByRun($runFuncionaria) {
         return $this->nivel_funcionariaDAO->nivelRecienteByRun($runFuncionaria);
     }
 
     public function getNivel_funcionariaLikeAtrr($cadena) {
         return $this->nivel_funcionariaDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getAllPermiso_visualizacion_categorias() {
         return $this->permiso_visualizacion_categoriaDAO->findAll();
     }
@@ -575,27 +590,27 @@ class SCI_SCHC {
     public function getProductoByID($idProducto) {
         return $this->productoDAO->findByID($idProducto);
     }
-    
-    public function getProductoByIDCategoria($idCategoria){
+
+    public function getProductoByIDCategoria($idCategoria) {
         return $this->productoDAO->findByIDCategoria($idCategoria);
     }
 
-    public function getProductosByIdCategoria($idCategoria){
+    public function getProductosByIdCategoria($idCategoria) {
         return $this->productoDAO->findByIiCategoria($idCategoria);
     }
 
     public function getProductoLikeAtrr($cadena) {
         return $this->productoDAO->findLikeAtrr($cadena);
     }
-    
+
     public function getProductoByNombreIdCategoria($nombre, $idCategoria) {
         return $this->productoDAO->findByNombreAndIdCategoria($nombre, $idCategoria);
     }
-    
+
     public function getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         return $this->productoDAO->productosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
     }
-    
+
     public function getAllTipo_documentos() {
         return $this->tipo_documentoDAO->findAll();
     }
@@ -615,7 +630,7 @@ class SCI_SCHC {
     public function getTipo_documentoByID($idTipoDocumento) {
         return $this->tipo_documentoDAO->findByID($idTipoDocumento);
     }
-    
+
     public function getTipo_documentoByNombre($nombre) {
         return $this->tipo_documentoDAO->findByNombre($nombre);
     }
@@ -625,4 +640,5 @@ class SCI_SCHC {
     }
 
 }
+
 ?>

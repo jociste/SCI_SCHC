@@ -6,6 +6,7 @@ class Entidad_administradoraDTO {
     public $provinciaEntidadAdministradora;
     public $regionEntidadAdministradora;
     public $representanteLegal;
+    public $rutRepresentanteLegal;
     public $telefonoRepresentanteLegal;
     public $emailRepresentanteLegal;
 
@@ -59,7 +60,15 @@ class Entidad_administradoraDTO {
     function setRepresentanteLegal($representanteLegal) {
         return $this->representanteLegal = $representanteLegal;
     }
+    
+    function getRutRepresentanteLegal() {
+        return $this->rutRepresentanteLegal;
+    }
 
+    function setRutRepresentanteLegal($rutRepresentanteLegal) {
+        $this->rutRepresentanteLegal = $rutRepresentanteLegal;
+    }
+    
     function getTelefonoRepresentanteLegal() {
         return $this->telefonoRepresentanteLegal;
     }

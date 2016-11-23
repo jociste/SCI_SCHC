@@ -148,10 +148,38 @@ class Lote_producto_usadosDAO {
             if (!array_key_exists($fila[5], $lote_productos)) {
                 $lote_productos[$fila[5]] = array();
             }
-            array_push($lote_productos, $lote_producto);
+            array_push($lote_productos[$fila[5]], $lote_producto);
         }
         $this->conexion->desconectar();
         return $lote_productos;
+    }
+
+    public function getStockFinalProductosByIdCategoriaAndFecha($idCategoria, $fecha) {
+        $this->conexion->conectar();
+        $query = "SELECT ingresos.idProducto, ingresos.nombre, ingresos.cantidad as inicial, IFNULL(usados.usado,0) as utilizado, (ingresos.cantidad-IFNULL(usados.usado,0)) as stock  FROM "
+                . " (SELECT lp.idProducto, sum(lp.cantidad) as cantidad, p.nombre  "
+                . " FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso < '" . $fecha . "' "
+                . " GROUP BY lp.idProducto "
+                . " ORDER BY lp.idProducto, lp.fechaIngreso) as ingresos "
+                . " LEFT JOIN  "
+                . " (SELECT lp.idProducto ,sum(lpu.cantidad) as usado "
+                . " FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto  "
+                . " WHERE p.idCategoria = 1 AND lp.fechaIngreso < '" . $fecha . "' "
+                . " GROUP BY lp.idProducto ORDER BY lp.idProducto, lpu.fechaRetiro) as usados "
+                . " ON ingresos.idProducto = usados.idProducto";
+        $result = $this->conexion->ejecutar($query);
+        $stock_productos = array();
+        while ($fila = $result->fetch_row()) {
+            $stock = array('idProducto' => $fila[0],'nombre' => $fila[1],'inicial' => $fila[2],'utilizado' => $fila[3],'stock' => $fila[4]);  
+            
+            /*if (!array_key_exists($fila[0], $stock_productos)) {
+                $stock_productos[$fila[0]] = array();
+            }*/
+            $stock_productos[$fila[0]] = $stock;
+            //array_push($stock_productos, $stock);
+        }
+        $this->conexion->desconectar();
+        return $stock_productos;
     }
 
 }

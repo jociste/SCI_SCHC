@@ -146,7 +146,7 @@ class ProductoDAO {
 
     public function productosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         $this->conexion->conectar();
-        $query = "SELECT p.idProducto, p.idCategoria, p.nombre FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY p.idProducto ";
+        $query = "SELECT p.idProducto, p.idCategoria, p.nombre FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' GROUP BY p.idProducto ORDER BY p.idProducto ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $productos = array();
