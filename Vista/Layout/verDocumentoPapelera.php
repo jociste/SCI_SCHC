@@ -107,34 +107,34 @@ $documento = $control->getDocumentoByID($idDocumento);
                                         <div class="control-group">
                                             <label class="control-label" for="idTipoDocumento">Categoria Documento</label>
                                             <div class="controls">
-                                                <select class="input-xlarge focused" id="idTipoDocumento" name="idTipoDocumento" required><option value="-1">Seleccionar...</option></select>
+                                                <select class="input-xlarge focused" id="idTipoDocumento" name="idTipoDocumento" readonly><option value="-1">Seleccionar...</option></select>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="nombre">Nombre</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre producto" required>
+                                                <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre producto" readonly>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="descripcion">Descripción</label>
                                             <div class="controls">
-                                                <textarea class="input-xlarge focused" id="descripcion" name="descripcion" placeholder="Descripción del documento" required></textarea>
+                                                <textarea class="input-xlarge focused" id="descripcion" name="descripcion" placeholder="Descripción del documento" readonly></textarea>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="fechaRegistro">Fecha Registro</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="fechaRegistro" name="fechaRegistro" type="date" required>
+                                                <input class="input-xlarge focused" id="fechaRegistro" name="fechaRegistro" type="date" readonly>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="documento">Documento</label>
                                             <div class="controls">
                                                 <div class='media well-small'>
-                                                    <a class='pull-left' href='<?= $documento->getRutaDocumento() ?>' target="_blank"><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/<?= $documento->getFormato() ?>.png'></a>
+                                                    <a class='pull-left' href='#'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/<?= $documento->getFormato() ?>.png'></a>
                                                     <div class='media-body'>
-                                                        <h5 class='media-heading'><a href='<?= $documento->getRutaDocumento() ?>' target="_blank"><b><?= $documento->getNombre() ?></b></a></h5>
+                                                        <h5 class='media-heading'><a href='#'><b><?= $documento->getNombre() ?></b></a></h5>
                                                         <?= $documento->getTamano() ?>
                                                     </div>
                                                 </div>
@@ -142,10 +142,10 @@ $documento = $control->getDocumentoByID($idDocumento);
 
                                         </div>
                                         <div class="form-actions" style="align-content: center">
-                                            <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onclick="borrar()" class="btn btn-danger">Eliminar</button>
+                                            <button type="button" onclick="restaurar()" class="btn btn-primary">Restaurar</button>
+                                            <button type="button" onclick="borrar()" class="btn btn-danger">Eliminar Definitivamente</button>
                                             <input type="hidden" id="idDocumento" name="idDocumento" value="<?= $idDocumento ?>">
-                                            <button type="button" onClick="location.href = 'AdministrarDocumentos.php'" class="btn">Cancelar</button>
+                                            <button type="button" onClick="location.href = 'AdministrarPapeleraDocumentos.php'" class="btn">Volver Atras</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
                                     </form>
@@ -196,7 +196,6 @@ $documento = $control->getDocumentoByID($idDocumento);
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
-                                                                console.log(datos);
                                                                 $("#idTipoDocumento").val(datos.idTipoDocumento);
                                                                 $("#nombre").val(datos.nombre);
                                                                 $("#descripcion").val(datos.descripcion);
@@ -205,61 +204,34 @@ $documento = $control->getDocumentoByID($idDocumento);
                                                     );
                                                 }
 
-                                                function guardar() {
-                                                    document.getElementById("accion").value = "ACTUALIZAR";
-                                                    if (validar()) {
-                                                        $('#fm-documento').form('submit', {
-                                                            url: "../Servlet/administrarDocumento.php",
-                                                            onSubmit: function () {
-                                                                return $(this).form('validate');
-                                                            },
-                                                            success: function (result) {
-                                                                var result = eval('(' + result + ')');
-                                                                if (result.errorMsg) {
-                                                                    $.messager.alert('Error', result.errorMsg);
-                                                                } else {
-                                                                    $.messager.show({
-                                                                        title: 'Aviso',
-                                                                        msg: result.mensaje
-                                                                    });
-                                                                    window.location = "AdministrarDocumentos.php";
-                                                                }
+                                                function restaurar() {
+                                                    document.getElementById("accion").value = "RESTAURAR_PAPELERA";
+                                                    $('#fm-documento').form('submit', {
+                                                        url: "../Servlet/administrarDocumento.php",
+                                                        onSubmit: function () {
+                                                            return $(this).form('validate');
+                                                        },
+                                                        success: function (result) {
+                                                            var result = eval('(' + result + ')');
+                                                            if (result.errorMsg) {
+                                                                $.messager.alert('Error', result.errorMsg);
+                                                            } else {
+                                                                $.messager.show({
+                                                                    title: 'Aviso',
+                                                                    msg: result.mensaje
+                                                                });
+                                                                window.location = "AdministrarPapeleraDocumentos.php";
                                                             }
-                                                        });
-                                                    }
+                                                        }
+                                                    });
 
-                                                }
-
-                                                function validar() {
-                                                    var idTipoDocumento = document.getElementById("idTipoDocumento").value;
-                                                    var nombre = document.getElementById("nombre").value;
-                                                    var descripcion = document.getElementById("descripcion").value;
-                                                    var fechaRegistro = document.getElementById("fechaRegistro").value;
-
-                                                    if (idTipoDocumento == -1) {
-                                                        $.messager.alert('Error', "Debe seleccionar una categoria");
-                                                        return false;
-                                                    }
-                                                    if (nombre == "") {
-                                                        $.messager.alert('Error', "Debe ingresar un nombre de documento");
-                                                        return false;
-                                                    }
-                                                    if (descripcion == "") {
-                                                        $.messager.alert('Error', "Debe ingresar una descripción del documento");
-                                                        return false;
-                                                    }
-                                                    if (fechaRegistro == "") {
-                                                        $.messager.alert('Error', "Debe ingresar la fecha de registro");
-                                                        return false;
-                                                    }
-                                                    return true;
                                                 }
 
                                                 function borrar() {
                                                     $.messager.confirm('Confirmar', '¿Esta seguro de eliminar el documento?', function (r) {
                                                         if (r) {
                                                             var idDocumento = document.getElementById("idDocumento").value;
-                                                            var url_json = '../Servlet/administrarDocumento.php?accion=ENVIAR_A_PAPELERA&idDocumento=' + idDocumento;
+                                                            var url_json = '../Servlet/administrarDocumento.php?accion=BORRAR&idDocumento=' + idDocumento;
                                                             $.getJSON(
                                                                     url_json,
                                                                     function (datos) {
@@ -270,7 +242,7 @@ $documento = $control->getDocumentoByID($idDocumento);
                                                                                 title: 'Aviso',
                                                                                 msg: datos.mensaje
                                                                             });
-                                                                            window.location = "AdministrarDocumentos.php";
+                                                                            window.location = "AdministrarPapeleraDocumentos.php";
                                                                         }
                                                                     }
                                                             );

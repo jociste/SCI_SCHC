@@ -19,7 +19,13 @@
                     <i class="icon-list" onClick="location.href = 'AdministrarCategoriasDocumentos.php'"></i>
                     <span>Tipos</span>
                 </a>
-            </li>          
+            </li>     
+            <li>
+                <a>
+                    <i class="icon-trash" onClick="location.href = 'AdministrarPapeleraDocumentos.php'"></i>
+                    <span>Papelera</span>
+                </a>
+            </li> 
         </ul>
     </div>
 </div>

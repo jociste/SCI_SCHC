@@ -101,7 +101,7 @@ $runFuncionaria = $_SESSION["run"];
                                 <fieldset>
                                     <div class="span12 content-panels  content-tab2" style="width: 100%">
                                         <a href="#" class="pull-right btn btn-warning" onclick="retirarProductos()"><i class="icon-check"></i> Confirmar Retiro</a>
-                                        <a href="#" class="pull-right btn btn-primary" onclick="agregarProducto()"><i class="icon-plus"></i> Otro Producto</a>
+                                        <a href="#" class="pull-right btn btn-primary" onclick="agregarProducto()" id="botton-agregarProducto" style="display: none;"><i class="icon-plus"></i> Otro Producto</a>
                                         <h4>Retirar Lote de Productos</h4><hr>
                                         <form id="fm" method="POST">
                                             <div class="basic-info" id="lista-productos" style="width: 100%">  
@@ -124,21 +124,23 @@ $runFuncionaria = $_SESSION["run"];
                                                 </div>
                                                 <div class="row-fluid">
                                                     <div class="span3">
-                                                        <select  class="form-control" id="idCategoria_1" name="idCategoria_1" required onchange="obtenerProductos(1)">                                                    
+                                                        <select  class="form-control" id="idCategoria_1" name="idCategoria_1" required onchange="obtenerProductos(1);
+                                                                revisarCasillas(1);
+                                                                 ">                                                    
                                                         </select>
                                                     </div>
                                                     <div class="span3">
-                                                        <select class="form-control" id="idProducto_1" name="idProducto_1" required>                                                    
+                                                        <select class="form-control" id="idProducto_1" name="idProducto_1" required onchange="revisarCasillas(1);">   
                                                         </select>
                                                     </div>
                                                     <div class="span1">
-                                                        <input class="form-control" id="cantidad_1" name="cantidad_1" type="number" min="1" placeholder="Cantidad" style="width: 90%;" required>
+                                                        <input class="form-control" id="cantidad_1" name="cantidad_1" type="number" min="1" placeholder="Cantidad" style="width: 90%;" required onchange="revisarCasillas(1);">
                                                     </div>
                                                     <div class="span2">
-                                                        <input class="form-control" id="fechaRetiro_1" name="fechaRetiro_1" type="date" placeholder="Fecha Retiro" style="width: 90%;" required>
+                                                        <input class="form-control" id="fechaRetiro_1" name="fechaRetiro_1" type="date" placeholder="Fecha Retiro" style="width: 90%;" required onchange="revisarCasillas(1);">
                                                     </div>
                                                     <div class="span3">
-                                                        <input class="form-control" id="destino_1" name="destino_1" type="text" placeholder="Destino" required>
+                                                        <input class="form-control" id="destino_1" name="destino_1" type="text" placeholder="Destino" required onchange="revisarCasillas(1);">
                                                     </div>
                                                 </div>
 
@@ -273,26 +275,26 @@ $runFuncionaria = $_SESSION["run"];
                                                                 );
                                                             }
 
-                                                            function agregarProducto() {
+                                                            function agregarProducto() {                                                                
                                                                 var cantidadProductos = document.getElementById("cantidadProductos").value;
                                                                 cantidadProductos++;
                                                                 var contenido = "<div class='row-fluid'>"
                                                                         + "<div class='span3'>"
-                                                                        + "<select  class='form-control' id='idCategoria_" + cantidadProductos + "' name='idCategoria_" + cantidadProductos + "' onchange='obtenerProductos(" + cantidadProductos + ")' required>"
+                                                                        + "<select  class='form-control' id='idCategoria_" + cantidadProductos + "' name='idCategoria_" + cantidadProductos + "' onchange='obtenerProductos(" + cantidadProductos + "); revisarCasillas(" + cantidadProductos + ");' required>"
                                                                         + "</select>"
                                                                         + "</div>"
                                                                         + "<div class='span3'>"
-                                                                        + "<select class='form-control' id='idProducto_" + cantidadProductos + "' name='idProducto_" + cantidadProductos + "' required>"
+                                                                        + "<select class='form-control' id='idProducto_" + cantidadProductos + "' name='idProducto_" + cantidadProductos + "' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
                                                                         + "</select>"
                                                                         + "</div>"
                                                                         + "<div class='span1'>"
-                                                                        + "<input class='form-control' id='cantidad_" + cantidadProductos + "' name='cantidad_" + cantidadProductos + "' type='number' min='1' placeholder='Cantidad' style='width: 90%;' required>"
+                                                                        + "<input class='form-control' id='cantidad_" + cantidadProductos + "' name='cantidad_" + cantidadProductos + "' type='number' min='1' placeholder='Cantidad' style='width: 90%;' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
                                                                         + "</div>"
                                                                         + "<div class='span2'>"
-                                                                        + "<input class='form-control' id='fechaRetiro_" + cantidadProductos + "' name='fechaRetiro_" + cantidadProductos + "' type='date' placeholder='Fecha Retiro' style='width: 90%;' required>"
+                                                                        + "<input class='form-control' id='fechaRetiro_" + cantidadProductos + "' name='fechaRetiro_" + cantidadProductos + "' type='date' placeholder='Fecha Retiro' style='width: 90%;' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
                                                                         + "</div>"
                                                                         + "<div class='span3'>"
-                                                                        + "<input class='form-control' id='destino_" + cantidadProductos + "' name='destino_" + cantidadProductos + "' type='text' placeholder='Destino' required>"
+                                                                        + "<input class='form-control' id='destino_" + cantidadProductos + "' name='destino_" + cantidadProductos + "' type='text' placeholder='Destino' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
                                                                         + "</div>"
                                                                         + "</div>";
                                                                 $("#lista-productos").append(contenido);
@@ -302,6 +304,39 @@ $runFuncionaria = $_SESSION["run"];
                                                                     var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
                                                                     $("#idCategoria_" + cantidadProductos).append(contenido);
                                                                 });
+                                                                document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                            }
+
+                                                            function revisarCasillas(pos) {
+                                                                var cantidad = document.getElementById("cantidadProductos").value;
+                                                                if (cantidad == pos) {
+                                                                    var idCategoria = document.getElementById("idCategoria_" + pos).value;
+                                                                    var idProducto = document.getElementById("idProducto_" + pos).value;
+                                                                    var cantidad = document.getElementById("cantidad_" + pos).value;
+                                                                    var fechaRetiro = document.getElementById("fechaRetiro_" + pos).value;
+                                                                    var destino = document.getElementById("destino_" + pos).value;
+                                                                    if (idCategoria != "") {
+                                                                        if (idProducto != "") {
+                                                                            if (cantidad != "") {
+                                                                                if (fechaRetiro != "") {
+                                                                                    if (destino != "") {
+                                                                                        document.getElementById("botton-agregarProducto").style.display = 'block';
+                                                                                    } else {
+                                                                                        document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                                                    }
+                                                                                } else {
+                                                                                    document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                                                }
+                                                                            } else {
+                                                                                document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                                            }
+                                                                        } else {
+                                                                            document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                                        }
+                                                                    } else {
+                                                                        document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                                    }
+                                                                }
                                                             }
 
                                                             function retirarProductos() {
@@ -364,7 +399,7 @@ $runFuncionaria = $_SESSION["run"];
                                                                         n_productos++;
                                                                     }
                                                                 }
-                                                                if(n_productos == 0) {
+                                                                if (n_productos == 0) {
                                                                     $.messager.alert('Error', "Debe ingresar al menos 1 producto.");
                                                                 }
                                                                 return true;

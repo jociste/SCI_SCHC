@@ -10,6 +10,10 @@ if ($accion != null) {
         $documentos = $control->getAllDocumentos();
         $json = json_encode($documentos);
         echo $json;
+    } if ($accion == "LISTADO_PAPELERA") {
+        $documentos = $control->getAllDocumentosPapelera();
+        $json = json_encode($documentos);
+        echo $json;
     } else if ($accion == "AGREGAR") {
         session_start();
         $runFuncionaria = $_SESSION["run"];
@@ -119,6 +123,7 @@ if ($accion != null) {
                     $documento->setRutaDocumento($rutaDocumento);
                     $documento->setTamano($tamano);
                     $documento->setFormato($extensionesPermitidas[$extension]);
+                    $documento->setEstado(1);
 
                     $result = $control->addDocumento($documento);
 
@@ -151,11 +156,28 @@ if ($accion != null) {
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
+    }  else if ($accion == "ENVIAR_A_PAPELERA") {
+        $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
+
+        $documento = $control->getDocumentoByID($idDocumento);
+        $documento->setEstado(0);
+        $result = $control->updateDocumento($documento);
+        if ($result) {
+            echo json_encode(array('success' => true, 'mensaje' => "Documento borrado correctamente"));
+        } else {
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+        }
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
         
         $documentos = $control->getDocumentoLikeAtrr($cadena,$idTipoDocumento);
+        $json = json_encode($documentos);
+        echo $json;
+    } else if ($accion == "BUSCAR_PAPELERA") {
+        $cadena = htmlspecialchars($_REQUEST['cadena']);
+        
+        $documentos = $control->getDocumentoLikeAtrrPapelera($cadena);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
@@ -182,6 +204,21 @@ if ($accion != null) {
             echo json_encode(array(
                 'success' => true,
                 'mensaje' => "Documento actualizada correctamente"
+            ));
+        } else {
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+        }
+    } else if ($accion == "RESTAURAR_PAPELERA") {
+        $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
+        
+        $documento = $control->getDocumentoByID($idDocumento);
+        $documento->setEstado(1);
+        $result = $control->updateDocumento($documento);
+        
+        if ($result) {
+            echo json_encode(array(
+                'success' => true,
+                'mensaje' => "Documento Restaurado correctamente"
             ));
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));

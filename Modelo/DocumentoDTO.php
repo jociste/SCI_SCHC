@@ -9,6 +9,7 @@ class DocumentoDTO {
     public $rutaDocumento;
     public $tamano;
     public $formato;
+    public $estado;
 
     public function DocumentoDTO(){
     }
@@ -83,5 +84,13 @@ class DocumentoDTO {
 
     function setFormato($formato) {
         $this->formato = $formato;
+    }
+    
+    function getEstado() {
+        return $this->estado;
+    }
+
+    function setEstado($estado) {
+        $this->estado = $estado;
     }
 }

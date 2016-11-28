@@ -254,6 +254,10 @@ class SCI_SCHC {
     public function getAllDocumentos() {
         return $this->documentoDAO->findAll();
     }
+    
+    public function getAllDocumentosPapelera() {
+        return $this->documentoDAO->findAllPapelera();
+    }
 
     public function addDocumento($documento) {
         return $this->documentoDAO->save($documento);
@@ -273,6 +277,10 @@ class SCI_SCHC {
 
     public function getDocumentoLikeAtrr($cadena, $idTipoDocumento) {
         return $this->documentoDAO->findLikeAtrr($cadena, $idTipoDocumento);
+    }
+    
+    public function getDocumentoLikeAtrrPapelera($cadena){
+        return $this->documentoDAO->findLikeAtrrPapelera($cadena);
     }
 
     public function getIdEntidadAdministradoraDisponible() {
