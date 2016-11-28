@@ -105,24 +105,16 @@ $perfil = $_SESSION["idCargo"];
                         <div class="row-fluid">
                             <div class="span12">
                                 <div class="body" style="text-align: center;">
-                                    <div>
-                                        <a class="btn btn-success btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarBien.php'">
-                                            Agregar Bien <i class="icon-book" ></i>
-                                        </a>
-                                    </div>
                                     <div class="row-fluid">
                                         <!-- CONTENIDO AQUI -->
                                         <div class="table-responsive">
                                             <table id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>idBaja</th> 
-                                                        <th>$fechaBaja</th>  
-                                                        <th>$motivo</th>
-                                                        <th>$nombreCategoria</th>                                                            
-                                                        <th>$nombreBien</th>
-                                                        <th>$fechaComprobante</th>
-                                                        <th>accion</th> 
+                                                        <th>Nombre del Bien</th>
+                                                        <th>Fecha de Adquisición</th>
+                                                        <th>Fecha Baja</th>  
+                                                        <th>Motivo por el Cual Fue Dado de Baja</th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap">
@@ -205,15 +197,10 @@ $perfil = $_SESSION["idCargo"];
                                         function (datos) {
                                             $.each(datos, function (k, v) {
                                                 var contenido = "<tr>";
-                                                contenido += "<td>" + v.idBien + "</td>";
-                                                contenido += "<td>" + v.fechaBaja + "</td>";
-                                                contenido += "<td>" + v.motivo + "</td>";
-                                                contenido += "<td>" + v.nombreCategoria + "</td>";
-                                                contenido += "<td>" + v.nombreBien + "</td>";
+                                                 contenido += "<td>" + v.nombreBien + "</td>";
                                                 contenido += "<td>" + v.fechaComprobante + "</td>";
-                                                contenido += "<td>";
-                                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idBien + ")'></button>";
-                                                contenido += "</td>";
+                                                contenido += "<td>" + v.fechaBaja + "</td>";
+                                                contenido += "<td>" + v.motivo + "</td>";  
                                                 contenido += "</tr>";
                                                 $("#tablaLotes").append(contenido);
                                             });
@@ -221,69 +208,6 @@ $perfil = $_SESSION["idCargo"];
                                         }
                                 );
                             }
-                            function editar(idBien) {
-                                window.location = "editarBien.php?idBien=" + idBien;
-                            }
-                            function abrirModaldarDeBaja(idBien, idNivelBien) {
-                                $('#myModal').modal('toggle');
-                                document.getElementById('myModal').style.display = 'block';
-                                document.getElementById('idBien').value = idBien;
-                                document.getElementById('idNivelBien').value = idNivelBien;
-
-                            }
-
-                            function darDeBaja() {
-                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
-                                    if (r) {
-                                        document.getElementById("accionBien").value = "DARDEBAJA";
-                                        $('#fm-baja').form('submit', {
-                                            url: "../Servlet/administrarBien.php",
-                                            onSubmit: function () {
-                                                return $(this).form('validate');
-                                            },
-                                            success: function (result) {
-                                                console.log('result (' + result + ")");
-                                                var result = eval('(' + result + ')');
-                                                if (result.errorMsg) {
-                                                    console.log('aqui');
-                                                    $.messager.alert('Error', result.errorMsg);
-                                                } else {
-                                                    document.getElementById("fm-baja").reset();
-                                                    $('#myModal').modal('toggle');
-                                                    cargarLotes();
-                                                    $.messager.show({
-                                                        title: 'Aviso',
-                                                        msg: result.mensaje
-                                                    });
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                });
-                            }
-                            //
-                            //                                            function darDeBaja(idBien) {
-                            //                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
-                            //                                                    if (r) {
-                            //                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idBien=' + idBien;
-                            //                                                        $.getJSON(
-                            //                                                                url_json,
-                            //                                                                function (datos) {
-                            //                                                                    if (datos.errorMsg) {
-                            //                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
-                            //                                                                    } else {
-                            //                                                                        $.messager.show({
-                            //                                                                            title: 'Aviso',
-                            //                                                                            msg: datos.mensaje
-                            //                                                                        });
-                            //                                                                        cargarLotes();
-                            //                                                                    }
-                            //                                                                }
-                            //                                                        );
-                            //                                                    }
-                            //                                                });
-                            //                                            }
         </script>
     </body>
 </html>
