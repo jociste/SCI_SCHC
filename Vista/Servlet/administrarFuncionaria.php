@@ -37,7 +37,7 @@ if ($accion != null) {
     if ($accion == "REESTABLECER_FUNCIONARIA") {
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
         $funcionaria = $control->getFuncionariaByID($runFuncionaria);
-        $funcionaria->setIdEstado(1);
+        $funcionaria->setIndicadorVigente(1);
         $resultFuncionaria = $control->updateFuncionaria($funcionaria);
         if ($resultFuncionaria) {
             echo json_encode(array(
@@ -110,7 +110,7 @@ if ($accion != null) {
             $funcionaria->setDireccion($direccion);
             $funcionaria->setProfesion($profesion);
             $funcionaria->setSexo($sexo);
-            $funcionaria->setIdEstado($estado);
+            $funcionaria->setIndicadorVigente($estado);
             $funcionaria->setIdCargo($idCargo);
             $funcionaria->setFechaInicio($fechaInicio);
             $funcionaria->setFechaTermino($fechaTermino);
@@ -151,7 +151,7 @@ if ($accion != null) {
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
 
         $funcionaria = $control->getFuncionariaByID($runFuncionaria);
-        $funcionaria->setIdEstado(2);
+        $funcionaria->setIndicadorVigente(0);
         $resultFuncionaria = $control->updateFuncionaria($funcionaria);
 
         $cargo = $control->cargoFuncionariaRecienteByRun($funcionaria->getRunFuncionaria());

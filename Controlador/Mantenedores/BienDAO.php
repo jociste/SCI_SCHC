@@ -59,10 +59,10 @@ class BienDAO{
         $query = "SELECT bn.idNivelBien, ni.idNivel, b.idBien, bn.fechaInicio, bn.fechaTermino, c.idCategoria, b.nombre, b.ubicacion, co.idRegistro, 
         co.numeroComprobante, co.proveedor, co.fechaComprobante, de.descripcion, de.cantidad, de.precio, c.nombre, ni.nombre 
         FROM bien as b JOIN bien_nivel as bn on b.idBien = bn.idBien 
-        JOIN categoria c ON c.idCategoria = b.idCategoria 
-        JOIN comprobante as co ON co.idBien = b.idBien
-        JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
-        JOIN nivel as ni ON ni.idNivel = bn.idNivel";
+       left  JOIN categoria c ON c.idCategoria = b.idCategoria 
+        left JOIN comprobante as co ON co.idBien = b.idBien
+       left  JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
+       left  JOIN nivel as ni ON ni.idNivel = bn.idNivel";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $biens = array();

@@ -141,6 +141,7 @@ $perfil = $_SESSION["idCargo"];
 
         </div><!--/#content.span19-->
 
+
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -150,62 +151,103 @@ $perfil = $_SESSION["idCargo"];
                 </p>
             </footer>
         </div>
-    <script src="../../Files/js/modernizr.custom.js"></script>
-    <script src="../../Files/js/toucheffects.js"></script>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Dar de Baja Bien</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fm-producto" class="form-horizontal well" >
+                            <div class="" style="height: 10%;">
+                                <h4 style="width: 80%; align-content: center; margin: 0; padding-left: 0%">Bien</h4> 
 
-    <script>
-                                            $(function () {
-                                                cargarLotes();
+                            </div>
+                            <hr>
+                            <div class="control-group">
+                                <label class="control-label" for="nombreProducto">Motivo</label>
+                                <div class="controls">
+                                    <textarea class="input-xlarge focused" id="nombreProducto" name="nombreProducto" type="text" placeholder="Nombre producto" required></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="idCategoriaProducto">Fecha Baja</label>
+                                <div class="controls">
+                                    <input type="date" id=" fechaTerminoBAJA">
+                                </div>
+                            </div>
+                            <hr>
+                            <input type="hidden" id="accionProducto" name="accion" value="">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" onclick="guardarProducto()" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+                <script src="../../Files/js/modernizr.custom.js"></script>
+                <script src="../../Files/js/toucheffects.js"></script>
+
+                <script>
+                            $(function () {
+                                cargarLotes();
+                            });
+
+                            function cargarLotes() {
+                                var url_json = '../Servlet/administrarBien.php?accion=LISTADOHABILITADOS';
+                                $.getJSON(
+                                        url_json,
+                                        function (datos) {
+                                            $.each(datos, function (k, v) {
+                                                var contenido = "<tr>";
+                                                contenido += "<td>" + v.numeroComprobante + "</td>";
+                                                contenido += "<td>" + v.proveedor + "</td>";
+                                                contenido += "<td>" + v.fechaComprobante + "</td>";
+                                                contenido += "<td>" + v.nombre + "</td>";
+                                                contenido += "<td>" + v.precio + "</td>";
+                                                contenido += "<td>";
+                                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idBien + ")'></button>";
+                                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='darDeBaja(" + v.idBien + ")'></button>";
+                                                contenido += "</td>";
+                                                contenido += "</tr>";
+                                                $("#tablaLotes").append(contenido);
                                             });
-
-                                            function cargarLotes() {
-                                                var url_json = '../Servlet/administrarBien.php?accion=LISTADOHABILITADOS';
-                                                $.getJSON(
-                                                        url_json,
-                                                        function (datos) {
-                                                            $.each(datos, function (k, v) {
-                                                                var contenido = "<tr>";
-                                                                contenido += "<td>" + v.numeroComprobante + "</td>";
-                                                                contenido += "<td>" + v.proveedor + "</td>";
-                                                                contenido += "<td>" + v.fechaComprobante + "</td>";
-                                                                contenido += "<td>" + v.nombre + "</td>";
-                                                                contenido += "<td>" + v.precio + "</td>";
-                                                                contenido += "<td>";
-                                                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idBien + ")'></button>";
-//                                                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='darDeBaja(" + v.idBien + ")'></button>";
-                                                                contenido += "</td>";
-                                                                contenido += "</tr>";
-                                                                $("#tablaLotes").append(contenido);
-                                                            });
-                                                            $('#tablaLotes').DataTable();
-                                                        }
-                                                );
-                                            }
-                                            function editar(idBien) {
-                                              window.location = "editarBien.php?idBien=" + idBien;
-                                            }
-//
-//                                            function darDeBaja(idBien) {
-//                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
-//                                                    if (r) {
-//                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idBien=' + idBien;
-//                                                        $.getJSON(
-//                                                                url_json,
-//                                                                function (datos) {
-//                                                                    if (datos.errorMsg) {
-//                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
-//                                                                    } else {
-//                                                                        $.messager.show({
-//                                                                            title: 'Aviso',
-//                                                                            msg: datos.mensaje
-//                                                                        });
-//                                                                        cargarLotes();
-//                                                                    }
-//                                                                }
-//                                                        );
-//                                                    }
-//                                                });
-//                                            }
-    </script>
-</body>
-</html>
+                                            $('#tablaLotes').DataTable();
+                                        }
+                                );
+                            }
+                            function editar(idBien) {
+                                window.location = "editarBien.php?idBien=" + idBien;
+                            }
+                            function darDeBaja(idBien) {
+                                $('#myModal').modal('toggle');
+                            }
+                            //
+                            //                                            function darDeBaja(idBien) {
+                            //                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
+                            //                                                    if (r) {
+                            //                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idBien=' + idBien;
+                            //                                                        $.getJSON(
+                            //                                                                url_json,
+                            //                                                                function (datos) {
+                            //                                                                    if (datos.errorMsg) {
+                            //                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
+                            //                                                                    } else {
+                            //                                                                        $.messager.show({
+                            //                                                                            title: 'Aviso',
+                            //                                                                            msg: datos.mensaje
+                            //                                                                        });
+                            //                                                                        cargarLotes();
+                            //                                                                    }
+                            //                                                                }
+                            //                                                        );
+                            //                                                    }
+                            //                                                });
+                            //                                            }
+                </script>
+                </body>
+                </html>
