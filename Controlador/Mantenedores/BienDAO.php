@@ -62,7 +62,8 @@ class BienDAO{
        left  JOIN categoria c ON c.idCategoria = b.idCategoria 
         left JOIN comprobante as co ON co.idBien = b.idBien
        left  JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
-       left  JOIN nivel as ni ON ni.idNivel = bn.idNivel";
+       left  JOIN nivel as ni ON ni.idNivel = bn.idNivel
+       WHERE bn.fechaTermino = '0000-00-00'";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $biens = array();
@@ -91,16 +92,40 @@ class BienDAO{
         $this->conexion->desconectar();
         return $biens;
     }
+public function findAllDESHabilitados() {
+        $this->conexion->conectar();
+        $query = "SELECT   b.idBien, b.nombre, c.nombre, ba.fechaBaja, ba.motivo,  co.fechaComprobante        
+        FROM bien as b  left  JOIN categoria c ON c.idCategoria = b.idCategoria 
+        left JOIN comprobante as co ON co.idBien = b.idBien
+        left  JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
+        join baja as ba on ba.idBien = b.idBien";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $biens = array();
+        while ($fila = $result->fetch_row()) {
+            $bienBaja = new BajaDTO();
+            $bienBaja->setIdBien($fila[0]);
+            $bienBaja->setNombreBien($fila[1]);            
+            $bienBaja->setNombreCategoria($fila[2]);
+            $bienBaja->setFechaBaja($fila[3]);
+            $bienBaja->setMotivo($fila[4]);
+            $bienBaja->setFechaComprobante($fila[5]);
+            $biens[$i] = $bienBaja;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $biens;
+    }
 
     public function findByID($idBien) {
         $this->conexion->conectar();
         $query = "SELECT bn.idNivelBien, ni.idNivel, b.idBien, bn.fechaInicio, bn.fechaTermino, c.idCategoria, b.nombre, b.ubicacion, co.idRegistro, 
         co.numeroComprobante, co.proveedor, co.fechaComprobante, de.descripcion, de.cantidad, de.precio, c.nombre, ni.nombre 
         FROM bien as b JOIN bien_nivel as bn on b.idBien = bn.idBien 
-        JOIN categoria c ON c.idCategoria = b.idCategoria 
-        JOIN comprobante as co ON co.idBien = b.idBien
-        JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
-        JOIN nivel as ni ON ni.idNivel = bn.idNivel
+        left JOIN categoria c ON c.idCategoria = b.idCategoria 
+        left JOIN comprobante as co ON co.idBien = b.idBien
+        left JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
+        left JOIN nivel as ni ON ni.idNivel = bn.idNivel
         WHERE b.idBien = ".$idBien;
         $result = $this->conexion->ejecutar($query);
            $bien = new BienDTO();

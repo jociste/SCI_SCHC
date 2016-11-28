@@ -94,10 +94,11 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
-                                        <div class="form-actions" style="height: 30px;">
+                                      <div class="form-actions" style="height: 30px;">
                                             <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%"><b>Editar Bien</b></h4> 
                                         </div>
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
+                                      
                                         <h5><b>Datos de la Compra del Bien</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="numeroBoleta">Número Boleta *</label>
@@ -159,10 +160,7 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                         <div class="controls">
                                             (*) campos Obligatorios
                                         </div>
-                                        <div class="form-actions" style="align-content: center">
-                                            <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
-                                        </div>
+                                        
                                         <input type="hidden" id="accion" name="accion" value="">
                                         <input type="hidden" id="idBien" name="idBien" value="<?php echo $idBien; ?>">
                                         <input type="hidden" id="idCategoria" name="idCategoria" value="">
@@ -171,6 +169,10 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
 
 
                                     </form>
+                                    <div class="form-actions" style="align-content: center">
+                                            <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
+                                            <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
+                                        </div>
                                     <!-- FIN FORMULARIO-->
                                 </div>
                             </div>
@@ -230,7 +232,9 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                                                 return $(this).form('validate');
                                                             },
                                                             success: function (result) {
+                                                                console.log('result ('+result+')');
                                                                 var result = eval('(' + result + ')');
+                                                                
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
                                                                 } else {

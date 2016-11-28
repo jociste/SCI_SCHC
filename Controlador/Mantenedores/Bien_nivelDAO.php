@@ -67,7 +67,7 @@ class Bien_nivelDAO {
     }
     public function findByID($idNivelBien) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM bien_nivel WHERE  idNivelBien =  " . idNivelBien . " ";
+        $query = "SELECT * FROM bien_nivel WHERE  idNivelBien =  " . $idNivelBien . " ";
         $result = $this->conexion->ejecutar($query);
         $bien_nivel = new Bien_nivelDTO();
         while ($fila = $result->fetch_row()) {

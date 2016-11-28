@@ -106,6 +106,9 @@ class SCI_SCHC {
     public function getAllBiensHabilitados() {
         return $this->bienDAO->findAllHabilitados();
     }
+    public function getAllBiensDesHabilitados() {
+        return $this->bienDAO->findAllDESHabilitados();
+    }
 
     public function addBien($bien) {
         return $this->bienDAO->save($bien);
@@ -254,7 +257,7 @@ class SCI_SCHC {
     public function getAllDocumentos() {
         return $this->documentoDAO->findAll();
     }
-    
+
     public function getAllDocumentosPapelera() {
         return $this->documentoDAO->findAllPapelera();
     }
@@ -278,8 +281,8 @@ class SCI_SCHC {
     public function getDocumentoLikeAtrr($cadena, $idTipoDocumento) {
         return $this->documentoDAO->findLikeAtrr($cadena, $idTipoDocumento);
     }
-    
-    public function getDocumentoLikeAtrrPapelera($cadena){
+
+    public function getDocumentoLikeAtrrPapelera($cadena) {
         return $this->documentoDAO->findLikeAtrrPapelera($cadena);
     }
 
@@ -462,7 +465,7 @@ class SCI_SCHC {
     public function getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         return $this->lote_producto_usadosDAO->lotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
     }
-    
+
     public function getStockProductosByIdCategoriaAndFecha($idCategoria, $fecha) {
         return $this->lote_producto_usadosDAO->getStockFinalProductosByIdCategoriaAndFecha($idCategoria, $fecha);
     }
@@ -489,6 +492,10 @@ class SCI_SCHC {
 
     public function BuscaMaximoIdBien() {
         return $this->bienDAO->BuscaMaximoIdBien();
+    }
+
+    public function BuscaMaximoIdBaja() {
+        return $this->bajaDAO->BuscaMaximoIdBaja();
     }
 
     public function BuscaMaximoIdRegistro() {

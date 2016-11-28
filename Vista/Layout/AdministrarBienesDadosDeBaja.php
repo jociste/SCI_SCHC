@@ -116,12 +116,13 @@ $perfil = $_SESSION["idCargo"];
                                             <table id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap">
                                                 <thead>
                                                     <tr>
-                                                        <th>Numero Boleta</th> 
-                                                        <th>Proveedor</th>
-                                                        <th>Fecha Ingreso</th>  
-                                                        <th>Nombre del Bien</th>
-                                                        <th>Valor</th>                                                            
-                                                        <th>Accion</th>
+                                                        <th>idBaja</th> 
+                                                        <th>$fechaBaja</th>  
+                                                        <th>$motivo</th>
+                                                        <th>$nombreCategoria</th>                                                            
+                                                        <th>$nombreBien</th>
+                                                        <th>$fechaComprobante</th>
+                                                        <th>accion</th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap">
@@ -198,20 +199,20 @@ $perfil = $_SESSION["idCargo"];
                             });
 
                             function cargarLotes() {
-                                var url_json = '../Servlet/administrarBien.php?accion=LISTADOHABILITADOS';
+                                var url_json = '../Servlet/administrarBien.php?accion=LISTADODESHABILITADOS';
                                 $.getJSON(
                                         url_json,
                                         function (datos) {
                                             $.each(datos, function (k, v) {
                                                 var contenido = "<tr>";
-                                                contenido += "<td>" + v.numeroComprobante + "</td>";
-                                                contenido += "<td>" + v.proveedor + "</td>";
+                                                contenido += "<td>" + v.idBien + "</td>";
+                                                contenido += "<td>" + v.fechaBaja + "</td>";
+                                                contenido += "<td>" + v.motivo + "</td>";
+                                                contenido += "<td>" + v.nombreCategoria + "</td>";
+                                                contenido += "<td>" + v.nombreBien + "</td>";
                                                 contenido += "<td>" + v.fechaComprobante + "</td>";
-                                                contenido += "<td>" + v.nombre + "</td>";
-                                                contenido += "<td>" + v.precio + "</td>";
                                                 contenido += "<td>";
                                                 contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idBien + ")'></button>";
-                                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='abrirModaldarDeBaja(" + v.idBien + "," + v.idNivelBien + ")'></button>";
                                                 contenido += "</td>";
                                                 contenido += "</tr>";
                                                 $("#tablaLotes").append(contenido);

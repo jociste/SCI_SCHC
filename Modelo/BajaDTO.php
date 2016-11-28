@@ -2,13 +2,39 @@
 class BajaDTO {
     public $idBaja;
     public $idBien;
-    public $fechaBaaja;
+    public $fechaBaja;
     public $motivo;
-
+    public $nombreCategoria;
+    public $nombreBien;
+    public $fechaComprobante;
+ 
     public function BajaDTO(){
     }
+    function getNombreCategoria() {
+        return $this->nombreCategoria;
+    }
 
-    function getIdBaja() {
+    function getNombreBien() {
+        return $this->nombreBien;
+    }
+
+    function getFechaComprobante() {
+        return $this->fechaComprobante;
+    }
+
+    function setNombreCategoria($nombreCategoria) {
+        $this->nombreCategoria = $nombreCategoria;
+    }
+
+    function setNombreBien($nombreBien) {
+        $this->nombreBien = $nombreBien;
+    }
+
+    function setFechaComprobante($fechaComprobante) {
+        $this->fechaComprobante = $fechaComprobante;
+    }
+
+        function getIdBaja() {
         return $this->idBaja;
     }
 
@@ -24,12 +50,12 @@ class BajaDTO {
         return $this->idBien = $idBien;
     }
 
-    function getFechaBaaja() {
-        return $this->fechaBaaja;
+    function getFechaBaja() {
+        return $this->fechaBaja;
     }
 
-    function setFechaBaaja($fechaBaaja) {
-        return $this->fechaBaaja = $fechaBaaja;
+    function setFechaBaja($fechaBaja) {
+        return $this->fechaBaja = $fechaBaja;
     }
 
     function getMotivo() {

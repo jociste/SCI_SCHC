@@ -102,7 +102,7 @@ class ComprobanteDAO {
                 . "  idBien =  " . $comprobante->getIdBien() . " ,"
                 . "  numeroComprobante =  " . $comprobante->getNumeroComprobante() . " ,"
                 . "  proveedor = '" . $comprobante->getProveedor() . "' ,"
-                . "  fechaComprobante = " . $comprobante->getFechaComprobante() . " "
+                . "  fechaComprobante = '" . $comprobante->getFechaComprobante() . "' "
                 . " WHERE  idRegistro =  " . $comprobante->getIdRegistro() . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();

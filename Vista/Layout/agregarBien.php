@@ -160,12 +160,13 @@ $perfil = $_SESSION["idCargo"];
                                         <div class="controls">
                                             (*) campos Obligatorios
                                         </div>
-                                        <div  style="align-content: center; padding-top: 5%; padding-left: 30%">
+                                        
+                                        <input type="hidden" id="accion" name="accion" value="">
+                                    </form>
+                                    <div   class="form-actions" style="align-content: center; padding-left: 30%">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
                                         </div>
-                                        <input type="hidden" id="accion" name="accion" value="">
-                                    </form>
                                     <!-- FIN FORMULARIO-->
                                 </div>
                             </div>

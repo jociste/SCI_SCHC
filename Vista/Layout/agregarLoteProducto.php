@@ -108,7 +108,7 @@ $perfil = $_SESSION["idCargo"];
                                             <div class="controls">
                                                 <select  class="input-xlarge focused" id="idProducto" name="idProducto" required></select>                                               
 
-                                                <a  class="btn btn-primary" onclick="abrirModalProucto()"><i class="icon-plus"> </i></a> 
+                                                <a  class="btn btn-primary" onclick="abrirModalProducto()"><i class="icon-plus"> </i></a> 
                                             </div> 
                                         </div>
 
@@ -165,7 +165,7 @@ $perfil = $_SESSION["idCargo"];
         </div>
         
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -355,8 +355,9 @@ $perfil = $_SESSION["idCargo"];
                                 return true;
                             }
                             
-                            function abrirModalProucto() {
+                            function abrirModalProducto() {
                                 $('#myModal').modal('show');
+                                 document.getElementById('myModal').style.display = 'block';
                             }
         </script>
     </body>

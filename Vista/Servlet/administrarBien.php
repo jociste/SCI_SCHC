@@ -14,6 +14,10 @@ if ($accion != null) {
         $biens = $control->getAllBiensHabilitados();
         $json = json_encode($biens);
         echo $json;
+    } else if ($accion == "LISTADODESHABILITADOS") {
+        $biens = $control->getAllBiensDesHabilitados();
+        $json = json_encode($biens);
+        echo $json;
     } else if ($accion == "AGREGAR") {
         $idNivel = htmlspecialchars($_REQUEST['idNivel']);
         $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
@@ -68,8 +72,7 @@ if ($accion != null) {
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
-    } 
-    else if ($accion == "BORRAR") {
+    } else if ($accion == "BORRAR") {
         $idBien = htmlspecialchars($_REQUEST['idBien']);
 
         $result = $control->removeBien($idBien);
@@ -89,13 +92,11 @@ if ($accion != null) {
         $json = json_encode($bien);
         echo $json;
     } else if ($accion == "ACTUALIZAR") {
-        //Recibir Datos
         $idNivel = htmlspecialchars($_REQUEST['idNivel']);
         $idBien = htmlspecialchars($_REQUEST['idBien']);
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
         $idRegistro = htmlspecialchars($_REQUEST['idRegistro']);
         $idNivelBien = htmlspecialchars($_REQUEST['idNivelBien']);
-
         $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
         $nombre = htmlspecialchars($_REQUEST['nombreBien']);
         $numeroComprobante = htmlspecialchars($_REQUEST['numeroBoleta']);
@@ -105,50 +106,98 @@ if ($accion != null) {
         $cantidad = htmlspecialchars($_REQUEST['cantidad']);
         $precio = htmlspecialchars($_REQUEST['precio']);
         $hoy = date('Y') . "-" . date('m') . "-" . date('d');
-
         //Buscar objetos Anteriores
+        $objetoComprobanteAnterior = $control->getComprobanteByID($idRegistro);
+        $objetoComprobanteAnterior->setNumeroComprobante($numeroComprobante);
+        $objetoComprobanteAnterior->setProveedor($proveedor);
+        $objetoComprobanteAnterior->setFechaComprobante($fechaComprobante);
+        $resultComprobante = $control->updateComprobante($objetoComprobanteAnterior);
+
+        $objetoDetalleComprobanteAnterior = $control->getDetalle_comprobanteByID($idRegistro);
+        $objetoDetalleComprobanteAnterior->setDescripcion($descripcion);
+        $objetoDetalleComprobanteAnterior->setCantidad($cantidad);
+        $objetoDetalleComprobanteAnterior->setPrecio($precio);
+        $resultDetalleComprobante = $control->updateDetalle_comprobante($objetoDetalleComprobanteAnterior);
+
         $objetoBienAnterior = $control->getBienByID($idBien);
         $objetoBienAnterior->setNombre($nombre);
-         $ObjetoNivel = $control->getNivelByID($idNivel);
-        $ubicacion = $ObjetoNivel->getNombre();
+
+        $ObjetoNivel = $control->getNivelByID($idNivel);
+
+        $resultBien;
 
         $objetoNivelBienAnterior = $control->getBien_nivelByID($idNivelBien);
         if ($objetoNivelBienAnterior->getIdNivel() != $idNivel) {
             $objetoNivelBienAnterior->setFechaTermino($hoy);
+            $resultObjetoNivelBienAnterior = $control->updateBien_nivel($objetoNivelBienAnterior);
+            $ubicacion = $ObjetoNivel->getNombre();
             $objetoBienAnterior->setUbicacion($ubicacion);
-
-            $idNivelBien = $control->BuscaMaximoIdNivelBien();
+            $resultBien = $control->updateBien($objetoBienAnterior);
+            $idNivelBienNuevo = $control->BuscaMaximoIdNivelBien();
             $bien_nivel = new Bien_nivelDTO();
-            $bien_nivel->setIdNivelBien($idNivelBien);
+            $bien_nivel->setIdNivelBien($idNivelBienNuevo);
             $bien_nivel->setIdNivel($idNivel);
             $bien_nivel->setIdBien($idBien);
             $bien_nivel->setFechaInicio($fechaInicio);
             $bien_nivel->setFechaTermino('0000-00-00');
             $resultNivelBien = $control->addBien_nivel($bien_nivel);
-        }
-        $resultBien = $control->updateBien($objetoBienAnterior);
-        //Cambiar los simples
-        $objetoComprobanteAnterior = $control->getComprobanteByID($idRegistro);
-        $objetoComprobanteAnterior->setDescripcion($descripcion);
-        $objetoComprobanteAnterior->setCantidad($cantidad);
-        $objetoComprobanteAnterior->setPrecio($precio);
-        $resultComprobante = $control->updateComprobante($objetoComprobanteAnterior);
-        $objetoDetalleComprobanteAnterior = $control->getDetalle_comprobanteByID($idRegistro);
-        $objetoDetalleComprobanteAnterior->setNumeroComprobante($numeroComprobante);
-        $objetoDetalleComprobanteAnterior->setProveedor($proveedor);
-        $objetoDetalleComprobanteAnterior->setFechaComprobante($fechaComprobante);
-        $resultDetalleComprobante = $control->updateDetalle_comprobante($objetoDetalleComprobanteAnterior);
 
-     
-        
-      
-        if ($resultBien && $resultComprobante && $resultDetalleComprobante && $resultNivel) {
-            echo json_encode(array(
-                'success' => true,
-                'mensaje' => "Bien ingresado correctamente."
-            ));
+            if ($resultBien && $resultComprobante && $resultNivelBien && $resultDetalleComprobante && $resultObjetoNivelBienAnterior) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Bien Actualizado Correctamente."
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            }
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            $resultBien = $control->updateBien($objetoBienAnterior);
+
+            if ($resultBien) {
+                if ($resultComprobante) {
+                    if ($resultDetalleComprobante) {
+                        echo json_encode(array(
+                            'success' => true,
+                            'mensaje' => "Bien Actualizado Correctamente."
+                        ));
+                    } else {
+                        echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar el detalle del comprobante.'));
+                    }
+                } else {
+                    echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar el comprobante.'));
+                }
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar el bien.'));
+            }
+        }
+    } else if ($accion == "DARDEBAJA") {
+        $idBien = htmlspecialchars($_REQUEST['idBien']);
+        $idNivelBien = htmlspecialchars($_REQUEST['idNivelBien']);
+        $motivo = htmlspecialchars($_REQUEST['motivo']);
+        $hoy = date('Y') . "-" . date('m') . "-" . date('d');
+        $fechaBaja = htmlspecialchars($_REQUEST['fechaBaja']);
+        $objetoNivelBienAnterior = $control->getBien_nivelByID($idNivelBien);
+        $objetoNivelBienAnterior->setFechaTermino($hoy);
+        $resultObjetoNivelBienAnterior = $control->updateBien_nivel($objetoNivelBienAnterior);
+        $idBaja = $control->BuscaMaximoIdBaja();
+        $nuevaBaja = new BajaDTO();
+        $nuevaBaja->setIdBaja($idBaja);
+        $nuevaBaja->setIdBien($idBien);
+        $nuevaBaja->setMotivo($motivo);
+        $nuevaBaja->setFechaBaja($fechaBaja);
+        $resultBaja = $control->addBaja($nuevaBaja);
+
+        if ($resultBaja) {
+            if ($resultObjetoNivelBienAnterior) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Bien Dado de Baja correctamente."
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar los datos del Bien Dado de Baja.'));
+            }
+        } else {
+            echo json_encode(array('errorMsg' => 'Ha ocurrido un error al dar de Baja el Bien.'));
         }
     }
 }
