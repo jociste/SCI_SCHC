@@ -93,10 +93,11 @@ $perfil = $_SESSION["idCargo"];
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">                                        
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Agregar Bien</h4> 
-                                        </div>
+                                    <div class="form-actions" style="height: 30px; align-content: center">
+                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 40%"><b>Agregar Bien</b></h4> 
+                                    </div>
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center; padding-left: 15%">                                      
+
                                         <h5><b>Datos de la Compra del Bien</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="numeroBoleta">Número Boleta *</label>
@@ -140,7 +141,7 @@ $perfil = $_SESSION["idCargo"];
                                                 <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
                                             </div>
                                         </div>
-                                       <hr> <h5><b>Datos de Asignación del Bien en la Institución</b></h5><hr>
+                                        <hr> <h5><b>Datos de Asignación del Bien en la Institución</b></h5><hr>
 
                                         <div class="control-group">
                                             <label class="control-label" for="idNivel">Ubicación en Nivel *</label>
@@ -159,7 +160,7 @@ $perfil = $_SESSION["idCargo"];
                                         <div class="controls">
                                             (*) campos Obligatorios
                                         </div>
-                                        <div class="form-actions" style="align-content: center">
+                                        <div  style="align-content: center; padding-top: 5%; padding-left: 30%">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
                                         </div>
@@ -227,6 +228,7 @@ $perfil = $_SESSION["idCargo"];
                                                     var fechaIngreso = document.getElementById("fechaIngreso").value;
                                                     var idNivel = document.getElementById("idNivel").value;
                                                     var descripcion = document.getElementById("descripcion").value;
+                                                    var fechaInicio = document.getElementById("fechaInicio").value;
                                                     if (numeroBoleta == "") {
                                                         $.messager.alert('Error', "Debe ingresar un numero de boleta");
                                                         return false;
@@ -253,6 +255,14 @@ $perfil = $_SESSION["idCargo"];
                                                     }
                                                     if (fechaIngreso == "") {
                                                         $.messager.alert('Error', "Debe ingresar la fecha de ingreso del bien");
+                                                        return false;
+                                                    }
+                                                    if (fechaInicio == "") {
+                                                        $.messager.alert('Error', "Debe ingresar la fecha de ingreso en el nivel");
+                                                        return false;
+                                                    }
+                                                    if (fechaInicio < fechaIngreso) {
+                                                        $.messager.alert('Error', "La fecha de ingreso al nivel debe ser mayor o igual a la fecha de ingreso");
                                                         return false;
                                                     }
                                                     if (precio == "") {

@@ -152,7 +152,7 @@ $perfil = $_SESSION["idCargo"];
             </footer>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -186,9 +186,11 @@ $perfil = $_SESSION["idCargo"];
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" onclick="guardarProducto()" class="btn btn-primary">Guardar</button>
+                        <button type="button" onclick="" class="btn btn-primary">Guardar</button>
                     </div>
-                </div>
+                </div> 
+            </div>
+        </div>
                 <script src="../../Files/js/modernizr.custom.js"></script>
                 <script src="../../Files/js/toucheffects.js"></script>
 
@@ -225,6 +227,7 @@ $perfil = $_SESSION["idCargo"];
                             }
                             function darDeBaja(idBien) {
                                 $('#myModal').modal('toggle');
+                                document.getElementById('myModal').style.display = 'block';
                             }
                             //
                             //                                            function darDeBaja(idBien) {

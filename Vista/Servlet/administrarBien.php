@@ -68,7 +68,8 @@ if ($accion != null) {
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
-    } else if ($accion == "BORRAR") {
+    } 
+    else if ($accion == "BORRAR") {
         $idBien = htmlspecialchars($_REQUEST['idBien']);
 
         $result = $control->removeBien($idBien);
