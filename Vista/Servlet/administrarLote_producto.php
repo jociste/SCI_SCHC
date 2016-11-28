@@ -107,14 +107,30 @@ if ($accion != null) {
         $productosNoDisponibles = array();
         $nProd = 0;
         for ($i = 1; $i <= $cantidadProductos; $i++) {
-            $idCategoria = $_REQUEST['idCategoria_' . $i];
-            $idProducto = $_REQUEST['idProducto_' . $i];
-            $cantidad = $_REQUEST['cantidad_' . $i];
-            $fechaRetiro = $_REQUEST['fechaRetiro_' . $i];
-            $destino = $_REQUEST['destino_' . $i];
+            $idCategoria = -1;
+            $idProducto = "";
+            $cantidad = 0;
+            $fechaRetiro = "";
+            $destino = "";
+            if (isset($_REQUEST['idCategoria_' . $i])) {
+                $idCategoria = $_REQUEST['idCategoria_' . $i];
+            }
+            if (isset($_REQUEST['idProducto_' . $i])) {
+                $idProducto = $_REQUEST['idProducto_' . $i];
+            }
+            if (isset($_REQUEST['cantidad_' . $i])) {
+                $cantidad = $_REQUEST['cantidad_' . $i];
+            }
+            if (isset($_REQUEST['fechaRetiro_' . $i])) {
+                $fechaRetiro = $_REQUEST['fechaRetiro_' . $i];
+            }
+            if (isset($_REQUEST['destino_' . $i])) {
+                $destino = $_REQUEST['destino_' . $i];
+            }
+
             //OBTENER LOTE PRODUCTO A RETIRAR
 
-            if ($idCategoria != -1) {
+            if ($idCategoria != -1 && $idProducto != "") {
                 $falta = false;
                 do {
                     $loteProducto = $control->getLote_productoByIdProducto($idProducto);

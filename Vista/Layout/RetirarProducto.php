@@ -275,7 +275,7 @@ $runFuncionaria = $_SESSION["run"];
                                                                 );
                                                             }
 
-                                                            function agregarProducto() {                                                                
+                                                            function agregarProducto() {
                                                                 var cantidadProductos = document.getElementById("cantidadProductos").value;
                                                                 cantidadProductos++;
                                                                 var contenido = "<div class='row-fluid'>"
@@ -401,6 +401,7 @@ $runFuncionaria = $_SESSION["run"];
                                                                 }
                                                                 if (n_productos == 0) {
                                                                     $.messager.alert('Error', "Debe ingresar al menos 1 producto.");
+                                                                    return false;
                                                                 }
                                                                 return true;
                                                             }

@@ -103,6 +103,7 @@ if ($accion != null) {
         $bytes = $_FILES['documento']['size'];
         $kilobyte = round(($bytes / 1024));
         $megabyte = round(($bytes / 1048576),2);
+        $tamano = "";
         if($megabyte >= 1) {
             $tamano = $megabyte." Mb";
         }else {
