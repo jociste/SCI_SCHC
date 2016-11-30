@@ -105,7 +105,7 @@ $perfil = $_SESSION["idCargo"];
                                     <thead>
                                         <tr>
                                             <th>Cantidad</th> 
-                                            <th>Fecha Vencimiento</th>
+<!--                                            <th>Fecha Vencimiento</th>-->
                                             <th>Producto</th>                            
                                             <th>Fecha Ingreso</th>
                                             <th>Estado</th>
@@ -148,11 +148,11 @@ $perfil = $_SESSION["idCargo"];
                             $.each(datos, function (k, v) {
                                 var contenido = "<tr>";
                                 contenido += "<td>" + v.cantidad + "</td>";
-                                if (v.fechaVencimiento == '0000-00-00') {
-                                    contenido += "<td>Sin Fecha Vencimiento</td>";
-                                } else {
-                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
-                                }
+//                                if (v.fechaVencimiento == '0000-00-00') {
+//                                    contenido += "<td>Sin Fecha Vencimiento</td>";
+//                                } else {
+//                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
+//                                }
                                 contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.fechaIngreso + "</td>";
                                 if(v.cantidad == 0){

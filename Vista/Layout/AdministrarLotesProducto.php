@@ -175,7 +175,11 @@ $perfil = $_SESSION["idCargo"];
                                                                     contenido += "<td>" + v.nombre + "</td>";
                                                                     contenido += "<td>" + v.cantidad + "</td>";
                                                                     contenido += "<td>" + v.proveedor + "</td>";
-                                                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
+                                                                    if (v.fechaVencimiento == '0000-00-00') {
+                                                                        contenido += "<td>Sin Fecha Vencimiento</td>";
+                                                                    } else {
+                                                                        contenido += "<td>" + v.fechaVencimiento + "</td>";
+                                                                    }
                                                                     contenido += "<td>" + v.fechaIngreso + "</td>";
                                                                     contenido += "<td>";
                                                                     contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idLote + ")'></button>";

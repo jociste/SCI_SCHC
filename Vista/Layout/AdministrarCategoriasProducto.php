@@ -89,11 +89,11 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" >
- <!-- AQUI VA EL MENU INTERIOR-->
+                        <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
-                        } 
+                        }
                         ?>
                         <!-- FIN MENU INTERIOR-->
 
@@ -116,10 +116,10 @@ $perfil = $_SESSION["idCargo"];
                                                 <table class="table">
                                                     <thead> 
                                                         <tr> 
-                                                            <th>ID</th> 
+                                                            <th>Id</th> 
                                                             <th>Nombre</th> 
                                                             <th>Descripción</th> 
-                                                            <th>Accion</th>
+                                                            <th>Gestionar</th>
                                                         </tr> 
                                                     </thead>
                                                     <tbody id="tablaCategorias">
@@ -171,10 +171,16 @@ $perfil = $_SESSION["idCargo"];
                                                                     contenido += "<td>" + v.idCategoria + "</td>";
                                                                     contenido += "<td>" + v.nombre + "</td>";
                                                                     contenido += "<td>" + v.descripcion + "</td>";
-                                                                    contenido += "<td>";
-                                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idCategoria + ")'></button>";
-                                                                    contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idCategoria + ")'></button>";
-                                                                    contenido += "</td>";
+                                                                    if (v.idCategoria > 5 || v.idCategoria < 1) {
+                                                                        contenido += "<td>";
+                                                                        contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idCategoria + ")'></button>";
+                                                                        contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idCategoria + ")'></button>";
+                                                                        contenido += "</td>";
+                                                                    } else {
+                                                                         contenido += "<td>No Permitido</td>";
+                                                                    }
+
+
                                                                     contenido += "</tr>";
                                                                     $("#tablaCategorias").append(contenido);
                                                                 });
