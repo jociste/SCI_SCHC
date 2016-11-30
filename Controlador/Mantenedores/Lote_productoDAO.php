@@ -23,8 +23,8 @@ class Lote_productoDAO {
         $this->conexion->conectar();
         $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, p.cantidad, p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
         FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto 
-        WHERE p.cantidad>0 and p.fechaVencimiento <> '0000-00-00'
-        ORDER by p.fechaVencimiento ";
+        WHERE  p.cantidad>0 and p.fechaVencimiento <> '0000-00-00' and p.fechaVencimiento <= DATE_ADD(NOW(),INTERVAL 60 DAY)
+ORDER by p.fechaVencimiento";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -46,11 +46,25 @@ class Lote_productoDAO {
         return $lote_productos;
     }
 
+    public function CuentaProductosPorVencer() {
+        $this->conexion->conectar();
+        $query = "SELECT COUNT(*)  FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto 
+        WHERE p.cantidad>0 and p.fechaVencimiento <> '0000-00-00' and p.fechaVencimiento <= DATE_ADD(NOW(),INTERVAL 60 DAY)
+        ORDER by p.fechaVencimiento";
+        $result = $this->conexion->ejecutar($query);
+        $cantidad = 0;
+        while ($fila = $result->fetch_row()) {
+            $cantidad = $fila[0];
+        }
+        $this->conexion->desconectar();
+        return $cantidad;
+    }
+
     public function findAllOrdenadosPorBajoStock() {
         $this->conexion->conectar();
         $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
         FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto  
-        WHERE p.cantidad < 11 
+        WHERE (select sum(cantidad) FROM lote_producto where idProducto = p.idProducto)<11
         group by p.idProducto
         ORDER by p.cantidad";
         $result = $this->conexion->ejecutar($query);
@@ -72,6 +86,20 @@ class Lote_productoDAO {
         }
         $this->conexion->desconectar();
         return $lote_productos;
+    }
+        public function CuentaProductosBajoStock() {
+        $this->conexion->conectar();
+        $query = "SELECT count(DISTINCT p.idProducto)
+        FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto  
+        WHERE (select sum(cantidad) FROM lote_producto where idProducto = p.idProducto)<11
+        ORDER by p.cantidad";
+        $result = $this->conexion->ejecutar($query);
+        $cantidad = 0;
+        while ($fila = $result->fetch_row()) {
+            $cantidad = $fila[0];
+        }
+        $this->conexion->desconectar();
+        return $cantidad;
     }
 
     public function findAll() {
@@ -136,7 +164,7 @@ class Lote_productoDAO {
         $this->conexion->desconectar();
         return $lote_producto;
     }
-    
+
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
         $query = "SELECT * FROM lote_producto WHERE  upper(idLote) LIKE upper(" . $cadena . ")  OR  upper(idProducto) LIKE upper(" . $cadena . ")  OR  upper(numeroBoleta) LIKE upper(" . $cadena . ")  OR  upper(proveedor) LIKE upper('" . $cadena . "')  OR  upper(cantidad) LIKE upper(" . $cadena . ")  OR  upper(fechaVencimiento) LIKE upper(" . $cadena . ")  OR  upper(fechaIngreso) LIKE upper(" . $cadena . ") ";
@@ -209,5 +237,6 @@ class Lote_productoDAO {
         }
         $this->conexion->desconectar();
         return $lote_productos;
-    }              
+    }
+
 }

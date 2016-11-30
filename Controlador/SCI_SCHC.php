@@ -106,11 +106,11 @@ class SCI_SCHC {
     public function getAllBiensHabilitados() {
         return $this->bienDAO->findAllHabilitados();
     }
-    
+
     public function getAllBiensDesHabilitados() {
         return $this->bienDAO->findAllDESHabilitados();
     }
-    
+
     public function getAllBiensHabilitadosByIdNivel($idNivel) {
         return $this->bienDAO->findAllHabilitadosByIdNivel($idNivel);
     }
@@ -407,8 +407,16 @@ class SCI_SCHC {
         return $this->lote_productoDAO->findAll();
     }
 
-    public function getAllLote_productos() {
+    public function getAllLote_productosPorVencer() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();
+    }
+
+    public function cuentaProductosPorVencer() {
+        return $this->lote_productoDAO->CuentaProductosPorVencer();
+    }
+
+    public function cuentaProductosBajoStock() {
+        return $this->lote_productoDAO->CuentaProductosBajoStock();
     }
 
     public function getAllLote_productosBajoStock() {

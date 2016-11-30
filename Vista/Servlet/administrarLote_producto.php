@@ -11,8 +11,16 @@ if ($accion != null) {
         $json = json_encode($lote_productos);
         echo $json;
     } if ($accion == "LISTADOPRODUCTOSPORVENCER") {
-        $lote_productos = $control->getAllLote_productos();
+        $lote_productos = $control->getAllLote_productosPorVencer();
         $json = json_encode($lote_productos);
+        echo $json;
+    } if ($accion == "CUENTAPRODUCTOSPORVENCER") {
+        $cantidad = $control->cuentaProductosPorVencer();
+        $json = json_encode($cantidad);
+        echo $json;
+        } if ($accion == "CUENTAPRODUCTOSBAJOSTOCK") {
+        $cantidad = $control->cuentaProductosBajoStock();
+        $json = json_encode($cantidad);
         echo $json;
     } else if ($accion == "LISTADOPRODUCTOSBAJOSTOCK") {
         $lote_productos = $control->getAllLote_productosBajoStock();
