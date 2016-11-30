@@ -106,8 +106,13 @@ class SCI_SCHC {
     public function getAllBiensHabilitados() {
         return $this->bienDAO->findAllHabilitados();
     }
+    
     public function getAllBiensDesHabilitados() {
         return $this->bienDAO->findAllDESHabilitados();
+    }
+    
+    public function getAllBiensHabilitadosByIdNivel($idNivel) {
+        return $this->bienDAO->findAllHabilitadosByIdNivel($idNivel);
     }
 
     public function addBien($bien) {

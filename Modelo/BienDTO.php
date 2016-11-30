@@ -15,6 +15,7 @@ class BienDTO {
     public $numeroComprobante;
     public $proveedor;
     public $fechaComprobante;
+    public $mesfechaComprobante;
     //detalle del comprobante
     public $descripcion;
     public $cantidad;
@@ -161,5 +162,12 @@ class BienDTO {
     function setUbicacion($ubicacion) {
         return $this->ubicacion = $ubicacion;
     }
+    
+    function getMesfechaComprobante() {
+        return $this->mesfechaComprobante;
+    }
 
+    function setMesfechaComprobante($mesfechaComprobante) {
+        $this->mesfechaComprobante = $mesfechaComprobante;
+    }
 }

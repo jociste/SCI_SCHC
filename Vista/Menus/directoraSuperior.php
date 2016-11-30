@@ -36,7 +36,7 @@ $sexo = $_SESSION["sexo"];
                         <ul class="dropdown-menu messages">
                             <li><a href="AdministrarBienes.php">Bienes</a></li>
                             <li><a href="#">Bienes Dados De Baja</a></li>
-                            <li><a href="#">Generar Reportes</a></li>
+                            <li><a href="AdministrarReportesBienes.php">Generar Reportes</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
