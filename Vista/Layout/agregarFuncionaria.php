@@ -142,14 +142,12 @@ $perfil = $_SESSION["idCargo"];
                                 <div class="control-group">
                                     <label class="control-label" for="idCargo">Cargo *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" id="idCargo" name="idCargo" style="height: 32px; width: 286px">
-                                            <option value="1">Directora</option>
-                                            <option value="2">Encargada Materiales</option>
-                                            <option value="3">Educadora/Técnico</option>
-                                            <option value="4">Auxiliar</option>                                                                
+                                        <select  class="input-xlarge focused" id="idCargo" name="idCargo" required style="height: 32px; width: 286px">
+                                            <option value="-1">Seleccionar...</option>
                                         </select>
                                     </div>
                                 </div> 
+                                
                                 <div class="control-group">
                                     <label class="control-label" for="fechaInicio">Fecha Inicio Cargo *</label>
                                     <div class="controls">
@@ -166,12 +164,8 @@ $perfil = $_SESSION["idCargo"];
                                 <div class="control-group">
                                     <label class="control-label" for="idNivel">Nivel *</label>
                                     <div class="controls">
-                                        <select class="input-xlarge" id="idNivel" name="idNivel" style="height: 32px; width: 286px" >
-                                            <option value="2">Menor</option>
-                                            <option value="3">Medio Menor</option>
-                                            <option value="1">Heterogéneo</option>
-                                            <option value="4">Medio Mayor</option>
-                                            <option value="5">Mayor</option>                                                                 
+                                        <select  class="input-xlarge focused" id="idNivel" name="idNivel" required style="height: 32px; width: 286px">
+                                            <option value="-1">Seleccionar...</option>
                                         </select>
                                     </div>
                                 </div> 
@@ -234,7 +228,38 @@ $perfil = $_SESSION["idCargo"];
         <script type="text/javascript">
 
                                         $(function () {
+                                            cargarNiveles();
+                                            cargarCargos();
                                         });
+                                        function cargarNiveles() {
+                                            var url_json = '../Servlet/administrarNivel.php?accion=LISTADO';
+                                            $.getJSON(
+                                                    url_json,
+                                                    function (datos) {
+                                                        $.each(datos, function (k, v) {
+                                                            var contenido = "<option value='" + v.idNivel + "'>" + v.nombre + "</option>";
+                                                            $("#idNivel").append(contenido);
+                                                        });
+                                                    }
+                                            );
+                                        }
+                                         function cargarCargos() {
+                                            var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
+                                            $.getJSON(
+                                                    url_json,
+                                                    function (datos) {
+                                                        $.each(datos, function (k, v) {
+                                                            var idCargo = v.idCargo;
+                                                            var cargo = v.nombre;
+                                                            if(idCargo == 3){
+                                                                cargo = "Técnico";
+                                                            }
+                                                            var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                            $("#idCargo").append(contenido);
+                                                        });
+                                                    }
+                                            );
+                                        }
                                         function guardarFuncionaria() {
                                             document.getElementById("accion").value = "AGREGAR";
                                             if (validarFuncionaria() && validarCargoNivelFuncionaria()) {

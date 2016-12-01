@@ -25,8 +25,8 @@ class CargoDAO{
         $cargos = array();
         while ($fila = $result->fetch_row()) {
             $cargo = new CargoDTO();
-            $cargo->setIdCargo($fila[0]);
-            $cargo->setNombre($fila[1]);
+            $cargo->setIdCargo(utf8_encode($fila[0]));
+            $cargo->setNombre(utf8_encode($fila[1]));
             $cargos[$i] = $cargo;
             $i++;
         }

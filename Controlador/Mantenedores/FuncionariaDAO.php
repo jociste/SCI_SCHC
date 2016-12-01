@@ -152,8 +152,8 @@ class FuncionariaDAO {
 
     public function save($funcionaria) {
         $this->conexion->conectar();
-        $query = "INSERT INTO funcionaria (runFuncionaria, indicadorVigente, clave,nombres,apellidos,fechaNacimiento,telefono,direccion,profesion,sexo)"
-                . " VALUES ( " . $funcionaria->getRunFuncionaria() . " ,  " . $funcionaria->getIndicadorVigente() . " ,  " . $funcionaria->getClave() . " , '" . $funcionaria->getNombres() . "' , '" . $funcionaria->getApellidos() . "' , '" . $funcionaria->getFechaNacimiento() . "' ,  " . $funcionaria->getTelefono() . " , '" . $funcionaria->getDireccion() . "' , '" . $funcionaria->getProfesion() . "' , '" . $funcionaria->getSexo() . "' )";
+        $query = "INSERT INTO funcionaria (runFuncionaria, codigoEstablecimiento, indicadorVigente, clave,nombres,apellidos,fechaNacimiento,telefono,direccion,profesion,sexo)"
+                . " VALUES ( " . $funcionaria->getRunFuncionaria() . " , 8401017, " . $funcionaria->getIndicadorVigente() . " ,  " . $funcionaria->getClave() . " , '" . $funcionaria->getNombres() . "' , '" . $funcionaria->getApellidos() . "' , '" . $funcionaria->getFechaNacimiento() . "' ,  " . $funcionaria->getTelefono() . " , '" . $funcionaria->getDireccion() . "' , '" . $funcionaria->getProfesion() . "' , '" . $funcionaria->getSexo() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

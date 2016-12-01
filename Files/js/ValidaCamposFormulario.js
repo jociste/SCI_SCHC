@@ -134,8 +134,6 @@ function eliminarCaracteres() {
     aux = aux.replace('.', '');
     aux = aux.replace('.', '');
     aux = aux.replace('-', '');
-    aux = aux.replace('K', '0');
-    aux = aux.replace('k', '0');
     document.getElementById("runFuncionaria").value = aux;
 }
 function fechaActual() {

@@ -13,7 +13,6 @@ if ($accion != null) {
     }//listo
     if ($accion == "LISTADOHABILITADAS") {
         $funcionarias = $control->getAllFuncionariasHabilitadas();
-
         for ($i = 0; $i < count($funcionarias); $i++) {
             $cargo = $control->cargoFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
             $nivel = $control->nivelFuncionariaRecienteByRun($funcionarias[$i]->getRunFuncionaria());
