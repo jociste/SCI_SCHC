@@ -115,6 +115,10 @@ class SCI_SCHC {
         return $this->bienDAO->findAllHabilitadosByIdNivel($idNivel);
     }
 
+    public function getAllBiensHabilitadosByIdNivelAndFechas($idNivel, $fechaInicio, $fechaTermino) {
+        return $this->bienDAO->findAllHabilitadosByIdNivelAndFechas($idNivel, $fechaInicio, $fechaTermino);
+    }
+
     public function addBien($bien) {
         return $this->bienDAO->save($bien);
     }

@@ -22,11 +22,17 @@ $rutRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['rutRepresentant
 $telefonoRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['telefonoRepresentanteLegal']));
 $emailRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['emailRepresentanteLegal']));
 
-$fechaInicio = utf8_decode(htmlspecialchars($_REQUEST['fechaInicio']));
-$fechaTermino = utf8_decode(htmlspecialchars($_REQUEST['fechaTermino']));
-
 $idNivel = utf8_decode(htmlspecialchars($_REQUEST['idNivel']));
-$bienes = $control->getAllBiensHabilitadosByIdNivel($idNivel);
+$fechaActual = utf8_decode(htmlspecialchars($_REQUEST['fechaActual']));
+
+$bienes;
+if (isset($_REQUEST['sinFechas'])) {
+    $bienes = $control->getAllBiensHabilitadosByIdNivel($idNivel);
+} else {
+    $fechaInicio = utf8_decode(htmlspecialchars($_REQUEST['fechaInicio']));
+    $fechaTermino = utf8_decode(htmlspecialchars($_REQUEST['fechaTermino']));
+    $bienes = $control->getAllBiensHabilitadosByIdNivelAndFechas($idNivel,$fechaInicio,$fechaTermino);
+}
 
 $salaCuna = "";
 $nivelMedio = "";
@@ -217,7 +223,7 @@ if ($idNivel == 1) {
         </div>
         <div>
             <table class="table">
-                <tr><td class="td-borde fondo alto-xs" colspan="4">1.- FECHA DE REALIZACI&Oacute;N O DE ACTUALIZACI&Oacute;N DEL INVENTARIO (dd/mm/aa):</td><td class="td-borde ancho-69mm"></td></tr>
+                <tr><td class="td-borde fondo alto-xs" colspan="4">1.- FECHA DE REALIZACI&Oacute;N O DE ACTUALIZACI&Oacute;N DEL INVENTARIO (dd/mm/aa):</td><td class="td-borde ancho-69mm center"><?= $fechaActual ?></td></tr>
             </table>
         </div>
         <br>
@@ -261,14 +267,14 @@ if ($idNivel == 1) {
                     echo '<tr><td class="td-borde alto-xs">' . $bien->getNumeroComprobante() . '</td><td class="td-borde alto-xs">' . $bien->getFechaComprobante() . '</td><td class="td-borde alto-xs">' . $bien->getProveedor() . '</td><td class="td-borde alto-xs">' . $bien->getMesfechaComprobante() . '</td><td class="td-borde alto-xs">' . $bien->getFechaInicio() . '</td><td class="td-borde alto-xs">' . $bien->getDescripcion() . '</td><td class="td-borde alto-xs right">' . $bien->getCantidad() . '</td><td class="td-borde alto-xs right">' . number_format($bien->getPrecio(), 0) . '</td></tr>';
                     $count++;
                 }
-                if ($count <13) {
-                    $resto = 13-$count;
+                if ($count < 13) {
+                    $resto = 13 - $count;
                     for ($i = 0; $i < $resto; $i++) {
                         echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td></tr>';
                     }
                 }
                 ?>
-              </table>
+            </table>
         </div>
         <br>
         <div>
@@ -281,7 +287,8 @@ if ($idNivel == 1) {
         <div>
             <table class="table">
                 <tr><td class="td-borde fondo alto-ms12" colspan="5" style="font-size:16px">7.- DE USO EXCLUSIVO DE DIRECCI&Oacute;N REGIONAL DE LA JUNJI</td></tr>
-                <tr><td class="td-borde alto-ms12 ancho-129mm"></td><td class="td-borde alto-ms12 ancho-69mm"></td><td class="td-borde alto-ms12 ancho-69mm"></td><td class="td-borde alto-ms12 ancho-69mm"></td><td class="td-borde alto-ms12 ancho-69mm"></td></tr>                
+                <tr><td class="td-borde alto-ms12 ancho-56mm"></td><td class="td-borde alto-ms12 ancho-69mm" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/    </td><td class="td-borde alto-ms12 ancho-43mm" style="font-size:16px; padding: 10px;">____ Aprobada<br><br>____ Rechazada</td><td class="td-borde alto-ms12 ancho-69mm"></td><td class="td-borde alto-ms12 ancho-69mm"></td></tr>
+                <tr><td class="td-borde fondo alto-ms12 ancho-56mm center" style="font-size:16px">Fecha de Ingreso<br>(Oficina de Partes)</td><td class="td-borde fondo alto-ms12 ancho-69mm center" style="font-size:16px">Fecha de Revisi&oacute;n (dd/mm/aa)</td><td class="td-borde fondo alto-ms12 ancho-43mm center" style="font-size:16px">Estado final del inventario</td><td class="td-borde fondo alto-ms12 ancho-69mm center" style="font-size:16px">Nombre y Firma del Revisor JUNJI</td><td class="td-borde fondo alto-ms12 ancho-69mm center" style="font-size:16px; padding: 10px;">Nombre, Firma, Timbre Jefe<br>Subdepartamento de<br> ???? </td></tr>
             </table>
         </div>
     </body>

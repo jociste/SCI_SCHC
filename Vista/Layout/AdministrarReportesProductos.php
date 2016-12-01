@@ -296,6 +296,7 @@ $perfil = $_SESSION["idCargo"];
                             $(function () {
                                 cargarDatosGenerales();
                                 cargarCategorias();
+                                document.getElementById("myModal").style.display = 'none';
                             });
 
                             function cargarDatosGenerales() {

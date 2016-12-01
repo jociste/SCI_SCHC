@@ -302,8 +302,9 @@ $perfil = $_SESSION["idCargo"];
                             $(function () {
                                 cargarDatosGenerales();
                                 cargarNiveles();
+                                document.getElementById("myModal").style.display = 'none';
                             });
-                            
+
                             function cargarNiveles() {
                                 var url_json = '../Servlet/administrarNivel.php?accion=LISTADO';
                                 $.getJSON(
@@ -380,7 +381,7 @@ $perfil = $_SESSION["idCargo"];
                                         onSubmit: function () {
                                             return $(this).form('validate');
                                         },
-                                        success: function (result) {                                            
+                                        success: function (result) {
                                             var result = eval('(' + result + ')');
                                             if (result.success) {
                                                 $.messager.show({
@@ -503,26 +504,32 @@ $perfil = $_SESSION["idCargo"];
                                 var fechaInicio = $("#fechaInicio").val();
                                 var fechaTermino = $("#fechaTermino").val();
 
-                                if (fechaInicio == "") {
-                                    $.messager.alert('Error', "Debe ingresar la fecha de inicio.");
-                                    return false;
+                                var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                                var f = new Date();
+                                var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+
+                                if (!document.getElementById("sinFechas").checked) {
+                                    if (fechaInicio == "") {
+                                        $.messager.alert('Error', "Debe ingresar la fecha de inicio.");
+                                        return false;
+                                    }
+                                    if (fechaTermino == "") {
+                                        $.messager.alert('Error', "Debe ingresar la fecha de termino.");
+                                        return false;
+                                    }
+                                    if (fechaInicio >= fechaTermino) {
+                                        $.messager.alert('Error', "La fecha de termino debe ser mayor a la fecha de inicio.");
+                                        return false;
+                                    }
                                 }
-                                if (fechaTermino == "") {
-                                    $.messager.alert('Error', "Debe ingresar la fecha de termino.");
-                                    return false;
-                                }
-                                if (fechaInicio >= fechaTermino) {
-                                    $.messager.alert('Error', "La fecha de termino debe ser mayor a la fecha de inicio.");
-                                    return false;
-                                }
-                                window.open("generarReporteInventarioBienes.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo").serialize());
+                                window.open("generarReporteInventarioBienes.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo").serialize() + " &fechaActual="+fechaActual);
                             }
-                            
+
                             function sinPeriodo() {
-                                if(document.getElementById("sinFechas").checked){
+                                if (document.getElementById("sinFechas").checked) {
                                     document.getElementById("fechaInicio").disabled = true;
                                     document.getElementById("fechaTermino").disabled = true;
-                                }else{
+                                } else {
                                     document.getElementById("fechaInicio").disabled = false;
                                     document.getElementById("fechaTermino").disabled = false;
                                 }
