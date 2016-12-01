@@ -72,7 +72,9 @@ if ($accion != null) {
     }//listo
     else if ($accion == "AGREGAR") {
         // Funcionaria
-        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
+        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);       
+        $runFuncionaria = substr($runFuncionaria, 0, -1);
+        
         $clave = htmlspecialchars($_REQUEST['clave']);
         $nombres = htmlspecialchars($_REQUEST['nombres']);
         $apellidos = htmlspecialchars($_REQUEST['apellidos']);
