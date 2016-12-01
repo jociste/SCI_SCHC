@@ -117,8 +117,8 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                             </div>
                                         </div>
                                         <div class="controls">
-                                    (*) campos Obligatorios
-                                </div>
+                                            (*) campos Obligatorios
+                                        </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarCategoria()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarCategoriasDocumentos.php'" class="btn">Cancelar</button>
