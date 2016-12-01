@@ -65,10 +65,10 @@ $perfil = $_SESSION["idCargo"];
                             <div class="span6">
                                 <div class="alert alert-block alert-error" id="AlertaPorVencer" style="float: left; width: 80% ; display: none">
                                     <button type="button" class="close" data-dismiss="alert">×</button> 
-                                    <b> Advertencia</b>
+                                    <h4><b> Advertencia</b></h4>
                                     <hr style="padding: 0px; margin-top: 10px">
-                                    Existen Productos Vencidos o Por Vencer.
-                                    <br><br>
+                                    <h5>Existen Productos Vencidos o Por Vencer.</h5>
+                                    <br>
                                     <div style="padding-left: 36%">
                                         <a href="MostrarLoteProductosOrdenadosPorVencer.php" class="btn btn-danger"><i class="icon-arrow-right"></i> REVISAR</a>      
                                     </div>                                                                             
@@ -77,10 +77,10 @@ $perfil = $_SESSION["idCargo"];
                             <div class="span6">
                                 <div class="alert alert-block alert-danger" id="AlertaBajoStock" style="float: right; width: 80% ; display: none">
                                     <button type="button" class="close" data-dismiss="alert">×</button> 
-                                    <b> Advertencia</b>
+                                     <h4><b> Advertencia</b> </h4>
                                     <hr style="padding: 0px; margin-top: 10px">
-                                    Existen Productos con bajo stock.
-                                    <br><br>
+                                     <h5>Existen Productos con bajo stock. </h5>
+                                    <br>
                                     <div style="padding-left: 36%">
                                         <a href="MostrarLoteProductosOrdenadosPorStock.php" class="btn btn-warning"><i class="icon-arrow-right"></i> REVISAR</a>      
                                     </div>                                                                             

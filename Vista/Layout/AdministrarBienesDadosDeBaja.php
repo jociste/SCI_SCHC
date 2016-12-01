@@ -139,8 +139,7 @@ $perfil = $_SESSION["idCargo"];
         <div class="container-fluid m-t-large">
             <footer>
                 <p>
-                    <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
+                    <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
                 </p>
             </footer>
         </div>

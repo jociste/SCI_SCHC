@@ -88,30 +88,30 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" style="width: 1100px; align-content: center">
-                       
-                        
-                        <hr><div class="row-fluid" style="align-content: center">
+                    <div id="content" class="span9" style="width: 1100px; align-content: center">      
+                        <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
-
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Producto</h4> 
-                                        </div>
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Producto</h4> 
+                                    </div>
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">                                        
                                         <div class="control-group">
-                                            <label class="control-label" for="nombre">Nombre</label>
+                                            <label class="control-label" for="nombre">Nombre *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre producto" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="idCategoria">Categoria</label>
+                                            <label class="control-label" for="idCategoria">Categoría *</label>
                                             <div class="controls">
                                                 <select  class="input-xlarge focused" id="idCategoria" name="idCategoria" required>
                                                     <option value="-1">Seleccionar...</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="controls">
+                                            (*) campos Obligatorios
                                         </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
@@ -133,7 +133,7 @@ $perfil = $_SESSION["idCargo"];
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
+                        <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
                         <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                     </p>
                 </footer>
@@ -146,14 +146,14 @@ $perfil = $_SESSION["idCargo"];
                                                 $(function () {
                                                     cargarCategorias();
                                                 });
-                                                
-                                                function cargarCategorias(){
+
+                                                function cargarCategorias() {
                                                     var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
                                                                 $.each(datos, function (k, v) {
-                                                                    var contenido = "<option value='"+v.idCategoria+"'>"+v.nombre+"</option>";
+                                                                    var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
                                                                     $("#idCategoria").append(contenido);
                                                                 });
                                                             }
@@ -184,16 +184,16 @@ $perfil = $_SESSION["idCargo"];
                                                     }
 
                                                 }
-                                                
+
                                                 function validar() {
                                                     var nombre = document.getElementById("nombre").value;
                                                     var idCategoria = document.getElementById("idCategoria").value;
-                                                    
-                                                    if(nombre == ""){
+
+                                                    if (nombre == "") {
                                                         $.messager.alert('Error', "Debe ingresar un nombre de producto");
                                                         return false;
                                                     }
-                                                    if(idCategoria == -1){
+                                                    if (idCategoria == -1) {
                                                         $.messager.alert('Error', "Debe seleccionar una categoria");
                                                         return false;
                                                     }

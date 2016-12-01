@@ -86,7 +86,7 @@ $runFuncionaria = $_SESSION["run"];
                     ?>
                     <!-- FIN MENU LEFT-->
 
-                    <div id="content" class="span9" >
+                    <div id="content" class="span9" style="width: 1100px">
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
@@ -97,8 +97,6 @@ $runFuncionaria = $_SESSION["run"];
                         <hr>
                         <div class="row-fluid">
                             <div class="social-box social-bordered social-blue" id="vista-solicitud">
-
-                                <fieldset>
                                     <div class="span12 content-panels  content-tab2" style="width: 100%">
                                         <a href="#" class="pull-right btn btn-warning" onclick="retirarProductos()"><i class="icon-check"></i> Confirmar Retiro</a>
                                         <a href="#" class="pull-right btn btn-primary" onclick="agregarProducto()" id="botton-agregarProducto" style="display: none;"><i class="icon-plus"></i> Otro Producto</a>
@@ -150,7 +148,6 @@ $runFuncionaria = $_SESSION["run"];
                                             <input type="hidden" id="accion" name="accion" value="RETIRAR_PRODUCTOS">
                                         </form>
                                     </div>
-                                </fieldset>
                                 <!-- FIN FORMULARIO-->
                             </div>
 

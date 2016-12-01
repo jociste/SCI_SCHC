@@ -81,140 +81,141 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" style="width: 1100px; align-content: center">
-                        <hr><div class="row-fluid" style="align-content: center">
-                            <div class="span12" style="align-content: center">
-                                <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Funcionaria" class="form-horizontal well" style="align-content: center">
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Datos Funcionaria</h4> 
-                                        </div>                                                                                               
-                                        <div class="control-group">
-                                            <label class="control-label" for="runFuncionaria">Run</label>
-                                            <div class="controls">
-                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="nombres">Nombres</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge" id="nombres" name="nombres" >
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="apellidos">Apellidos</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge" id="apellidos" name="apellidos" >
-                                            </div>
-                                        </div>    
-                                        <div class="control-group">
-                                            <label class="control-label" for="sexo">Sexo</label>
-                                            <div class="controls">
-                                                <label class="checkbox">
-                                                    <input type="radio" id="sexoM" name="sexo" value="Masculino">&nbsp;Masculino &nbsp;&nbsp;
-                                                    <input type="radio" id="sexoF" name="sexo" value="Femenino">&nbsp;Femenino
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="fechaNacimiento">Fecha Nacimiento</label>
-                                            <div class="controls">
-                                                <input type="date" class="input-xlarge" id="fechaNacimiento" name="fechaNacimiento"  >
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="telefono">Telefono</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge" id="telefono" name="telefono">
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="direccion">Direccion</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge" id="direccion" name="direccion">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="profesion">Profesión</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge" id="profesion" name="profesion">
-                                            </div>
-                                        </div>     
-                                        <div class="control-group">
-                                            <label class="control-label" for="idCargo">Cargo</label>
-                                            <div class="controls">
-                                                <select class="input-xlarge" id="idCargo" name="idCargo" style="height: 32px; width: 286px">
-                                                    <option value="1">Directora</option>
-                                                    <option value="2">Encargada Materiales</option>
-                                                    <option value="3">Educadora/Técnico</option>
-                                                    <option value="4">Auxiliar</option>                                                                
-                                                </select>
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="fechaInicio">Fecha Inicio Cargo</label>
-                                            <div class="controls">
-                                                <input type="date" class="input-xlarge" id="fechaInicio" name="fechaInicio">
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="fechaTermino">Fecha Término Cargo</label>
-                                            <div class="controls">
-                                                <input type="date" class="input-xlarge" id="fechaTermino" name="fechaTermino">
-                                                <input type="checkbox" id="deshabilitaFecha" name="deshabilitaFecha" onclick="deshabilitaCampo()">&nbsp;Indefinido &nbsp;&nbsp;
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="idNivel">Nivel</label>
-                                            <div class="controls">
-                                                <select class="input-xlarge" id="idNivel" name="idNivel" style="height: 32px; width: 286px" >
-                                                    <option value="2">Menor</option>
-                                                    <option value="3">Medio Menor</option>
-                                                    <option value="1">Heterogéneo</option>
-                                                    <option value="4">Medio Mayor</option>
-                                                    <option value="5">Mayor</option>                                                                 
-                                                </select>
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="fechaInicioNivel">Fecha Inicio en Nivel</label>
-                                            <div class="controls">
-                                                <input type="date" class="input-xlarge" id="fechaInicioNivel" name="fechaInicioNivel">
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="fechaTerminoNivel">Fecha Término en Nivel</label>
-                                            <div class="controls">
-                                                <input type="date" class="input-xlarge" id="fechaTerminoNivel" name="fechaTerminoNivel">
-                                                <input type="checkbox" id="deshabilitaFecha2" name="deshabilitaFecha2" onclick="deshabilitaCampo2()">&nbsp;Indefinido &nbsp;&nbsp;
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="clave">Clave</label>
-                                            <div class="controls">
-                                                <input type="password" class="input-xlarge" id="clave" name="clave"  >
-                                            </div>
-                                        </div>  
-                                        <div class="control-group">
-                                            <label class="control-label" for="claveRepetida">Repetir Clave</label>
-                                            <div class="controls">
-                                                <input type="password" class="input-xlarge" id="claveRepetida" name="claveRepetida"  >
-                                            </div>
-                                        </div>  
-                                        <div class="form-actions" style="align-content: center">
-                                            <button type="button" onclick="guardarFuncionaria()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarFuncionariashabilitadas.php'" class="btn">Cancelar</button>
-                                        </div>
-                                        <input type="hidden" id="accion" name="accion" value="">
-                                    </form>
-                                    <!-- FIN FORMULARIO-->
+                    <div id="content" class="span9" style="width: 1000px; align-content: center">
+                        <div class="form-actions" style="height: 30px;">
+                            <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Datos Funcionaria</h4> 
+                        </div> 
+                        <div class="row-fluid" style="align-content: center">
+                            <form id="fm-Funcionaria" class="form-horizontal well" style="align-content: center">
+
+                                <div class="control-group">
+                                    <label class="control-label" for="runFuncionaria">Run *</label>
+                                    <div class="controls">
+                                        <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()">
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="nombres">Nombres *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" id="nombres" name="nombres" >
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="apellidos">Apellidos *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" id="apellidos" name="apellidos" >
+                                    </div>
+                                </div>    
+                                <div class="control-group">
+                                    <label class="control-label" for="sexo">Sexo *</label>
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="radio" id="sexoM" name="sexo" value="Masculino">&nbsp;Masculino &nbsp;&nbsp;
+                                            <input type="radio" id="sexoF" name="sexo" value="Femenino">&nbsp;Femenino
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="fechaNacimiento">Fecha Nacimiento *</label>
+                                    <div class="controls">
+                                        <input type="date" class="input-xlarge" id="fechaNacimiento" name="fechaNacimiento"  >
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="telefono">Telefono *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" id="telefono" name="telefono">
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="direccion">Dirección *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" id="direccion" name="direccion">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="profesion">Profesión *</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" id="profesion" name="profesion">
+                                    </div>
+                                </div>     
+                                <div class="control-group">
+                                    <label class="control-label" for="idCargo">Cargo *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" id="idCargo" name="idCargo" style="height: 32px; width: 286px">
+                                            <option value="1">Directora</option>
+                                            <option value="2">Encargada Materiales</option>
+                                            <option value="3">Educadora/Técnico</option>
+                                            <option value="4">Auxiliar</option>                                                                
+                                        </select>
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="fechaInicio">Fecha Inicio Cargo *</label>
+                                    <div class="controls">
+                                        <input type="date" class="input-xlarge" id="fechaInicio" name="fechaInicio">
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="fechaTermino">Fecha Término Cargo </label>
+                                    <div class="controls">
+                                        <input type="date" class="input-xlarge" id="fechaTermino" name="fechaTermino">
+                                        <input type="checkbox" id="deshabilitaFecha" name="deshabilitaFecha" onclick="deshabilitaCampo()">&nbsp;Indefinido &nbsp;&nbsp;
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="idNivel">Nivel *</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" id="idNivel" name="idNivel" style="height: 32px; width: 286px" >
+                                            <option value="2">Menor</option>
+                                            <option value="3">Medio Menor</option>
+                                            <option value="1">Heterogéneo</option>
+                                            <option value="4">Medio Mayor</option>
+                                            <option value="5">Mayor</option>                                                                 
+                                        </select>
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="fechaInicioNivel">Fecha Inicio en Nivel *</label>
+                                    <div class="controls">
+                                        <input type="date" class="input-xlarge" id="fechaInicioNivel" name="fechaInicioNivel">
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="fechaTerminoNivel">Fecha Término en Nivel</label>
+                                    <div class="controls">
+                                        <input type="date" class="input-xlarge" id="fechaTerminoNivel" name="fechaTerminoNivel">
+                                        <input type="checkbox" id="deshabilitaFecha2" name="deshabilitaFecha2" onclick="deshabilitaCampo2()">&nbsp;Indefinido &nbsp;&nbsp;
+                                    </div>
+                                </div> 
+                                <div class="control-group">
+                                    <label class="control-label" for="clave">Clave *</label>
+                                    <div class="controls">
+                                        <input type="password" class="input-xlarge" id="clave" name="clave"  >
+                                    </div>
+                                </div>  
+                                <div class="control-group">
+                                    <label class="control-label" for="claveRepetida">Repetir Clave *</label>
+                                    <div class="controls">
+                                        <input type="password" class="input-xlarge" id="claveRepetida" name="claveRepetida"  >
+                                    </div>
+                                </div>  
+                                <div class="controls">
+                                    (*) campos Obligatorios
+                                </div>
+                                <div class="form-actions" style="align-content: center">
+                                    <button type="button" onclick="guardarFuncionaria()" class="btn btn-primary">Guardar Cambios</button>
+                                    <button type="button" onClick="location.href = 'AdministrarFuncionariashabilitadas.php'" class="btn">Cancelar</button>
+                                </div>
+                                <input type="hidden" id="accion" name="accion" value="">
+                            </form>
+                            <!-- FIN FORMULARIO-->
                         </div>
-                    </div>  
+                    </div>
                 </div>
-            </div>
-        </div>  
+            </div>  
+        </div>
+
 
 
         <div class="clearfix"></div>
@@ -222,7 +223,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna Hogar De Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -233,33 +233,33 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/js/ValidaCamposFormulario.js"></script>
         <script type="text/javascript">
 
-                                                $(function () {
-                                                });
-                                                function guardarFuncionaria() {
-                                                    document.getElementById("accion").value = "AGREGAR";
-                                                    if (validarFuncionaria() && validarCargoNivelFuncionaria()) {
-                                                        //console.log("validado");
-                                                        $('#fm-Funcionaria').form('submit', {
-                                                            url: "../Servlet/administrarFuncionaria.php",
-                                                            onSubmit: function () {
-                                                                return $(this).form('validate');
-                                                            },
-                                                            success: function (result) {
-                                                                console.log(result);
-                                                                var result = eval('(' + result + ')');
-                                                                if (result.errorMsg) {
-                                                                    $.messager.alert('Error', result.errorMsg);
-                                                                } else {
-                                                                    $.messager.show({
-                                                                        title: 'Aviso',
-                                                                        msg: result.mensaje
-                                                                    });
-                                                                    window.location = "AdministrarFuncionariashabilitadas.php";
-                                                                }
-                                                            }
-                                                        });
+                                        $(function () {
+                                        });
+                                        function guardarFuncionaria() {
+                                            document.getElementById("accion").value = "AGREGAR";
+                                            if (validarFuncionaria() && validarCargoNivelFuncionaria()) {
+                                                //console.log("validado");
+                                                $('#fm-Funcionaria').form('submit', {
+                                                    url: "../Servlet/administrarFuncionaria.php",
+                                                    onSubmit: function () {
+                                                        return $(this).form('validate');
+                                                    },
+                                                    success: function (result) {
+                                                        console.log(result);
+                                                        var result = eval('(' + result + ')');
+                                                        if (result.errorMsg) {
+                                                            $.messager.alert('Error', result.errorMsg);
+                                                        } else {
+                                                            $.messager.show({
+                                                                title: 'Aviso',
+                                                                msg: result.mensaje
+                                                            });
+                                                            window.location = "AdministrarFuncionariashabilitadas.php";
+                                                        }
                                                     }
-                                                }                                              
+                                                });
+                                            }
+                                        }
 
         </script>
     </body>

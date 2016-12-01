@@ -79,10 +79,7 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 80%">
-                        <div class="row-fluid">            
-                            <div class="span3 ">
-                                <button class="btn btn-primary" onClick="location.href = 'agregarDocumento.php'"><i class="icon-plus"></i> Agregar Documentos</button>
-                            </div>                           
+                        <div class="row-fluid">                          
                             <div class="span6 text-center">
                                 <form id="fm-buscar" method="POST">
                                     <div class="input-prepend input-append">
@@ -95,11 +92,16 @@ $perfil = $_SESSION["idCargo"];
                                     </div>
                                 </form>
                             </div>
-
-                        </div>                                                
-                        <h4> Resultados Obtenidos </h4>
+                        </div> 
+                        
+                        <div class="span3 ">
+                            <button class="btn btn-primary" onClick="location.href = 'agregarDocumento.php'"><i class="icon-plus"></i> Agregar Documentos</button>
+                        </div> 
+                        <br>
+                        <hr>
+                        <br>
                         <div id="resultado-busqueda">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -115,42 +117,42 @@ $perfil = $_SESSION["idCargo"];
     <script src="../../Files/js/toucheffects.js"></script>
 
     <script>
-                                            $(function () {
-                                                cargarCategorias();
-                                            });
+                                $(function () {
+                                    cargarCategorias();
+                                });
 
-                                            function cargarCategorias() {
-                                                var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
-                                                $.getJSON(
-                                                        url_json,
-                                                        function (datos) {
-                                                            $("#idTipoDocumento").empty();
-                                                            $.each(datos, function (k, v) {
-                                                                var contenido = "<option data-tokens='" + v.idTipoDocumento + "' value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
-                                                                $("#idTipoDocumento").append(contenido);
-                                                            });
-                                                            $('.selectpicker').selectpicker('refresh');
-                                                        }
-                                                );
+                                function cargarCategorias() {
+                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
+                                    $.getJSON(
+                                            url_json,
+                                            function (datos) {
+                                                $("#idTipoDocumento").empty();
+                                                $.each(datos, function (k, v) {
+                                                    var contenido = "<option data-tokens='" + v.idTipoDocumento + "' value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
+                                                    $("#idTipoDocumento").append(contenido);
+                                                });
+                                                $('.selectpicker').selectpicker('refresh');
                                             }
+                                    );
+                                }
 
-                                            function buscar() {
-                                                var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR&' + $("#fm-buscar").serialize();
-                                                $.getJSON(
-                                                        url_json,
-                                                        function (datos) {
-                                                            $("#resultado-busqueda").empty();
-                                                            $.each(datos, function (k, v) {
-                                                                //+ "<a class='pull-left' href='#'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC'></a>"
-                                                                var contenido = "<div class='media well-small'>"
-                                                                        + "<a class='pull-left' href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/"+v.formato+".png'></a>"
-                                                                        + "<div class='media-body'>"
-                                                                        + "<h5 class='media-heading'><a href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><b>" + v.nombre + "</b></a></h5>" + v.descripcion + "</div></div>";
-                                                                $("#resultado-busqueda").append(contenido);
-                                                            });
-                                                        }
-                                                );
+                                function buscar() {
+                                    var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR&' + $("#fm-buscar").serialize();
+                                    $.getJSON(
+                                            url_json,
+                                            function (datos) {
+                                                $("#resultado-busqueda").empty();
+                                                $.each(datos, function (k, v) {
+                                                    //+ "<a class='pull-left' href='#'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC'></a>"
+                                                    var contenido = "<div class='media well-small'>"
+                                                            + "<a class='pull-left' href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/" + v.formato + ".png'></a>"
+                                                            + "<div class='media-body'>"
+                                                            + "<h5 class='media-heading'><a href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><b>" + v.nombre + "</b></a></h5>" + v.descripcion + "</div></div>";
+                                                    $("#resultado-busqueda").append(contenido);
+                                                });
                                             }
+                                    );
+                                }
 
     </script>
 </body>

@@ -88,60 +88,56 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" style="width: 1100px; align-content: center">
-
-
-                        <hr><div class="row-fluid" style="align-content: center">
-                            <div class="span12" style="align-content: center">
-                                <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-documento" class="form-horizontal well" enctype="multipart/form-data" method="POST" style="align-content: center">
-
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Documento</h4> 
+                    <div id="content" class="span9" style="width: 1000px; align-content: center">
+                        <div class="span12" style="align-content: center">
+                            <div class="form-actions" style="height: 30px;">
+                                <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Documento</h4> 
+                            </div>
+                            <div class="row-fluid" style="align-content: center">
+                                <form id="fm-documento" class="form-horizontal well" enctype="multipart/form-data" method="POST" style="align-content: center">
+                                    <div class="control-group">
+                                        <label class="control-label" for="idTipoDocumento">Categoria Documento</label>
+                                        <div class="controls">
+                                            <select class="input-xlarge focused" id="idTipoDocumento" name="idTipoDocumento" required><option value="-1">Seleccionar...</option></select>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="idTipoDocumento">Categoria Documento</label>
-                                            <div class="controls">
-                                                <select class="input-xlarge focused" id="idTipoDocumento" name="idTipoDocumento" required><option value="-1">Seleccionar...</option></select>
-                                            </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="documento">Documento</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="documento" name="documento" type="file" onchange="nombreArchivo(this.value)" required>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="documento">Documento</label>
-                                            <div class="controls">
-                                                <input class="input-xlarge focused" id="documento" name="documento" type="file" onchange="nombreArchivo(this.value)" required>
-                                            </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="nombre">Nombre</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre producto" required>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="nombre">Nombre</label>
-                                            <div class="controls">
-                                                <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre producto" required>
-                                            </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="descripcion">Descripción</label>
+                                        <div class="controls">
+                                            <textarea class="input-xlarge focused" id="descripcion" name="descripcion" style="height: 50px" placeholder="Descripción del documento" required></textarea>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="descripcion">Descripción</label>
-                                            <div class="controls">
-                                                <textarea class="input-xlarge focused" id="descripcion" name="descripcion" placeholder="Descripción del documento" required></textarea>
-                                            </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="fechaRegistro">Fecha Registro</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="fechaRegistro" name="fechaRegistro" type="date" required>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="fechaRegistro">Fecha Registro</label>
-                                            <div class="controls">
-                                                <input class="input-xlarge focused" id="fechaRegistro" name="fechaRegistro" type="date" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-actions" style="align-content: center">
-                                            <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarDocumentos.php'" class="btn">Cancelar</button>
-                                        </div>
-                                        <input type="hidden" id="accion" name="accion" value="">
-                                    </form>
-                                    <!-- FIN FORMULARIO-->
-                                </div>
+                                    </div>
+                                    <div class="form-actions" style="align-content: center">
+                                        <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
+                                        <button type="button" onClick="location.href = 'AdministrarDocumentos.php'" class="btn">Cancelar</button>
+                                    </div>
+                                    <input type="hidden" id="accion" name="accion" value="">
+                                </form>
+                                <!-- FIN FORMULARIO-->
                             </div>
                         </div>
-                    </div>  
-
+                    </div>
                 </div>  
+
+                <!--                </div>  -->
 
             </div><!--/#content.span19-->
 
@@ -149,8 +145,7 @@ $perfil = $_SESSION["idCargo"];
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
+                        <span class="pull-left">© <a href="" target="_blank">Sala cuna y Jardin Infantil Hogar de Cristo</a> 2016</span>
                     </p>
                 </footer>
             </div>
@@ -159,86 +154,86 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                                                $(function () {
-                                                    var f = new Date();
-                                                    $("#fechaRegistro").val(f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate());
-                                                    cargarCategorias();
-                                                });
+                                            $(function () {
+                                                var f = new Date();
+                                                $("#fechaRegistro").val(f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate());
+                                                cargarCategorias();
+                                            });
 
-                                                function cargarCategorias() {
-                                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                $.each(datos, function (k, v) {
-                                                                    var contenido = "<option value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
-                                                                    $("#idTipoDocumento").append(contenido);
+                                            function cargarCategorias() {
+                                                var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
+                                                $.getJSON(
+                                                        url_json,
+                                                        function (datos) {
+                                                            $.each(datos, function (k, v) {
+                                                                var contenido = "<option value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
+                                                                $("#idTipoDocumento").append(contenido);
+                                                            });
+                                                        }
+                                                );
+                                            }
+
+                                            function guardar() {
+                                                document.getElementById("accion").value = "AGREGAR";
+                                                if (validar()) {
+                                                    $('#fm-documento').form('submit', {
+                                                        url: "../Servlet/administrarDocumento.php",
+                                                        onSubmit: function () {
+                                                            return $(this).form('validate');
+                                                        },
+                                                        success: function (result) {
+                                                            var result = eval('(' + result + ')');
+                                                            if (result.errorMsg) {
+                                                                $.messager.alert('Error', result.errorMsg);
+                                                            } else {
+                                                                $.messager.show({
+                                                                    title: 'Aviso',
+                                                                    msg: result.mensaje
                                                                 });
+                                                                window.location = "AdministrarDocumentos.php";
                                                             }
-                                                    );
+                                                        }
+                                                    });
                                                 }
 
-                                                function guardar() {
-                                                    document.getElementById("accion").value = "AGREGAR";
-                                                    if (validar()) {
-                                                        $('#fm-documento').form('submit', {
-                                                            url: "../Servlet/administrarDocumento.php",
-                                                            onSubmit: function () {
-                                                                return $(this).form('validate');
-                                                            },
-                                                            success: function (result) {
-                                                                var result = eval('(' + result + ')');
-                                                                if (result.errorMsg) {
-                                                                    $.messager.alert('Error', result.errorMsg);
-                                                                } else {
-                                                                    $.messager.show({
-                                                                        title: 'Aviso',
-                                                                        msg: result.mensaje
-                                                                    });
-                                                                    window.location = "AdministrarDocumentos.php";
-                                                                }
-                                                            }
-                                                        });
-                                                    }
+                                            }
 
+                                            function validar() {
+                                                var idTipoDocumento = document.getElementById("idTipoDocumento").value;
+                                                var documento = document.getElementById("documento").value;
+                                                var nombre = document.getElementById("nombre").value;
+                                                var descripcion = document.getElementById("descripcion").value;
+                                                var fechaRegistro = document.getElementById("fechaRegistro").value;
+
+                                                if (idTipoDocumento == -1) {
+                                                    $.messager.alert('Error', "Debe seleccionar una categoria");
+                                                    return false;
                                                 }
-
-                                                function validar() {                                                    
-                                                    var idTipoDocumento = document.getElementById("idTipoDocumento").value;
-                                                    var documento = document.getElementById("documento").value;
-                                                    var nombre = document.getElementById("nombre").value;
-                                                    var descripcion = document.getElementById("descripcion").value;
-                                                    var fechaRegistro = document.getElementById("fechaRegistro").value;
-
-                                                    if (idTipoDocumento == -1) {
-                                                        $.messager.alert('Error', "Debe seleccionar una categoria");
-                                                        return false;
-                                                    }
-                                                    if (documento == "") {
-                                                        $.messager.alert('Error', "Debe seleccionar un documento");
-                                                        return false;
-                                                    }
-                                                    if (nombre == "") {
-                                                        $.messager.alert('Error', "Debe ingresar un nombre de documento");
-                                                        return false;
-                                                    }
-                                                    if (descripcion == "") {
-                                                        $.messager.alert('Error', "Debe ingresar una descripción del documento");
-                                                        return false;
-                                                    }
-                                                    if (fechaRegistro == "") {
-                                                        $.messager.alert('Error', "Debe ingresar la fecha de registro");
-                                                        return false;
-                                                    }
-                                                    return true;
+                                                if (documento == "") {
+                                                    $.messager.alert('Error', "Debe seleccionar un documento");
+                                                    return false;
                                                 }
-
-                                                function nombreArchivo(fic) {
-                                                    fic = fic.split('\\');
-                                                    fic = fic[fic.length - 1];
-                                                    fic = fic.split('.');
-                                                    $("#nombre").val(fic[fic.length - 2]);
+                                                if (nombre == "") {
+                                                    $.messager.alert('Error', "Debe ingresar un nombre de documento");
+                                                    return false;
                                                 }
+                                                if (descripcion == "") {
+                                                    $.messager.alert('Error', "Debe ingresar una descripción del documento");
+                                                    return false;
+                                                }
+                                                if (fechaRegistro == "") {
+                                                    $.messager.alert('Error', "Debe ingresar la fecha de registro");
+                                                    return false;
+                                                }
+                                                return true;
+                                            }
+
+                                            function nombreArchivo(fic) {
+                                                fic = fic.split('\\');
+                                                fic = fic[fic.length - 1];
+                                                fic = fic.split('.');
+                                                $("#nombre").val(fic[fic.length - 2]);
+                                            }
         </script>
     </body>
 </html>

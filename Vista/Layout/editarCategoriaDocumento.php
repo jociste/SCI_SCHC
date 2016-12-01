@@ -88,24 +88,24 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-categoria" class="form-horizontal well" style="align-content: center">
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 350px; align-content: center; margin: 0; padding-left: 20%">Datos Caregoria Documentos</h4> 
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="idTipoDocumento">ID</label>
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 350px; align-content: center; margin: 0; padding-left: 20%">Datos Categoría Documentos</h4> 
+                                    </div> 
+                                    <form id="fm-categoria" class="form-horizontal well" style="align-content: center">                                       
+                                        <div class="control-group" style="display: none">
+                                            <label class="control-label" for="idTipoDocumento">ID </label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="idTipoDocumento" name="idTipoDocumento" type="text" value="<?php echo $idTipoDocumento; ?>" readonly>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="nombre">Nombre</label>
+                                            <label class="control-label" for="nombre">Nombre *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre">
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="descripcion">Descripción</label>
+                                            <label class="control-label" for="descripcion">Descripción *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="descripcion" name="descripcion" placeholder="Descripción">
                                             </div>
@@ -116,6 +116,9 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                 <input type="date" class="input-xlarge" id="fechaCreacion" name="fechaCreacion" readonly>
                                             </div>
                                         </div>
+                                        <div class="controls">
+                                    (*) campos Obligatorios
+                                </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarCategoria()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarCategoriasDocumentos.php'" class="btn">Cancelar</button>

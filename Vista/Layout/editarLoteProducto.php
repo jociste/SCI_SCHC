@@ -90,22 +90,21 @@ $idLote = $_REQUEST["idLote"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
-                        <hr><div class="row-fluid" style="align-content: center">
+                        <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Lote Producto</h4> 
+                                    </div>
                                     <form id="fm-Lotes" class="form-horizontal well" style="align-content: center">
-
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Lote Producto</h4> 
-                                        </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="numeroBoleta">Numero Boleta</label>
+                                            <label class="control-label" for="numeroBoleta">Número Boleta *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="numeroBoleta" name="numeroBoleta" type="text" placeholder="Numero Boleta" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="idProducto">Producto</label>
+                                            <label class="control-label" for="idProducto">Producto *</label>
                                             <div class="controls">
                                                 <select  class="input-xlarge focused" id="idProducto" name="idProducto" required>                                                    
                                                 </select>
@@ -113,23 +112,26 @@ $idLote = $_REQUEST["idLote"];
                                         </div>
 
                                         <div class="control-group">
-                                            <label class="control-label" for="proveedor">Proveedor</label>
+                                            <label class="control-label" for="proveedor">Proveedor *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="proveedor" name="proveedor" type="text" placeholder="Proveedor" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaVencimiento">Fecha Vencimiento</label>
+                                            <label class="control-label" for="fechaVencimiento">Fecha Vencimiento *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="fechaVencimiento" name="fechaVencimiento" type="date" placeholder="Fecha Vencimiento" required>
                                                 <input type="checkbox" id="deshabilitaFechaVencimiento" name="deshabilitaFechaVencimiento" onclick="deshabilitaCampoVencimiento()">&nbsp;Sin Fecha Vencimiento&nbsp;&nbsp;
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaIngreso">Fecha Ingreso</label>
+                                            <label class="control-label" for="fechaIngreso">Fecha Ingreso *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
                                             </div>
+                                        </div>
+                                        <div class="controls">
+                                            (*) campos Obligatorios
                                         </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>

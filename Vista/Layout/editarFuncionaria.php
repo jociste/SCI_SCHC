@@ -88,32 +88,32 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Editar Funcionaria</h4> 
+                                    </div> 
                                     <form id="fm-Funcionaria" class="form-horizontal well" style="align-content: center">
 
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Editar Funcionaria</h4> 
-                                        </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="runFuncionaria">Run</label>
+                                            <label class="control-label" for="runFuncionaria">Run *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()">
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="nombres">Nombres</label>
+                                            <label class="control-label" for="nombres">Nombres *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="nombres" name="nombres" >
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="apellidos">Apellidos</label>
+                                            <label class="control-label" for="apellidos">Apellidos *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="apellidos" name="apellidos" >
                                             </div>
                                         </div>    
 
                                         <div class="control-group">
-                                            <label class="control-label" for="sexo">Sexo</label>
+                                            <label class="control-label" for="sexo">Sexo *</label>
                                             <div class="controls">
                                                 <label class="checkbox">
                                                     <input type="radio" id="sexoM" name="sexo" value="Masculino">&nbsp;Masculino &nbsp;&nbsp;
@@ -122,31 +122,31 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaNacimiento">Fecha Nacimiento</label>
+                                            <label class="control-label" for="fechaNacimiento">Fecha Nacimiento *</label>
                                             <div class="controls">
                                                 <input type="date" class="input-xlarge" id="fechaNacimiento" name="fechaNacimiento"  >
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="telefono">Telefono</label>
+                                            <label class="control-label" for="telefono">Telefono *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="telefono" name="telefono">
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="direccion">Direccion</label>
+                                            <label class="control-label" for="direccion">Dirección *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="direccion" name="direccion">
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="profesion">Profesión</label>
+                                            <label class="control-label" for="profesion">Profesión *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="profesion" name="profesion">
                                             </div>
                                         </div>     
                                         <div class="control-group">
-                                            <label class="control-label" for="idCargo">Cargo</label>
+                                            <label class="control-label" for="idCargo">Cargo *</label>
                                             <div class="controls">
                                                 <select class="input-xlarge" id="idCargo" name="idCargo" style="height: 32px; width: 286px">
                                                     <option value="1">Directora</option>
@@ -157,20 +157,20 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaInicio">Fecha Inicio Cargo</label>
+                                            <label class="control-label" for="fechaInicio">Fecha Inicio Cargo *</label>
                                             <div class="controls">
                                                 <input type="date" class="input-xlarge" id="fechaInicio" name="fechaInicio">
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaTermino">Fecha Término Cargo</label>
+                                            <label class="control-label" for="fechaTermino">Fecha Término Cargo </label>
                                             <div class="controls">
                                                 <input type="date" class="input-xlarge" id="fechaTermino" name="fechaTermino">
                                                 <input type="checkbox" id="deshabilitaFecha" name="deshabilitaFecha" onclick="deshabilitaCampo()">&nbsp;Indefinido &nbsp;&nbsp;
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="idNivel">Nivel</label>
+                                            <label class="control-label" for="idNivel">Nivel *</label>
                                             <div class="controls">
                                                 <select class="input-xlarge" id="idNivel" name="idNivel" style="height: 32px; width: 286px" >
                                                     <option value="2">Menor</option>
@@ -182,7 +182,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="fechaInicioNivel">Fecha Inicio en Nivel</label>
+                                            <label class="control-label" for="fechaInicioNivel">Fecha Inicio en Nivel *</label>
                                             <div class="controls">
                                                 <input type="date" class="input-xlarge" id="fechaInicioNivel" name="fechaInicioNivel">
                                             </div>
@@ -195,17 +195,20 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                             </div>
                                         </div> 
                                         <div class="control-group">
-                                            <label class="control-label" for="clave">Clave</label>
+                                            <label class="control-label" for="clave">Clave *</label>
                                             <div class="controls">
                                                 <input type="password" class="input-xlarge" id="clave" name="clave"  >
                                             </div>
                                         </div>  
                                         <div class="control-group">
-                                            <label class="control-label" for="claveRepetida">Repetir Clave</label>
+                                            <label class="control-label" for="claveRepetida">Repetir Clave *</label>
                                             <div class="controls">
                                                 <input type="password" class="input-xlarge" id="claveRepetida" name="claveRepetida"  >
                                             </div>
                                         </div>  
+                                        <div class="controls">
+                                            (*) campos Obligatorios
+                                        </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarFuncionaria()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'administrarFuncionariaDirectora.php'" class="btn">Cancelar</button>
@@ -317,7 +320,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                     }
                                                 }
 
-              
+
                                                 /*
                                                  function validar() {
                                                  if (Rut(document.getElementById('Run').value)) {

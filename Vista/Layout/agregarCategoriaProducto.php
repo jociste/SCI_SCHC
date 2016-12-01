@@ -89,26 +89,28 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
-                        <hr><div class="row-fluid" style="align-content: center">
+                        <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
-                                <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
-
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Categoría Producto</h4> 
-                                        </div>                                                                                               
+                                <div class="row-fluid" style="align-content: center">                                   
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Categoría Producto</h4> 
+                                    </div>  
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">                                                                                             
                                         <div class="control-group">
-                                            <label class="control-label" for="nombre">Nombre</label>
+                                            <label class="control-label" for="nombre">Nombre *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="descripcion">Descripcion</label>
+                                            <label class="control-label" for="descripcion">Descripción *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="descripcion" name="descripcion" placeholder="Descripción" required>
                                             </div>
-                                        </div>    
+                                        </div> 
+                                        <div class="controls">
+                                            (*) campos Obligatorios
+                                        </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarCategoria()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarCategoriasProducto.php'" class="btn">Cancelar</button>
@@ -169,16 +171,16 @@ $perfil = $_SESSION["idCargo"];
                                                     }
 
                                                 }
-                                                
+
                                                 function validar() {
                                                     var nombre = document.getElementById("nombre").value;
                                                     var descripcion = document.getElementById("descripcion").value;
-                                                    
-                                                    if(nombre == ""){
+
+                                                    if (nombre == "") {
                                                         $.messager.alert('Error', "Debe ingresar un nombre");
                                                         return false;
                                                     }
-                                                    if(descripcion == ""){
+                                                    if (descripcion == "") {
                                                         $.messager.alert('Error', "Debe ingresar una descripcion");
                                                         return false;
                                                     }
