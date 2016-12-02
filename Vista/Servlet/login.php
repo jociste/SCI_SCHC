@@ -9,6 +9,7 @@ $success = true;
 $mensajes;
 $pagina = "";
 if (($run != null || $run != "") && ($clave != null || $clave != "")) {
+    $run = substr($run, 0, -1);
     $funcionaria = $control->getFuncionariaByID($run);
     if ($funcionaria->getRunFuncionaria() == $run) {
         if ($funcionaria->getClave() == $clave) {

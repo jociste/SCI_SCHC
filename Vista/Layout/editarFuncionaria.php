@@ -92,7 +92,6 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Editar Funcionaria</h4> 
                                     </div> 
                                     <form id="fm-Funcionaria" class="form-horizontal well" style="align-content: center">
-
                                         <div class="control-group">
                                             <label class="control-label" for="runFuncionaria">Run *</label>
                                             <div class="controls">

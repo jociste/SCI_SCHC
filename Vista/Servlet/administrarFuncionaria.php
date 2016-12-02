@@ -221,6 +221,7 @@ if ($accion != null) {
         $hoy = date('Y') . "-" . date('m') . "-" . date('d');
         // recibe datos Funcionaria
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
+        $runFuncionaria = substr($runFuncionaria, 0, -1);
         $clave = htmlspecialchars($_REQUEST['clave']);
         $nombres = htmlspecialchars($_REQUEST['nombres']);
         $apellidos = htmlspecialchars($_REQUEST['apellidos']);
