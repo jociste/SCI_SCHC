@@ -46,12 +46,9 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        }
-        /* else if ($perfil == 2) {
-          include '../Menus/educadoraSuperior.php';
-          } else if ($perfil == 3) {
-          include '../Menus/apoderadoSuperior.php';
-          } */
+       } else if ($perfil == 6) {
+            include '../Menus/adminSuperior.php';
+        } 
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -74,11 +71,9 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftPersonal.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                      else if ($perfil == 6) {
+                        include '../Menus/adminLeftPersonal.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1000px; align-content: center">

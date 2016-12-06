@@ -53,11 +53,12 @@ $idProducto = $_REQUEST["idProducto"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
-        }
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        } 
+//        else if ($perfil == 3) {
+//            include '../Menus/apoderadoSuperior.php';
+//        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->

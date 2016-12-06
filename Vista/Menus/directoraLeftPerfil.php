@@ -1,5 +1,5 @@
-<div class="span1">
-    <!-- start: Main Menu -->
+<!--<div class="span1">
+     start: Main Menu 
     <div id="sidebar-nav" >
         <ul id="dashboard-menu" >
             <li>
@@ -10,5 +10,5 @@
             </li>  
         </ul>
     </div>
-</div>
+</div>-->
 <!-- end: Main Menu -->

@@ -52,8 +52,8 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
+          } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
         } else if ($perfil == 3) {
             include '../Menus/apoderadoSuperior.php';
         }
@@ -81,6 +81,9 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
+                    else if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
 //                    } else if ($perfil == 3) {
@@ -92,6 +95,9 @@ $perfil = $_SESSION["idCargo"];
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorProductos.php';
+                        }
+                        if ($perfil == 4) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
                         ?>

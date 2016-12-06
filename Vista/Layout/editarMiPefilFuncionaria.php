@@ -48,102 +48,75 @@ $runFuncionaria = $_SESSION["run"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        } else if ($perfil == 6) {
+            include '../Menus/adminSuperior.php';
         }
-//        else if ($perfil == 2) {
-//            include '../Menus/educadoraSuperior.php';
-//        } else if ($perfil == 3) {
+//        else if ($perfil == 3) {
 //            include '../Menus/apoderadoSuperior.php';
 //        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
         <div class="wrap">
-
-            <!-- ALERTA -->
-            <div class="container-fluid" style="display: none;">
-                <div class="row-fluid">
-                    <div class="alert alert-block alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        Aqui contenido alerta
-                    </div>                  
-                </div>
-            </div>
-            <!-- FIN ALERTA -->
-
             <div class="container-fluid">
-                <div class="row-fluid">
-
-                    <!-- AQUI VA EL MENU LEFT-->
-                    <?php
-                    if ($perfil == 1) {
-                        include '../Menus/directoraLeftPerfil.php';
-                    }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
-                    ?>
-                    <!-- FIN MENU LEFT-->
-
-                    <div id="content" class="span9" >
-                        <div class="row-fluid">
-                            <div class="body" style="text-align: center;">
-                                <div class="row-fluid">
-                                    <div class="form-actions" style="height: 30px;">
-                                        <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 40%">Editar mi Perfil</h4> 
-                                    </div> 
-                                    <form id="fm-funcionaria" class="form-horizontal well">
-                                        <div class="control-group">
-                                            <label class="control-label" for="telefono">Telefono *</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge" id="telefono" name="telefono">
-                                            </div>
-                                        </div> 
-                                        <div class="control-group">
-                                            <label class="control-label" for="direccion">Dirección *</label>
-                                            <div class="controls">
-                                                <input type="text" name="direccion" class="input-xlarge" id="direccion">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label" for="clave">Clave *</label>
-                                            <div class="controls">
-                                                <input type="password" name="clave" class="input-xlarge" id="clave">
-                                            </div>
-                                        </div>  
-                                        <div class="control-group">
-                                            <label class="control-label" for="claveRepetida">Repetir Clave *</label>
-                                            <div class="controls">
-                                                <input type="password" name="claveRepetida" class="input-xlarge" id="claveRepetida">
-                                            </div>
-                                        </div> 
-                                        <div class="controls">
-                                            (*) campos Obligatorios
-                                        </div>
-                                        <div class="form-actions">
-                                            <button type="button" onclick="guardarCambios()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'MiPerfil.php'" class="btn">Cancelar</button>
-                                        </div>
-                                        <input type="hidden" id="accion" name="accion" value="">
-                                        <input type="hidden" id="runFuncionariaEditar" name="runFuncionariaEditar" value="<?php echo $runFuncionaria; ?>">
-                                    </form>
+                <div class="row-fluid" style="background: #ffffff; padding: 1%; width: 70%; margin-left: 13%">
+                    <div class="body" style="text-align: center;">
+                        <!--                                <div class="row-fluid">-->
+                        <div class="form-actions" style="height: 30px;">
+                            <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 40%">Editar mi Perfil</h4> 
+                        </div> 
+                        <form id="fm-funcionaria" class="form-horizontal well">
+                            <div class="control-group">
+                                <label class="control-label" for="telefono">Telefono *</label>
+                                <div class="controls">
+                                    <input type="text" class="input-xlarge" id="telefono" name="telefono">
+                                </div>
+                            </div> 
+                            <div class="control-group">
+                                <label class="control-label" for="direccion">Dirección *</label>
+                                <div class="controls">
+                                    <input type="text" name="direccion" class="input-xlarge" id="direccion">
                                 </div>
                             </div>
-                        </div>                  
-                    </div>
-                </div>  
+                            <div class="control-group">
+                                <label class="control-label" for="clave">Clave *</label>
+                                <div class="controls">
+                                    <input type="password" name="clave" class="input-xlarge" id="clave">
+                                </div>
+                            </div>  
+                            <div class="control-group">
+                                <label class="control-label" for="claveRepetida">Repetir Clave *</label>
+                                <div class="controls">
+                                    <input type="password" name="claveRepetida" class="input-xlarge" id="claveRepetida">
+                                </div>
+                            </div> 
+                            <div class="controls">
+                                (*) campos Obligatorios
+                            </div>
+
+                            <input type="hidden" id="accion" name="accion" value="">
+                            <input type="hidden" id="runFuncionariaEditar" name="runFuncionariaEditar" value="<?php echo $runFuncionaria; ?>">
+                        </form>
+                        <div class="form-actions">
+                            <button type="button" onclick="guardarCambios()" class="btn btn-primary">Guardar Cambios</button>
+                            <button type="button" onClick="location.href = 'MiPerfil.php'" class="btn">Cancelar</button>
+                        </div>
+                        <!--                                </div>-->
+                    </div>          
+                </div>
+                <!--                </div>  -->
             </div><!--/#content.span19-->
 
-            <div class="clearfix"></div>
-            <div class="container-fluid m-t-large">
-                <footer>
-                    <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
-                    </p>
-                </footer>
-            </div>
+                       <div class="clearfix"></div>
+                        <div class="container-fluid m-t-large">
+                            <footer>
+                                <p>
+                                    <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardin Infantil Hogar de Cristo</a> 2016</span>
+                                </p>
+                            </footer>
+                        </div>
         </div>
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
@@ -163,73 +136,73 @@ $runFuncionaria = $_SESSION["run"];
         <!-- Libreria para Validar Rut-->
         <script src="../../Files/js/validarut.js"></script>
         <script>
-                                                //APODERADOS
-                                                $(function () {
-                                                    obtenerDatosFuncionaria();
-                                                });
+                                    //APODERADOS
+                                    $(function () {
+                                        obtenerDatosFuncionaria();
+                                    });
 
-                                                function obtenerDatosFuncionaria() {
-                                                    var runEditar = document.getElementById("runFuncionariaEditar").value;
-                                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=BUSCAR_BY_ID&runFuncionaria=' + runEditar;
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (dato) {
-                                                                //console.log(dato);
-                                                                document.getElementById("telefono").value = dato.telefono;
-                                                                document.getElementById("direccion").value = dato.direccion;
-                                                                document.getElementById("clave").value = dato.clave;
-                                                                document.getElementById("claveRepetida").value = dato.clave;
-                                                            }
-                                                    );
+                                    function obtenerDatosFuncionaria() {
+                                        var runEditar = document.getElementById("runFuncionariaEditar").value;
+                                        var url_json = '../Servlet/administrarFuncionaria.php?accion=BUSCAR_BY_ID&runFuncionaria=' + runEditar;
+                                        $.getJSON(
+                                                url_json,
+                                                function (dato) {
+                                                    //console.log(dato);
+                                                    document.getElementById("telefono").value = dato.telefono;
+                                                    document.getElementById("direccion").value = dato.direccion;
+                                                    document.getElementById("clave").value = dato.clave;
+                                                    document.getElementById("claveRepetida").value = dato.clave;
                                                 }
+                                        );
+                                    }
 
-                                                function guardarCambios() {
-                                                    document.getElementById("accion").value = "ACTUALIZAR_MI_PERFIL_FUNCIONARIA";
-                                                    // if (validar()) {
-                                                    $('#fm-funcionaria').form('submit', {
-                                                        url: "../Servlet/administrarFuncionaria.php",
-                                                        onSubmit: function () {
-                                                            return $(this).form('validate');
-                                                        },
-                                                        success: function (result) {
-                                                            //console.log(result);
-                                                            var result = eval('(' + result + ')');
-                                                            if (result.errorMsg) {
-                                                                $.messager.alert('Error', result.errorMsg);
-                                                            } else {
-                                                                window.location = "MiPerfil.php";
-                                                            }
-                                                        }
-                                                    });
-                                                    // }
+                                    function guardarCambios() {
+                                        document.getElementById("accion").value = "ACTUALIZAR_MI_PERFIL_FUNCIONARIA";
+                                        // if (validar()) {
+                                        $('#fm-funcionaria').form('submit', {
+                                            url: "../Servlet/administrarFuncionaria.php",
+                                            onSubmit: function () {
+                                                return $(this).form('validate');
+                                            },
+                                            success: function (result) {
+                                                //console.log(result);
+                                                var result = eval('(' + result + ')');
+                                                if (result.errorMsg) {
+                                                    $.messager.alert('Error', result.errorMsg);
+                                                } else {
+                                                    window.location = "MiPerfil.php";
                                                 }
+                                            }
+                                        });
+                                        // }
+                                    }
 
-                                                function validar() {
-                                                    if (document.getElementById('Direccion').value != "") {
-                                                        var telefono = document.getElementById('Telefono').value;
-                                                        if (telefono != "" && telefono.length > 5) {
-                                                            if (!isNaN(telefono)) {
-                                                                var cadenaPass = document.getElementById('Clave').value;
-                                                                if (cadenaPass.length >= 4) {
-                                                                    if (cadenaPass == document.getElementById('ClaveRepetida').value) {
-                                                                        return true;
-                                                                    } else {
-                                                                        $.messager.alert("Alerta", "Las contraseñas no coinciden");
-                                                                    }
-                                                                } else {
-                                                                    $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
-                                                                }
-                                                            } else {
-                                                                $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
-                                                            }
+                                    function validar() {
+                                        if (document.getElementById('Direccion').value != "") {
+                                            var telefono = document.getElementById('Telefono').value;
+                                            if (telefono != "" && telefono.length > 5) {
+                                                if (!isNaN(telefono)) {
+                                                    var cadenaPass = document.getElementById('Clave').value;
+                                                    if (cadenaPass.length >= 4) {
+                                                        if (cadenaPass == document.getElementById('ClaveRepetida').value) {
+                                                            return true;
                                                         } else {
-                                                            $.messager.alert("Alerta", "Debe ingresar una telefono de contacto con al menos 6 digitos");
+                                                            $.messager.alert("Alerta", "Las contraseñas no coinciden");
                                                         }
                                                     } else {
-                                                        $.messager.alert("Alerta", "Debe ingresar una direccion");
+                                                        $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
                                                     }
-                                                    return false;
+                                                } else {
+                                                    $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
                                                 }
+                                            } else {
+                                                $.messager.alert("Alerta", "Debe ingresar una telefono de contacto con al menos 6 digitos");
+                                            }
+                                        } else {
+                                            $.messager.alert("Alerta", "Debe ingresar una direccion");
+                                        }
+                                        return false;
+                                    }
 
         </script>
     </body>

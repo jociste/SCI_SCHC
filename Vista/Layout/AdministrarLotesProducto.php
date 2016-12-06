@@ -48,44 +48,33 @@ $perfil = $_SESSION["idCargo"];
 
     </head>
     <body >
-        <!-- AQUI VA EL MENU SUPERIROR-->
+        <!-- AQUI VA EL MENU SUPERIOR-->
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        }
+        else if ($perfil == 6) {
+            include '../Menus/adminSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
         <div class="wrap">
-
-            <!-- ALERTA -->
-            <div class="container-fluid" style="display: none;">
-                <div class="row-fluid">
-                    <div class="alert alert-block alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        Aqui contenido alerta
-                    </div>                  
-                </div>
-            </div>
-            <!-- FIN ALERTA -->
-
             <div class="container-fluid">
                 <div class="row-fluid">
-
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    else if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                     else if ($perfil == 6) {
+                        include '../Menus/adminLeftPersonal.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" >
@@ -94,13 +83,14 @@ $perfil = $_SESSION["idCargo"];
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
+                        if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
                         ?>
                         <!-- FIN MENU INTERIOR-->
-
                         <hr>
                         <div class="row-fluid">
                             <div class="span12">
-                                <div class="social-box social-bordered social-blue">
                                     <div class="header">
                                         <h4>Lotes de Producto</h4>
                                     </div>
@@ -135,7 +125,6 @@ $perfil = $_SESSION["idCargo"];
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>                  
 
                         </div>

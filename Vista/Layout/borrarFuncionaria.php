@@ -55,12 +55,9 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
+        } else if ($perfil == 6) {
+            include '../Menus/adminSuperior.php';
         }
-//        else if ($perfil == 2) {
-//            include '../Menus/educadoraSuperior.php';
-//        } else if ($perfil == 3) {
-//            include '../Menus/apoderadoSuperior.php';
-//        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -84,12 +81,9 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftPersonal.php';
+                    } else if ($perfil == 6) {
+                        include '../Menus/adminLeftPersonal.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
                     ?>
                     <!-- FIN MENU LEFT-->
 

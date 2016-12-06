@@ -27,8 +27,14 @@ if (($run != null || $run != "") && ($clave != null || $clave != "")) {
             $_SESSION["nombre"] = $nombres[0]." ".$apellidos[0];
             $_SESSION["sexo"] = $funcionaria->getSexo();            
             
-            if ($cargo->getIdCargo() == 1) {//administrador
-                $pagina = "Vista/Layout/home.php";
+            if ($cargo->getIdCargo() == 1 || $cargo->getIdCargo() == 2 || $cargo->getIdCargo() == 3 ||$cargo->getIdCargo() == 5) {//administrador
+                $pagina = "Vista/Layout/home.php";            
+            }
+             if ($cargo->getIdCargo() == 4) {//administrador
+                $pagina = "Vista/Layout/AdministrarLotesProducto.php";            
+            }
+             if ($cargo->getIdCargo() == 6) {//administrador
+                $pagina = "Vista/Layout/AdministrarFuncionariasHabilitadas.php";            
             }
             $success = true;
             $mensajes = "Iniciando...";

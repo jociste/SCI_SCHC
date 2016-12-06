@@ -48,12 +48,11 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperiorInicio.php';
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperiorInicio.php';
+        } else if ($perfil == 6) {
+            include '../Menus/adminSuperiorInicio.php';
         }
-//         else if ($perfil == 2) {
-//            include '../Menus/educadoraSuperior.php';
-//        } else if ($perfil == 3) {
-//            include '../Menus/apoderadoSuperior.php';
-//        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -64,11 +63,10 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraBotonesInterior.php';
                     } else if ($perfil == 4) {
-                        include '../Menus/AuxiliarBotonesInterior.php';
+                        include '../Menus/auxiliarBotonesInterior.php';
+                    } else if ($perfil == 6) {
+                        include '../Menus/adminBotonesInterior.php';
                     }
-                    //        else if ($perfil == 3) {
-                    //            include '../Menus/apoderadoSuperior.php';
-                    //        }
                     ?>
 
                 </div>
