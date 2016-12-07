@@ -76,55 +76,54 @@ $perfil = $_SESSION["idCargo"];
             <!-- FIN ALERTA -->
             <div class="container-fluid">
                 <div class="row-fluid">
-                <!-- AQUI VA EL MENU LEFT-->
-                <?php
-                if ($perfil == 1) {
-                    include '../Menus/directoraLeftPersonal.php';
-                }
-                    else if ($perfil == 4) {
+                    <!-- AQUI VA EL MENU LEFT-->
+                    <?php
+                    if ($perfil == 1) {
+                        include '../Menus/directoraLeftPersonal.php';
+                    } else if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
                     } else if ($perfil == 6) {
                         include '../Menus/adminLeftPersonal.php';
                     }
-                ?>
-                <!-- FIN MENU LEFT-->
-                        <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-<!--                            menu interior-->
-                           
-                            <h4>Funcionarias</h4>
-                             <hr>
-                            <div>
-                                <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarFuncionaria.php'">
-                                    Agregar Funcionaria <i class="icon-book" ></i>
-                                </a>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="clearfix"></div>                           
-                            <div class="table-responsive">
-                                <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Run</th> 
-                                            <th>Nombres</th> 
-                                            <th>Apellidos</th> 
-                                            <th>Sexo</th>
-                                            <th>Direccion</th>
-                                            <th>Telefono</th>
-                                            <th>Cargo</th>
-                                            <th>Profesion</th>
-                                            <th>Nivel</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="accion" name="accion" value="">
-                            </div>
+                    ?>
+                    <!-- FIN MENU LEFT-->
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+                        <!--                            menu interior-->
+
+                        <h4>Funcionarias</h4>
+                        <hr>
+                        <div>
+                            <a class="btn btn-success  btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarFuncionaria.php'">
+                                Agregar Funcionaria <i class="icon-book" ></i>
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="clearfix"></div>                           
+                        <div class="table-responsive">
+                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Run</th> 
+                                        <th>Nombres</th> 
+                                        <th>Apellidos</th> 
+                                        <th>Sexo</th>
+                                        <th>Direccion</th>
+                                        <th>Telefono</th>
+                                        <th>Cargo</th>
+                                        <th>Profesion</th>
+                                        <th>Nivel</th>
+                                        <th>Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="accion" name="accion" value="">
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
+        </div>   
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -134,69 +133,72 @@ $perfil = $_SESSION["idCargo"];
                 </p>
             </footer>
         </div>
-    <script src="../../Files/js/modernizr.custom.js"></script>
-    <script src="../../Files/js/toucheffects.js"></script>
-    <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
-    <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
+        <script src="../../Files/js/modernizr.custom.js"></script>
+        <script src="../../Files/js/toucheffects.js"></script>
+        <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
+        <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
-    <script>
-                                    $(function () {
-                                        cargarFuncionarias();
-                                    })
+        <script>
+                                        $(function () {
+                                            cargarFuncionarias();
+                                        })
 
-                                    function cargarFuncionarias() {
-                                        $("#tablaFuncionarias").empty();
-                                        var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
-                                        $.getJSON(
-                                                url_json,
-                                                function (datos) {
-                                                    $.each(datos, function (k, v) {
-                                                        var contenido = "<tr>";
-                                                        contenido += "<td>" + v.runFuncionaria + "</td>";
-                                                        contenido += "<td>" + v.nombres + "</td>";
-                                                        contenido += "<td>" + v.apellidos + "</td>";
-                                                        contenido += "<td>" + v.sexo + "</td>";
-                                                        contenido += "<td>" + v.direccion + "</td>";
-                                                        contenido += "<td>" + v.telefono + "</td>";
-                                                        contenido += "<td>" + v.nombreCargo + "</td>";
-                                                        contenido += "<td>" + v.profesion + "</td>";
-                                                        contenido += "<td>" + v.nombreNivel + "</td>";
-                                                        contenido += "<td>";
-                                                        contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-                                                        contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
-                                                        contenido += "</td>";
-                                                        contenido += "</tr>";
-                                                        $("#grid").append(contenido);
-                                                    });
-                                                    $('#grid').DataTable();
-                                                }
-                                        );
-                                    }
+                                        function cargarFuncionarias() {
+                                            $("#tablaFuncionarias").empty();
+                                            var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
+                                            $.getJSON(
+                                                    url_json,
+                                                    function (datos) {
+                                                        $.each(datos, function (k, v) {
+                                                            var run = v.runFuncionaria;
+                                                            var contenido = "<tr>";
+                                                            contenido += "<td>" + run + "</td>";
+                                                            contenido += "<td>" + v.nombres + "</td>";
+                                                            contenido += "<td>" + v.apellidos + "</td>";
+                                                            contenido += "<td>" + v.sexo + "</td>";
+                                                            contenido += "<td>" + v.direccion + "</td>";
+                                                            contenido += "<td>" + v.telefono + "</td>";
+                                                            contenido += "<td>" + v.nombreCargo + "</td>";
+                                                            contenido += "<td>" + v.profesion + "</td>";
+                                                            contenido += "<td>" + v.nombreNivel + "</td>";
+                                                            contenido += "<td>";
+                                                            contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
+                                                            contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                                            contenido += "</td>";
+                                                            contenido += "</tr>";
+                                                            $("#grid").append(contenido);
+                                                        });
+                                                        $('#grid').DataTable();
+                                                    }
+                                            );
+                                        }
 
-                                    function editar(runFuncionaria) {
-                                        window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
-                                    }
+                                        function editar(runFuncionaria) {
+                                            window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+                                        }
 
-                                    function borrarFuncionaria(runFuncionaria) {
-                                        $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea eliminar a la funcionaria del sistema?', function (r) {
-                                            if (r) {
-                                                var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
-                                                $.getJSON(
-                                                        url_json,
-                                                        function (datos) {
-                                                            if (datos.errorMsg) {
-                                                                $.messager.alert('Error', datos.errorMsg, 'error');
-                                                            } else {
-                                                                window.location = "FuncionariasHistoricas.php";
+                                        function borrarFuncionaria(runFuncionaria) {
+                                            $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea eliminar a la funcionaria del sistema?', function (r) {
+                                                if (r) {
+                                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                if (datos.errorMsg) {
+                                                                    $.messager.alert('Error', datos.errorMsg, 'error');
+                                                                } else {
+                                                                    window.location = "FuncionariasHistoricas.php";
+                                                                }
                                                             }
-                                                        }
-                                                );
-                                            } else {
+                                                    );
+                                                } else {
 
-                                            }
-                                        });
-                                    }
-    </script>
-</body>
+                                                }
+                                            });
+                                        }
+
+                                      
+        </script>
+    </body>
 </html>
 
