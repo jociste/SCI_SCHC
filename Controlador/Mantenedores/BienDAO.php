@@ -121,6 +121,60 @@ class BienDAO {
         return $biens;
     }
 
+    public function findAllDESHabilitadosByIdNivel($idNivel) {
+        $this->conexion->conectar();
+        $query = "SELECT b.idBien, b.nombre, c.nombre as categoria, ba.fechaBaja, ba.motivo,  co.fechaComprobante
+        FROM bien as b  left JOIN categoria c ON c.idCategoria = b.idCategoria 
+        left JOIN comprobante as co ON co.idBien = b.idBien
+        left  JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
+        join baja as ba on ba.idBien = b.idBien
+        join bien_nivel bn ON bn.idBien = b.idBien
+        WHERE bn.idNivel = " . $idNivel;
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $biens = array();
+        while ($fila = $result->fetch_row()) {
+            $bienBaja = new BajaDTO();
+            $bienBaja->setIdBien($fila[0]);
+            $bienBaja->setNombreBien($fila[1]);
+            $bienBaja->setNombreCategoria($fila[2]);
+            $bienBaja->setFechaBaja($fila[3]);
+            $bienBaja->setMotivo($fila[4]);
+            $bienBaja->setFechaComprobante($fila[5]);
+            $biens[$i] = $bienBaja;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $biens;
+    }
+
+    public function findAllDESHabilitadosByIdNivelAndFechas($idNivel, $fechaInicio, $fechaTermino) {
+        $this->conexion->conectar();
+        $query = "SELECT b.idBien, b.nombre, c.nombre as categoria, ba.fechaBaja, ba.motivo,  co.fechaComprobante
+        FROM bien as b  left JOIN categoria c ON c.idCategoria = b.idCategoria 
+        left JOIN comprobante as co ON co.idBien = b.idBien
+        left  JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
+        join baja as ba on ba.idBien = b.idBien
+        join bien_nivel bn ON bn.idBien = b.idBien
+        WHERE bn.idNivel = " . $idNivel . " AND ba.fechaBaja <= '" . $fechaTermino . "' AND ba.fechaBaja >= '" . $fechaInicio . "' ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $biens = array();
+        while ($fila = $result->fetch_row()) {
+            $bienBaja = new BajaDTO();
+            $bienBaja->setIdBien($fila[0]);
+            $bienBaja->setNombreBien($fila[1]);
+            $bienBaja->setNombreCategoria($fila[2]);
+            $bienBaja->setFechaBaja($fila[3]);
+            $bienBaja->setMotivo($fila[4]);
+            $bienBaja->setFechaComprobante($fila[5]);
+            $biens[$i] = $bienBaja;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $biens;
+    }
+
     public function findAllHabilitadosByIdNivel($idNivel) {
         $this->conexion->conectar();
         $query = "SELECT bn.idNivelBien, ni.idNivel, b.idBien, bn.fechaInicio, bn.fechaTermino, c.idCategoria, b.nombre, b.ubicacion, co.idRegistro, 
@@ -171,7 +225,7 @@ class BienDAO {
        left  JOIN detalle_comprobante as de ON de.idRegistro = co.idRegistro
        left  JOIN nivel as ni ON ni.idNivel = bn.idNivel
        WHERE bn.fechaTermino = '0000-00-00' AND bn.idNivel = " . $idNivel . " AND bn.fechaInicio <= '" . $fechaTermino . "' AND bn.fechaInicio >= '" . $fechaInicio . "'";
-        
+
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $biens = array();

@@ -218,6 +218,7 @@ $perfil = $_SESSION["idCargo"];
                                                         <input class="input-xlarge focused" id="idEntidadAdministradora" name="idEntidadAdministradora" type="hidden">
                                                         <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                                         <a onclick="reporte()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Inventario de Bienes Inmuebles</a>                                                        
+                                                        <a onclick="reporteDadosDeBaja()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Bienes Inmuebles Dado de Bajas</a>                                                        
                                                         <input type="hidden" id="accion" name="accion" value="">
                                                     </div>                                                    
                                                 </div>
@@ -293,6 +294,58 @@ $perfil = $_SESSION["idCargo"];
         </div>
         <!-- Fin Modal -->
 
+        
+        <!-- Modal Dados De Baja-->
+        <div class="modal fade" id="modalDadosDeBaja" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Generar Reporte</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fm-periodo-dados-de-baja" class="form-horizontal well" >
+                            <div class="" style="height: 10%;">
+                                <h4 style="width: 80%; align-content: center; margin: 0; padding-left: 0%">Datos Reporte</h4> 
+                            </div>
+                            <hr>
+                            <div class="control-group">
+                                <label class="control-label" for="sinFechasDadosDeBaja">Sin rango de fechas</label>
+                                <div class="controls">
+                                    <input type="checkbox" class="input-xlarge focused" id="sinFechasDadosDeBaja" name="sinFechasDadosDeBaja" onclick="sinPeriodoDadosDeBaja()">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="fechaInicioDadosDeBaja">Fecha Inicio</label>
+                                <div class="controls">
+                                    <input type="date" class="input-xlarge focused" id="fechaInicioDadosDeBaja" name="fechaInicioDadosDeBaja">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="fechaTerminoDadosDeBaja">Fecha Termino</label>
+                                <div class="controls">
+                                    <input type="date" class="input-xlarge focused" id="fechaTerminoDadosDeBaja" name="fechaTerminoDadosDeBaja">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="idNivelDadosBaja">Nivel</label>
+                                <div class="controls">
+                                    <select class="input-xlarge focused" id="idNivelDadosBaja" name="idNivelDadosBaja" required></select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" onclick="generarReporteInventarioBienesDadosDeBaja()" class="btn btn-primary">Generar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Modal -->
+        
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
         <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
@@ -313,6 +366,7 @@ $perfil = $_SESSION["idCargo"];
                                             $.each(datos, function (k, v) {
                                                 var contenido = "<option value='" + v.idNivel + "'>" + v.nombre + "</option>";
                                                 $("#idNivel").append(contenido);
+                                                $("#idNivelDadosBaja").append(contenido);
                                             });
                                         }
                                 );
@@ -500,6 +554,9 @@ $perfil = $_SESSION["idCargo"];
                             function reporte() {
                                 $('#myModal').modal('show');
                             }
+                            function reporteDadosDeBaja() {
+                                $('#modalDadosDeBaja').modal('show');
+                            }
                             function generarReporteInventarioBienesInmuebles() {
                                 var fechaInicio = $("#fechaInicio").val();
                                 var fechaTermino = $("#fechaTermino").val();
@@ -524,6 +581,31 @@ $perfil = $_SESSION["idCargo"];
                                 }
                                 window.open("generarReporteInventarioBienes.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo").serialize() + " &fechaActual="+fechaActual);
                             }
+                            
+                            function generarReporteInventarioBienesDadosDeBaja() {
+                                var fechaInicio = $("#fechaInicioDadosDeBaja").val();
+                                var fechaTermino = $("#fechaTerminoDadosDeBaja").val();
+
+                                var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                                var f = new Date();
+                                var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+
+                                if (!document.getElementById("sinFechasDadosDeBaja").checked) {
+                                    if (fechaInicio == "") {
+                                        $.messager.alert('Error', "Debe ingresar la fecha de inicio.");
+                                        return false;
+                                    }
+                                    if (fechaTermino == "") {
+                                        $.messager.alert('Error', "Debe ingresar la fecha de termino.");
+                                        return false;
+                                    }
+                                    if (fechaInicio >= fechaTermino) {
+                                        $.messager.alert('Error', "La fecha de termino debe ser mayor a la fecha de inicio.");
+                                        return false;
+                                    }
+                                }
+                                window.open("generarReporteInmueblesDadosDeBaja.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo-dados-de-baja").serialize() + " &fechaActual="+fechaActual);
+                            }
 
                             function sinPeriodo() {
                                 if (document.getElementById("sinFechas").checked) {
@@ -532,6 +614,16 @@ $perfil = $_SESSION["idCargo"];
                                 } else {
                                     document.getElementById("fechaInicio").disabled = false;
                                     document.getElementById("fechaTermino").disabled = false;
+                                }
+                            }
+                            
+                            function sinPeriodoDadosDeBaja() {
+                                if (document.getElementById("sinFechasDadosDeBaja").checked) {
+                                    document.getElementById("fechaInicioDadosDeBaja").disabled = true;
+                                    document.getElementById("fechaTerminoDadosDeBaja").disabled = true;
+                                } else {
+                                    document.getElementById("fechaInicioDadosDeBaja").disabled = false;
+                                    document.getElementById("fechaTerminoDadosDeBaja").disabled = false;
                                 }
                             }
 

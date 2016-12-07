@@ -218,6 +218,9 @@ $perfil = $_SESSION["idCargo"];
                                                         <input class="input-xlarge focused" id="idEntidadAdministradora" name="idEntidadAdministradora" type="hidden">
                                                         <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                                         <a onclick="reporteControlFlujoExistencia()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Control Flujo de Existencias</a>                                                        
+                                                        <a onclick="reporteProductosPorVencer()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Por Vencer</a>
+                                                        <a onclick="reporteProductosBajoSctok()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Bajo Stock</a>
+                                                        <a onclick="reporteProductosUsados()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Usados</a>
                                                         <input type="hidden" id="accion" name="accion" value="">
                                                     </div>                                                    
                                                 </div>
@@ -281,6 +284,51 @@ $perfil = $_SESSION["idCargo"];
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" onclick="generarReporteControlFlujoExistencia()" class="btn btn-primary">Generar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Modal -->
+        
+        <!-- Modal Productos Usados-->
+        <div class="modal fade" id="modalProductosUsados" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Generar Reporte</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fm-periodo-productos-usados" class="form-horizontal well" >
+                            <div class="" style="height: 10%;">
+                                <h4 style="width: 80%; align-content: center; margin: 0; padding-left: 0%">Datos Reporte</h4> 
+                            </div>
+                            <hr>
+                            <div class="control-group">
+                                <label class="control-label" for="sinFechasProductosUsados">Sin rango de fechas</label>
+                                <div class="controls">
+                                    <input type="checkbox" class="input-xlarge focused" id="sinFechasProductosUsados" name="sinFechasProductosUsados" onclick="sinPeriodoProductosUsados()">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="fechaInicioProductosUsados">Fecha Inicio</label>
+                                <div class="controls">
+                                    <input type="date" class="input-xlarge focused" id="fechaInicioProductosUsados" name="fechaInicioProductosUsados">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="fechaTerminoProductosUsados">Fecha Termino</label>
+                                <div class="controls">
+                                    <input type="date" class="input-xlarge focused" id="fechaTerminoProductosUsados" name="fechaTerminoProductosUsados">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" onclick="generarReporteProductosUsados()" class="btn btn-primary">Generar</button>
                     </div>
                 </div>
             </div>
@@ -375,7 +423,7 @@ $perfil = $_SESSION["idCargo"];
                                         onSubmit: function () {
                                             return $(this).form('validate');
                                         },
-                                        success: function (result) {                                            
+                                        success: function (result) {
                                             var result = eval('(' + result + ')');
                                             if (result.success) {
                                                 $.messager.show({
@@ -511,6 +559,67 @@ $perfil = $_SESSION["idCargo"];
                                     return false;
                                 }
                                 window.open("generarReporteControlFlujo.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo").serialize());
+                            }
+
+                            function reporteProductosPorVencer() {
+                                var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                                var f = new Date();
+                                var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+                                var fechaActualEspecifica = f.getFullYear() + " - " + f.getMonth() + " - " + f.getDate();
+
+                                window.open("generarReporteProductosPorVencer.php?" + $("#fm-datos-generales").serialize() + "&fechaActual=" + fechaActual + "&fechaActualEspecifica=" + fechaActualEspecifica);
+                            }
+
+                            function reporteProductosBajoSctok() {
+                                var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                                var f = new Date();
+                                var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+                                var fechaActualEspecifica = f.getFullYear() + " - " + f.getMonth() + " - " + f.getDate();
+
+                                window.open("generarReporteProductosBajoSctok.php?" + $("#fm-datos-generales").serialize() + "&fechaActual=" + fechaActual + "&fechaActualEspecifica=" + fechaActualEspecifica);
+                            }
+
+                            function reporteProductosUsados() {
+                                $('#modalProductosUsados').modal('show');
+                            }
+
+                            function generarReporteProductosUsados() {
+                                var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                                var f = new Date();
+                                var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+                                var fechaActualEspecifica = f.getFullYear() + " - " + f.getMonth() + " - " + f.getDate();
+
+
+                                var fechaInicio = $("#fechaInicioProductosUsados").val();
+                                var fechaTermino = $("#fechaTerminoProductosUsados").val();
+
+
+                                if (!document.getElementById("sinFechasProductosUsados").checked) {
+                                    if (fechaInicio == "") {
+                                        $.messager.alert('Error', "Debe ingresar la fecha de inicio.");
+                                        return false;
+                                    }
+                                    if (fechaTermino == "") {
+                                        $.messager.alert('Error', "Debe ingresar la fecha de termino.");
+                                        return false;
+                                    }
+                                    if (fechaInicio >= fechaTermino) {
+                                        $.messager.alert('Error', "La fecha de termino debe ser mayor a la fecha de inicio.");
+                                        return false;
+                                    }
+                                }
+
+                                window.open("generarReporteProductosUsados.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo-productos-usados").serialize() + "&fechaActual=" + fechaActual + "&fechaActualEspecifica=" + fechaActualEspecifica);
+                            }
+                            
+                            function sinPeriodoProductosUsados() {
+                                if (document.getElementById("sinFechasProductosUsados").checked) {
+                                    document.getElementById("fechaInicioProductosUsados").disabled = true;
+                                    document.getElementById("fechaTerminoProductosUsados").disabled = true;
+                                } else {
+                                    document.getElementById("fechaInicioProductosUsados").disabled = false;
+                                    document.getElementById("fechaTerminoProductosUsados").disabled = false;
+                                }
                             }
 
         </script>

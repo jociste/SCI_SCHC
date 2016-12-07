@@ -107,6 +107,14 @@ class SCI_SCHC {
         return $this->bienDAO->findAllHabilitados();
     }
 
+    public function getAllBiensDesHabilitadosByIdNivel($idNivel) {
+        return $this->bienDAO->findAllDESHabilitadosByIdNivel($idNivel);
+    }
+    
+    public function getAllBiensDesHabilitadosByIdNivelAndFechas($idNivel,$fechaInicio,$fechaTermino) {
+        return $this->bienDAO->findAllDESHabilitadosByIdNivelAndFechas($idNivel,$fechaInicio,$fechaTermino);
+    }
+    
     public function getAllBiensDesHabilitados() {
         return $this->bienDAO->findAllDESHabilitados();
     }
@@ -457,6 +465,10 @@ class SCI_SCHC {
 
     public function getAllLote_producto_usadoss() {
         return $this->lote_producto_usadosDAO->buscarProductosUsados();
+    }
+    
+    public function getAllLote_productos_usados_by_fechas($fechaInicio, $fechaTermino){
+        return $this->lote_producto_usadosDAO->buscarProductosUsadosByFechas($fechaInicio, $fechaTermino);
     }
 
     public function addLote_producto_usados($lote_producto_usados) {
