@@ -83,6 +83,11 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
+//                    else if ($perfil == 2) {
+//                        include '../Menus/educadoraLeft.php';
+//                    } else if ($perfil == 3) {
+//                        include '../Menus/apoderadoLeft.php';
+//                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
@@ -97,19 +102,16 @@ $perfil = $_SESSION["idCargo"];
                         ?>
                         <!-- FIN MENU INTERIOR-->
                         <hr>
-                        <h4>Detalle de productos usados</h4>
-
-                        <div class="table-responsive">
-                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap" >
+                        <h4>Stock de Productos</h4>
+                        <hr>
+                        <div class="table-responsive" style="width: 70%; align-content: center; margin-left: 16%">
+                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
                                 <thead>
                                     <tr>
-
-                                        <th>Fecha Retiro</th> 
-                                        <th>Retirado por</th>
-                                        <th>Destino</th> 
-                                        <th>Nombre Producto</th>
-                                        <th>Cantidad</th>
-                                        <!--<th>Accion</th>-->
+                                        <th>Categor&iacute;a</th>
+                                        <th>Producto</th> 
+                                        <th>Cantidad</th> 
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
@@ -121,7 +123,7 @@ $perfil = $_SESSION["idCargo"];
                     </div>
                 </div>
             </div>
-        </div>  
+        </div> 
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -138,46 +140,52 @@ $perfil = $_SESSION["idCargo"];
 
         <script>
             $(function () {
-                cargarFuncionarias();
-
+                cargarProductosOrdenados();
             })
 
-            function cargarFuncionarias() {
+            function cargarProductosOrdenados() {
+                $("#tablaFuncionarias").empty();
                 var perfil = document.getElementById("perfil").value;
-                var url_json;
                 if (perfil == 1) {
-                    url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOS';
-                } else {
-                    if (perfil == 4) {
-                        url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOSAUXILIAR';
-                    }
+                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSORDENADOSPORSTOCK';
+                }
+                if (perfil == 4) {
+                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSORDENADOSPORSTOCK';
                 }
                 $.getJSON(
                         url_json,
                         function (datos) {
-                            console.log(datos);
                             $.each(datos, function (k, v) {
                                 var contenido = "<tr>";
 
-                                var nombre = v.nombres + " " + v.apellidos;
-                                contenido += "<td>" + v.fechaRetiro + "</td>";
-                                contenido += "<td>" + nombre + "</td>";
+                                contenido += "<td>" + v.nombreCategoria + "</td>";
 
-                                contenido += "<td>" + v.destino + "</td>";
-
-                                contenido += "<td>" + v.nombreProducto + "</td>";
+//                                if (v.fechaVencimiento == '0000-00-00') {
+//                                    contenido += "<td>Sin Fecha Vencimiento</td>";
+//                                } else {
+//                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
+//                                }
+                                contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.cantidad + "</td>";
+                                if (v.cantidad == 0) {
+                                    contenido += "<td style = 'background-color: #ff8585'><b>Sin Existencias</b></td>";
+                                } else {
+                                    if (v.cantidad <= 11) {
+                                        contenido += "<td style = 'background-color: #f6d616'><b>Menor a 11 Unidades</b></td>";
+                                    } else {
+                                        contenido += "<td style = 'background-color: #00CC00'><b>Suficiente</b></td>";
+                                    }
+                                }
                                 contenido += "</tr>";
                                 $("#grid").append(contenido);
                             });
                             $('#grid').DataTable(
                                     {
-                                       "aaSorting": [[0, "desc"]],
                                         "oLanguage": {
-                                            "oPaginate":{
-                                             "sNext": "Siguiente",
-                                             "sPrevious": "Anterior"
-                                        },
+                                            "oPaginate": {
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
                                             "sLengthMenu": "Mostrar _MENU_ Resultados",
                                             "sSearch": "Buscar",
                                             "sZeroRecords": "No se encontraron Resultados",
@@ -185,11 +193,8 @@ $perfil = $_SESSION["idCargo"];
                                             "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
                                             "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
                                         },
-                                        
-                                               
                                     }
-                                            );
-
+                            );
                         }
                 );
             }

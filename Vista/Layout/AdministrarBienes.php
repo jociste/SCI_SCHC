@@ -202,7 +202,9 @@ $perfil = $_SESSION["idCargo"];
                                 $.getJSON(
                                         url_json,
                                         function (datos) {
+
                                             $.each(datos, function (k, v) {
+
                                                 var contenido = "<tr>";
                                                 contenido += "<td>" + v.numeroComprobante + "</td>";
                                                 contenido += "<td>" + v.proveedor + "</td>";
@@ -216,7 +218,23 @@ $perfil = $_SESSION["idCargo"];
                                                 contenido += "</tr>";
                                                 $("#tablaLotes").append(contenido);
                                             });
-                                            $('#tablaLotes').DataTable();
+                                            $('#tablaLotes').DataTable(
+                                                    {
+                                                        "aaSorting": [[0, "desc"]],
+                                                        "oLanguage": {
+                                                            "oPaginate": {
+                                                                "sNext": "Siguiente",
+                                                                "sPrevious": "Anterior"
+                                                            },
+                                                            "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                                            "sSearch": "Buscar",
+                                                            "sZeroRecords": "No se encontraron Resultados",
+                                                            "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                                            "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                                            "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                                        }
+                                                    }
+                                            );
                                         }
                                 );
                             }
@@ -234,55 +252,41 @@ $perfil = $_SESSION["idCargo"];
                             function darDeBaja() {
                                 $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
                                     if (r) {
-                                        document.getElementById("accionBien").value = "DARDEBAJA";
-                                        $('#fm-baja').form('submit', {
-                                            url: "../Servlet/administrarBien.php",
-                                            onSubmit: function () {
-                                                return $(this).form('validate');
-                                            },
-                                            success: function (result) {
-                                                console.log('result (' + result + ")");
-                                                var result = eval('(' + result + ')');
-                                                if (result.errorMsg) {
-                                                    console.log('aqui');
-                                                    $.messager.alert('Error', result.errorMsg);
-                                                } else {
-                                                    document.getElementById("fm-baja").reset();
-                                                    $('#myModal').modal('toggle');
-                                                    cargarLotes();
-                                                    $.messager.show({
-                                                        title: 'Aviso',
-                                                        msg: result.mensaje
-                                                    });
+                                        if (valida()) {
+                                            document.getElementById("accionBien").value = "DARDEBAJA";
+                                            $('#fm-baja').form('submit', {
+                                                url: "../Servlet/administrarBien.php",
+                                                onSubmit: function () {
+                                                    return $(this).form('validate');
+                                                },
+                                                success: function (result) {
+                                                    var result = eval('(' + result + ')');
+                                                    if (result.errorMsg) {
+                                                        $.messager.alert('Error', result.errorMsg);
+                                                    } else {
+                                                        document.getElementById("fm-baja").reset();
+                                                        $('#myModal').modal('toggle');
+                                                        window.location = "AdministrarBienesDadosDeBaja.php";
+                                                        $.messager.show({
+                                                            title: 'Aviso',
+                                                            msg: result.mensaje
+                                                        });
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
                                     }
-
                                 });
                             }
-                            //
-                            //                                            function darDeBaja(idBien) {
-                            //                                                $.messager.confirm('Confirmar', '¿Esta seguro dar de baja el bien?', function (r) {
-                            //                                                    if (r) {
-                            //                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idBien=' + idBien;
-                            //                                                        $.getJSON(
-                            //                                                                url_json,
-                            //                                                                function (datos) {
-                            //                                                                    if (datos.errorMsg) {
-                            //                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
-                            //                                                                    } else {
-                            //                                                                        $.messager.show({
-                            //                                                                            title: 'Aviso',
-                            //                                                                            msg: datos.mensaje
-                            //                                                                        });
-                            //                                                                        cargarLotes();
-                            //                                                                    }
-                            //                                                                }
-                            //                                                        );
-                            //                                                    }
-                            //                                                });
-                            //                                            }
+                            function valida() {
+                                var fechaBaja = document.getElementById('fechaBaja').value;
+                                if (fechaBaja == null || fechaBaja == '') {
+                                    $.messager.alert('Error', "Debe ingresar la fecha de baja del bien");
+                                   
+                                    return false;
+                                }
+                                return true;
+                            }
         </script>
     </body>
 </html>

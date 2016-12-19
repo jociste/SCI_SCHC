@@ -152,7 +152,23 @@ $perfil = $_SESSION["idCargo"];
                                                     contenido += "</tr>";
                                                     $("#grid").append(contenido);
                                                 });
-                                                $('#tablaCategorias').DataTable();
+                                                $('#tablaCategorias').DataTable(
+                                                        {
+                                                            
+                                                            "oLanguage": {
+                                                                "oPaginate": {
+                                                                    "sNext": "Siguiente",
+                                                                    "sPrevious": "Anterior"
+                                                                },
+                                                                "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                                                "sSearch": "Buscar",
+                                                                "sZeroRecords": "No se encontraron Resultados",
+                                                                "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                                                "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                                                "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                                            },
+                                                        }
+                                                );
                                             }
                                     );
                                 }

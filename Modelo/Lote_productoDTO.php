@@ -8,14 +8,21 @@ class Lote_productoDTO {
     public $fechaVencimiento;
     public $fechaIngreso;
     public $stockInicial;
-
-
+    
+    public $nombreCategoria;
     public $nombre;
 
     public function Lote_productoDTO(){
     }
+    function getNombreCategoria() {
+        return $this->nombreCategoria;
+    }
 
-    function getIdLote() {
+    function setNombreCategoria($nombreCategoria) {
+        $this->nombreCategoria = $nombreCategoria;
+    }
+
+        function getIdLote() {
         return $this->idLote;
     }
 

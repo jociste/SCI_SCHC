@@ -46,7 +46,7 @@ class Lote_producto_usadosDAO {
         join funcionaria as f on lpu.runFuncionaria = f.runFuncionaria join lote_producto as lp on lp.idLote = lpu.idLote
         JOIN producto as p on p.idProducto = lp.idProducto JOIN categoria C ON p.idCategoria = C.idCategoria 
 JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
- where ca.idCargo = 4";
+ where ca.idCargo = 4 order by lpu.fechaRetiro ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $productosUsados = array();
@@ -73,7 +73,7 @@ JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria j
         $this->conexion->conectar();
         $query = "select lpu.idLoteProductosUsados, lpu.idLote, lp.idProducto, p.nombre, lpu.runFuncionaria, f.nombres, f.apellidos, lpu.cantidad, lpu.fechaRetiro, lpu.destino from lote_producto_usados as lpu 
         join funcionaria as f on lpu.runFuncionaria = f.runFuncionaria join lote_producto as lp on lp.idLote = lpu.idLote
-        JOIN producto as p on p.idProducto = lp.idProducto";
+        JOIN producto as p on p.idProducto = lp.idProducto order by lpu.fechaRetiro desc";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $productosUsados = array();

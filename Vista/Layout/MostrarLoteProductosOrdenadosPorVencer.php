@@ -57,7 +57,7 @@ $perfil = $_SESSION["idCargo"];
             include '../Menus/directoraSuperior.php';
         } else if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
-        } 
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -80,7 +80,7 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-                     if ($perfil == 4) {
+                    if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
 //                    else if ($perfil == 2) {
@@ -96,7 +96,7 @@ $perfil = $_SESSION["idCargo"];
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
-                         if ($perfil == 4) {
+                        if ($perfil == 4) {
                             include '../Menus/auxiliarMenuInteriorProductos.php';
                         }
                         ?>
@@ -170,7 +170,22 @@ $perfil = $_SESSION["idCargo"];
                                 contenido += "</tr>";
                                 $("#grid").append(contenido);
                             });
-                            $('#grid').DataTable();
+                            $('#grid').DataTable(
+                                    {
+                                        "oLanguage": {
+                                            "oPaginate": {
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
+                                            "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                            "sSearch": "Buscar",
+                                            "sZeroRecords": "No se encontraron Resultados",
+                                            "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                            "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                            "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                        },
+                                    }
+                            );
                         }
                 );
             }

@@ -441,7 +441,9 @@ class SCI_SCHC {
     public function cuentaProductosBajoStock() {
         return $this->lote_productoDAO->CuentaProductosBajoStock();
     }
-
+ public function getAllLote_productosPorStock() {
+        return $this->lote_productoDAO->findAllOrdenadosPorStock();
+    }
     public function getAllLote_productosBajoStock() {
         return $this->lote_productoDAO->findAllOrdenadosPorBajoStock();
     }

@@ -139,65 +139,80 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
         <script>
-                                        $(function () {
-                                            cargarFuncionarias();
-                                        })
+                                $(function () {
+                                    cargarFuncionarias();
+                                })
 
-                                        function cargarFuncionarias() {
-                                            $("#tablaFuncionarias").empty();
-                                            var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
+                                function cargarFuncionarias() {
+                                    $("#tablaFuncionarias").empty();
+                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
+                                    $.getJSON(
+                                            url_json,
+                                            function (datos) {
+                                                $.each(datos, function (k, v) {
+                                                    var run = v.runFuncionaria;
+                                                    var contenido = "<tr>";
+                                                    contenido += "<td>" + run + "</td>";
+                                                    contenido += "<td>" + v.nombres + "</td>";
+                                                    contenido += "<td>" + v.apellidos + "</td>";
+                                                    contenido += "<td>" + v.sexo + "</td>";
+                                                    contenido += "<td>" + v.direccion + "</td>";
+                                                    contenido += "<td>" + v.telefono + "</td>";
+                                                    contenido += "<td>" + v.nombreCargo + "</td>";
+                                                    contenido += "<td>" + v.profesion + "</td>";
+                                                    contenido += "<td>" + v.nombreNivel + "</td>";
+                                                    contenido += "<td>";
+                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
+                                                    contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                                    contenido += "</td>";
+                                                    contenido += "</tr>";
+                                                    $("#grid").append(contenido);
+                                                });
+                                                $('#grid').DataTable(
+                                                        {
+                                                            "oLanguage": {
+                                                                "oPaginate": {
+                                                                    "sNext": "Siguiente",
+                                                                    "sPrevious": "Anterior"
+                                                                },
+                                                                "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                                                "sSearch": "Buscar",
+                                                                "sZeroRecords": "No se encontraron Resultados",
+                                                                "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                                                "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                                                "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                                            }
+                                                        }
+                                                );
+                                            }
+                                    );
+                                }
+
+                                function editar(runFuncionaria) {
+                                    window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+                                }
+
+                                function borrarFuncionaria(runFuncionaria) {
+                                    $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea dar de baja a la funcionaria?', function (r) {
+                                        if (r) {
+                                            var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
                                             $.getJSON(
                                                     url_json,
                                                     function (datos) {
-                                                        $.each(datos, function (k, v) {
-                                                            var run = v.runFuncionaria;
-                                                            var contenido = "<tr>";
-                                                            contenido += "<td>" + run + "</td>";
-                                                            contenido += "<td>" + v.nombres + "</td>";
-                                                            contenido += "<td>" + v.apellidos + "</td>";
-                                                            contenido += "<td>" + v.sexo + "</td>";
-                                                            contenido += "<td>" + v.direccion + "</td>";
-                                                            contenido += "<td>" + v.telefono + "</td>";
-                                                            contenido += "<td>" + v.nombreCargo + "</td>";
-                                                            contenido += "<td>" + v.profesion + "</td>";
-                                                            contenido += "<td>" + v.nombreNivel + "</td>";
-                                                            contenido += "<td>";
-                                                            contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-                                                            contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
-                                                            contenido += "</td>";
-                                                            contenido += "</tr>";
-                                                            $("#grid").append(contenido);
-                                                        });
-                                                        $('#grid').DataTable();
+                                                        if (datos.errorMsg) {
+                                                            $.messager.alert('Error', datos.errorMsg, 'error');
+                                                        } else {
+                                                            window.location = "FuncionariasHistoricas.php";
+                                                        }
                                                     }
                                             );
+                                        } else {
+
                                         }
+                                    });
+                                }
 
-                                        function editar(runFuncionaria) {
-                                            window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
-                                        }
 
-                                        function borrarFuncionaria(runFuncionaria) {
-                                            $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea dar de baja a la funcionaria?', function (r) {
-                                                if (r) {
-                                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                if (datos.errorMsg) {
-                                                                    $.messager.alert('Error', datos.errorMsg, 'error');
-                                                                } else {
-                                                                    window.location = "FuncionariasHistoricas.php";
-                                                                }
-                                                            }
-                                                    );
-                                                } else {
-
-                                                }
-                                            });
-                                        }
-
-                                      
         </script>
     </body>
 </html>

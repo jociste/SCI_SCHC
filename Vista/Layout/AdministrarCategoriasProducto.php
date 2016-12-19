@@ -44,6 +44,9 @@ $perfil = $_SESSION["idCargo"];
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
         <script src="../../Files/Complementos/lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+        
+         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/datatables/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="../../Files/Complementos/lib/datatables/jquery.dataTables.js"></script>
 
 
     </head>
@@ -88,7 +91,7 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" >
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
@@ -100,7 +103,6 @@ $perfil = $_SESSION["idCargo"];
                         <hr>
                         <div class="row-fluid">
                             <div class="span12">
-                                <div class="social-box social-bordered social-blue">
                                     <div class="header">
                                         <h4>Categorias de Producto</h4>
                                     </div>
@@ -113,7 +115,7 @@ $perfil = $_SESSION["idCargo"];
                                         <div class="row-fluid">
                                             <!-- CONTENIDO AQUI -->
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table id="tablaCategorias" class="table table-striped table-bordered dt-responsive nowrap">
                                                     <thead> 
                                                         <tr> 
                                                             <th>Id</th> 
@@ -122,7 +124,7 @@ $perfil = $_SESSION["idCargo"];
                                                             <th>Gestionar</th>
                                                         </tr> 
                                                     </thead>
-                                                    <tbody id="tablaCategorias">
+                                                    <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
 
                                                     </tbody>
                                                 </table>
@@ -132,7 +134,6 @@ $perfil = $_SESSION["idCargo"];
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>                  
 
                         </div>
@@ -161,7 +162,6 @@ $perfil = $_SESSION["idCargo"];
                                                 });
 
                                                 function cargarCategorias() {
-                                                    $("#tablaCategorias").empty();
                                                     var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
                                                     $.getJSON(
                                                             url_json,
@@ -182,8 +182,25 @@ $perfil = $_SESSION["idCargo"];
 
 
                                                                     contenido += "</tr>";
-                                                                    $("#tablaCategorias").append(contenido);
+                                                                    $("#grid").append(contenido);
                                                                 });
+                                                                   $('#tablaCategorias').DataTable(
+                                                        {
+                                                            
+                                                            "oLanguage": {
+                                                                "oPaginate": {
+                                                                    "sNext": "Siguiente",
+                                                                    "sPrevious": "Anterior"
+                                                                },
+                                                                "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                                                "sSearch": "Buscar",
+                                                                "sZeroRecords": "No se encontraron Resultados",
+                                                                "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                                                "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                                                "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                                            },
+                                                        }
+                                                );
                                                             }
                                                     );
                                                 }

@@ -186,7 +186,7 @@ if ($accion != null) {
         $resultObjetoNivelBienAnterior = $control->updateBien_nivel($objetoNivelBienAnterior);
         $idBaja = $control->BuscaMaximoIdBaja();
         if($idBaja == NULL || $idBaja == ''){
-            $idBaja=1;
+            $idBaja = 1;
         }
         $nuevaBaja = new BajaDTO();
         $nuevaBaja->setIdBaja($idBaja);

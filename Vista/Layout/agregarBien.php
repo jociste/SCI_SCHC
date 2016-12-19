@@ -112,9 +112,9 @@ $perfil = $_SESSION["idCargo"];
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="categoriaBien">Nombre del Bien *</label>
+                                            <label class="control-label" for="idCategoria">Nombre del Bien *</label>
                                             <div class="controls">
-                                                <select class="input-xlarge focused" id="categoriaBien" name="categoriaBien" required style="height: 32px; width: 286px">
+                                                <select class="input-xlarge focused" id="idCategoria" name="idCategoria" required style="height: 32px; width: 286px">
                                                     <option value="1">Materiales didácticos y de enseñanza</option>
                                                     <option value="5">Bienes/Muebles</option>
                                                 </select>

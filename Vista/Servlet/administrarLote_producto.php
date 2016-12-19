@@ -38,7 +38,12 @@ if ($accion != null) {
         $lote_productos = $control->getAllLote_productosBajoStock();
         $json = json_encode($lote_productos);
         echo $json;
-    } else if ($accion == "LISTADOPRODUCTOSBAJOSTOCKAUXILIAR") {
+    } else if ($accion == "LISTADOPRODUCTOSORDENADOSPORSTOCK") {
+        $lote_productos = $control->getAllLote_productosPorStock();
+        $json = json_encode($lote_productos);
+        echo $json;
+    }    
+    else if ($accion == "LISTADOPRODUCTOSBAJOSTOCKAUXILIAR") {
         $lote_productos = $control->getAllLote_productosBajoStockAuxiliar();
         $json = json_encode($lote_productos);
         echo $json;

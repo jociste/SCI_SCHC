@@ -15,7 +15,7 @@ $perfil = $_SESSION["idCargo"];
         <title>Sala cuna Hogar de Cristo</title>
         <!-- end: Meta -->
         <link id="page_favicon" href="../../Files/img/logo.png" rel="icon" type="image/x-icon" />
-       <link href="../../Files/Complementos/bootstrap/css/bootstrap-flat.css" rel="stylesheet">        
+        <link href="../../Files/Complementos/bootstrap/css/bootstrap-flat.css" rel="stylesheet">        
         <link href="../../Files/Complementos/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">        
         <link  href="../../Files/css/style.css" rel="stylesheet">
         <link  href="../../Files/css/chat.css" rel="stylesheet">  
@@ -51,7 +51,7 @@ $perfil = $_SESSION["idCargo"];
             include '../Menus/directoraSuperior.php';
         } else if ($perfil == 6) {
             include '../Menus/adminSuperior.php';
-        } 
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -68,48 +68,47 @@ $perfil = $_SESSION["idCargo"];
             <!-- FIN ALERTA -->
             <div class="container-fluid" >
                 <div class="row-fluid">
-                <!-- AQUI VA EL MENU LEFT-->
-                <?php
-                if ($perfil == 1) {
-                    include '../Menus/directoraLeftPersonal.php';
-                }
-                    else if ($perfil == 6) {
+                    <!-- AQUI VA EL MENU LEFT-->
+                    <?php
+                    if ($perfil == 1) {
+                        include '../Menus/directoraLeftPersonal.php';
+                    } else if ($perfil == 6) {
                         include '../Menus/adminLeftPersonal.php';
                     }
-                ?>
-                <!-- FIN MENU LEFT-->
-                        <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-<!--                            Menu interionr-->
-                            
-                            <h4>Funcionarias Historicas</h4>
-                              <hr>
-                            <div class="clearfix"></div>
-                            <div class="clearfix"></div>                           
-                            <div class="table-responsive">
-                                <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Run</th> 
-                                            <th>Nombres</th> 
-                                            <th>Apellidos</th> 
-                                            <th>Sexo</th>
-                                            <th>Direccion</th>
-                                            <th>Telefono</th>
-                                            <th>Cargo</th>
-                                            <th>Profesion</th>
-                                            <th>Nivel</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="grid">
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="accion" name="accion" value="">
-                            </div>
+                    ?>
+                    <!-- FIN MENU LEFT-->
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+                        <!--                            Menu interionr-->
+
+                        <h4>Funcionarias Historicas</h4>
+                        <hr>
+                        <div class="clearfix"></div>
+                        <div class="clearfix"></div>                           
+                        <div class="table-responsive">
+                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Run</th> 
+                                        <th>Nombres</th> 
+                                        <th>Apellidos</th> 
+                                        <th>Sexo</th>
+                                        <th>Direccion</th>
+                                        <th>Telefono</th>
+                                        <th>Cargo</th>
+                                        <th>Profesion</th>
+                                        <th>Nivel</th>
+                                        <th>Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="grid">
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="accion" name="accion" value="">
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
+        </div>  
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -119,64 +118,80 @@ $perfil = $_SESSION["idCargo"];
                 </p>
             </footer>
         </div>
-    <script src="../../Files/js/modernizr.custom.js"></script>
-    <script src="../../Files/js/toucheffects.js"></script>
+        <script src="../../Files/js/modernizr.custom.js"></script>
+        <script src="../../Files/js/toucheffects.js"></script>
 
-    <script>
-                                    $(function () {
-                                        cargarFuncionarias();
-                                    })
+        <script>
+            $(function () {
+                cargarFuncionarias();
+            })
 
-                                    function cargarFuncionarias() {
-                                        $("#tablaFuncionarias").empty();
-                                        var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADODESHABILITADAS';
-                                        $.getJSON(
-                                                url_json,
-                                                function (datos) {
-                                                    $.each(datos, function (k, v) {
-                                                        var contenido = "<tr>";
-                                                            contenido += "<td>" + v.runFuncionaria + "</td>";
-                                                            contenido += "<td>" + v.nombres + "</td>";
-                                                            contenido += "<td>" + v.apellidos + "</td>";
-                                                            contenido += "<td>" + v.sexo + "</td>";
-                                                            contenido += "<td>" + v.direccion + "</td>";
-                                                            contenido += "<td>" + v.telefono + "</td>";
-                                                            contenido += "<td>" + v.nombreCargo + "</td>";
-                                                            contenido += "<td>" + v.profesion + "</td>";
-                                                            contenido += "<td>" + v.nombreNivel + "</td>";
-                                                            contenido += "<td>";
-                                                            contenido += "<button type='button'  class='btn btn-warning btn-circle icon-credit-card' onclick='reestablecerFuncionaria(" + v.runFuncionaria + ")'></button>";
-                                                            contenido += "</td>";
-                                                            contenido += "</tr>";
-                                                        $("#grid").append(contenido);
-                                                    });
-                                                    $('#grid').DataTable();
-                                                }
-                                        );
+            function cargarFuncionarias() {
+                $("#tablaFuncionarias").empty();
+                var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADODESHABILITADAS';
+                $.getJSON(
+                        url_json,
+                        function (datos) {
+                            $.each(datos, function (k, v) {
+                                var contenido = "<tr>";
+                                contenido += "<td>" + v.runFuncionaria + "</td>";
+                                contenido += "<td>" + v.nombres + "</td>";
+                                contenido += "<td>" + v.apellidos + "</td>";
+                                contenido += "<td>" + v.sexo + "</td>";
+                                contenido += "<td>" + v.direccion + "</td>";
+                                contenido += "<td>" + v.telefono + "</td>";
+                                contenido += "<td>" + v.nombreCargo + "</td>";
+                                contenido += "<td>" + v.profesion + "</td>";
+                                contenido += "<td>" + v.nombreNivel + "</td>";
+                                contenido += "<td>";
+                                contenido += "<button type='button'  class='btn btn-warning btn-circle icon-credit-card' onclick='reestablecerFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                contenido += "</td>";
+                                contenido += "</tr>";
+                                $("#grid").append(contenido);
+                            });
+                            $('#grid').DataTable(
+                                    {
+                                        "aaSorting": [[2, "asc"]],
+                                        "oLanguage": {
+                                            "oPaginate": {
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
+                                            "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                            "sSearch": "Buscar",
+                                            "sZeroRecords": "No se encontraron Resultados",
+                                            "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                            "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                            "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                        },
                                     }
+                            );
+                        }
+                );
+            }
 
-                                   function reestablecerFuncionaria(runFuncionaria) {
-                                            $.messager.confirm('Restituir Funcionaria', 'Esta segura(o) que desea restituir a la funcionaria?', function (r) {
-                                                if (r) {
-                                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=REESTABLECER_FUNCIONARIA&runFuncionaria=' + runFuncionaria;
-                                                    console.log('url_json' + url_json);
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                console.log('datos: ' + datos);
-                                                                if (datos.errorMsg) {
-                                                                    $.messager.alert('Error', datos.errorMsg, 'error');
-                                                                } else {
-                                                                    window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
-                                                                }
-                                                            }
-                                                    );
-                                                } else {
+            function reestablecerFuncionaria(runFuncionaria) {
+                $.messager.confirm('Restituir Funcionaria', 'Esta segura(o) que desea restituir a la funcionaria?', function (r) {
+                    if (r) {
+                        var url_json = '../Servlet/administrarFuncionaria.php?accion=REESTABLECER_FUNCIONARIA&runFuncionaria=' + runFuncionaria;
+                        console.log('url_json' + url_json);
+                        $.getJSON(
+                                url_json,
+                                function (datos) {
+                                    console.log('datos: ' + datos);
+                                    if (datos.errorMsg) {
+                                        $.messager.alert('Error', datos.errorMsg, 'error');
+                                    } else {
+                                        window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+                                    }
+                                }
+                        );
+                    } else {
 
-                                                }
-                                            });
-                                        }
-    </script>
-</body>
+                    }
+                });
+            }
+        </script>
+    </body>
 </html>
 
