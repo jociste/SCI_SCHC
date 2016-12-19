@@ -107,7 +107,13 @@ $perfil = $_SESSION["idCargo"];
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="descripcion" name="descripcion" placeholder="Descripción" required>
                                             </div>
-                                        </div> 
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="idCargo">Permiso de Visualización *</label>
+                                            <div class="controls">
+                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                            </div>
+                                        </div>
                                         <div class="controls">
                                             (*) campos Obligatorios
                                         </div>
@@ -143,7 +149,26 @@ $perfil = $_SESSION["idCargo"];
         <script>
                                                 $(function () {
 
+                                                    cargarCargos();
                                                 });
+
+                                                function cargarCargos() {
+                                                    var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var idCargo = v.idCargo;
+                                                                    var cargo = v.nombre;
+                                                                    if (idCargo == 3) {
+                                                                        cargo = "Técnico";
+                                                                    }
+                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                    $("#idCargo").append(contenido);
+                                                                });
+                                                            }
+                                                    );
+                                                }
 
                                                 function guardarCategoria() {
                                                     document.getElementById("accion").value = "AGREGAR";
@@ -175,6 +200,8 @@ $perfil = $_SESSION["idCargo"];
                                                 function validar() {
                                                     var nombre = document.getElementById("nombre").value;
                                                     var descripcion = document.getElementById("descripcion").value;
+                                                    var idCargo = document.getElementById("idCargo").selectedIndex;
+
 
                                                     if (nombre == "") {
                                                         $.messager.alert('Error', "Debe ingresar un nombre");
@@ -182,6 +209,10 @@ $perfil = $_SESSION["idCargo"];
                                                     }
                                                     if (descripcion == "") {
                                                         $.messager.alert('Error', "Debe ingresar una descripcion");
+                                                        return false;
+                                                    }
+                                                    if (idCargo == -1) {
+                                                        $.messager.alert('Error', "Debe seleccionar al menos un cargo ");
                                                         return false;
                                                     }
                                                     return true;

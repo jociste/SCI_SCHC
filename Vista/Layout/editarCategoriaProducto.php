@@ -99,17 +99,26 @@ $idCategoria = $_REQUEST["idCategoria"];
                                             <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Categoría Producto</h4> 
                                         </div>                                                                                               
                                         <div class="control-group">
-                                            <label class="control-label" for="nombre">Nombre</label>
+                                            <label class="control-label" for="nombre">Nombre *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="descripcion">Descripcion</label>
+                                            <label class="control-label" for="descripcion">Descripcion *</label>
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="descripcion" name="descripcion" placeholder="Descripción" required>
                                             </div>
                                         </div>    
+                                        <div class="control-group">
+                                            <label class="control-label" for="idCargo">Permiso de Visualización *</label>
+                                            <div class="controls">
+                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                            </div>
+                                        </div>
+                                        <div class="controls">
+                                            (*) campos Obligatorios
+                                        </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarCategoria()" class="btn btn-primary">Guardar Cambios</button>
                                             <button type="button" onClick="location.href = 'AdministrarCategoriasProducto.php'" class="btn">Cancelar</button>
@@ -140,19 +149,47 @@ $idCategoria = $_REQUEST["idCategoria"];
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
 
-        <script>
+        <script>            
+                                                
                                                 $(function () {
-                                                    cargar();
+                                                    cargarCargos();
                                                 });
+
+                                                function cargarCargos() {
+                                                    var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var idCargo = v.idCargo;
+                                                                    var cargo = v.nombre;
+                                                                    if (idCargo == 3) {
+                                                                        cargo = "Técnico";
+                                                                    }
+                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                    $("#idCargo").append(contenido);
+                                                                });
+
+                                                                cargar();
+                                                            }
+                                                    );
+                                                }
+                                                
                                                 function cargar(){
                                                     var idCategoria = document.getElementById("idCategoria").value;
                                                     var url_json = '../Servlet/administrarCategoria.php?accion=BUSCAR_BY_ID&idCategoria='+idCategoria;                                                    
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
-                                                                    document.getElementById("idCategoria").value = datos.idCategoria;
-                                                                    document.getElementById("nombre").value = datos.nombre;
-                                                                    document.getElementById("descripcion").value = datos.descripcion;
+                                                                    document.getElementById("idCategoria").value = datos.categoria.idCategoria;
+                                                                    document.getElementById("nombre").value = datos.categoria.nombre;
+                                                                    document.getElementById("descripcion").value = datos.categoria.descripcion;
+                                                                    
+                                                                    $.each(datos.permisos, function (k, v) {
+                                                                    $("#idCargo > option[value='" + v.idCargo + "']").attr('selected', 'selected');
+                                                                     //document.getElementById("idCargo").selectedIndex =v.idCargo;
+                                                                     //document.getElementById("idCargo").options[v.idCargo].selected = true; 
+                                                                });
                                                             }
                                                     );
                                                 }
@@ -160,14 +197,12 @@ $idCategoria = $_REQUEST["idCategoria"];
                                                 function guardarCategoria() {
                                                     document.getElementById("accion").value = "ACTUALIZAR";
                                                     if (validar()) {
-                                                        console.log("validado");
                                                         $('#fm-Categoria').form('submit', {
                                                             url: "../Servlet/administrarCategoria.php",
                                                             onSubmit: function () {
                                                                 return $(this).form('validate');
                                                             },
                                                             success: function (result) {
-                                                                console.log(result);
                                                                 var result = eval('(' + result + ')');
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
@@ -187,6 +222,7 @@ $idCategoria = $_REQUEST["idCategoria"];
                                                 function validar() {
                                                     var nombre = document.getElementById("nombre").value;
                                                     var descripcion = document.getElementById("descripcion").value;
+                                                    var idCargo = document.getElementById("idCargo").selectedIndex;
                                                     
                                                     if(nombre == ""){
                                                         $.messager.alert('Error', "Debe ingresar un nombre");
@@ -194,6 +230,10 @@ $idCategoria = $_REQUEST["idCategoria"];
                                                     }
                                                     if(descripcion == ""){
                                                         $.messager.alert('Error', "Debe ingresar una descripcion");
+                                                        return false;
+                                                    }
+                                                    if (idCargo == -1) {
+                                                        $.messager.alert('Error', "Debe seleccionar al menos un cargo ");
                                                         return false;
                                                     }
                                                     return true;

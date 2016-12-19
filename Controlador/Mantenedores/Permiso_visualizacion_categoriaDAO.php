@@ -16,6 +16,14 @@ class Permiso_visualizacion_categoriaDAO{
         $this->conexion->desconectar();
         return $result;
     }
+    
+    public function delete_idCategoria($idCategoria) {
+        $this->conexion->conectar();
+        $query = "DELETE FROM permiso_visualizacion_categoria WHERE  idCategoria =  ".$idCategoria." ";
+        $result = $this->conexion->ejecutar($query);
+        $this->conexion->desconectar();
+        return $result;
+    }
 
     public function findAll() {
         $this->conexion->conectar();
@@ -45,6 +53,23 @@ class Permiso_visualizacion_categoriaDAO{
         }
         $this->conexion->desconectar();
         return $permiso_visualizacion_categoria;
+    }
+    
+    public function findByIDCategoria($idCategoria) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM permiso_visualizacion_categoria WHERE idCategoria =  ".$idCategoria." ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $permiso_visualizacion_categorias = array();
+        while ($fila = $result->fetch_row()) {
+            $permiso_visualizacion_categoria = new Permiso_visualizacion_categoriaDTO();
+            $permiso_visualizacion_categoria->setIdCargo($fila[0]);
+            $permiso_visualizacion_categoria->setIdCategoria($fila[1]);
+            $permiso_visualizacion_categorias[$i] = $permiso_visualizacion_categoria;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $permiso_visualizacion_categorias;
     }
 
     public function findLikeAtrr($cadena) {

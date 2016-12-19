@@ -18,12 +18,23 @@ if ($accion != null) {
     } else if ($accion == "AGREGAR") {
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
+        $idCargos = $_REQUEST["idCargo"];
 
+        $idCategoria = $control->getIdDisponible_Categoria();
         $categoria = new CategoriaDTO();
+        $categoria->setIdCategoria($idCategoria);
         $categoria->setNombre($nombre);
         $categoria->setDescripcion($descripcion);
 
         $result = $control->addCategoria($categoria);
+
+        foreach ($_REQUEST['idCargo'] as $id) {
+            $permiso = new Permiso_visualizacion_categoriaDTO();
+            $permiso->setIdCategoria($idCategoria);
+            $permiso->setIdCargo($id);
+
+            $resultPermisos = $control->addPermiso_visualizacion_categoria($permiso);
+        }
 
         if ($result) {
             echo json_encode(array(
@@ -40,7 +51,7 @@ if ($accion != null) {
         $bienes = $control->getBienesByIdCategoria($idCategoria);
         //Consulta si tiene Productos
         $productos = $control->getProductosByIdCategoria($idCategoria);
-        
+
         if (count($bienes) == 0 && count($productos) == 0) {
             $result = $control->removeCategoria($idCategoria);
             if ($result) {
@@ -58,14 +69,17 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
+        
+        $permisos = $control->getAllPermiso_visualizacion_categoriaByIdCategoria($idCategoria);
 
         $categoria = $control->getCategoriaByID($idCategoria);
-        $json = json_encode($categoria);
+        $json = json_encode(array("categoria" => $categoria,"permisos" => $permisos));
         echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);
+        $idCargos = $_REQUEST["idCargo"];
 
         $categoria = new CategoriaDTO();
         $categoria->setIdCategoria($idCategoria);
@@ -73,6 +87,15 @@ if ($accion != null) {
         $categoria->setDescripcion($descripcion);
 
         $result = $control->updateCategoria($categoria);
+        $resultDeletePermisos = $control->removePermiso_visualizacion_categoria_idCategoria($idCategoria);
+        
+        foreach ($_REQUEST['idCargo'] as $id) {
+            $permiso = new Permiso_visualizacion_categoriaDTO();
+            $permiso->setIdCategoria($idCategoria);
+            $permiso->setIdCargo($id);
+
+            $resultPermisos = $control->addPermiso_visualizacion_categoria($permiso);
+        }
         if ($result) {
             echo json_encode(array(
                 'success' => true,

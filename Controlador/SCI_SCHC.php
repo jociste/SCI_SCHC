@@ -110,11 +110,11 @@ class SCI_SCHC {
     public function getAllBiensDesHabilitadosByIdNivel($idNivel) {
         return $this->bienDAO->findAllDESHabilitadosByIdNivel($idNivel);
     }
-    
-    public function getAllBiensDesHabilitadosByIdNivelAndFechas($idNivel,$fechaInicio,$fechaTermino) {
-        return $this->bienDAO->findAllDESHabilitadosByIdNivelAndFechas($idNivel,$fechaInicio,$fechaTermino);
+
+    public function getAllBiensDesHabilitadosByIdNivelAndFechas($idNivel, $fechaInicio, $fechaTermino) {
+        return $this->bienDAO->findAllDESHabilitadosByIdNivelAndFechas($idNivel, $fechaInicio, $fechaTermino);
     }
-    
+
     public function getAllBiensDesHabilitados() {
         return $this->bienDAO->findAllDESHabilitados();
     }
@@ -142,6 +142,7 @@ class SCI_SCHC {
     public function getBienByID($idBien) {
         return $this->bienDAO->findByID($idBien);
     }
+
     public function getBienByIDEditar($idBien) {
         return $this->bienDAO->findByIDEditar($idBien);
     }
@@ -201,11 +202,16 @@ class SCI_SCHC {
     public function getCargoLikeAtrr($cadena) {
         return $this->cargoDAO->findLikeAtrr($cadena);
     }
+    
+    public function getIdDisponible_Categoria(){
+        return $this->categoriaDAO->getIdDisponible();
+    }
 
     public function getAllCategorias() {
         return $this->categoriaDAO->findAll();
     }
- public function getAllCategoriasAuxiliar() {
+
+    public function getAllCategoriasAuxiliar() {
         return $this->categoriaDAO->findAllAuxiliar();
     }
 
@@ -424,16 +430,19 @@ class SCI_SCHC {
     public function getAllLote_productos1() {
         return $this->lote_productoDAO->findAll();
     }
-     public function getAllLote_productos_auxiliar() {
+
+    public function getAllLote_productos_auxiliar() {
         return $this->lote_productoDAO->findAllAuxiliar();
     }
 
     public function getAllLote_productosPorVencer() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();
     }
- public function getAllLote_productosPorVencerAuxiliar() {
+
+    public function getAllLote_productosPorVencerAuxiliar() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimientoAuxiliar();
     }
+
     public function cuentaProductosPorVencer() {
         return $this->lote_productoDAO->CuentaProductosPorVencer();
     }
@@ -441,15 +450,19 @@ class SCI_SCHC {
     public function cuentaProductosBajoStock() {
         return $this->lote_productoDAO->CuentaProductosBajoStock();
     }
- public function getAllLote_productosPorStock() {
+
+    public function getAllLote_productosPorStock() {
         return $this->lote_productoDAO->findAllOrdenadosPorStock();
     }
+
     public function getAllLote_productosBajoStock() {
         return $this->lote_productoDAO->findAllOrdenadosPorBajoStock();
     }
+
     public function getAllLote_productosBajoStockAuxiliar() {
         return $this->lote_productoDAO->findAllOrdenadosPorBajoStockAuxiliar();
     }
+
     public function addLote_producto($lote_producto) {
         return $this->lote_productoDAO->save($lote_producto);
     }
@@ -469,9 +482,11 @@ class SCI_SCHC {
     public function getLote_productoByIdProducto($idProducto) {
         return $this->lote_productoDAO->findByIdProducto($idProducto);
     }
- public function CuentaLote_productoByIdProducto($idProducto) {
+
+    public function CuentaLote_productoByIdProducto($idProducto) {
         return $this->lote_productoDAO->cuenta($idProducto);
     }
+
     public function getLote_productoLikeAtrr($cadena) {
         return $this->lote_productoDAO->findLikeAtrr($cadena);
     }
@@ -483,10 +498,12 @@ class SCI_SCHC {
     public function getAllLote_producto_usadoss() {
         return $this->lote_producto_usadosDAO->buscarProductosUsados();
     }
-     public function getAllLote_producto_usadoss_auxiliar() {
+
+    public function getAllLote_producto_usadoss_auxiliar() {
         return $this->lote_producto_usadosDAO->buscarProductosUsadosAuxiliar();
     }
-    public function getAllLote_productos_usados_by_fechas($fechaInicio, $fechaTermino){
+
+    public function getAllLote_productos_usados_by_fechas($fechaInicio, $fechaTermino) {
         return $this->lote_producto_usadosDAO->buscarProductosUsadosByFechas($fechaInicio, $fechaTermino);
     }
 
@@ -597,6 +614,10 @@ class SCI_SCHC {
     public function removePermiso_visualizacion_categoria($idCargo) {
         return $this->permiso_visualizacion_categoriaDAO->delete($idCargo);
     }
+    
+    public function removePermiso_visualizacion_categoria_idCategoria($idCategoria) {
+        return $this->permiso_visualizacion_categoriaDAO->delete_idCategoria($idCategoria);
+    }
 
     public function updatePermiso_visualizacion_categoria($permiso_visualizacion_categoria) {
         return $this->permiso_visualizacion_categoriaDAO->update($permiso_visualizacion_categoria);
@@ -604,6 +625,10 @@ class SCI_SCHC {
 
     public function getPermiso_visualizacion_categoriaByID($idCargo) {
         return $this->permiso_visualizacion_categoriaDAO->findByID($idCargo);
+    }
+    
+    public function getAllPermiso_visualizacion_categoriaByIdCategoria($idCategoria) {
+        return $this->permiso_visualizacion_categoriaDAO->findByIDCategoria($idCategoria);
     }
 
     public function getPermiso_visualizacion_categoriaLikeAtrr($cadena) {
@@ -617,7 +642,7 @@ class SCI_SCHC {
     public function getAllPermiso_visualizacion_tipo_documentos() {
         return $this->permiso_visualizacion_tipo_documentoDAO->findAll();
     }
-    
+
     public function addPermiso_visualizacion_tipo_documento($permiso_visualizacion_tipo_documento) {
         return $this->permiso_visualizacion_tipo_documentoDAO->save($permiso_visualizacion_tipo_documento);
     }
@@ -625,7 +650,7 @@ class SCI_SCHC {
     public function removePermiso_visualizacion_tipo_documento($idCargo) {
         return $this->permiso_visualizacion_tipo_documentoDAO->delete($idCargo);
     }
-    
+
     public function removePermiso_visualizacion_tipo_documento_idTipoDocumento($idTipoDocumento) {
         return $this->permiso_visualizacion_tipo_documentoDAO->deleteIdTipoDocumento($idTipoDocumento);
     }
@@ -645,6 +670,7 @@ class SCI_SCHC {
     public function getAllProductos() {
         return $this->productoDAO->findAll();
     }
+
     public function getAllProductosAuxiliar() {
         return $this->productoDAO->findAllAuxiliar();
     }
@@ -684,8 +710,8 @@ class SCI_SCHC {
     public function getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         return $this->productoDAO->productosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
     }
-    
-    public function getIdTipoDocumentoDisponible(){ 
+
+    public function getIdTipoDocumentoDisponible() {
         return $this->tipo_documentoDAO->getIdDisponible();
     }
 

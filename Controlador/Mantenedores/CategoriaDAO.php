@@ -11,9 +11,23 @@ class CategoriaDAO {
         $this->conexion = new ConexionMySQL();
     }
 
+    public function getIdDisponible() {
+        $this->conexion->conectar();
+        $query = "SELECT (max(idCategoria)+1) as id FROM categoria";
+        $result = $this->conexion->ejecutar($query);
+        $id = 1;
+        if ($result) {
+            while ($fila = $result->fetch_row()) {
+                $id = $fila[0];
+            }
+        }
+        $this->conexion->desconectar();
+        return $id;
+    }
+
     public function delete($idCategoria) {
         $this->conexion->conectar();
-        $query = "DELETE FROM categoria WHERE  idCategoria =  " . $idCategoria . " ";
+        $query = "DELETE FROM categoria WHERE idCategoria =  " . $idCategoria . " ";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -91,8 +105,8 @@ where ca.idCargo = 4
 
     public function save($categoria) {
         $this->conexion->conectar();
-        $query = "INSERT INTO categoria (nombre,descripcion)"
-                . " VALUES ('" . $categoria->getNombre() . "' , '" . $categoria->getDescripcion() . "' )";
+        $query = "INSERT INTO categoria (idCategoria,nombre,descripcion)"
+                . " VALUES (" . $categoria->getIdCategoria() . ", '" . $categoria->getNombre() . "' , '" . $categoria->getDescripcion() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
