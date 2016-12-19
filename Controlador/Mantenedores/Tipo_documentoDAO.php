@@ -11,6 +11,20 @@ class Tipo_documentoDAO {
         $this->conexion = new ConexionMySQL();
     }
 
+    public function getIdDisponible() {
+        $this->conexion->conectar();
+        $query = "SELECT (max(idTipoDocumento) + 1) as id FROM tipo_documento";
+        $result = $this->conexion->ejecutar($query);
+        $id = 1;
+        if ($result) {
+            while ($fila = $result->fetch_row()) {
+                $id = $fila[0];
+            }
+        }
+        $this->conexion->desconectar();
+        return $id;
+    }
+
     public function delete($idTipoDocumento) {
         $this->conexion->conectar();
         $query = "DELETE FROM tipo_documento WHERE  idTipoDocumento =  " . $idTipoDocumento . " ";
@@ -91,8 +105,8 @@ class Tipo_documentoDAO {
 
     public function save($tipo_documento) {
         $this->conexion->conectar();
-        $query = "INSERT INTO tipo_documento (nombre,descripcion,fechaCreacion)"
-                . " VALUES ('" . $tipo_documento->getNombre() . "' , '" . $tipo_documento->getDescripcion() . "' , now() )";
+        $query = "INSERT INTO tipo_documento (idTipoDocumento, nombre,descripcion,fechaCreacion)"
+                . " VALUES (" . $tipo_documento->getIdTipoDocumento() . " , '" . $tipo_documento->getNombre() . "' , '" . $tipo_documento->getDescripcion() . "' , now() )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

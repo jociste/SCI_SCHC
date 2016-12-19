@@ -606,16 +606,24 @@ class SCI_SCHC {
         return $this->permiso_visualizacion_categoriaDAO->findLikeAtrr($cadena);
     }
 
+    public function getAllPermiso_visualizacion_tipo_documentos_idTipoDocumento($idTipoDocumento) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->findByIdTipoDocumento($idTipoDocumento);
+    }
+
     public function getAllPermiso_visualizacion_tipo_documentos() {
         return $this->permiso_visualizacion_tipo_documentoDAO->findAll();
     }
-
+    
     public function addPermiso_visualizacion_tipo_documento($permiso_visualizacion_tipo_documento) {
         return $this->permiso_visualizacion_tipo_documentoDAO->save($permiso_visualizacion_tipo_documento);
     }
 
     public function removePermiso_visualizacion_tipo_documento($idCargo) {
         return $this->permiso_visualizacion_tipo_documentoDAO->delete($idCargo);
+    }
+    
+    public function removePermiso_visualizacion_tipo_documento_idTipoDocumento($idTipoDocumento) {
+        return $this->permiso_visualizacion_tipo_documentoDAO->deleteIdTipoDocumento($idTipoDocumento);
     }
 
     public function updatePermiso_visualizacion_tipo_documento($permiso_visualizacion_tipo_documento) {
@@ -671,6 +679,10 @@ class SCI_SCHC {
 
     public function getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         return $this->productoDAO->productosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
+    }
+    
+    public function getIdTipoDocumentoDisponible(){ 
+        return $this->tipo_documentoDAO->getIdDisponible();
     }
 
     public function getAllTipo_documentos() {

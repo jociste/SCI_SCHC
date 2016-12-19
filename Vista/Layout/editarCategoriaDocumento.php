@@ -116,6 +116,12 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                 <input type="date" class="input-xlarge" id="fechaCreacion" name="fechaCreacion" readonly>
                                             </div>
                                         </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="idCargo">Permiso de Visualización *</label>
+                                            <div class="controls">
+                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                            </div>
+                                        </div>
                                         <div class="controls">
                                             (*) campos Obligatorios
                                         </div>
@@ -153,9 +159,28 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
     <script src="../../Files/js/validarut.js"></script>
     <script>
                                                 $(function () {
-                                                    obtenerDatosCategoria();
-
+                                                    cargarCargos();
                                                 });
+
+                                                function cargarCargos() {
+                                                    var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var idCargo = v.idCargo;
+                                                                    var cargo = v.nombre;
+                                                                    if (idCargo == 3) {
+                                                                        cargo = "Técnico";
+                                                                    }
+                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                    $("#idCargo").append(contenido);
+                                                                });
+
+                                                                obtenerDatosCategoria();
+                                                            }
+                                                    );
+                                                }
 
                                                 function obtenerDatosCategoria() {
                                                     var idTipoDocumento = document.getElementById("idTipoDocumento").value;
@@ -163,9 +188,15 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                     $.getJSON(
                                                             url_json,
                                                             function (dato) {
-                                                                document.getElementById("nombre").value = dato.nombre;
-                                                                document.getElementById("descripcion").value = dato.descripcion;
-                                                                document.getElementById("fechaCreacion").value = dato.fechaCreacion;
+                                                                document.getElementById("nombre").value = dato.tipo_documento.nombre;
+                                                                document.getElementById("descripcion").value = dato.tipo_documento.descripcion;
+                                                                document.getElementById("fechaCreacion").value = dato.tipo_documento.fechaCreacion;
+                                                                
+                                                                $.each(dato.permisos, function (k, v) {
+                                                                    $("#idCargo > option[value='" + v.idCargo + "']").attr('selected', 'selected');
+                                                                     //document.getElementById("idCargo").selectedIndex =v.idCargo;
+                                                                     //document.getElementById("idCargo").options[v.idCargo].selected = true; 
+                                                                });
                                                             }
                                                     );
                                                 }
@@ -197,12 +228,16 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                 function validar() {
                                                     var nombre = $("#nombre").val();
                                                     var descripcion = $("#descripcion").val();
+                                                    var idCargo = document.getElementById("idCargo").selectedIndex;
 
                                                     if (nombre == "") {
                                                         $.messager.alert('Error', "Debe ingresar el nombre de la categoria");
                                                         return false;
                                                     } else if (descripcion == "") {
                                                         $.messager.alert('Error', "Debe ingresar ");
+                                                        return false;
+                                                    } else if (idCargo == -1) {
+                                                        $.messager.alert('Error', "Debe seleccionar al menos un cargo ");
                                                         return false;
                                                     }
                                                     return true;
