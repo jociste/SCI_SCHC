@@ -37,6 +37,26 @@ class CategoriaDAO {
         return $categorias;
     }
 
+    public function findAllAuxiliar() {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM categoria as C JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
+where ca.idCargo = 4
+ ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $categorias = array();
+        while ($fila = $result->fetch_row()) {
+            $categoria = new CategoriaDTO();
+            $categoria->setIdCategoria($fila[0]);
+            $categoria->setNombre($fila[1]);
+            $categoria->setDescripcion($fila[2]);
+            $categorias[$i] = $categoria;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $categorias;
+    }
+
     public function findByID($idCategoria) {
         $this->conexion->conectar();
         $query = "SELECT * FROM categoria WHERE  idCategoria =  " . $idCategoria . " ";

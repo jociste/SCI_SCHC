@@ -40,6 +40,35 @@ class Lote_producto_usadosDAO {
         return $lote_producto_usadoss;
     }
 
+    public function buscarProductosUsadosAuxiliar() {
+        $this->conexion->conectar();
+        $query = "select lpu.idLoteProductosUsados, lpu.idLote, lp.idProducto, p.nombre, lpu.runFuncionaria, f.nombres, f.apellidos, lpu.cantidad, lpu.fechaRetiro, lpu.destino from lote_producto_usados as lpu 
+        join funcionaria as f on lpu.runFuncionaria = f.runFuncionaria join lote_producto as lp on lp.idLote = lpu.idLote
+        JOIN producto as p on p.idProducto = lp.idProducto JOIN categoria C ON p.idCategoria = C.idCategoria 
+JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
+ where ca.idCargo = 4";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $productosUsados = array();
+        while ($fila = $result->fetch_row()) {
+            $productos = new Lote_producto_usadosDTO();
+            $productos->setIdLoteProductosUsados($fila[0]);
+            $productos->setIdLote($fila[1]);
+            $productos->setIdProducto($fila[2]);
+            $productos->setNombreProducto($fila[3]);
+            $productos->setRunFuncionaria($fila[4]);
+            $productos->setNombres($fila[5]);
+            $productos->setApellidos($fila[6]);
+            $productos->setCantidad($fila[7]);
+            $productos->setFechaRetiro($fila[8]);
+            $productos->setDestino($fila[9]);
+            $productosUsados[$i] = $productos;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $productosUsados;
+    }
+
     public function buscarProductosUsados() {
         $this->conexion->conectar();
         $query = "select lpu.idLoteProductosUsados, lpu.idLote, lp.idProducto, p.nombre, lpu.runFuncionaria, f.nombres, f.apellidos, lpu.cantidad, lpu.fechaRetiro, lpu.destino from lote_producto_usados as lpu 
@@ -66,12 +95,12 @@ class Lote_producto_usadosDAO {
         $this->conexion->desconectar();
         return $productosUsados;
     }
-    
+
     public function buscarProductosUsadosByFechas($fechaInicio, $fechaTermino) {
         $this->conexion->conectar();
         $query = "select lpu.idLoteProductosUsados, lpu.idLote, lp.idProducto, p.nombre, lpu.runFuncionaria, f.nombres, f.apellidos, lpu.cantidad, lpu.fechaRetiro, lpu.destino from lote_producto_usados as lpu 
         join funcionaria as f on lpu.runFuncionaria = f.runFuncionaria join lote_producto as lp on lp.idLote = lpu.idLote
-        JOIN producto as p on p.idProducto = lp.idProducto WHERE lpu.fechaRetiro <= '".$fechaTermino."' AND lpu.fechaRetiro >= '".$fechaInicio."'";
+        JOIN producto as p on p.idProducto = lp.idProducto WHERE lpu.fechaRetiro <= '" . $fechaTermino . "' AND lpu.fechaRetiro >= '" . $fechaInicio . "'";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $productosUsados = array();
@@ -197,11 +226,11 @@ class Lote_producto_usadosDAO {
         $result = $this->conexion->ejecutar($query);
         $stock_productos = array();
         while ($fila = $result->fetch_row()) {
-            $stock = array('idProducto' => $fila[0],'nombre' => $fila[1],'inicial' => $fila[2],'utilizado' => $fila[3],'stock' => $fila[4]);  
-            
-            /*if (!array_key_exists($fila[0], $stock_productos)) {
-                $stock_productos[$fila[0]] = array();
-            }*/
+            $stock = array('idProducto' => $fila[0], 'nombre' => $fila[1], 'inicial' => $fila[2], 'utilizado' => $fila[3], 'stock' => $fila[4]);
+
+            /* if (!array_key_exists($fila[0], $stock_productos)) {
+              $stock_productos[$fila[0]] = array();
+              } */
             $stock_productos[$fila[0]] = $stock;
             //array_push($stock_productos, $stock);
         }

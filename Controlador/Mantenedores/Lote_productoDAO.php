@@ -45,6 +45,33 @@ ORDER by p.fechaVencimiento";
         $this->conexion->desconectar();
         return $lote_productos;
     }
+     public function findAllOrdenadosPorVencimientoAuxiliar() {
+        $this->conexion->conectar();
+        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, p.cantidad, p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
+        FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto JOIN categoria C ON pp.idCategoria = C.idCategoria 
+JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo  
+        WHERE  p.cantidad>0 and p.fechaVencimiento <> '0000-00-00' and p.fechaVencimiento <= DATE_ADD(NOW(),INTERVAL 60 DAY)  and ca.idCargo = 4
+ORDER by p.fechaVencimiento";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $lote_productos = array();
+        while ($fila = $result->fetch_row()) {
+            $lote_producto = new Lote_productoDTO();
+            $lote_producto->setIdLote($fila[0]);
+            $lote_producto->setIdProducto($fila[1]);
+            $lote_producto->setNumeroBoleta($fila[2]);
+            $lote_producto->setProveedor($fila[3]);
+            $lote_producto->setCantidad($fila[4]);
+            $lote_producto->setFechaVencimiento($fila[5]);
+            $lote_producto->setFechaIngreso($fila[6]);
+            $lote_producto->setStockInicial($fila[7]);
+            $lote_producto->setNombre($fila[8]);
+            $lote_productos[$i] = $lote_producto;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $lote_productos;
+    }
 
     public function CuentaProductosPorVencer() {
         $this->conexion->conectar();
@@ -59,7 +86,34 @@ ORDER by p.fechaVencimiento";
         $this->conexion->desconectar();
         return $cantidad;
     }
-
+public function findAllOrdenadosPorBajoStockAuxiliar() {
+        $this->conexion->conectar();
+        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
+FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto JOIN categoria C ON pp.idCategoria = C.idCategoria 
+JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo  
+WHERE (select sum(cantidad) FROM lote_producto where idProducto = p.idProducto)<11 and ca.idCargo = 4
+group by p.idProducto
+ORDER by p.cantidad";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $lote_productos = array();
+        while ($fila = $result->fetch_row()) {
+            $lote_producto = new Lote_productoDTO();
+            $lote_producto->setIdLote($fila[0]);
+            $lote_producto->setIdProducto($fila[1]);
+            $lote_producto->setNumeroBoleta($fila[2]);
+            $lote_producto->setProveedor($fila[3]);
+            $lote_producto->setCantidad($fila[4]);
+            $lote_producto->setFechaVencimiento($fila[5]);
+            $lote_producto->setFechaIngreso($fila[6]);
+            $lote_producto->setStockInicial($fila[7]);
+            $lote_producto->setNombre($fila[8]);
+            $lote_productos[$i] = $lote_producto;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $lote_productos;
+    }
     public function findAllOrdenadosPorBajoStock() {
         $this->conexion->conectar();
         $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
@@ -105,6 +159,32 @@ ORDER by p.fechaVencimiento";
     public function findAll() {
         $this->conexion->conectar();
         $query = "SELECT L.idLote,L.idProducto,L.numeroBoleta,L.proveedor,L.cantidad,L.fechaVencimiento,L.fechaIngreso, L.stockInicial, P.nombre FROM lote_producto L JOIN producto P ON L.idProducto = P.idProducto ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $lote_productos = array();
+        while ($fila = $result->fetch_row()) {
+            $lote_producto = new Lote_productoDTO();
+            $lote_producto->setIdLote($fila[0]);
+            $lote_producto->setIdProducto($fila[1]);
+            $lote_producto->setNumeroBoleta($fila[2]);
+            $lote_producto->setProveedor($fila[3]);
+            $lote_producto->setCantidad($fila[4]);
+            $lote_producto->setFechaVencimiento($fila[5]);
+            $lote_producto->setFechaIngreso($fila[6]);
+            $lote_producto->setStockInicial($fila[7]);
+            $lote_producto->setNombre($fila[8]);
+            $lote_productos[$i] = $lote_producto;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $lote_productos;
+    }
+    public function findAllAuxiliar() {
+        $this->conexion->conectar();
+        $query = "SELECT L.idLote,L.idProducto,L.numeroBoleta,L.proveedor,L.cantidad,L.fechaVencimiento,L.fechaIngreso, L.stockInicial, P.nombre , cat.idCategoria
+FROM lote_producto L LEFT JOIN producto P ON L.idProducto = P.idProducto LEFT JOIN categoria as cat on cat.idCategoria = p.idCategoria
+JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = cat.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
+where ca.idCargo = 4";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();

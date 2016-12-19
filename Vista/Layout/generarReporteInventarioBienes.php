@@ -27,7 +27,12 @@ $fechaActual = utf8_decode(htmlspecialchars($_REQUEST['fechaActual']));
 
 $bienes;
 if (isset($_REQUEST['sinFechas'])) {
-    $bienes = $control->getAllBiensHabilitadosByIdNivel($idNivel);
+//    if($idNivel == idNivelTodos){
+//        $bienes = $control->getAllBiensHabilitados();
+//    }else{
+        $bienes = $control->getAllBiensHabilitadosByIdNivel($idNivel);
+//    }
+    
 } else {
     $fechaInicio = utf8_decode(htmlspecialchars($_REQUEST['fechaInicio']));
     $fechaTermino = utf8_decode(htmlspecialchars($_REQUEST['fechaTermino']));
@@ -58,7 +63,6 @@ if ($idNivel == 1) {
     <head>
         <style type="text/css">
             body{
-                //font-family: Calibri;
                 font-family:Arial, sans-serif;
                 font-size: 11px;
                 font-style: normal;
@@ -90,7 +94,6 @@ if ($idNivel == 1) {
 
             .table td {
                 font-size:10px;
-                //padding:10px 5px;
                 border-style:solid;
                 border-width:1px;
                 overflow:hidden;
@@ -107,25 +110,25 @@ if ($idNivel == 1) {
             }
 
             .alto-xs{
-                height: 15.11px;//4mm
+                height: 15.11px;
             }
             .alto-xm{
-                height: 18.89px;//5mm
+                height: 18.89px;
             }
             .alto-xl{
-                height: 26.45px;//7mm
+                height: 26.45px;
             }
             .alto-ms{
-                height: 37.79px;//10mm
+                height: 37.79px;
             }
             .alto-ms12{
-                height: 45.35px;//12mm
+                height: 45.35px;
             }
             .alto-ms17{
                 height: 64.25px;
             }
             .alto-mm{
-                height: 79.37px;//21mm
+                height: 79.37px;
             }
             /*ALTURAS*/
             .ancho-10mm{
@@ -153,49 +156,49 @@ if ($idNivel == 1) {
                 width: 64.25px;
             }
             .ancho-18mm{
-                width: 68.03px;//18mm
+                width: 68.03px;
             }
             .ancho-19mm{
-                width: 71.81px;//19mm
+                width: 71.81px;
             }
             .ancho-23mm{
-                width: 86.92px;//23mm
+                width: 86.92px;
             }
             .ancho-30mm{
-                width: 113.38px;//30mm
+                width: 113.38px;
             }
             .ancho-32mm{
                 width: 120.94px;
             }
             .ancho-34mm{
-                width: 128.50px;//34mm
+                width: 128.50px;
             }
             .ancho-43mm{
-                width: 162.51px;//43mm
+                width: 162.51px;
             }
             .ancho-46mm{
                 width: 173.85px;
             }
             .ancho-56mm{
-                width: 211.65px;//56mm
+                width: 211.65px;
             }
             .ancho-62mm{
                 width: 234.33px;
             }
             .ancho-69mm{
-                width: 260.78px;//69mm
+                width: 260.78px;
             }
             .ancho-71mm{
-                width: 268.34px;//71mm
+                width: 268.34px;
             }
             .ancho-80mm{
-                width: 302.36px;//80mm
+                width: 302.36px;
             }
             .ancho-84mm{
                 width: 317.48px;
             }
             .ancho-94mm{
-                width: 355.27px;//94mm
+                width: 355.27px;
             }
             .ancho-100mm{
                 width: 377.95px;
@@ -210,7 +213,7 @@ if ($idNivel == 1) {
                 width: 498.89px;
             }
             .ancho-137mm{
-                width: 517.79px;//137mm
+                width: 517.79px;
             }
 
         </style>
@@ -233,7 +236,7 @@ if ($idNivel == 1) {
                 <tr><td class="td-borde alto-xm ancho-137mm center" colspan="4"><?= $nombreEstablecimiento ?></td><td class="td-borde alto-xm ancho-56mm center"><?= $codigoEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-137mm" colspan="4" align="center">Nombre del Establecimiento</td><td class="td-borde fondo alto-xs ancho-56mm" align="center">C&oacute;digo del Establecimiento</td></tr>
                 <tr><td class="td-borde alto-xm ancho-94mm center" colspan="2"><?= $direccionCalleEstablecimiento ?></td><td class="td-borde alto-xm ancho-30mm center"><?= $direccionNumeroEstablecimiento ?></td><td class="td-borde alto-xm ancho-69mm center" colspan="2"><?= $ciudadEstablecimiento ?></td></tr>
-                <tr><td class="td-borde fondo alto-xs ancho-94mm" colspan="2" align="center">Calle</td><td class="td-borde fondo alto-xs ancho-30mm" align="center">N°</td><td class="td-borde fondo alto-xs ancho-69mm center" colspan="2" align="center">Comuna/Localidad</td></tr>
+                <tr><td class="td-borde fondo alto-xs ancho-94mm" colspan="2" align="center">Calle</td><td class="td-borde fondo alto-xs ancho-30mm" align="center">N&deg;</td><td class="td-borde fondo alto-xs ancho-69mm center" colspan="2" align="center">Comuna/Localidad</td></tr>
                 <tr><td class="td-borde alto-xm ancho-62mm center"><?= $regionEstablecimiento ?></td><td class="td-borde alto-xm ancho-32mm center"><?= $telefonoEstablecimiento ?></td><td class="td-borde alto-xm ancho-100mm center" colspan="3"><?= $emailEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-62mm" align="center">Regi&oacute;n</td><td class="td-borde fondo alto-xs ancho-32mm" align="center">Tel&eacute;fono</td><td class="td-borde fondo alto-xs ancho-100mm" colspan="3" align="center">E-Mail</td></tr>
             </table>
@@ -251,7 +254,7 @@ if ($idNivel == 1) {
         <br>
         <div>
             <table class="table">
-                <tr><td class="td-borde alto-xm" colspan="5">4.- IDENTIFICACI&Oacute;N DE LA SALA O UNIDAD DE DESTINO (Se&Oacute;ale la capacidad autorizada, seg&uacute;n la sala o espacio en donde se hayan destinado los bienes muebles)</td></tr>
+                <tr><td class="td-borde alto-xm" colspan="5">4.- IDENTIFICACI&Oacute;N DE LA SALA O UNIDAD DE DESTINO (Se&ntilde;ale la capacidad autorizada, seg&uacute;n la sala o espacio en donde se hayan destinado los bienes muebles)</td></tr>
                 <tr><td class="td-borde alto-xm ancho-30mm center"><?= $salaCuna ?></td><td class="td-borde alto-xm ancho-46mm center"><?= $nivelMedio ?></td><td class="td-borde alto-xm ancho-23mm center"><?= $transicion ?></td><td class="td-borde alto-xm ancho-30mm center"><?= $heterogeneo ?></td><td class="td-borde alto-xm ancho-69mm center"><?= $otros ?></td></tr>
                 <tr><td class="td-borde fondo alto-xm ancho-30mm" align="center">Sala Cuna</td><td class="td-borde fondo alto-xm ancho-46mm" align="center">Nivel Medio</td><td class="td-borde fondo alto-xm ancho-23mm" align="center">Transici&oacute;n</td><td class="td-borde fondo alto-xm ancho-30mm" align="center">Heterog&eacute;neo</td><td class="td-borde fondo alto-xm ancho-69mm" align="center">Otro</td></tr>
             </table>
@@ -264,6 +267,8 @@ if ($idNivel == 1) {
                 <?php
                 $count = 0;
                 foreach ($bienes as $bien) {
+                    $numero = $bien->getMesfechaComprobante();
+                    
                     echo '<tr><td class="td-borde alto-xs">' . $bien->getNumeroComprobante() . '</td><td class="td-borde alto-xs">' . $bien->getFechaComprobante() . '</td><td class="td-borde alto-xs">' . $bien->getProveedor() . '</td><td class="td-borde alto-xs">' . $bien->getMesfechaComprobante() . '</td><td class="td-borde alto-xs">' . $bien->getFechaInicio() . '</td><td class="td-borde alto-xs">' . $bien->getDescripcion() . '</td><td class="td-borde alto-xs right">' . $bien->getCantidad() . '</td><td class="td-borde alto-xs right">' . number_format($bien->getPrecio(), 0) . '</td></tr>';
                     $count++;
                 }

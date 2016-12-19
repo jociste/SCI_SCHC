@@ -98,7 +98,6 @@ if ($accion != null) {
         $aux = explode(".", $_FILES['documento']['name']);
         $extension = $aux[count($aux)-1];
         $rutaDocumento = $dir_subida . "/" . $tipoDocumento->getNombre() . "_" . $diferenciador . "." . $extension;
-
         /* Tamaño Archivo */
         $bytes = $_FILES['documento']['size'];
         $kilobyte = round(($bytes / 1024));
@@ -113,7 +112,8 @@ if ($accion != null) {
         
         if (array_key_exists(strtolower($extension), $extensionesPermitidas)) {
             if ($megabyte <= 20) {
-                if (move_uploaded_file($_FILES['documento']['tmp_name'], $rutaDocumento)) {
+                $resultSubir = move_uploaded_file($_FILES['documento']['tmp_name'], $rutaDocumento);
+                if ($resultSubir) {
                     /* Registrar en la BD */
                     $documento = new DocumentoDTO();
                     $documento->setRunFuncionaria($runFuncionaria);

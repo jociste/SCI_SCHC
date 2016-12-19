@@ -178,7 +178,7 @@ $perfil = $_SESSION["idCargo"];
                                         }
 
                                         function borrarFuncionaria(runFuncionaria) {
-                                            $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea eliminar a la funcionaria del sistema?', function (r) {
+                                            $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea dar de baja a la funcionaria?', function (r) {
                                                 if (r) {
                                                     var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
                                                     $.getJSON(

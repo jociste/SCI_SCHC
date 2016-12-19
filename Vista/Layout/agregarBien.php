@@ -112,6 +112,15 @@ $perfil = $_SESSION["idCargo"];
                                             </div>
                                         </div>
                                         <div class="control-group">
+                                            <label class="control-label" for="categoriaBien">Nombre del Bien *</label>
+                                            <div class="controls">
+                                                <select class="input-xlarge focused" id="categoriaBien" name="categoriaBien" required style="height: 32px; width: 286px">
+                                                    <option value="1">Materiales didácticos y de enseñanza</option>
+                                                    <option value="5">Bienes/Muebles</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
                                             <label class="control-label" for="descripcion">Descripción del Bien *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="descripcion" name="descripcion" type="text" placeholder="descripcion" required>
@@ -165,7 +174,7 @@ $perfil = $_SESSION["idCargo"];
                                     </form>
                                     <div   class="form-actions" style="align-content: center; padding-left: 30%">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
+                                            <button type="button" onClick="location.href = 'AdministrarBienes.php'" class="btn">Cancelar</button>
                                         </div>
                                     <!-- FIN FORMULARIO-->
                                 </div>

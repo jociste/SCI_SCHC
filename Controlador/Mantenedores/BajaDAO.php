@@ -16,8 +16,10 @@ class BajaDAO {
         $query = "select max(idBaja)+1 FROM baja";
         $result = $this->conexion->ejecutar($query);
         $bien = 1;
-        while ($fila = $result->fetch_row()) {
-            $bien = $fila[0];
+        if ($result) {
+            while ($fila = $result->fetch_row()) {
+                $bien = $fila[0];
+            }
         }
         $this->conexion->desconectar();
         return $bien;

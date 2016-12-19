@@ -182,6 +182,7 @@ $perfil = $_SESSION["idCargo"];
                                                             return $(this).form('validate');
                                                         },
                                                         success: function (result) {
+                                                            console.log(result);
                                                             var result = eval('(' + result + ')');
                                                             if (result.errorMsg) {
                                                                 $.messager.alert('Error', result.errorMsg);

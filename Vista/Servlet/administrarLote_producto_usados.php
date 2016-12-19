@@ -10,7 +10,13 @@ if ($accion != null) {
         $lote_producto_usadoss = $control->getAllLote_producto_usadoss();
         $json = json_encode($lote_producto_usadoss);
         echo $json;
-    } else if ($accion == "AGREGAR") {
+    } 
+    if ($accion == "LISTADOPRODUCTOSUSADOSAUXILIAR") {
+        $lote_producto_usadoss = $control->getAllLote_producto_usadoss_auxiliar();
+        $json = json_encode($lote_producto_usadoss);
+        echo $json;
+    }
+    else if ($accion == "AGREGAR") {
         $idLote = htmlspecialchars($_REQUEST['idLote']);
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
         $cantidad = htmlspecialchars($_REQUEST['cantidad']);

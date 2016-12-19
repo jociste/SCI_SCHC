@@ -53,8 +53,8 @@ $idLote = $_REQUEST["idLote"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
         } else if ($perfil == 3) {
             include '../Menus/apoderadoSuperior.php';
         }
@@ -81,6 +81,9 @@ $idLote = $_REQUEST["idLote"];
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -139,6 +142,7 @@ $idLote = $_REQUEST["idLote"];
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
                                         <input type="hidden" id="idLote" name="idLote" value="<?= $idLote ?>">
+                                        <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                                     </form>
                                     <!-- FIN FORMULARIO-->
                                 </div>
@@ -165,8 +169,14 @@ $idLote = $_REQUEST["idLote"];
 
         <script>
 
-                                                $(function () {
-                                                    cargarProductos();
+                                                $(function () {                                                    
+                                                    var perfil = document.getElementById("perfil").value;
+                                                    if (perfil == 1) {
+                                                        cargarProductos();
+                                                    }
+                                                    if (perfil == 4) {
+                                                        cargarProductosAuxiliar();
+                                                    }
                                                 });
 
                                                 function cargarProductos() {
@@ -174,6 +184,20 @@ $idLote = $_REQUEST["idLote"];
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
+                                                                    $("#idProducto").append(contenido);
+                                                                });
+                                                                cargar();
+                                                            }
+                                                    );
+                                                }
+                                                function cargarProductosAuxiliar() {
+                                                    var url_json = '../Servlet/administrarProducto.php?accion=LISTADOAUXILIAR';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                document.getElementById("idProducto").innerHTML = "<option value='-1'>Seleccionar...</option>";
                                                                 $.each(datos, function (k, v) {
                                                                     var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
                                                                     $("#idProducto").append(contenido);

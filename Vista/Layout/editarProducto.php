@@ -55,7 +55,7 @@ $idProducto = $_REQUEST["idProducto"];
             include '../Menus/directoraSuperior.php';
         } else if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
-        } 
+        }
 //        else if ($perfil == 3) {
 //            include '../Menus/apoderadoSuperior.php';
 //        }
@@ -117,6 +117,7 @@ $idProducto = $_REQUEST["idProducto"];
                                             <button type="button" onClick="location.href = 'AdministrarProductos.php'" class="btn">Cancelar</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
+                                        <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                                         <input type="hidden" id="idProducto" name="idProducto" value="<?= $idProducto ?>">
                                     </form>
                                     <!-- FIN FORMULARIO-->
@@ -143,32 +144,52 @@ $idProducto = $_REQUEST["idProducto"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                                                $(function () {                                                    
-                                                    cargarCategorias();
+                                                $(function () {
+                                                    var perfil = document.getElementById("perfil").value;
+                                                    if (perfil == 1) {
+                                                        cargarCategorias();
+                                                    }
+                                                    if (perfil == 4) {
+                                                        cargarCategoriasAuxiliar()
+                                                    }
                                                 });
-                                                
-                                                function cargarCategorias(){
+
+                                                function cargarCategorias() {
                                                     var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
                                                                 $.each(datos, function (k, v) {
-                                                                    var contenido = "<option value='"+v.idCategoria+"'>"+v.nombre+"</option>";
+                                                                    var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
                                                                     $("#idCategoria").append(contenido);
                                                                 });
                                                                 cargar();
                                                             }
                                                     );
                                                 }
-                                                function cargar(){
-                                                    var idProducto = document.getElementById("idProducto").value;
-                                                    var url_json = '../Servlet/administrarProducto.php?accion=BUSCAR_BY_ID&idProducto='+idProducto;                                                    
+                                                function cargarCategoriasAuxiliar() {
+                                                    var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
-                                                                    document.getElementById("idProducto").value = datos.idProducto;
-                                                                    document.getElementById("nombre").value = datos.nombre;
-                                                                    document.getElementById("idCategoria").value = datos.idCategoria;
+                                                                $.each(datos, function (k, v) {
+                                                                    var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                                    $("#idCategoria").append(contenido);
+                                                                });
+                                                                cargar();
+                                                            }
+                                                    );
+                                                }
+                                                function cargar() {
+                                                    var idProducto = document.getElementById("idProducto").value;
+                                                    var url_json = '../Servlet/administrarProducto.php?accion=BUSCAR_BY_ID&idProducto=' + idProducto;
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                console.log(datos);
+                                                                document.getElementById("idProducto").value = datos.idProducto;
+                                                                document.getElementById("nombre").value = datos.nombre;
+                                                                document.getElementById("idCategoria").value = datos.idCategoria;
                                                             }
                                                     );
                                                 }
@@ -197,11 +218,11 @@ $idProducto = $_REQUEST["idProducto"];
                                                     }
 
                                                 }
-                                                
+
                                                 function validar() {
                                                     var nombre = document.getElementById("nombre").value;
-                                                    
-                                                    if(nombre == ""){
+
+                                                    if (nombre == "") {
                                                         $.messager.alert('Error', "Debe ingresar un nombre");
                                                         return false;
                                                     }

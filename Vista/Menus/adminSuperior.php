@@ -8,7 +8,7 @@ $sexo = $_SESSION["sexo"];
     <div class="navbar-inner" >
         <div class="container-fluid" >
             <img src="../../Files/img/logo.png" class="pull-left nav_logo" alt='universal admin logo'>
-            <a class="brand" href="home.php"><span> Sala Cuna Hogar de Cristo</span></a>
+            <a class="brand" href="AdministrarFuncionariasHabilitadas.php"><span> Sala Cuna Hogar de Cristo</span></a>
             <div class="nav-collapse collapse header-nav">
                 <ul class="nav ">
                     <li class="dropdown">

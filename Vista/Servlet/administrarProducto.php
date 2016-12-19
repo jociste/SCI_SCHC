@@ -10,6 +10,11 @@ if ($accion != null) {
         $productos = $control->getAllProductos();
         $json = json_encode($productos);
         echo $json;
+    }
+    if ($accion == "LISTADOAUXILIAR") {
+        $productos = $control->getAllProductosAuxiliar();
+        $json = json_encode($productos);
+        echo $json;
     } else if ($accion == "AGREGAR") {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
         $nombre = htmlspecialchars($_REQUEST['nombre']);
@@ -29,7 +34,7 @@ if ($accion != null) {
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
-        }else{
+        } else {
             echo json_encode(array('errorMsg' => 'Ya existe un producto con el nombre ingresado en esta categoria.'));
         }
     } else if ($accion == "AGREGARPRODUCTO") {
@@ -51,7 +56,7 @@ if ($accion != null) {
             } else {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
-        }else{
+        } else {
             echo json_encode(array('errorMsg' => 'Ya existe un producto con el nombre ingresado en esta categoria.'));
         }
     } else if ($accion == "BORRAR") {
@@ -102,3 +107,4 @@ if ($accion != null) {
         }
     }
 }
+    

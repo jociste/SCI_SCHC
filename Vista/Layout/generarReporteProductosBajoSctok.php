@@ -33,7 +33,6 @@ $lote_productos = $control->getAllLote_productosBajoStock();
     <head>
         <style type="text/css">
             body{
-                //font-family: Calibri;
                 font-family:Arial, sans-serif;
                 font-size: 11px;
                 font-style: normal;
@@ -208,7 +207,7 @@ $lote_productos = $control->getAllLote_productosBajoStock();
                 <tr><td class="td-borde alto-xm ancho-137mm center" colspan="4"><?= $nombreEstablecimiento ?></td><td class="td-borde alto-xm ancho-56mm center"><?= $codigoEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-137mm" colspan="4" align="center">Nombre del Establecimiento</td><td class="td-borde fondo alto-xs ancho-56mm" align="center">C&oacute;digo del Establecimiento</td></tr>
                 <tr><td class="td-borde alto-xm ancho-94mm center" colspan="2"><?= $direccionCalleEstablecimiento ?></td><td class="td-borde alto-xm ancho-30mm center"><?= $direccionNumeroEstablecimiento ?></td><td class="td-borde alto-xm ancho-69mm center" colspan="2"><?= $ciudadEstablecimiento ?></td></tr>
-                <tr><td class="td-borde fondo alto-xs ancho-94mm" colspan="2" align="center">Calle</td><td class="td-borde fondo alto-xs ancho-30mm" align="center">N°</td><td class="td-borde fondo alto-xs ancho-69mm center" colspan="2" align="center">Comuna/Localidad</td></tr>
+                <tr><td class="td-borde fondo alto-xs ancho-94mm" colspan="2" align="center">Calle</td><td class="td-borde fondo alto-xs ancho-30mm" align="center">N&deg;</td><td class="td-borde fondo alto-xs ancho-69mm center" colspan="2" align="center">Comuna/Localidad</td></tr>
                 <tr><td class="td-borde alto-xm ancho-62mm center"><?= $regionEstablecimiento ?></td><td class="td-borde alto-xm ancho-32mm center"><?= $telefonoEstablecimiento ?></td><td class="td-borde alto-xm ancho-100mm center" colspan="3"><?= $emailEstablecimiento ?></td></tr>
                 <tr><td class="td-borde fondo alto-xs ancho-62mm" align="center">Regi&oacute;n</td><td class="td-borde fondo alto-xs ancho-32mm" align="center">Tel&eacute;fono</td><td class="td-borde fondo alto-xs ancho-100mm" colspan="3" align="center">E-Mail</td></tr>
             </table>

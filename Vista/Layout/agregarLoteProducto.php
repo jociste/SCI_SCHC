@@ -52,8 +52,8 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
         } else if ($perfil == 3) {
             include '../Menus/apoderadoSuperior.php';
         }
@@ -80,6 +80,9 @@ $perfil = $_SESSION["idCargo"];
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -201,6 +204,7 @@ $perfil = $_SESSION["idCargo"];
                             </div>
                             <hr>
                             <input type="hidden" id="accionProducto" name="accion" value="">
+                            <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -216,8 +220,16 @@ $perfil = $_SESSION["idCargo"];
 
         <script>
                             $(function () {
-                                cargarCategorias();
-                                cargarProductos();
+                                var perfil = document.getElementById("perfil").value;
+                                if (perfil == 1) {
+                                    cargarCategorias();
+                                    cargarProductos();
+                                }
+                                if (perfil == 4) {
+                                    cargarCategoriasAuxiliar();
+                                    cargarProductosAuxiliar();
+                                }
+
                             });
 
                             function cargarCategorias() {
@@ -232,10 +244,35 @@ $perfil = $_SESSION["idCargo"];
                                         }
                                 );
                             }
-
-
+                            function cargarCategoriasAuxiliar() {
+                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
+                                $.getJSON(
+                                        url_json,
+                                        function (datos) {
+                                            $.each(datos, function (k, v) {
+                                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                $("#idCategoriaProducto").append(contenido);
+                                            });
+                                        }
+                                );
+                            }
                             function cargarProductos() {
                                 var url_json = '../Servlet/administrarProducto.php?accion=LISTADO';
+                                $.getJSON(
+                                        url_json,
+                                        function (datos) {
+                                            document.getElementById("idProducto").innerHTML = "<option value='-1'>Seleccionar...</option>";
+                                            $.each(datos, function (k, v) {
+                                                var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
+                                                $("#idProducto").append(contenido);
+                                            });
+                                        }
+                                );
+                            }
+
+
+                            function cargarProductosAuxiliar() {
+                                var url_json = '../Servlet/administrarProducto.php?accion=LISTADOAUXILIAR';
                                 $.getJSON(
                                         url_json,
                                         function (datos) {
@@ -319,6 +356,7 @@ $perfil = $_SESSION["idCargo"];
                                 }
                             }
                             function guardarProducto() {
+                                 var perfil = document.getElementById("perfil").value;
                                 document.getElementById("accionProducto").value = "AGREGARPRODUCTO";
                                 if (validarProducto()) {
                                     $('#fm-producto').form('submit', {
@@ -333,7 +371,11 @@ $perfil = $_SESSION["idCargo"];
                                             } else {
                                                 document.getElementById("fm-producto").reset();
                                                 $('#myModal').modal('toggle');
-                                                cargarProductos();
+                                                if (perfil == 1) {
+                                                    cargarProductos();
+                                                } else if(perfil == 4){
+                                                    cargarProductosAuxiliar();
+                                                }
                                                 $.messager.show({
                                                     title: 'Aviso',
                                                     msg: result.mensaje

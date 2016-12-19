@@ -55,11 +55,9 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
-        }
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        } 
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -75,12 +73,15 @@ $perfil = $_SESSION["idCargo"];
             </div>
             <!-- FIN ALERTA -->
             <div class="container-fluid">
-                 <div class="row-fluid">
+                <div class="row-fluid">
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                     if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -89,36 +90,40 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                        <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-                            <!-- AQUI VA EL MENU INTERIOR-->
-                            <?php
-                            if ($perfil == 1) {
-                                include '../Menus/directoraMenuInteriorProductos.php';
-                            }
-                            ?>
-                            <!-- FIN MENU INTERIOR-->
-                            <hr>
-                            <h4>Detalle de productos Por Vencer (Menor a 2 meses)</h4>
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+                        <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
+                        <hr>
+                        <h4>Detalle de productos Por Vencer (Menor a 2 meses)</h4>
 
-                            <div class="table-responsive">
-                                <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Fecha Vencimiento</th>
-                                            <th>Producto</th>                                                              
-                                            <th>Cantidad</th>   
-                                            <th>Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="accion" name="accion" value="">
-                            </div>
+                        <div class="table-responsive">
+                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha Vencimiento</th>
+                                        <th>Producto</th>                                                              
+                                        <th>Cantidad</th>   
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="accion" name="accion" value="">
+                            <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
+        </div>   
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -130,18 +135,25 @@ $perfil = $_SESSION["idCargo"];
         </div>
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
-         <script src="../../Files/js/ValidaCamposFormulario.js"></script>
-        <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
-        <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
+        <script src="../../Files/js/ValidaCamposFormulario.js"></script>
+       <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
+       <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
         <script>
             $(function () {
-                cargarFuncionarias();
+                cargarProductosPorVencer();
             })
 
-            function cargarFuncionarias() {
+            function cargarProductosPorVencer() {
                 $("#tablaFuncionarias").empty();
-                var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSPORVENCER';
+                var perfil = document.getElementById("perfil").value;
+                if (perfil == 1) {
+                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSPORVENCER';
+                } else {
+                    if (perfil == 4) {
+                        var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSPORVENCERAUXILIAR';
+                    }
+                }
                 $.getJSON(
                         url_json,
                         function (datos) {
@@ -151,7 +163,7 @@ $perfil = $_SESSION["idCargo"];
                                 contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.cantidad + "</td>";
                                 if (v.fechaVencimiento <= fechaActual()) {
-                                    contenido += "<td style = 'background-color: #ff8585'><b>Vencido</b></td>";                                    
+                                    contenido += "<td style = 'background-color: #ff8585'><b>Vencido</b></td>";
                                 } else {
                                     contenido += "<td>Por Vencer</td>";
                                 }

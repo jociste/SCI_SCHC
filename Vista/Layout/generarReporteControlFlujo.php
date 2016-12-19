@@ -51,7 +51,6 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
     <head>
         <style type="text/css">
             body{
-                //font-family: Calibri;
                 font-family:Arial, sans-serif;
                 font-size: 11px;
                 font-style: normal;
@@ -102,16 +101,16 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
             }
 
             .alto-xs{
-                height: 15.11px;//4mm
+                height: 15.11px;
             }
             .alto-xm{
-                height: 18.89px;//5mm
+                height: 18.89px;
             }
             .alto-xl{
-                height: 26.45px;//7mm
+                height: 26.45px;
             }
             .alto-ms{
-                height: 37.79px;//10mm
+                height: 37.79px;
             }
             .alto-ms12{
                 height: 45.35px;//12mm

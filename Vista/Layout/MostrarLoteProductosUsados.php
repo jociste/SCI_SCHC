@@ -55,10 +55,8 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
-            include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
+        } else if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -82,46 +80,48 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                        <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-                            <!-- AQUI VA EL MENU INTERIOR-->
-                            <?php
-                            if ($perfil == 1) {
-                                include '../Menus/directoraMenuInteriorProductos.php';
-                            }
-                            ?>
-                            <!-- FIN MENU INTERIOR-->
-                            <hr>
-                            <h4>Detalle de productos usados</h4>
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
+                        <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorProductos.php';
+                        }
+                        if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
+                        <hr>
+                        <h4>Detalle de productos usados</h4>
 
-                            <div class="table-responsive">
-                                <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    <thead>
-                                        <tr>
+                        <div class="table-responsive">
+                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
 <!--                                            <th></th> -->
-                                            <th>Fecha Retiro</th> 
-                                            <th>Destino</th> 
-                                            <th>Retirado por</th>
-                                            <th>Nombre Producto</th>
-                                            <th>Cantidad</th>
-                                            <!--<th>Accion</th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="accion" name="accion" value="">
-                            </div>
+                                        <th>Fecha Retiro</th> 
+                                        <th>Destino</th> 
+                                        <th>Retirado por</th>
+                                        <th>Nombre Producto</th>
+                                        <th>Cantidad</th>
+                                        <!--<th>Accion</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="accion" name="accion" value="">
+                            <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
+        </div>  
         <div class="clearfix"></div>
         <div class="container-fluid m-t-large">
             <footer>
@@ -143,7 +143,15 @@ $perfil = $_SESSION["idCargo"];
 
             function cargarFuncionarias() {
                 $("#tablaFuncionarias").empty();
-                var url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOS';
+                var perfil = document.getElementById("perfil").value;
+                var url_json;
+                if (perfil == 1) {
+                    url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOS';
+                } else {
+                    if (perfil == 4) {
+                        url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOSAUXILIAR';
+                    }
+                }
                 $.getJSON(
                         url_json,
                         function (datos) {

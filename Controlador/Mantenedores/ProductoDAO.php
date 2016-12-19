@@ -38,6 +38,27 @@ class ProductoDAO {
         return $productos;
     }
 
+    public function findAllAuxiliar() {
+        $this->conexion->conectar();
+        $query = "SELECT P.idProducto, P.idCategoria, P.nombre, C.nombre as nombreCategoria 
+FROM producto P JOIN categoria C ON P.idCategoria = C.idCategoria JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
+where ca.idCargo = 4";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $productos = array();
+        while ($fila = $result->fetch_row()) {
+            $producto = new ProductoDTO();
+            $producto->setIdProducto($fila[0]);
+            $producto->setIdCategoria($fila[1]);
+            $producto->setNombre($fila[2]);
+            $producto->setCategoria($fila[3]);
+            $productos[$i] = $producto;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $productos;
+    }
+
     public function findByID($idProducto) {
         $this->conexion->conectar();
         $query = "SELECT * FROM producto WHERE  idProducto =  " . $idProducto . " ";

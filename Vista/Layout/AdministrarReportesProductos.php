@@ -214,7 +214,7 @@ $perfil = $_SESSION["idCargo"];
                                                     </div>
                                                 </div>
                                                 <div class="span12">
-                                                    <div class="form-actions" style="width: 82%; margin-left: 0px;">
+                                                    <div class="form-actions" style="width: 95%; padding: 20px; height: 40px;">
                                                         <input class="input-xlarge focused" id="idEntidadAdministradora" name="idEntidadAdministradora" type="hidden">
                                                         <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
                                                         <a onclick="reporteControlFlujoExistencia()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Control Flujo de Existencias</a>                                                        
@@ -345,6 +345,7 @@ $perfil = $_SESSION["idCargo"];
                                 cargarDatosGenerales();
                                 cargarCategorias();
                                 document.getElementById("myModal").style.display = 'none';
+                                document.getElementById("modalProductosUsados").style.display = 'none';
                             });
 
                             function cargarDatosGenerales() {

@@ -90,42 +90,16 @@ $perfil = $_SESSION["idCargo"];
                         <!-- FIN MENU INTERIOR-->
                         <hr>
                         <div class="row-fluid">
-                            <div class="span12">
-                                    <div class="header">
-                                        <h4>Lotes de Producto</h4>
-                                    </div>
-                                    <div class="body" style="text-align: center;">
-                                        <div>
-                                            <a class="btn btn-success btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarLoteProducto.php'">
-                                                Agregar Lote de Producto <i class="icon-book" ></i>
-                                            </a>
-                                        </div>
-                                        <div class="row-fluid">
-                                            <!-- CONTENIDO AQUI -->
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead> 
-                                                        <tr> 
-                                                            <th>N° Boleta</th> 
-                                                            <th>Producto</th>                                                              
-                                                            <th>Cantidad</th> 
-                                                            <th>Proveedor</th>
-                                                            <th>Fecha Vencimiento</th>
-                                                            <th>Fecha Ingreso</th>
-                                                            <th>Accion</th>
-                                                        </tr> 
-                                                    </thead>
-                                                    <tbody id="tablaLotes">
-
-                                                    </tbody>
-                                                </table>
-                                                <input type="hidden" id="accion" name="accion" value="">
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>                  
+                            <!-- AQUI VA La tabla segun el perfil-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraVisualizaLoteProductos.php';
+                        }
+                        if ($perfil == 4) {
+                            include '../Menus/auxiliarVisualizaLoteProductos.php';
+                        }
+                        ?>
+                        <!-- FIN tabla segun el perfil-->                
 
                         </div>
                     </div>
@@ -138,8 +112,7 @@ $perfil = $_SESSION["idCargo"];
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
+                        <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardin Infantil Hogar de Cristo</a> 2016</span>
                     </p>
                 </footer>
             </div>
@@ -149,7 +122,13 @@ $perfil = $_SESSION["idCargo"];
 
         <script>
                                                 $(function () {
-                                                    cargarLotes();
+                                                    var perfil = document.getElementById("perfil").value;
+                                                    if(perfil == 1){
+                                                         cargarLotes();
+                                                    }
+                                                    if(perfil == 4){
+                                                         cargarLotesAuxiliar();
+                                                    }                                                   
                                                 });
 
                                                 function cargarLotes() {
@@ -176,6 +155,34 @@ $perfil = $_SESSION["idCargo"];
                                                                     contenido += "</td>";
                                                                     contenido += "</tr>";
                                                                     $("#tablaLotes").append(contenido);
+                                                                });
+                                                            }
+                                                    );
+                                                }
+                                                 function cargarLotesAuxiliar() {
+                                                    $("#tablaLotesAuxiliar").empty();
+                                                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOAUXILIAR';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var contenido = "<tr>";
+                                                                    contenido += "<td>" + v.numeroBoleta + "</td>";
+                                                                    contenido += "<td>" + v.nombre + "</td>";
+                                                                    contenido += "<td>" + v.cantidad + "</td>";
+                                                                    contenido += "<td>" + v.proveedor + "</td>";
+                                                                    if (v.fechaVencimiento == '0000-00-00') {
+                                                                        contenido += "<td>Sin Fecha Vencimiento</td>";
+                                                                    } else {
+                                                                        contenido += "<td>" + v.fechaVencimiento + "</td>";
+                                                                    }
+                                                                    contenido += "<td>" + v.fechaIngreso + "</td>";
+                                                                    contenido += "<td>";
+                                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idLote + ")'></button>";
+                                                                    //contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idLote + ")'></button>";
+                                                                    contenido += "</td>";
+                                                                    contenido += "</tr>";
+                                                                    $("#tablaLotesAuxiliar").append(contenido);
                                                                 });
                                                             }
                                                     );

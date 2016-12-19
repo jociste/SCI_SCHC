@@ -97,13 +97,12 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                       <div class="form-actions" style="height: 30px;">
                                             <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%"><b>Editar Bien</b></h4> 
                                         </div>
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
-                                      
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">                                      
                                         <h5><b>Datos de la Compra del Bien</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="numeroBoleta">Número Boleta *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="numeroBoleta" name="numeroBoleta" type="text" placeholder="Numero Boleta" required>
+                                                <input class="input-xlarge focused" id="numeroBoleta" name="numeroBoleta" type="text" placeholder="Numero Boleta" readonly="true">
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -113,33 +112,36 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                             </div>
                                         </div>
                                         <div class="control-group">
+                                            <label class="control-label" for="idCategoria">Categoria del Bien *</label>
+                                            <div class="controls">
+                                                <select class="input-xlarge focused" id="idCategoria" name="idCategoria" required style="height: 32px; width: 286px">
+                                                    <option value="1">Materiales didácticos y de enseñanza</option>
+                                                    <option value="5">Bienes/Muebles</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
                                             <label class="control-label" for="descripcion">Descripción del Bien *</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="descripcion" name="descripcion" type="text" placeholder="descripcion" required>
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="cantidad">Cantidad *</label>
-                                            <div class="controls">
-                                                <input class="input-xlarge focused" id="cantidad" name="cantidad" type="number" placeholder="Cantidad" required>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
                                             <label class="control-label" for="proveedor">Proveedor *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="proveedor" name="proveedor" type="text" placeholder="Proveedor" required>
+                                                <input class="input-xlarge focused" id="proveedor" name="proveedor" type="text" placeholder="Proveedor" readonly="true">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="precio">Precio *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="precio" name="precio" type="number" placeholder="Precio" required>
+                                                <input class="input-xlarge focused" id="precio" name="precio" type="number" placeholder="Precio" readonly="true">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="fechaIngreso">Fecha Compra *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" required>
+                                                <input class="input-xlarge focused" id="fechaIngreso" name="fechaIngreso" type="date" placeholder="Fecha Ingreso" readonly="true">
                                             </div>
                                         </div>
                                         <hr> <h5><b>Datos de Asignación del Bien en la Institución</b></h5><hr>
@@ -163,7 +165,6 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                         
                                         <input type="hidden" id="accion" name="accion" value="">
                                         <input type="hidden" id="idBien" name="idBien" value="<?php echo $idBien; ?>">
-                                        <input type="hidden" id="idCategoria" name="idCategoria" value="">
                                         <input type="hidden" id="idRegistro" name="idRegistro" value="">
                                         <input type="hidden" id="idNivelBien" name="idNivelBien" value="">
 
@@ -171,7 +172,7 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                     </form>
                                     <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarLotesProducto.php'" class="btn">Cancelar</button>
+                                            <button type="button" onClick="location.href = 'AdministrarBienes.php'" class="btn">Cancelar</button>
                                         </div>
                                     <!-- FIN FORMULARIO-->
                                 </div>
@@ -210,7 +211,7 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                                                 document.getElementById("numeroBoleta").value = datos.numeroComprobante;
                                                                 document.getElementById("nombreBien").value = datos.nombre;
                                                                 document.getElementById("descripcion").value = datos.descripcion;
-                                                                document.getElementById("cantidad").value = datos.cantidad;
+                                                                
                                                                 document.getElementById("proveedor").value = datos.proveedor;
                                                                 document.getElementById("precio").value = datos.precio;
                                                                 document.getElementById("fechaIngreso").value = datos.fechaComprobante;
@@ -250,20 +251,11 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
 
                                                 }
 
-                                                function validar() {
-                                                    var numeroBoleta = document.getElementById("numeroBoleta").value;
-                                                    var nombreBien = document.getElementById("nombreBien").value;
-                                                    var cantidad = document.getElementById("cantidad").value;
-                                                    var proveedor = document.getElementById("proveedor").value;
-                                                    var precio = document.getElementById("precio").value;
-                                                    var fechaIngreso = document.getElementById("fechaIngreso").value;
+                                                function validar() {                                                   
+                                                    var nombreBien = document.getElementById("nombreBien").value;                                                    
                                                     var idNivel = document.getElementById("idNivel").value;
                                                     var descripcion = document.getElementById("descripcion").value;
-                                                    if (numeroBoleta == "") {
-                                                        $.messager.alert('Error', "Debe ingresar un numero de boleta");
-                                                        return false;
-                                                    }
-                                                    if (descripcion == "") {
+                                                                                                       if (descripcion == "") {
                                                         $.messager.alert('Error', "Debe ingresar la descripcion del bien");
                                                         return false;
                                                     }
@@ -271,24 +263,8 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                                         $.messager.alert('Error', "Debe ingresar el nombre del bien");
                                                         return false;
                                                     }
-                                                    if (cantidad == "") {
-                                                        $.messager.alert('Error', "Debe ingresar una cantidad");
-                                                        return false;
-                                                    }
-                                                    if (proveedor == "") {
-                                                        $.messager.alert('Error', "Debe ingresar un proveedor");
-                                                        return false;
-                                                    }
                                                     if (idNivel == "") {
                                                         $.messager.alert('Error', "Debe ingresar la ubicación que tendra el bien");
-                                                        return false;
-                                                    }
-                                                    if (fechaIngreso == "") {
-                                                        $.messager.alert('Error', "Debe ingresar la fecha de ingreso del bien");
-                                                        return false;
-                                                    }
-                                                    if (precio == "") {
-                                                        $.messager.alert('Error', "Debe ingresar el precio del bien");
                                                         return false;
                                                     }
                                                     return true;

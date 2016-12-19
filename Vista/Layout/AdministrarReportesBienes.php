@@ -356,6 +356,7 @@ $perfil = $_SESSION["idCargo"];
                                 cargarDatosGenerales();
                                 cargarNiveles();
                                 document.getElementById("myModal").style.display = 'none';
+                                document.getElementById("modalDadosDeBaja").style.display = 'none';
                             });
 
                             function cargarNiveles() {

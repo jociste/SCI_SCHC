@@ -10,6 +10,11 @@ if ($accion != null) {
         $categorias = $control->getAllCategorias();
         $json = json_encode($categorias);
         echo $json;
+    }
+    if ($accion == "LISTADOAUXILIAR") {
+        $categorias = $control->getAllCategoriasAuxiliar();
+        $json = json_encode($categorias);
+        echo $json;
     } else if ($accion == "AGREGAR") {
         $nombre = htmlspecialchars($_REQUEST['nombre']);
         $descripcion = htmlspecialchars($_REQUEST['descripcion']);

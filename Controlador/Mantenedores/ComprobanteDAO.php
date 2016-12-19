@@ -28,10 +28,9 @@ class ComprobanteDAO {
         while ($fila = $result->fetch_row()) {
             $comprobante = new ComprobanteDTO();
             $comprobante->setIdRegistro($fila[0]);
-            $comprobante->setIdBien($fila[1]);
-            $comprobante->setNumeroComprobante($fila[2]);
-            $comprobante->setProveedor($fila[3]);
-            $comprobante->setFechaComprobante($fila[4]);
+            $comprobante->setNumeroComprobante($fila[1]);
+            $comprobante->setProveedor($fila[2]);
+            $comprobante->setFechaComprobante($fila[3]);
             $comprobantes[$i] = $comprobante;
             $i++;
         }
@@ -46,10 +45,9 @@ class ComprobanteDAO {
         $comprobante = new ComprobanteDTO();
         while ($fila = $result->fetch_row()) {
             $comprobante->setIdRegistro($fila[0]);
-            $comprobante->setIdBien($fila[1]);
-            $comprobante->setNumeroComprobante($fila[2]);
-            $comprobante->setProveedor($fila[3]);
-            $comprobante->setFechaComprobante($fila[4]);
+            $comprobante->setNumeroComprobante($fila[1]);
+            $comprobante->setProveedor($fila[2]);
+            $comprobante->setFechaComprobante($fila[3]);
         }
         $this->conexion->desconectar();
         return $comprobante;
@@ -57,17 +55,16 @@ class ComprobanteDAO {
 
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM comprobante WHERE  upper(idRegistro) LIKE upper(" . $cadena . ")  OR  upper(idBien) LIKE upper(" . $cadena . ")  OR  upper(numeroComprobante) LIKE upper(" . $cadena . ")  OR  upper(proveedor) LIKE upper('" . $cadena . "')  OR  upper(fechaComprobante) LIKE upper(" . $cadena . ") ";
+        $query = "SELECT * FROM comprobante WHERE  upper(idRegistro) LIKE upper(" . $cadena . ")   OR  upper(numeroComprobante) LIKE upper(" . $cadena . ")  OR  upper(proveedor) LIKE upper('" . $cadena . "')  OR  upper(fechaComprobante) LIKE upper(" . $cadena . ") ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $comprobantes = array();
         while ($fila = $result->fetch_row()) {
             $comprobante = new ComprobanteDTO();
             $comprobante->setIdRegistro($fila[0]);
-            $comprobante->setIdBien($fila[1]);
-            $comprobante->setNumeroComprobante($fila[2]);
-            $comprobante->setProveedor($fila[3]);
-            $comprobante->setFechaComprobante($fila[4]);
+            $comprobante->setNumeroComprobante($fila[1]);
+            $comprobante->setProveedor($fila[2]);
+            $comprobante->setFechaComprobante($fila[3]);
             $comprobantes[$i] = $comprobante;
             $i++;
         }
@@ -79,9 +76,11 @@ class ComprobanteDAO {
         $this->conexion->conectar();
         $query = "select max(idRegistro)+1 FROM comprobante";
         $result = $this->conexion->ejecutar($query);
-        $comprobante = 0;
-        while ($fila = $result->fetch_row()) {
-            $comprobante = $fila[0];
+        $comprobante = 1;
+        if ($result) {
+            while ($fila = $result->fetch_row()) {
+                $comprobante = $fila[0];
+            }
         }
         $this->conexion->desconectar();
         return $comprobante;
@@ -89,8 +88,8 @@ class ComprobanteDAO {
 
     public function save($comprobante) {
         $this->conexion->conectar();
-        $query = "INSERT INTO comprobante (idRegistro,idBien,numeroComprobante,proveedor,fechaComprobante)"
-                . " VALUES ( " . $comprobante->getIdRegistro() . " ,  " . $comprobante->getIdBien() . " ,  " . $comprobante->getNumeroComprobante() . " , '" . $comprobante->getProveedor() . "' , '" . $comprobante->getFechaComprobante() . "' )";
+        $query = "INSERT INTO comprobante (idRegistro,numeroComprobante,proveedor,fechaComprobante)"
+                . " VALUES ( " . $comprobante->getIdRegistro() . " ,  " . $comprobante->getNumeroComprobante() . " , '" . $comprobante->getProveedor() . "' , '" . $comprobante->getFechaComprobante() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -99,7 +98,6 @@ class ComprobanteDAO {
     public function update($comprobante) {
         $this->conexion->conectar();
         $query = "UPDATE comprobante SET "
-                . "  idBien =  " . $comprobante->getIdBien() . " ,"
                 . "  numeroComprobante =  " . $comprobante->getNumeroComprobante() . " ,"
                 . "  proveedor = '" . $comprobante->getProveedor() . "' ,"
                 . "  fechaComprobante = '" . $comprobante->getFechaComprobante() . "' "

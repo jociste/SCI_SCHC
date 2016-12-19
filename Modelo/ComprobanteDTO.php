@@ -1,12 +1,14 @@
 <?php
+
 class ComprobanteDTO {
+
     public $idRegistro;
-    public $idBien;
     public $numeroComprobante;
     public $proveedor;
     public $fechaComprobante;
 
-    public function ComprobanteDTO(){
+    public function ComprobanteDTO() {
+        
     }
 
     function getIdRegistro() {
@@ -15,14 +17,6 @@ class ComprobanteDTO {
 
     function setIdRegistro($idRegistro) {
         return $this->idRegistro = $idRegistro;
-    }
-
-    function getIdBien() {
-        return $this->idBien;
-    }
-
-    function setIdBien($idBien) {
-        return $this->idBien = $idBien;
     }
 
     function getNumeroComprobante() {

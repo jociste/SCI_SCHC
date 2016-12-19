@@ -148,7 +148,7 @@ class DocumentoDAO {
         $this->conexion->conectar();
         $query = "INSERT INTO documento (runFuncionaria,idTipoDocumento,nombre,descripcion,fechaRegistro,rutaDocumento,tamano,formato,estado)"
                 . " VALUES ( " . $documento->getRunFuncionaria() . " ,  " . $documento->getIdTipoDocumento() . " , '" . $documento->getNombre() . "' , '" . $documento->getDescripcion() . "' , '" . $documento->getFechaRegistro() . "' , '" . $documento->getRutaDocumento() . "' ,  '" . $documento->getTamano() . "' , '" . $documento->getFormato() . "', " . $documento->getEstado() . " )";
-        var_dump($query);
+        //var_dump($query);
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;

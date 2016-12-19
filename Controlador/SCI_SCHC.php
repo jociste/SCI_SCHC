@@ -142,6 +142,9 @@ class SCI_SCHC {
     public function getBienByID($idBien) {
         return $this->bienDAO->findByID($idBien);
     }
+    public function getBienByIDEditar($idBien) {
+        return $this->bienDAO->findByIDEditar($idBien);
+    }
 
     public function getBienesByIdCategoria($idCategoria) {
         return $this->bienDAO->findByIdCategoria($idCategoria);
@@ -201,6 +204,9 @@ class SCI_SCHC {
 
     public function getAllCategorias() {
         return $this->categoriaDAO->findAll();
+    }
+ public function getAllCategoriasAuxiliar() {
+        return $this->categoriaDAO->findAllAuxiliar();
     }
 
     public function addCategoria($categoria) {
@@ -418,11 +424,16 @@ class SCI_SCHC {
     public function getAllLote_productos1() {
         return $this->lote_productoDAO->findAll();
     }
+     public function getAllLote_productos_auxiliar() {
+        return $this->lote_productoDAO->findAllAuxiliar();
+    }
 
     public function getAllLote_productosPorVencer() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();
     }
-
+ public function getAllLote_productosPorVencerAuxiliar() {
+        return $this->lote_productoDAO->findAllOrdenadosPorVencimientoAuxiliar();
+    }
     public function cuentaProductosPorVencer() {
         return $this->lote_productoDAO->CuentaProductosPorVencer();
     }
@@ -434,7 +445,9 @@ class SCI_SCHC {
     public function getAllLote_productosBajoStock() {
         return $this->lote_productoDAO->findAllOrdenadosPorBajoStock();
     }
-
+    public function getAllLote_productosBajoStockAuxiliar() {
+        return $this->lote_productoDAO->findAllOrdenadosPorBajoStockAuxiliar();
+    }
     public function addLote_producto($lote_producto) {
         return $this->lote_productoDAO->save($lote_producto);
     }
@@ -466,7 +479,9 @@ class SCI_SCHC {
     public function getAllLote_producto_usadoss() {
         return $this->lote_producto_usadosDAO->buscarProductosUsados();
     }
-    
+     public function getAllLote_producto_usadoss_auxiliar() {
+        return $this->lote_producto_usadosDAO->buscarProductosUsadosAuxiliar();
+    }
     public function getAllLote_productos_usados_by_fechas($fechaInicio, $fechaTermino){
         return $this->lote_producto_usadosDAO->buscarProductosUsadosByFechas($fechaInicio, $fechaTermino);
     }
@@ -617,6 +632,9 @@ class SCI_SCHC {
 
     public function getAllProductos() {
         return $this->productoDAO->findAll();
+    }
+    public function getAllProductosAuxiliar() {
+        return $this->productoDAO->findAllAuxiliar();
     }
 
     public function addProducto($producto) {
