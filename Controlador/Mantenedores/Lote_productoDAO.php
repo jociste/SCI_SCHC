@@ -274,6 +274,17 @@ where ca.idCargo = 4";
         $this->conexion->desconectar();
         return $lote_producto;
     }
+        public function cuenta($idProducto) {
+        $this->conexion->conectar();
+        $query = "SELECT count(*) FROM lote_producto LP JOIN producto P ON LP.idProducto = P.idProducto  WHERE LP.idProducto = ". $idProducto;
+        $result = $this->conexion->ejecutar($query);
+        $cantidad = 0;
+        while ($fila = $result->fetch_row()) {
+            $cantidad = $fila[0];
+        }
+        $this->conexion->desconectar();
+        return $cantidad;
+    }
 
     public function findLikeAtrr($cadena) {
         $this->conexion->conectar();

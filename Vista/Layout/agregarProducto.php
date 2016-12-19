@@ -102,7 +102,7 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-            $(function () {  
+            $(function () {
                 var perfil = document.getElementById("perfil").value;
                 if (perfil == 1) {
                     cargarCategorias();
@@ -119,7 +119,10 @@ $perfil = $_SESSION["idCargo"];
                         url_json,
                         function (datos) {
                             $.each(datos, function (k, v) {
-                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                var contenido;                                
+                                if (v.idCategoria != 1 && v.idCategoria != 5) {
+                                     contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                }
                                 $("#idCategoria").append(contenido);
                             });
                         }
@@ -131,7 +134,10 @@ $perfil = $_SESSION["idCargo"];
                         url_json,
                         function (datos) {
                             $.each(datos, function (k, v) {
-                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                var contenido;                                
+                                if (v.idCategoria != 1 && v.idCategoria != 5) {
+                                     contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                }
                                 $("#idCategoria").append(contenido);
                             });
                         }

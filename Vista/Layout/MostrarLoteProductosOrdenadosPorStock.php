@@ -109,7 +109,6 @@ $perfil = $_SESSION["idCargo"];
                                 <thead>
                                     <tr>
                                         <th>Cantidad</th> 
-<!--                                            <th>Fecha Vencimiento</th>-->
                                         <th>Producto</th>                            
                                         <th>Fecha Ingreso</th>
                                         <th>Estado</th>
@@ -130,14 +129,11 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
-        <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
-        <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
         <script>
             $(function () {
@@ -145,7 +141,6 @@ $perfil = $_SESSION["idCargo"];
             })
 
             function cargarProductosOrdenados() {
-                $("#tablaFuncionarias").empty();
                 var perfil = document.getElementById("perfil").value;
                 if (perfil == 1) {
                     var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSBAJOSTOCK';
@@ -159,11 +154,6 @@ $perfil = $_SESSION["idCargo"];
                             $.each(datos, function (k, v) {
                                 var contenido = "<tr>";
                                 contenido += "<td>" + v.cantidad + "</td>";
-//                                if (v.fechaVencimiento == '0000-00-00') {
-//                                    contenido += "<td>Sin Fecha Vencimiento</td>";
-//                                } else {
-//                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
-//                                }
                                 contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.fechaIngreso + "</td>";
                                 if (v.cantidad == 0) {

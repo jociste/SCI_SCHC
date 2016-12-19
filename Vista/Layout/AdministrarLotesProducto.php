@@ -44,6 +44,10 @@ $perfil = $_SESSION["idCargo"];
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
         <script src="../../Files/Complementos/lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+        
+        
+        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/datatables/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="../../Files/Complementos/lib/datatables/jquery.dataTables.js"></script>
 
 
     </head>
@@ -54,8 +58,7 @@ $perfil = $_SESSION["idCargo"];
             include '../Menus/directoraSuperior.php';
         } else if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
-        }
-        else if ($perfil == 6) {
+        } else if ($perfil == 6) {
             include '../Menus/adminSuperior.php';
         }
         ?>
@@ -68,16 +71,14 @@ $perfil = $_SESSION["idCargo"];
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
-                    }
-                    else if ($perfil == 4) {
+                    } else if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
-                    }
-                     else if ($perfil == 6) {
+                    } else if ($perfil == 6) {
                         include '../Menus/adminLeftPersonal.php';
                     }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" >
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
@@ -91,15 +92,39 @@ $perfil = $_SESSION["idCargo"];
                         <hr>
                         <div class="row-fluid">
                             <!-- AQUI VA La tabla segun el perfil-->
-                        <?php
-                        if ($perfil == 1) {
-                            include '../Menus/directoraVisualizaLoteProductos.php';
-                        }
-                        if ($perfil == 4) {
-                            include '../Menus/auxiliarVisualizaLoteProductos.php';
-                        }
-                        ?>
-                        <!-- FIN tabla segun el perfil-->                
+                            <div class="span12">
+                                <div class="header">
+                                    <h4>Registro de Ingresos de productos</h4>
+                                </div>
+                                <div class="body" style="text-align: center;">
+                                    <div class="row-fluid">
+                                        <!-- CONTENIDO AQUI -->
+                                        <div class="table-responsive">
+                                            <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                                <thead> 
+                                                    <tr> 
+                                                        <th>N° Boleta</th> 
+                                                        <th>Producto</th>                                                              
+                                                        <th>Cantidad</th> 
+                                                        <th>Proveedor</th>
+                                                        <th>Fecha Vencimiento</th>
+                                                        <th>Fecha Ingreso</th>
+                                                        <th>Accion</th>
+                                                    </tr> 
+                                                </thead>
+                                                <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+
+                                                </tbody>
+                                            </table>
+                                            <input type="hidden" id="accion" name="accion" value="">
+                                            <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN tabla segun el perfil-->                
 
                         </div>
                     </div>
@@ -121,97 +146,87 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                                                $(function () {
-                                                    var perfil = document.getElementById("perfil").value;
-                                                    if(perfil == 1){
-                                                         cargarLotes();
-                                                    }
-                                                    if(perfil == 4){
-                                                         cargarLotesAuxiliar();
-                                                    }                                                   
-                                                });
+                                            $(function () {
+                                                cargarLotes()
+                                            });
 
-                                                function cargarLotes() {
-                                                    $("#tablaLotes").empty();
-                                                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADO';
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                $.each(datos, function (k, v) {
-                                                                    var contenido = "<tr>";
-                                                                    contenido += "<td>" + v.numeroBoleta + "</td>";
-                                                                    contenido += "<td>" + v.nombre + "</td>";
-                                                                    contenido += "<td>" + v.cantidad + "</td>";
-                                                                    contenido += "<td>" + v.proveedor + "</td>";
-                                                                    if (v.fechaVencimiento == '0000-00-00') {
-                                                                        contenido += "<td>Sin Fecha Vencimiento</td>";
-                                                                    } else {
-                                                                        contenido += "<td>" + v.fechaVencimiento + "</td>";
-                                                                    }
-                                                                    contenido += "<td>" + v.fechaIngreso + "</td>";
-                                                                    contenido += "<td>";
-                                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idLote + ")'></button>";
-                                                                    //contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idLote + ")'></button>";
-                                                                    contenido += "</td>";
-                                                                    contenido += "</tr>";
-                                                                    $("#tablaLotes").append(contenido);
-                                                                });
-                                                            }
-                                                    );
+                                            function cargarLotes() {
+                                                var url_json;
+                                                var perfil = document.getElementById("perfil").value;
+                                                if (perfil == 1) {
+                                                    url_json = '../Servlet/administrarLote_producto.php?accion=LISTADO';
                                                 }
-                                                 function cargarLotesAuxiliar() {
-                                                    $("#tablaLotesAuxiliar").empty();
-                                                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOAUXILIAR';
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                $.each(datos, function (k, v) {
-                                                                    var contenido = "<tr>";
-                                                                    contenido += "<td>" + v.numeroBoleta + "</td>";
-                                                                    contenido += "<td>" + v.nombre + "</td>";
-                                                                    contenido += "<td>" + v.cantidad + "</td>";
-                                                                    contenido += "<td>" + v.proveedor + "</td>";
-                                                                    if (v.fechaVencimiento == '0000-00-00') {
-                                                                        contenido += "<td>Sin Fecha Vencimiento</td>";
-                                                                    } else {
-                                                                        contenido += "<td>" + v.fechaVencimiento + "</td>";
-                                                                    }
-                                                                    contenido += "<td>" + v.fechaIngreso + "</td>";
-                                                                    contenido += "<td>";
-                                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idLote + ")'></button>";
-                                                                    //contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idLote + ")'></button>";
-                                                                    contenido += "</td>";
-                                                                    contenido += "</tr>";
-                                                                    $("#tablaLotesAuxiliar").append(contenido);
-                                                                });
-                                                            }
-                                                    );
-                                                }
-                                                function editar(idLote) {
-                                                    window.location = "editarLoteProducto.php?idLote=" + idLote;
+                                                if (perfil == 4) {
+                                                    url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOAUXILIAR';
                                                 }
 
-                                                function borrar(idLote) {
-                                                    $.messager.confirm('Confirmar', '¿Esta seguro de eliminar el lote de producto?', function (r) {
-                                                        if (r) {
-                                                            var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idLote=' + idLote;
-                                                            $.getJSON(
-                                                                    url_json,
-                                                                    function (datos) {
-                                                                        if (datos.errorMsg) {
-                                                                            $.messager.alert('Error', datos.errorMsg, 'error');
-                                                                        } else {
-                                                                            $.messager.show({
-                                                                                title: 'Aviso',
-                                                                                msg: datos.mensaje
-                                                                            });
-                                                                            cargarLotes();
-                                                                        }
+                                                $.getJSON(
+                                                        url_json,
+                                                        function (datos) {
+                                                            $.each(datos, function (k, v) {
+                                                                var contenido = "<tr>";
+                                                                contenido += "<td>" + v.numeroBoleta + "</td>";
+                                                                contenido += "<td>" + v.nombre + "</td>";
+                                                                contenido += "<td>" + v.stockInicial + "</td>";
+                                                                contenido += "<td>" + v.proveedor + "</td>";
+                                                                if (v.fechaVencimiento == '0000-00-00') {
+                                                                    contenido += "<td>Sin Fecha Vencimiento</td>";
+                                                                } else {
+                                                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
+                                                                }
+                                                                contenido += "<td>" + v.fechaIngreso + "</td>";
+                                                                contenido += "<td>";
+                                                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idLote + ")'></button>";
+                                                                //contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idLote + ")'></button>";
+                                                                contenido += "</td>";
+                                                                contenido += "</tr>";
+                                                                $("#grid").append(contenido);
+                                                            });
+                                                            $('#grid').DataTable(
+                                                                    {
+                                                                        "oLanguage": {
+                                                                            "oPaginate": {
+                                                                                "sNext": "Siguiente",
+                                                                                "sPrevious": "Anterior"
+                                                                            },
+                                                                            "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                                                            "sSearch": "Buscar",
+                                                                            "sZeroRecords": "No se encontraron Resultados",
+                                                                            "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                                                            "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                                                            "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                                                        },
                                                                     }
                                                             );
                                                         }
-                                                    });
-                                                }
+                                                );
+                                            }
+
+                                            function editar(idLote) {
+                                                window.location = "editarLoteProducto.php?idLote=" + idLote;
+                                            }
+
+                                            function borrar(idLote) {
+                                                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar el lote de producto?', function (r) {
+                                                    if (r) {
+                                                        var url_json = '../Servlet/administrarLote_producto.php?accion=BORRAR&idLote=' + idLote;
+                                                        $.getJSON(
+                                                                url_json,
+                                                                function (datos) {
+                                                                    if (datos.errorMsg) {
+                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
+                                                                    } else {
+                                                                        $.messager.show({
+                                                                            title: 'Aviso',
+                                                                            msg: datos.mensaje
+                                                                        });
+                                                                        cargarLotes();
+                                                                    }
+                                                                }
+                                                        );
+                                                    }
+                                                });
+                                            }
         </script>
     </body>
 </html>

@@ -104,7 +104,7 @@ $perfil = $_SESSION["idCargo"];
                         <hr>
                         <h4>Stock de Productos</h4>
                         <hr>
-                        <div class="table-responsive" style="width: 70%; align-content: center; margin-left: 16%">
+                        <div class="table-responsive" style="width: 80%; align-content: center; margin-left: 10%">
                             <table id="grid" class="table table-striped table-bordered dt-responsive nowrap">
                                 <thead>
                                     <tr>

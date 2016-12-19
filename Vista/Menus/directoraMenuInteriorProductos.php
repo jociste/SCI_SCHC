@@ -6,6 +6,12 @@
         <div class="span2">
             <a href="MostrarLoteProductosUsados.php" class="btn btn-success btn-circle btn-res"><i class="icon-sort-by-attributes-alt"></i>Productos Retirados</a>
         </div>
+<!--        <div class="span2">
+            <a href="AdministrarLotesProducto.php" class="btn btn-success btn-circle btn-res"><i class="icon-sort-by-attributes-alt"></i>Ingresos</a>
+        </div>-->
+        <div class="span2">
+            <a href="AdministrarLotesProducto.php" style="margin-left: 15%; " class="btn btn-info btn-circle btn-res"><i class="icon-arrow-up" ></i>Registro Ingresos</a>
+        </div> 
         <div class="span2">
             <a href="MostrarLoteProductosOrdenadosPorStock.php" class="btn btn-danger btn-circle btn-res"><i class="icon-info"></i>Productos Bajo Stock</a>
         </div> 
@@ -13,7 +19,7 @@
             <a href="MostrarLoteProductosOrdenadosPorVencer.php" class="btn btn-warning btn-circle btn-res"><i class="icon-warning-sign"></i>Productos por Vencer</a>
         </div> 
         <div class="span2">
-            <a href="AdministrarReportesProductos.php" class="btn btn-info btn-circle btn-res "><i class="icon-file"></i>Generar Reportes</a>
+            <a href="AdministrarReportesProductos.php" class="btn btn-info btn-circle btn-res "><i class="icon-file" style="background-color: #92c836"></i>Generar Reportes</a>
         </div>
     </div>
 </div> 

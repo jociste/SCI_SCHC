@@ -61,14 +61,21 @@ if ($accion != null) {
         }
     } else if ($accion == "BORRAR") {
         $idProducto = htmlspecialchars($_REQUEST['idProducto']);
+          $cantidad = $control->CuentaLote_productoByIdProducto($idProducto);
+//        $result;
+        if ($cantidad == 0) {
+            $result = $control->removeProducto($idProducto);
+        }else{
+           $result = false;
+        }
 
         //VALIDAR QUE NO ESTE EN NINGUN LOTE DE PRODUCTO (PENDIENTE)        
 
-        $result = $control->removeProducto($idProducto);
+        
         if ($result) {
             echo json_encode(array('success' => true, 'mensaje' => "Producto borrado correctamente"));
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            echo json_encode(array('errorMsg' => 'Solo puede eliminar productos que no se encuentren asociados'));
         }
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
@@ -105,6 +112,6 @@ if ($accion != null) {
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
-    }
+    } 
 }
     

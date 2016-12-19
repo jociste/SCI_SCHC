@@ -469,7 +469,9 @@ class SCI_SCHC {
     public function getLote_productoByIdProducto($idProducto) {
         return $this->lote_productoDAO->findByIdProducto($idProducto);
     }
-
+ public function CuentaLote_productoByIdProducto($idProducto) {
+        return $this->lote_productoDAO->cuenta($idProducto);
+    }
     public function getLote_productoLikeAtrr($cadena) {
         return $this->lote_productoDAO->findLikeAtrr($cadena);
     }

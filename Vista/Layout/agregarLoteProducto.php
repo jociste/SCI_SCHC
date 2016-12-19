@@ -238,7 +238,10 @@ $perfil = $_SESSION["idCargo"];
                                         url_json,
                                         function (datos) {
                                             $.each(datos, function (k, v) {
-                                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                var contenido;
+                                                if (v.idCategoria != 1 && v.idCategoria != 5) {
+                                                    contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                }
                                                 $("#idCategoriaProducto").append(contenido);
                                             });
                                         }
@@ -356,7 +359,7 @@ $perfil = $_SESSION["idCargo"];
                                 }
                             }
                             function guardarProducto() {
-                                 var perfil = document.getElementById("perfil").value;
+                                var perfil = document.getElementById("perfil").value;
                                 document.getElementById("accionProducto").value = "AGREGARPRODUCTO";
                                 if (validarProducto()) {
                                     $('#fm-producto').form('submit', {
@@ -373,7 +376,7 @@ $perfil = $_SESSION["idCargo"];
                                                 $('#myModal').modal('toggle');
                                                 if (perfil == 1) {
                                                     cargarProductos();
-                                                } else if(perfil == 4){
+                                                } else if (perfil == 4) {
                                                     cargarProductosAuxiliar();
                                                 }
                                                 $.messager.show({
