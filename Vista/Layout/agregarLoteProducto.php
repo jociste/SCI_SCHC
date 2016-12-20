@@ -108,7 +108,7 @@ $perfil = $_SESSION["idCargo"];
                                         <div class="control-group">
                                             <label class="control-label" for="idProducto">Producto *</label>
                                             <div class="controls">
-                                                <select  class="input-xlarge focused" id="idProducto" name="idProducto" required></select>                                               
+                                                <select  class="input-xlarge focused" id="idProducto" name="idProducto" required style="height: 32px; width: 286px"></select>                                               
 
                                                 <a  class="btn btn-primary" onclick="abrirModalProducto()"><i class="icon-plus"> </i></a> 
                                             </div> 

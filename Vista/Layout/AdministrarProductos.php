@@ -37,7 +37,6 @@ $perfil = $_SESSION["idCargo"];
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
         <script src="../../Files/Complementos/lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
-
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/datatables/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="../../Files/Complementos/lib/datatables/jquery.dataTables.js"></script>
     </head>
@@ -85,6 +84,7 @@ $perfil = $_SESSION["idCargo"];
                                 <div class="header">
                                     <h4>Productos</h4>
                                 </div>
+                                <hr>
                                 <div class="body" style="text-align: center;">
                                     <div>
                                         <a class="btn btn-success btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarProducto.php'">

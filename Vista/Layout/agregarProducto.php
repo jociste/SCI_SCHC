@@ -73,116 +73,122 @@ $perfil = $_SESSION["idCargo"];
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">      
                         <div class="row-fluid" style="align-content: center">
-                            <!-- AQUI VA EL MENU LEFT-->
-                            <?php
-                            if ($perfil == 1) {
-                                include '../Menus/directoraAgregaProductos.php';
-                            }
-                            if ($perfil == 4) {
-                                include '../Menus/AuxiliarAgregaProductos.php';
-                            }
-                            ?>
-                            <!-- FIN MENU LEFT-->
+                            <div class="span12" style="align-content: center">
+                                <div class="row-fluid" style="align-content: center">
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 40%">Datos Producto</h4> 
+                                    </div>
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">                                        
+                                        <div class="control-group">
+                                            <label class="control-label" for="nombre">Nombre *</label>
+                                            <div class="controls">
+                                                <input class="input-xlarge focused" id="nombre" name="nombre" type="text" placeholder="Nombre producto" required>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="idCategoria">Categoría *</label>
+                                            <div class="controls">
+                                                <select  class="input-xlarge focused" id="idCategoria" name="idCategoria" required style="height: 32px; width: 286px">
+                                                    <option value="-1">Seleccionar...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="controls">
+                                            (*) campos Obligatorios
+                                        </div>
+
+                                        <input type="hidden" id="accion" name="accion" value="">
+                                        <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
+                                    </form>
+                                    <div class="form-actions" style="align-content: center; padding-left: 20% ">
+                                        <button type="button" style="align-content: center;" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
+                                        <button type="button" style="align-content: center;" onClick="location.href = 'AdministrarProductos.php'" class="btn">Cancelar</button>
+                                    </div>
+                                    <!-- FIN FORMULARIO-->
+                                </div>
+                            </div>
                         </div>
                     </div>  
                 </div>  
             </div><!--/#content.span19-->
-
             <div class="clearfix"></div>
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
                         <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-
                     </p>
                 </footer>
             </div>
         </div>
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
-
         <script>
-            $(function () {
-                var perfil = document.getElementById("perfil").value;
-                if (perfil == 1) {
-                    cargarCategorias();
-                }
-                if (perfil == 4) {
-                    cargarCategoriasAuxiliar()
-                }
+                                                $(function () {
+                                                    cargarCategorias();
+                                                });
 
-            });
+                                                function cargarCategorias() {
+                                                    var url_json;
+                                                    var perfil = document.getElementById("perfil").value;
+                                                    if (perfil == 1) {
+                                                        url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
+                                                    }
+                                                    if (perfil == 4) {
+                                                        url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
+                                                    }
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var contenido;
+                                                                    if (v.idCategoria != 1 && v.idCategoria != 5) {
+                                                                        contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                                    }
+                                                                    $("#idCategoria").append(contenido);
+                                                                });
+                                                            }
+                                                    );
+                                                }
 
-            function cargarCategorias() {
-                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
-                $.getJSON(
-                        url_json,
-                        function (datos) {
-                            $.each(datos, function (k, v) {
-                                var contenido;                                
-                                if (v.idCategoria != 1 && v.idCategoria != 5) {
-                                     contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
-                                }
-                                $("#idCategoria").append(contenido);
-                            });
-                        }
-                );
-            }
-            function cargarCategoriasAuxiliar() {
-                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
-                $.getJSON(
-                        url_json,
-                        function (datos) {
-                            $.each(datos, function (k, v) {
-                                var contenido;                                
-                                if (v.idCategoria != 1 && v.idCategoria != 5) {
-                                     contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
-                                }
-                                $("#idCategoria").append(contenido);
-                            });
-                        }
-                );
-            }
+                                                function guardar() {
+                                                    document.getElementById("accion").value = "AGREGAR";
+                                                    if (validar()) {
+                                                        $('#fm-Categoria').form('submit', {
+                                                            url: "../Servlet/administrarProducto.php",
+                                                            onSubmit: function () {
+                                                                return $(this).form('validate');
+                                                            },
+                                                            success: function (result) {
+                                                                var result = eval('(' + result + ')');
+                                                                if (result.errorMsg) {
+                                                                    $.messager.alert('Error', result.errorMsg);
+                                                                } else {
+                                                                    $.messager.show({
+                                                                        title: 'Aviso',
+                                                                        msg: result.mensaje
+                                                                    });
+                                                                    window.location = "AdministrarProductos.php";
+                                                                }
+                                                            }
+                                                        });
+                                                    }
 
-            function guardar() {
-                document.getElementById("accion").value = "AGREGAR";
-                if (validar()) {
-                    $('#fm-Categoria').form('submit', {
-                        url: "../Servlet/administrarProducto.php",
-                        onSubmit: function () {
-                            return $(this).form('validate');
-                        },
-                        success: function (result) {
-                            var result = eval('(' + result + ')');
-                            if (result.errorMsg) {
-                                $.messager.alert('Error', result.errorMsg);
-                            } else {
-                                $.messager.show({
-                                    title: 'Aviso',
-                                    msg: result.mensaje
-                                });
-                                window.location = "AdministrarProductos.php";
-                            }
-                        }
-                    });
-                }
+                                                }
 
-            }
+                                                function validar() {
+                                                    var nombre = document.getElementById("nombre").value;
+                                                    var idCategoria = document.getElementById("idCategoria").value;
 
-            function validar() {
-                var nombre = document.getElementById("nombre").value;
-                var idCategoria = document.getElementById("idCategoria").value;
-
-                if (nombre == "") {
-                    $.messager.alert('Error', "Debe ingresar un nombre de producto");
-                    return false;
-                }
-                if (idCategoria == -1) {
-                    $.messager.alert('Error', "Debe seleccionar una categoria");
-                    return false;
-                }
-                return true;
-            }
+                                                    if (nombre == "") {
+                                                        $.messager.alert('Error', "Debe ingresar un nombre de producto");
+                                                        return false;
+                                                    }
+                                                    if (idCategoria == -1) {
+                                                        $.messager.alert('Error', "Debe seleccionar una categoria");
+                                                        return false;
+                                                    }
+                                                    return true;
+                                                }
         </script>
     </body>
 </html>

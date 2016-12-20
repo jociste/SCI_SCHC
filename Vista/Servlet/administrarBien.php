@@ -31,6 +31,9 @@ if ($accion != null) {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
 
         $idRegistro = $control->BuscaMaximoIdRegistro();
+        if ($idRegistro == NULL || $idRegistro == '') {
+            $idRegistro = 1;
+        }
 
         $ObjetoNivel = $control->getNivelByID($idNivel);
         $ubicacion = $ObjetoNivel->getNombre();
@@ -55,6 +58,9 @@ if ($accion != null) {
         $inb = 0;
         for ($i = 0; $i < $cantidad; $i++) {
             $idBien = $control->BuscaMaximoIdBien();
+            if ($idBien == NULL || $idBien == '') {
+                $idBien = 1;
+            }
             $bien = new BienDTO();
             $bien->setIdBien($idBien);
             $bien->setIdRegistro($idRegistro);
@@ -71,6 +77,9 @@ if ($accion != null) {
                 break;
             }
             $idNivelBien = $control->BuscaMaximoIdNivelBien();
+            if ($idNivelBien == NULL || $idNivelBien == '') {
+                $idNivelBien = 1;
+            }
             $bien_nivel = new Bien_nivelDTO();
             $bien_nivel->setIdNivelBien($idNivelBien);
             $bien_nivel->setIdNivel($idNivel);
@@ -136,7 +145,7 @@ if ($accion != null) {
         $objetoBienAnterior = $control->getBienByIDEditar($idBien);
         $objetoBienAnterior->setNombre($nombre);
         $objetoBienAnterior->setIdCategoria($idCategoria);
-        
+
         $ObjetoNivel = $control->getNivelByID($idNivel);
         $resultBien;
         $objetoNivelBienAnterior = $control->getBien_nivelByID($idNivelBien);
@@ -164,7 +173,7 @@ if ($accion != null) {
                 echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
             }
         } else {
-            
+
             $resultBien = $control->updateBien($objetoBienAnterior);
             if ($resultBien) {
                 echo json_encode(array(
@@ -172,7 +181,7 @@ if ($accion != null) {
                     'mensaje' => "Bien Actualizado Correctamente."
                 ));
             } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar el bien.'.$resultBien.')'));
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar el bien.' . $resultBien . ')'));
             }
         }
     } else if ($accion == "DARDEBAJA") {
@@ -185,7 +194,7 @@ if ($accion != null) {
         $objetoNivelBienAnterior->setFechaTermino($hoy);
         $resultObjetoNivelBienAnterior = $control->updateBien_nivel($objetoNivelBienAnterior);
         $idBaja = $control->BuscaMaximoIdBaja();
-        if($idBaja == NULL || $idBaja == ''){
+        if ($idBaja == NULL || $idBaja == '') {
             $idBaja = 1;
         }
         $nuevaBaja = new BajaDTO();

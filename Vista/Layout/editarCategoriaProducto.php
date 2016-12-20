@@ -207,11 +207,12 @@ $idCategoria = $_REQUEST["idCategoria"];
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
                                                                 } else {
+                                                                    window.location = "AdministrarCategoriasProducto.php";
                                                                     $.messager.show({
                                                                         title: 'Aviso',
                                                                         msg: result.mensaje
                                                                     });
-                                                                    window.location = "AdministrarCategoriasProducto.php";
+                                                                    //window.location = "AdministrarCategoriasProducto.php";
                                                                 }
                                                             }
                                                         });

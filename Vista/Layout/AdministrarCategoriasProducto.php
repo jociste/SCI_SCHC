@@ -222,7 +222,7 @@ $perfil = $_SESSION["idCargo"];
                                                                                 title: 'Aviso',
                                                                                 msg: datos.mensaje
                                                                             });
-                                                                            cargarCategorias();
+                                                                            window.location = "AdministrarCategoriasProducto.php";
                                                                         }
                                                                     }
                                                             );
