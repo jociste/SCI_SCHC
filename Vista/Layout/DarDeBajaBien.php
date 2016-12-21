@@ -85,11 +85,6 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioBienes.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
@@ -100,27 +95,24 @@ $perfil = $_SESSION["idCargo"];
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
-
+                        <hr>
+                        <h4>Dar de Baja</h4> 
+                        <h6>Seleccionar el icono ( <i class="icon-trash"></i> ) del bien que desea dar de baja </h6>                            
                         <hr>
                         <div class="row-fluid">
+
                             <div class="span12">
-                                <div class="body" style="text-align: center;">
-                                    <div>
-                                        <a class="btn btn-success btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarBien.php'">
-                                            Agregar Bien <i class="icon-book" ></i>
-                                        </a>
-                                    </div>
+                                <div class="body">
                                     <div class="row-fluid">
                                         <!-- CONTENIDO AQUI -->
                                         <div class="table-responsive">
-                                            <table id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap">
+                                            <table id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap" >
                                                 <thead>
                                                     <tr>
-                                                        <th>Número Boleta</th> 
-                                                        <th>Proveedor</th>
-                                                        <th>Fecha Ingreso</th>  
+                                                        <th>Categoria</th> 
                                                         <th>Nombre del Bien</th>
-                                                        <th>Valor</th>                                                            
+                                                        <th>Fecha Incorporación</th>  
+                                                        <th>Nivel Actual</th>                                                          
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>
@@ -132,23 +124,18 @@ $perfil = $_SESSION["idCargo"];
                                     </div>
                                 </div>
                             </div>
-                        </div>                  
-
+                        </div> 
                     </div>
-                </div>
-
-            </div>  
-
-        </div><!--/#content.span19-->
-
-
-        <div class="clearfix"></div>
-        <div class="container-fluid m-t-large">
-            <footer>
-                <p>
-                    <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                </p>
-            </footer>
+                </div>  
+            </div><!--/#content.span19-->
+            <div class="clearfix"></div>
+            <div class="container-fluid m-t-large">
+                <footer>
+                    <p>
+                        <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
+                    </p>
+                </footer>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none">
@@ -205,14 +192,12 @@ $perfil = $_SESSION["idCargo"];
                                             $.each(datos, function (k, v) {
 
                                                 var contenido = "<tr>";
-                                                contenido += "<td>" + v.numeroComprobante + "</td>";
-                                                contenido += "<td>" + v.proveedor + "</td>";
-                                                contenido += "<td>" + v.fechaComprobante + "</td>";
+                                                contenido += "<td>" + v.nombreCategoria + "</td>";
                                                 contenido += "<td>" + v.nombre + "</td>";
-                                                contenido += "<td>" + v.precio + "</td>";
+                                                contenido += "<td>" + v.fechaInicio + "</td>";
+                                                contenido += "<td>" + v.nombreNivel + "</td>";
                                                 contenido += "<td>";
-                                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idBien + ")'></button>";
-                                               // contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='abrirModaldarDeBaja(" + v.idBien + "," + v.idNivelBien + ")'></button>";
+                                                contenido += "<button type='button' title='Dar de Baja' class='btn btn-danger btn-circle icon-trash'  onclick='abrirModaldarDeBaja(" + v.idBien + "," + v.idNivelBien + ")'></button>";
                                                 contenido += "</td>";
                                                 contenido += "</tr>";
                                                 $("#tablaLotes").append(contenido);
@@ -236,9 +221,6 @@ $perfil = $_SESSION["idCargo"];
                                             );
                                         }
                                 );
-                            }
-                            function editar(idBien) {
-                                window.location = "editarBien.php?idBien=" + idBien;
                             }
                             function abrirModaldarDeBaja(idBien, idNivelBien) {
                                 $('#myModal').modal('toggle');
@@ -281,7 +263,7 @@ $perfil = $_SESSION["idCargo"];
                                 var fechaBaja = document.getElementById('fechaBaja').value;
                                 if (fechaBaja == null || fechaBaja == '') {
                                     $.messager.alert('Error', "Debe ingresar la fecha de baja del bien");
-                                   
+
                                     return false;
                                 }
                                 return true;

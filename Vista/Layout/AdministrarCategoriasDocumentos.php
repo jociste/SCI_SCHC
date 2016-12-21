@@ -88,7 +88,19 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >                           
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" > 
+                         <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorDocumentos.php';
+                        }
+                        if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
+                        <hr>
+                       
                         <h4>Tipo de Documento</h4>
                         <hr>
                         <div>

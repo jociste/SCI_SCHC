@@ -3,27 +3,21 @@
     <div id="sidebar-nav" >
         <ul id="dashboard-menu" >
             <li>
-                <a>
-                    <i class="icon-home" onClick="location.href = 'home.php'"></i>
-                    <span>Inicio</span>
+                <a  style="padding-top: 6px">
+                    <i class="icon-save" onClick="location.href = 'agregarDocumento.php'"></i>
+                    <a>Agregar Documento</a>
                 </a>
-            </li>  
-             <li>
-                <a>
-                    <i class="icon-folder-open" onClick="location.href = 'AdministrarDocumentos.php'"></i>
-                    <span>Documentos</span>
-                </a>
-            </li> 
+            </li>
             <li>
-                <a>
-                    <i class="icon-list" onClick="location.href = 'AdministrarCategoriasDocumentos.php'"></i>
-                    <span>Tipos</span>
+                <a  style="padding-top: 14px">
+                    <i class="icon-list-ol" onClick="location.href = 'AdministrarCategoriasDocumentos.php'"></i>
+                    <a>Tipos de Documento</a>
                 </a>
             </li>     
             <li>
-                <a>
+                <a  style="padding-top: 14px">
                     <i class="icon-trash" onClick="location.href = 'AdministrarPapeleraDocumentos.php'"></i>
-                    <span>Papelera</span>
+                    <a>Papelera </a>
                 </a>
             </li> 
         </ul>

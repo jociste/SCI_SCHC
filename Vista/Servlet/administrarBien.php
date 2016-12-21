@@ -37,14 +37,12 @@ if ($accion != null) {
 
         $ObjetoNivel = $control->getNivelByID($idNivel);
         $ubicacion = $ObjetoNivel->getNombre();
-
         $comprobante = new ComprobanteDTO();
         $comprobante->setIdRegistro($idRegistro);
         $comprobante->setNumeroComprobante($numeroComprobante);
         $comprobante->setProveedor($proveedor);
         $comprobante->setFechaComprobante($fechaComprobante);
         $resultComprobante = $control->addComprobante($comprobante);
-
         $detalle_comprobante = new Detalle_comprobanteDTO();
         $detalle_comprobante->setIdRegistro($idRegistro);
         $detalle_comprobante->setDescripcion($descripcion);

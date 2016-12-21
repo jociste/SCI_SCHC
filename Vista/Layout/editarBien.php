@@ -91,6 +91,13 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
+                         <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorBien.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
@@ -133,7 +140,7 @@ $idBien = htmlspecialchars($_REQUEST['idBien']);
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="precio">Precio *</label>
+                                            <label class="control-label" for="precio">Precio Unitario*</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="precio" name="precio" type="number" placeholder="Precio" readonly="true">
                                             </div>

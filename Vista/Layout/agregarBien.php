@@ -82,22 +82,23 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioBienes.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
+                         <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorBien.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
                         <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
-                                <div class="row-fluid" style="align-content: center">
-                                    <div class="form-actions" style="height: 30px; align-content: center">
+                                <div class="row-fluid" style="align-content: center; padding-top: 0%">
+                                    <div class="form-actions" style="height: 30px; align-content: center;" >
                                         <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 40%"><b>Agregar Bien</b></h4> 
                                     </div>
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center; padding-left: 15%">                                      
-
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center; padding-left: 15%">   
                                         <h5><b>Datos de la Compra del Bien</b></h5><hr>
                                         <div class="control-group">
                                             <label class="control-label" for="numeroBoleta">Número Boleta *</label>
@@ -139,7 +140,7 @@ $perfil = $_SESSION["idCargo"];
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label" for="precio">Precio *</label>
+                                            <label class="control-label" for="precio">Precio Unitario*</label>
                                             <div class="controls">
                                                 <input class="input-xlarge focused" id="precio" name="precio" type="number" placeholder="Precio" required>
                                             </div>

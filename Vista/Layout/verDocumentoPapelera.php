@@ -96,6 +96,17 @@ $documento = $control->getDocumentoByID($idDocumento);
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
+                          <!-- AQUI VA EL MENU INTERIOR-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorDocumentos.php';
+                        }
+                        if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                        ?>
+                        <!-- FIN MENU INTERIOR-->
+                        <hr>
                         <hr><div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">

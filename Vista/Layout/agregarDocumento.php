@@ -88,7 +88,8 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" style="width: 1000px; align-content: center">
+                    <div id="content" class="span9" style="width: 1100px; align-content: center">
+                        
                         <div class="span12" style="align-content: center">
                             <div class="form-actions" style="height: 30px;">
                                 <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Documento</h4> 

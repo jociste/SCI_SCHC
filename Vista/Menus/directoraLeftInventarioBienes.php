@@ -1,19 +1,13 @@
 <div class="span1">
     <!-- start: Main Menu -->
-    <div id="sidebar-nav" >
-        <ul id="dashboard-menu" >
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">             
             <li>
-                <a>
-                    <i class="icon-home" onClick="location.href = 'home.php'"></i>
-                    <span>Inicio</span>
-                </a>
+                <a href="agregarBien.php" style="background-color: #f5f5f5;align-content: center" class="btn"><i class="icon-sort-by-attributes"></i>Ingresar Bienes</a>
             </li> 
             <li>
-                <a>
-                    <i class="icon-forward" onClick="location.href = 'AdministrarBienes.php'"></i>
-                    <span>Bienes</span>
-                </a>
-            </li>
+                <a href="DarDeBajaBien.php" style="background-color: #f5f5f5;" class="btn"><i class="icon-trash"></i>Dar de Baja</a>
+            </li>            
         </ul>
     </div>
 </div>

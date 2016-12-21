@@ -92,7 +92,7 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" >
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {

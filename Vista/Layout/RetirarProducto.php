@@ -86,7 +86,7 @@ $runFuncionaria = $_SESSION["run"];
                     ?>
                     <!-- FIN MENU LEFT-->
 
-                    <div id="content" class="span9" style="width: 1100px">
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {

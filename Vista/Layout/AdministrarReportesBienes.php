@@ -80,7 +80,7 @@ $perfil = $_SESSION["idCargo"];
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
-                        include '../Menus/directoraLeftInventarioProductos.php';
+                        include '../Menus/directoraLeftInventarioBienes.php';
                     }
 //                    else if ($perfil == 2) {
 //                        include '../Menus/educadoraLeft.php';
@@ -102,128 +102,126 @@ $perfil = $_SESSION["idCargo"];
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
                                     <div class="span12">
-                                        <form id="fm-datos-generales" class="form-horizontal well" method="POST" style="align-content: center">
-                                            <div class="row-fluid" style="align-content: center">
-                                                <div class="span12">
-                                                    <div class="form-actions" style="height: 30px;">
-                                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Reporte</h4> 
-                                                    </div>
-                                                </div>
-                                                <div class="span12">
-                                                    <div class="row-fluid" style="align-content: center">
-                                                        <div class="span6">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="codigoEstablecimiento">Código Establecimiento</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="codigoEstablecimiento" name="codigoEstablecimiento" type="text" placeholder="Código Establecimiento" onchange="obtenerDatosGenerales(this.value)" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="nombreEstablecimiento">Nombre Establecimiento</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="nombreEstablecimiento" name="nombreEstablecimiento" type="text" placeholder="Nombre Establecimiento" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="direccionCalleEstablecimiento">Calle</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="direccionCalleEstablecimiento" name="direccionCalleEstablecimiento" type="text" placeholder="Calle" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="direccionNumeroEstablecimiento">Numero</label>
-                                                                <div class="controls">
-                                                                    <input type="number" class="input-xlarge focused" id="direccionNumeroEstablecimiento" name="direccionNumeroEstablecimiento" placeholder="Numero" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="ciudadEstablecimiento">Ciudad Establecimiento</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="ciudadEstablecimiento" name="ciudadEstablecimiento" type="text" placeholder="Ciudad Establecimiento" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="regionEstablecimiento">Región</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="regionEstablecimiento" name="regionEstablecimiento" type="text" placeholder="Región Establecimiento" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="telefonoEstablecimiento">Teléfono</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="telefonoEstablecimiento" name="telefonoEstablecimiento" type="tel" placeholder="Teléfono" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="emailEstablecimiento">E-Mail</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="emailEstablecimiento" name="emailEstablecimiento" type="email" placeholder="E-Mail" required>
-                                                                </div>
+                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 34%">Datos Reporte</h4> 
+                                            <button type="button" style="float: right" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button><br>
+                                      <hr>
+                                        <form id="fm-datos-generales" class="form-horizontal well" method="POST" style="height: 430px; align-content: center">
+
+                                            <div class="span12">
+                                                <div class="row-fluid" style="align-content: center">
+                                                    <div class="span6">
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="codigoEstablecimiento">Código Establecimiento</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="codigoEstablecimiento" name="codigoEstablecimiento" type="text" placeholder="Código Establecimiento" onchange="obtenerDatosGenerales(this.value)" required>
                                                             </div>
                                                         </div>
-                                                        <div class="span6">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="nombreEntidadAdministradora">Nombre de la Entidad</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="nombreEntidadAdministradora" name="nombreEntidadAdministradora" type="text" placeholder="Nombre de la Entidad Administradora" required>
-                                                                </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="nombreEstablecimiento">Nombre Establecimiento</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="nombreEstablecimiento" name="nombreEstablecimiento" type="text" placeholder="Nombre Establecimiento" required>
                                                             </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="rutEntidadAdministradora">Rut</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="rutEntidadAdministradora" name="rutEntidadAdministradora" type="text" placeholder="Rut Entidad Administradora" required>
-                                                                </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="direccionCalleEstablecimiento">Calle</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="direccionCalleEstablecimiento" name="direccionCalleEstablecimiento" type="text" placeholder="Calle" required>
                                                             </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="provinciaEntidadAdministradora">Provincia</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="provinciaEntidadAdministradora" name="provinciaEntidadAdministradora" type="text" placeholder="Provincia" required>
-                                                                </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="direccionNumeroEstablecimiento">Numero</label>
+                                                            <div class="controls">
+                                                                <input type="number" class="input-xlarge focused" id="direccionNumeroEstablecimiento" name="direccionNumeroEstablecimiento" placeholder="Numero" required>
                                                             </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="regionEntidadAdministradora">Región</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="regionEntidadAdministradora" name="regionEntidadAdministradora" type="text" placeholder="Región" required>
-                                                                </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="ciudadEstablecimiento">Ciudad Establecimiento</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="ciudadEstablecimiento" name="ciudadEstablecimiento" type="text" placeholder="Ciudad Establecimiento" required>
                                                             </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="representanteLegal">Nombre Representante</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="representanteLegal" name="representanteLegal" type="text" placeholder="Nombre Representante Legal" required>
-                                                                </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="regionEstablecimiento">Región</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="regionEstablecimiento" name="regionEstablecimiento" type="text" placeholder="Región Establecimiento" required>
                                                             </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="rutRepresentanteLegal">Rut Representante</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="rutRepresentanteLegal" name="rutRepresentanteLegal" type="text" placeholder="Rut Representante Legal" required>
-                                                                </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="telefonoEstablecimiento">Teléfono</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="telefonoEstablecimiento" name="telefonoEstablecimiento" type="tel" placeholder="Teléfono" required>
                                                             </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="telefonoRepresentanteLegal">Teléfono</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="telefonoRepresentanteLegal" name="telefonoRepresentanteLegal" type="tel" placeholder="Telefono Representante Legal" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="emailRepresentanteLegal">E-Mail</label>
-                                                                <div class="controls">
-                                                                    <input class="input-xlarge focused" id="emailRepresentanteLegal" name="emailRepresentanteLegal" type="email" placeholder="E-Mail Representante Legal" required>
-                                                                </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="emailEstablecimiento">E-Mail</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="emailEstablecimiento" name="emailEstablecimiento" type="email" placeholder="E-Mail" required>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="span12">
-                                                    <div class="form-actions" style="width: 82%; margin-left: 0px;">
-                                                        <input class="input-xlarge focused" id="idEntidadAdministradora" name="idEntidadAdministradora" type="hidden">
-                                                        <button type="button" onclick="guardar()" class="btn btn-primary">Guardar Cambios</button>
-                                                        <a onclick="reporte()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Inventario de Bienes Inmuebles</a>                                                        
-                                                        <a onclick="reporteDadosDeBaja()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Bienes Inmuebles Dado de Bajas</a>                                                        
-                                                        <input type="hidden" id="accion" name="accion" value="">
-                                                    </div>                                                    
+                                                    <div class="span6">
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="nombreEntidadAdministradora">Nombre de la Entidad</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="nombreEntidadAdministradora" name="nombreEntidadAdministradora" type="text" placeholder="Nombre de la Entidad Administradora" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="rutEntidadAdministradora">Rut</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="rutEntidadAdministradora" name="rutEntidadAdministradora" type="text" placeholder="Rut Entidad Administradora" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="provinciaEntidadAdministradora">Provincia</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="provinciaEntidadAdministradora" name="provinciaEntidadAdministradora" type="text" placeholder="Provincia" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="regionEntidadAdministradora">Región</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="regionEntidadAdministradora" name="regionEntidadAdministradora" type="text" placeholder="Región" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="representanteLegal">Nombre Representante</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="representanteLegal" name="representanteLegal" type="text" placeholder="Nombre Representante Legal" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="rutRepresentanteLegal">Rut Representante</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="rutRepresentanteLegal" name="rutRepresentanteLegal" type="text" placeholder="Rut Representante Legal" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="telefonoRepresentanteLegal">Teléfono</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="telefonoRepresentanteLegal" name="telefonoRepresentanteLegal" type="tel" placeholder="Telefono Representante Legal" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="emailRepresentanteLegal">E-Mail</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="emailRepresentanteLegal" name="emailRepresentanteLegal" type="email" placeholder="E-Mail Representante Legal" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <input class="input-xlarge focused" id="idEntidadAdministradora" name="idEntidadAdministradora" type="hidden">
+                                            <input type="hidden" id="accion" name="accion" value="">
+
                                         </form>
+                                            <div class="form-actions" style="width: 96%; margin-left: 0px;">  
+                                                <a onclick="reporte()" class="btn btn-info" style="margin-left: 30%"><i class="icon-group"></i>&nbsp;Inventario de Bienes Inmuebles</a>                                                        
+                                                <a onclick="reporteDadosDeBaja()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Bienes Inmuebles Dado de Bajas</a>                                                        
+
+                                            </div>   
+                                   
+
                                         <!-- FIN FORMULARIO-->
                                     </div>
                                 </div>
@@ -238,7 +236,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -294,7 +291,7 @@ $perfil = $_SESSION["idCargo"];
         </div>
         <!-- Fin Modal -->
 
-        
+
         <!-- Modal Dados De Baja-->
         <div class="modal fade" id="modalDadosDeBaja" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -324,7 +321,7 @@ $perfil = $_SESSION["idCargo"];
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="fechaTerminoDadosDeBaja">Fecha Termino</label>
+                                <label class="control-label" for="fechaTerminoDadosDeBaja">Fecha Término</label>
                                 <div class="controls">
                                     <input type="date" class="input-xlarge focused" id="fechaTerminoDadosDeBaja" name="fechaTerminoDadosDeBaja">
                                 </div>
@@ -345,7 +342,7 @@ $perfil = $_SESSION["idCargo"];
             </div>
         </div>
         <!-- Fin Modal -->
-        
+
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
         <!--        <script src="../../Files/Nuevas/jquery.dataTables.min.css"></script>
@@ -580,9 +577,9 @@ $perfil = $_SESSION["idCargo"];
                                         return false;
                                     }
                                 }
-                                window.open("generarReporteInventarioBienes.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo").serialize() + " &fechaActual="+fechaActual);
+                                window.open("generarReporteInventarioBienes.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo").serialize() + " &fechaActual=" + fechaActual);
                             }
-                            
+
                             function generarReporteInventarioBienesDadosDeBaja() {
                                 var fechaInicio = $("#fechaInicioDadosDeBaja").val();
                                 var fechaTermino = $("#fechaTerminoDadosDeBaja").val();
@@ -605,7 +602,7 @@ $perfil = $_SESSION["idCargo"];
                                         return false;
                                     }
                                 }
-                                window.open("generarReporteInmueblesDadosDeBaja.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo-dados-de-baja").serialize() + " &fechaActual="+fechaActual);
+                                window.open("generarReporteInmueblesDadosDeBaja.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo-dados-de-baja").serialize() + " &fechaActual=" + fechaActual);
                             }
 
                             function sinPeriodo() {
@@ -617,7 +614,7 @@ $perfil = $_SESSION["idCargo"];
                                     document.getElementById("fechaTermino").disabled = false;
                                 }
                             }
-                            
+
                             function sinPeriodoDadosDeBaja() {
                                 if (document.getElementById("sinFechasDadosDeBaja").checked) {
                                     document.getElementById("fechaInicioDadosDeBaja").disabled = true;
