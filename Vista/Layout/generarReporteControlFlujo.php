@@ -281,7 +281,7 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                             /* Registro */
                             $datos = $registrosYutilizados[$j]['datos'];
                             $stock_inicial = $stock_inicial + $datos->getStockInicial();
-                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . $datos->getProveedor() . '</td><td class="td-borde alto-xs right">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . $datos->getProveedor() . '</td><td class="td-borde alto-xs right">' . $datos->getStockInicial() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
                         } else {
                             /* Utilizado */
                             $datos = $registrosYutilizados[$j]['datos'];
