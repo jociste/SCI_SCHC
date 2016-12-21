@@ -115,6 +115,7 @@ class DocumentoDAO {
         return $documento;
     }
 
+
     public function findLikeAtrr($cadena, $idTipoDocumento) {
         $this->conexion->conectar();
         $query = "SELECT * FROM documento WHERE idTipoDocumento = " . $idTipoDocumento . " AND estado = 1 AND (upper(runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(nombre) LIKE upper('%" . $cadena . "%')  OR  upper(descripcion) LIKE upper('%" . $cadena . "%'))";

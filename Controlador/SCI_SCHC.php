@@ -491,6 +491,9 @@ class SCI_SCHC {
     public function CuentaLote_productoByIdProducto($idProducto) {
         return $this->lote_productoDAO->cuenta($idProducto);
     }
+     public function Cuentacategoriadocumentosusadas($idTipoDocumento) {
+        return $this->tipo_documentoDAO->cuenta($idTipoDocumento);
+    }
 
     public function getLote_productoLikeAtrr($cadena) {
         return $this->lote_productoDAO->findLikeAtrr($cadena);

@@ -10,7 +10,17 @@ class Tipo_documentoDAO {
     public function Tipo_documentoDAO() {
         $this->conexion = new ConexionMySQL();
     }
-
+    public function cuenta($idTipoDocumento) {
+        $this->conexion->conectar();
+        $query = "SELECT count(*) FROM documento d JOIN tipo_documento tp ON d.idTipoDocumento = tP.idTipoDocumento  WHERE d.idTipoDocumento = ". $idTipoDocumento;
+        $result = $this->conexion->ejecutar($query);
+        $cantidad = 0;
+        while ($fila = $result->fetch_row()) {
+            $cantidad = $fila[0];
+        }
+        $this->conexion->desconectar();
+        return $cantidad;
+    }
     public function getIdDisponible() {
         $this->conexion->conectar();
         $query = "SELECT (max(idTipoDocumento) + 1) as id FROM tipo_documento";

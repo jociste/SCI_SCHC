@@ -48,12 +48,18 @@ if ($accion != null) {
         }
     } else if ($accion == "BORRAR") {
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
-
-        $result = $control->removeTipo_documento($idTipoDocumento);
+        $cantidad = $control->Cuentacategoriadocumentosusadas($idTipoDocumento);
+        if ($cantidad == 0) {
+             $result = $control->removeTipo_documento($idTipoDocumento);
+        }else{
+           $result = false;
+        }
+        
+       
         if ($result) {
             echo json_encode(array('success' => true, 'mensaje' => "Tipo_documento borrado correctamente"));
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+            echo json_encode(array('errorMsg' => 'Lo sentimos, no es posible eliminar esta categoría, ya que tiene documentos asociados'));
         }
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
@@ -62,11 +68,11 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
-        
+
         $permisos = $control->getAllPermiso_visualizacion_tipo_documentos_idTipoDocumento($idTipoDocumento);
 
         $tipo_documento = $control->getTipo_documentoByID($idTipoDocumento);
-        $json = json_encode(array("tipo_documento" => $tipo_documento,"permisos" => $permisos));
+        $json = json_encode(array("tipo_documento" => $tipo_documento, "permisos" => $permisos));
         echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);

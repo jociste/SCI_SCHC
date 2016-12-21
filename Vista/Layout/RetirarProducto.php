@@ -100,7 +100,7 @@ $runFuncionaria = $_SESSION["run"];
                                     <div class="span12 content-panels  content-tab2" style="width: 100%">
                                         <a href="#" class="pull-right btn btn-warning" onclick="retirarProductos()"><i class="icon-check"></i> Confirmar Retiro</a>
                                         <a href="#" class="pull-right btn btn-primary" onclick="agregarProducto()" id="botton-agregarProducto" style="display: none;"><i class="icon-plus"></i> Otro Producto</a>
-                                        <h4>Retirar Lote de Productos</h4><hr>
+                                        <h4>Retirar Productos</h4><hr>
                                         <form id="fm" method="POST">
                                             <div class="basic-info" id="lista-productos" style="width: 100%">  
                                                 <div class="row-fluid">

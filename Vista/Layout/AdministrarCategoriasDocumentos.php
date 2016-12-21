@@ -196,7 +196,7 @@ $perfil = $_SESSION["idCargo"];
                                                         if (datos.errorMsg) {
                                                             $.messager.alert('Error', datos.errorMsg, 'error');
                                                         } else {
-                                                            cargarCategorias();
+                                                             window.location = "AdministrarCategoriasDocumentos.php";
                                                         }
                                                     }
                                             );
