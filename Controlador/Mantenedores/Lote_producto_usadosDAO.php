@@ -186,7 +186,7 @@ JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria j
 
     public function lotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         $this->conexion->conectar();
-        $query = "SELECT lpu.idLoteProductosUsados ,lpu.idLote, lpu.runFuncionaria, f.nombres,f.apellidos,lp.idProducto ,lpu.cantidad, lpu.fechaRetiro,lpu.destino FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto JOIN funcionaria f ON lpu.runFuncionaria = f.runFuncionaria WHERE p.idCategoria = " . $idCategoria . " AND lpu.fechaRetiro BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY lp.idProducto, lpu.fechaRetiro; ";
+        $query = "SELECT lpu.idLoteProductosUsados ,lpu.idLote, lpu.runFuncionaria, f.nombres,f.apellidos,lp.idProducto ,lpu.cantidad, lpu.fechaRetiro,lpu.destino FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto JOIN funcionaria f ON lpu.runFuncionaria = f.runFuncionaria WHERE p.idCategoria = " . $idCategoria . " AND lpu.fechaRetiro BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY lp.idProducto, lpu.fechaRetiro; ";        
         $result = $this->conexion->ejecutar($query);
         $lote_productos = array();
         while ($fila = $result->fetch_row()) {
@@ -218,7 +218,7 @@ JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria j
                 . " LEFT JOIN "
                 . " (SELECT p.idProducto, sum(lpu.cantidad) as utilizados FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto "
                 . " WHERE p.idCategoria = " . $idCategoria . " AND lpu.fechaRetiro < '" . $fecha . "' GROUP BY p.idProducto) as usados ON ingresos.idProducto = usados.idProducto";
-
+       
         $result = $this->conexion->ejecutar($query);
         $stock_productos = array();
         while ($fila = $result->fetch_row()) {

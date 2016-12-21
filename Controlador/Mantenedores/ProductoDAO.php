@@ -175,7 +175,7 @@ where ca.idCargo = 4";
             $producto = new ProductoDTO();
             $producto->setIdProducto($fila[0]);
             $producto->setIdCategoria($fila[1]);
-            $producto->setNombre($fila[2]);
+            $producto->setNombre(utf8_decode($fila[2]));
             $productos[$i] = $producto;
             $i++;
         }
