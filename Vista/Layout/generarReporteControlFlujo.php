@@ -44,6 +44,7 @@ if ($idCategoria == 1) {
 
 $productos = $control->getProductosEnLotesRegistradosByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 $stock_inicial_productos = $control->getStockProductosByIdCategoriaAndFecha($idCategoria, $fechaInicio);
+
 $lotesRegistrados = $control->getLotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino);
 ?>
@@ -255,12 +256,13 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
 
                     $registrosYutilizados = array();
                     $i = 0;
-                    foreach ($registrados as $registro) {
-                        $registrosYutilizados[$i] = array('indicador' => 0, 'fecha' => $registro->getFechaIngreso(), 'datos' => $registro);
-                        $i++;
-                    }
+                    
                     foreach ($utilizados as $utilizado) {
                         $registrosYutilizados[$i] = array('indicador' => 1, 'fecha' => $utilizado->getFechaRetiro(), 'datos' => $utilizado);
+                        $i++;
+                    }
+                    foreach ($registrados as $registro) {
+                        $registrosYutilizados[$i] = array('indicador' => 0, 'fecha' => $registro->getFechaIngreso(), 'datos' => $registro);
                         $i++;
                     }
 

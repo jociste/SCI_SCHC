@@ -212,21 +212,17 @@ JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria j
 
     public function getStockFinalProductosByIdCategoriaAndFecha($idCategoria, $fecha) {
         $this->conexion->conectar();
-        $query = "SELECT ingresos.idProducto, ingresos.nombre, ingresos.cantidad as inicial, IFNULL(usados.usado,0) as utilizado, (ingresos.cantidad-IFNULL(usados.usado,0)) as stock  FROM "
-                . " (SELECT lp.idProducto, sum(lp.cantidad) as cantidad, p.nombre  "
-                . " FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso < '" . $fecha . "' "
-                . " GROUP BY lp.idProducto "
-                . " ORDER BY lp.idProducto, lp.fechaIngreso) as ingresos "
-                . " LEFT JOIN  "
-                . " (SELECT lp.idProducto ,sum(lpu.cantidad) as usado "
-                . " FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto  "
-                . " WHERE p.idCategoria = 1 AND lp.fechaIngreso < '" . $fecha . "' "
-                . " GROUP BY lp.idProducto ORDER BY lp.idProducto, lpu.fechaRetiro) as usados "
-                . " ON ingresos.idProducto = usados.idProducto";
+        $query = "SELECT ingresos.idProducto, ingresos.ingresos as inicial, IFNULL(usados.utilizados,0) as utilizado, (ingresos.ingresos-IFNULL(usados.utilizados,0)) as stock "
+                . " FROM (SELECT p.idProducto, sum(stockInicial) as ingresos FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto "
+                . " WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso < '" . $fecha . "' GROUP BY p.idProducto) as ingresos "
+                . " LEFT JOIN "
+                . " (SELECT p.idProducto, sum(lpu.cantidad) as utilizados FROM lote_producto_usados lpu JOIN lote_producto lp ON lpu.idLote = lp.idLote JOIN producto p ON lp.idProducto = p.idProducto "
+                . " WHERE p.idCategoria = " . $idCategoria . " AND lpu.fechaRetiro < '" . $fecha . "' GROUP BY p.idProducto) as usados ON ingresos.idProducto = usados.idProducto";
+
         $result = $this->conexion->ejecutar($query);
         $stock_productos = array();
         while ($fila = $result->fetch_row()) {
-            $stock = array('idProducto' => $fila[0], 'nombre' => $fila[1], 'inicial' => $fila[2], 'utilizado' => $fila[3], 'stock' => $fila[4]);
+            $stock = array('idProducto' => $fila[0], 'inicial' => $fila[1], 'utilizado' => $fila[2], 'stock' => $fila[3]);
 
             /* if (!array_key_exists($fila[0], $stock_productos)) {
               $stock_productos[$fila[0]] = array();
