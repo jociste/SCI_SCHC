@@ -355,7 +355,7 @@ $mpdf = new mPDF('UTF-8', array(216, 330));
 $mpdf->allow_charset_conversion = true;
 $mpdf->charset_in = 'UTF-8';
 $mpdf->WriteHTML($html);
-$mpdf->Output('Control Flujos de Existencias', 'I');
+$mpdf->Output('Control Flujos de Existencias.pdf', 'I');
 
 exit();
 ?>

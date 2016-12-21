@@ -308,7 +308,7 @@ $mpdf = new mPDF('UTF-8', array(216, 330));
 $mpdf->allow_charset_conversion = true;
 $mpdf->charset_in = 'UTF-8';
 $mpdf->WriteHTML($html);
-$mpdf->Output('Inventario Bienes Inmuebles', 'I');
+$mpdf->Output('Inventario Bienes Inmuebles.pdf', 'I');
 
 exit();
 ?>
