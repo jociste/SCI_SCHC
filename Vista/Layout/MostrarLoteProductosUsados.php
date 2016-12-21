@@ -97,7 +97,7 @@ $perfil = $_SESSION["idCargo"];
                         ?>
                         <!-- FIN MENU INTERIOR-->
                         <hr>
-                        <h4>Detalle de productos usados</h4>
+                        <h4>Detalle de productos retirados</h4>
 
                         <div class="table-responsive">
                             <table id="grid" class="table table-striped table-bordered dt-responsive nowrap" >

@@ -286,6 +286,9 @@ class SCI_SCHC {
     public function getAllDocumentos() {
         return $this->documentoDAO->findAll();
     }
+    public function getAllDocumentosVigentes() {
+        return $this->documentoDAO->findAllVigentes();
+    }
 
     public function getAllDocumentosPapelera() {
         return $this->documentoDAO->findAllPapelera();
@@ -314,7 +317,9 @@ class SCI_SCHC {
     public function getDocumentoLikeAtrrPapelera($cadena) {
         return $this->documentoDAO->findLikeAtrrPapelera($cadena);
     }
-
+ public function getDocumentoLikeAtrrDocumentosValidos($cadena) {
+        return $this->documentoDAO->findLikeAtrrDocumentosValidos($cadena);
+    }
     public function getIdEntidadAdministradoraDisponible() {
         return $this->entidad_administradoraDAO->getIDDisponible();
     }

@@ -2,22 +2,16 @@
     <!-- start: Main Menu -->
     <div id="sidebar-nav" >
         <ul id="dashboard-menu" >
-            <li>
+            <li style="padding-top: 6px">
                 <a>
-                    <i class="icon-home" onClick="location.href = 'home.php'"></i>
-                    <span>Inicio</span>
+                    <i class="icon-user" onClick="location.href = 'agregarFuncionaria.php'"></i>
+                    <a>Agregar Funcionaria</a>
                 </a>
             </li>   
-             <li>
+            <li style="padding-top: 14px">
                 <a>
-                    <i class="icon-group" onClick="location.href = 'AdministrarFuncionariasHabilitadas.php'"></i>
-                    <span>Funcionarias</span>
-                </a>
-            </li>
-             <li>
-                <a>
-                    <i class="icon-archive" onClick="location.href = 'FuncionariasHistoricas.php'"></i>
-                    <span>Historicas</span>
+                    <i class="icon-remove-sign" onClick="location.href = 'AdministrarFuncionariasHabilitadasDesvincular.php'"></i>
+                    <a>Desvincular Funcionaria</a>
                 </a>
             </li>
         </ul>

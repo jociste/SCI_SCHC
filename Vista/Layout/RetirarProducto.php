@@ -250,8 +250,10 @@ $runFuncionaria = $_SESSION["run"];
                                                                             categorias = datos;
                                                                             $("#idCategoria_1").append("<option value='-1'>Seleccionar</option>");
                                                                             $.each(datos, function (k, v) {
+                                                                                 if (v.idCategoria != 1 && v.idCategoria != 5) {
                                                                                 var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
                                                                                 $("#idCategoria_1").append(contenido);
+                                                                            }
                                                                             });
                                                                         }
                                                                 );

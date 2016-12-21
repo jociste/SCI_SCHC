@@ -4,10 +4,10 @@
             <div class="alert alert-block alert-error" id="AlertaPorVencer" style="float: left; width: 60% ; display: none">
                 <button type="button" class="close" data-dismiss="alert">×</button> 
                 <h4><b><i class="icon-warning-sign"></i>  Advertencia</b></h4>
-                <hr style="padding: 0px; margin-top: 10px">
+                <hr style="padding: 0px; margin-top: 25px">
                 <h5>Existen Productos Vencidos o Por Vencer.</h5>
                 <br>
-                <div style="padding-left: 36%">
+                <div style="padding-left: 25%">
                     <a href="MostrarLoteProductosOrdenadosPorVencer.php" class="btn btn-danger"><i class="icon-arrow-right"></i> REVISAR</a>      
                 </div>                                                                             
             </div>
@@ -19,7 +19,7 @@
                 <hr style="padding: 0px; margin-top: 10px">
                 <h5>Existen Productos con bajo stock. </h5>
                 <br>
-                <div style="padding-left: 36%">
+                <div style="padding-left: 30%">
                     <a href="MostrarLoteProductosOrdenadosPorStock.php" class="btn btn-warning"><i class="icon-arrow-right"></i> REVISAR</a>      
                 </div>                                                                             
             </div>
@@ -28,9 +28,9 @@
     <br>
     <div class="span9">
         <div style="width: 100%; align-content: center; padding-left: 32%; padding-top: 5%;">
-            <a href="AdministrarFuncionariasHabilitadas.php" class="button button-pill btn btn-warning" style="height: 83px; width: 110px; padding-top: 50px; background-color: #87318c"><i class="icon-group"></i>&nbsp;Personal</a>  &nbsp;                      
+            <a href="AdministrarFuncionariasHabilitadas.php" class="button button-pill btn btn-warning" style="height: 83px; width: 110px; padding-top: 50px; background-color: #f96f6f"><i class="icon-group"></i>&nbsp;Personal</a>  &nbsp;                      
             <a href="AdministrarLotesProducto.php" class="button button-pill btn btn-info" style="height: 83px; width: 110px; padding-top: 50px; background-color: #92c836"><i class="icon-archive"></i>&nbsp;Inventario Productos</a>&nbsp;  &nbsp;                       
-            <a href="AdministrarBienes.php" class="button button-pill btn btn-primary" style="height: 83px; width: 110px; padding-top: 50px; background-color: #FF1188"><i class="icon-folder-close"></i>&nbsp;Inventario Bienes</a> &nbsp;                       
+            <a href="AdministrarBienes.php" class="button button-pill btn btn-primary" style="height: 83px; width: 110px; padding-top: 50px; background-color: #f5ca2f"><i class="icon-folder-close"></i>&nbsp;Inventario Bienes</a> &nbsp;                       
             <a href="AdministrarDocumentos.php" class="button button-pill btn btn-danger" style="height: 83px; width: 110px; padding-top: 50px; background-color: #13c4a5"><i class="icon-folder-open"></i>&nbsp;Documentos</a>                        
         </div>
     </div>

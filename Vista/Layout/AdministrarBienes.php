@@ -112,7 +112,7 @@ $perfil = $_SESSION["idCargo"];
                                     </div>
                                     <div class="row-fluid">
                                         <!-- CONTENIDO AQUI -->
-                                        <div class="table-responsive">
+                                        <div class="table-responsive text-center">
                                             <table id="tablaLotes" class="table table-striped table-bordered dt-responsive nowrap">
                                                 <thead>
                                                     <tr>

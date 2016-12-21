@@ -103,9 +103,6 @@ $perfil = $_SESSION["idCargo"];
                        
                         <h4>Tipo de Documento</h4>
                         <hr>
-                        <div>
-                            <a class="btn btn-success  btn-block" style="width: 230px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarCategoriaDocumento.php'">Agregar Tipo de Documento <i class="icon-book" ></i></a>
-                        </div>
                         <div class="clearfix"></div>
                         <div class="clearfix"></div>                           
                         <div class="table-responsive">
@@ -115,7 +112,7 @@ $perfil = $_SESSION["idCargo"];
                                         <th>Nombre</th> 
                                         <th>Descripción</th> 
                                         <th>Fecha Creación</th> 
-                                        <th>Accion</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">

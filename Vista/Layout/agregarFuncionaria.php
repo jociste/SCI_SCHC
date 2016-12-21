@@ -77,6 +77,7 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1000px; align-content: center">
+                        
                         <div class="form-actions" style="height: 30px;">
                             <h4 style="width: 200px; align-content: center; margin: 0; padding-left: 30%">Datos Funcionaria</h4> 
                         </div> 

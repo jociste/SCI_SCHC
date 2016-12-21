@@ -78,7 +78,7 @@ $perfil = $_SESSION["idCargo"];
 //                    }
                     ?>
                     <!-- FIN MENU LEFT-->
-                    <div id="content" class="span9" style="width: 80%">
+                    <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                           <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
@@ -90,11 +90,11 @@ $perfil = $_SESSION["idCargo"];
                         ?>
                         <!-- FIN MENU INTERIOR-->
                         <hr>
-                        <div class="row-fluid">                         
-                            <div class="span6 text-center">
+                        <div class="row-fluid" style="padding-left: 60%">                         
+                            <div class="span6" >
                                 <form id="fm-buscar" method="POST">
                                     <div class="input-prepend input-append">
-                                        <input class="input-block-level" placeholder="Buscar Documento en .." id="cadena" name="cadena" type="text">
+                                        <input class="input-block-level" placeholder="Buscar por nombre o coincidencia" id="cadena" name="cadena" type="text">
                                         <a class="btn btn-primary" onclick="buscar()"><i class="icon-search"></i> Buscar</a>
                                     </div>
                                 </form>
@@ -102,6 +102,7 @@ $perfil = $_SESSION["idCargo"];
 
                         </div>                                                
                         <h4> Resultados Obtenidos </h4>
+                        <hr>
                         <div id="resultado-busqueda">
 
                         </div>

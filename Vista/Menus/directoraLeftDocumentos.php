@@ -10,8 +10,8 @@
             </li>
             <li>
                 <a  style="padding-top: 14px">
-                    <i class="icon-list-ol" onClick="location.href = 'AdministrarCategoriasDocumentos.php'"></i>
-                    <a>Tipos de Documento</a>
+                    <i class="icon-folder-open-alt" onClick="location.href = 'agregarCategoriaDocumento.php'"></i>
+                    <a> Agregar Tipo</a>
                 </a>
             </li>     
             <li>

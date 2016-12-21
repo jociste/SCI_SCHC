@@ -16,24 +16,24 @@
         <link rel="stylesheet" type="text/css" href="Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
     </head>
-    <body style="background-color: cadetblue" >
-        <div class="wrap" >
+    <body style="background-image: url('Files/img/a1.jpg');  background-repeat: no-repeat; background-size: 100%;" >
+        <div class="wrap">
             <div class="container-fluid">
                 <div class="row-fluid" >
                     <!-- end: Main Menu -->
                     <div class="span4 offset4">
-                        <header class="panel-heading btn-inverse text-center">
+                        <header style="background-color: #24574e" class="panel-heading btn-inverse text-center">
                             <h4> <img src="Files/img/logo.png"> Sala Cuna Hogar De Cristo </h4>
                         </header>
-                        <section class="panel" >
-                            <form id="fmlogin" method="post">
+                        <section class="panel" style="background-color: #d9f9f4">
+                            <form id="fmlogin" method="post" style="background-color: #d9f9f4">
                                 <label class="control-label"><strong>Run</strong></label>
                                 <input id="inputRun" name="inputRun" type="text" placeholder="112223337" class="span12">
                                 <label class="control-label"><strong>Contraseña</strong></label>
                                 <input type="password" id="inputPassword" name="inputPassword" placeholder="Contraseña" class="span12">
-                                <a id="boton" onclick="validarLogin()" class="btn btn-block btn-info" style="margin-top: 10px;"><i class="icon-lock"> </i> Ingresar</a>
+                                <a id="boton" onclick="validarLogin()" class="btn btn-block btn-info" style="margin-top: 10px; background-color: #008364"><i class="icon-lock"> </i> Ingresar</a>
                                 <!--<a href="#" class="pull-right"><small>Olvido su contraseña</small></a>-->
-                                <hr>
+                                
                             </form>
                         </section>
                     </div>

@@ -13,31 +13,35 @@ if (($run != null || $run != "") && ($clave != null || $clave != "")) {
     $funcionaria = $control->getFuncionariaByID($run);
     if ($funcionaria->getRunFuncionaria() == $run) {
         if ($funcionaria->getClave() == $clave) {
-            session_start();
-            
-            //$nivel = $control->nivelFuncionariaRecienteByRun($run);
-            $cargo = $control->cargoFuncionariaRecienteByRun($run);
-            
-            $_SESSION["autentificado"] = "SI";
-            $_SESSION["idCargo"] = $cargo->getIdCargo();
-            $_SESSION["run"] = $funcionaria->getRunFuncionaria();
-            
-            $nombres = split(" ", $funcionaria->getNombres());
-            $apellidos = split(" ", $funcionaria->getApellidos());
-            $_SESSION["nombre"] = $nombres[0]." ".$apellidos[0];
-            $_SESSION["sexo"] = $funcionaria->getSexo();            
-            
-            if ($cargo->getIdCargo() == 1 || $cargo->getIdCargo() == 2 || $cargo->getIdCargo() == 3 ||$cargo->getIdCargo() == 5) {//administrador
-                $pagina = "Vista/Layout/home.php";            
+            if ($funcionaria->getIndicadorVigente() == 1) {
+                session_start();
+                //$nivel = $control->nivelFuncionariaRecienteByRun($run);
+                $cargo = $control->cargoFuncionariaRecienteByRun($run);
+
+                $_SESSION["autentificado"] = "SI";
+                $_SESSION["idCargo"] = $cargo->getIdCargo();
+                $_SESSION["run"] = $funcionaria->getRunFuncionaria();
+
+                $nombres = split(" ", $funcionaria->getNombres());
+                $apellidos = split(" ", $funcionaria->getApellidos());
+                $_SESSION["nombre"] = $nombres[0] . " " . $apellidos[0];
+                $_SESSION["sexo"] = $funcionaria->getSexo();
+
+                if ($cargo->getIdCargo() == 1 || $cargo->getIdCargo() == 2 || $cargo->getIdCargo() == 3 || $cargo->getIdCargo() == 5) {//administrador
+                    $pagina = "Vista/Layout/home.php";
+                }
+                if ($cargo->getIdCargo() == 4) {//auxiliar
+                    $pagina = "Vista/Layout/home.php";
+                }
+                if ($cargo->getIdCargo() == 6) {//administrador
+                    $pagina = "Vista/Layout/AdministrarFuncionariasHabilitadas.php";
+                }
+                $success = true;
+                $mensajes = "Iniciando...";
+            } else {
+                $success = false;
+                $mensajes = "Usted no tiene autorización de ingresar al sistema ya que fue desvinculado.";
             }
-             if ($cargo->getIdCargo() == 4) {//auxiliar
-                $pagina = "Vista/Layout/home.php";            
-            }
-             if ($cargo->getIdCargo() == 6) {//administrador
-                $pagina = "Vista/Layout/AdministrarFuncionariasHabilitadas.php";            
-            }
-            $success = true;
-            $mensajes = "Iniciando...";
         } else {
             $success = false;
             $mensajes = "La clave ingresada es incorrecta.";

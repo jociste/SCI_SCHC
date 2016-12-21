@@ -43,7 +43,32 @@ class DocumentoDAO {
         $this->conexion->desconectar();
         return $documentos;
     }
-    
+
+    public function findAllVigentes() {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM documento WHERE estado = 1 ";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $documentos = array();
+        while ($fila = $result->fetch_row()) {
+            $documento = new DocumentoDTO();
+            $documento->setIdDocumento($fila[0]);
+            $documento->setRunFuncionaria($fila[1]);
+            $documento->setIdTipoDocumento($fila[2]);
+            $documento->setNombre($fila[3]);
+            $documento->setDescripcion($fila[4]);
+            $documento->setFechaRegistro($fila[5]);
+            $documento->setRutaDocumento($fila[6]);
+            $documento->setTamano($fila[7]);
+            $documento->setFormato($fila[8]);
+            $documento->setEstado($fila[9]);
+            $documentos[$i] = $documento;
+            $i++;
+        }
+        $this->conexion->desconectar();
+        return $documentos;
+    }
+
     public function findAllPapelera() {
         $this->conexion->conectar();
         $query = "SELECT * FROM documento WHERE estado = 0 ";
@@ -116,7 +141,34 @@ class DocumentoDAO {
         $this->conexion->desconectar();
         return $documentos;
     }
-    
+
+    public function findLikeAtrrDocumentosValidos($cadena) {
+        $this->conexion->conectar();
+        $query = "SELECT * FROM documento WHERE estado = 1 AND (upper(runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(nombre) LIKE upper('%" . $cadena . "%')  OR  upper(descripcion) LIKE upper('%" . $cadena . "%'))";
+        $result = $this->conexion->ejecutar($query);
+        $i = 0;
+        $documentos = array();
+        if ($result) {
+            while ($fila = $result->fetch_row()) {
+                $documento = new DocumentoDTO();
+                $documento->setIdDocumento($fila[0]);
+                $documento->setRunFuncionaria($fila[1]);
+                $documento->setIdTipoDocumento($fila[2]);
+                $documento->setNombre($fila[3]);
+                $documento->setDescripcion($fila[4]);
+                $documento->setFechaRegistro($fila[5]);
+                $documento->setRutaDocumento($fila[6]);
+                $documento->setTamano($fila[7]);
+                $documento->setFormato($fila[8]);
+                $documento->setEstado($fila[9]);
+                $documentos[$i] = $documento;
+                $i++;
+            }
+        }
+        $this->conexion->desconectar();
+        return $documentos;
+    }
+
     public function findLikeAtrrPapelera($cadena) {
         $this->conexion->conectar();
         $query = "SELECT * FROM documento WHERE estado = 0 AND (upper(runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(nombre) LIKE upper('%" . $cadena . "%')  OR  upper(descripcion) LIKE upper('%" . $cadena . "%'))";

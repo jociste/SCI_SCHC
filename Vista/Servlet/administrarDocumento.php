@@ -14,6 +14,10 @@ if ($accion != null) {
         $documentos = $control->getAllDocumentosPapelera();
         $json = json_encode($documentos);
         echo $json;
+    } if ($accion == "LISTADO_VIGENTES") {
+        $documentos = $control->getAllDocumentosVigentes();
+        $json = json_encode($documentos);
+        echo $json;
     } else if ($accion == "AGREGAR") {
         session_start();
         $runFuncionaria = $_SESSION["run"];
@@ -96,20 +100,20 @@ if ($accion != null) {
             "jpge" => "Imagen"
         );
         $aux = explode(".", $_FILES['documento']['name']);
-        $extension = $aux[count($aux)-1];
+        $extension = $aux[count($aux) - 1];
         $rutaDocumento = $dir_subida . "/" . $tipoDocumento->getNombre() . "_" . $diferenciador . "." . $extension;
         /* Tamaño Archivo */
         $bytes = $_FILES['documento']['size'];
         $kilobyte = round(($bytes / 1024));
-        $megabyte = round(($bytes / 1048576),2);
+        $megabyte = round(($bytes / 1048576), 2);
         $tamano = "";
-        if($megabyte >= 1) {
-            $tamano = $megabyte." Mb";
-        }else {
-            $tamano = $kilobyte." Kb";
+        if ($megabyte >= 1) {
+            $tamano = $megabyte . " Mb";
+        } else {
+            $tamano = $kilobyte . " Kb";
         }
-        
-        
+
+
         if (array_key_exists(strtolower($extension), $extensionesPermitidas)) {
             if ($megabyte <= 20) {
                 $resultSubir = move_uploaded_file($_FILES['documento']['tmp_name'], $rutaDocumento);
@@ -157,7 +161,7 @@ if ($accion != null) {
         } else {
             echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
         }
-    }  else if ($accion == "ENVIAR_A_PAPELERA") {
+    } else if ($accion == "ENVIAR_A_PAPELERA") {
         $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
 
         $documento = $control->getDocumentoByID($idDocumento);
@@ -171,14 +175,20 @@ if ($accion != null) {
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
-        
-        $documentos = $control->getDocumentoLikeAtrr($cadena,$idTipoDocumento);
+
+        $documentos = $control->getDocumentoLikeAtrr($cadena, $idTipoDocumento);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "BUSCAR_PAPELERA") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
-        
+
         $documentos = $control->getDocumentoLikeAtrrPapelera($cadena);
+        $json = json_encode($documentos);
+        echo $json;
+    } else if ($accion == "BUSCAR_DOCUMENTO_VALIDOS") {
+        $cadena = htmlspecialchars($_REQUEST['cadena']);
+
+        $documentos = $control->getDocumentoLikeAtrrDocumentosValidos($cadena);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
@@ -211,11 +221,11 @@ if ($accion != null) {
         }
     } else if ($accion == "RESTAURAR_PAPELERA") {
         $idDocumento = htmlspecialchars($_REQUEST['idDocumento']);
-        
+
         $documento = $control->getDocumentoByID($idDocumento);
         $documento->setEstado(1);
         $result = $control->updateDocumento($documento);
-        
+
         if ($result) {
             echo json_encode(array(
                 'success' => true,

@@ -77,6 +77,7 @@ $perfil = $_SESSION["idCargo"];
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
+                        <hr>
                         <div class="row-fluid">                          
                             <div class="span6 text-center" style="padding-top: 10%; padding-left: 20%">                               
                                 <form id="fm-buscar" method="POST">

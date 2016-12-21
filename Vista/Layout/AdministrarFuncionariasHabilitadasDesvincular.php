@@ -96,7 +96,8 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU interior-->
                     <hr>
-                        <h4>Funcionarias</h4>
+                        <h4>Desvincular Funcionaria</h4>
+                         <h6>Seleccionar el icono ( <i class="icon-trash"></i> ) de la funcionaria que desea desvincular </h6>  
                         <div class="clearfix"></div>
                         <div class="clearfix"></div>                           
                         <div class="table-responsive">
@@ -106,13 +107,10 @@ $perfil = $_SESSION["idCargo"];
                                         <th>Run</th> 
                                         <th>Nombres</th> 
                                         <th>Apellidos</th> 
-                                        <th>Sexo</th>
-                                        <th>Direccion</th>
                                         <th>Telefono</th>
                                         <th>Cargo</th>
-                                        <th>Profesion</th>
                                         <th>Nivel</th>
-                                        <th>Accion</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
@@ -129,7 +127,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -155,14 +152,11 @@ $perfil = $_SESSION["idCargo"];
                                                     contenido += "<td>" + run + "</td>";
                                                     contenido += "<td>" + v.nombres + "</td>";
                                                     contenido += "<td>" + v.apellidos + "</td>";
-                                                    contenido += "<td>" + v.sexo + "</td>";
-                                                    contenido += "<td>" + v.direccion + "</td>";
+                                                    
                                                     contenido += "<td>" + v.telefono + "</td>";
                                                     contenido += "<td>" + v.nombreCargo + "</td>";
-                                                    contenido += "<td>" + v.profesion + "</td>";
                                                     contenido += "<td>" + v.nombreNivel + "</td>";
                                                     contenido += "<td>";
-                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
                                                     contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
                                                     contenido += "</td>";
                                                     contenido += "</tr>";
@@ -188,9 +182,6 @@ $perfil = $_SESSION["idCargo"];
                                     );
                                 }
 
-                                function editar(runFuncionaria) {
-                                    window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
-                                }
 
                                 function borrarFuncionaria(runFuncionaria) {
                                     $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea dar de baja a la funcionaria?', function (r) {
