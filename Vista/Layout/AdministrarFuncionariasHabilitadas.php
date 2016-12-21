@@ -163,7 +163,7 @@ $perfil = $_SESSION["idCargo"];
                                                     contenido += "<td>" + v.nombreNivel + "</td>";
                                                     contenido += "<td>";
                                                     contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-                                                    contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                                   // contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
                                                     contenido += "</td>";
                                                     contenido += "</tr>";
                                                     $("#grid").append(contenido);

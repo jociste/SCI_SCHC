@@ -79,13 +79,13 @@ $perfil = $_SESSION["idCargo"];
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU interior-->
-                    <?php
-                    if ($perfil == 1) {
-                        include '../Menus/directoraMenuInteriorFuncionarias.php';
-                    } 
-                    ?>
-                    <!-- FIN MENU interior-->
- <hr>
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorFuncionarias.php';
+                        }
+                        ?>
+                        <!-- FIN MENU interior-->
+                        <hr>
                         <h4>Funcionarias Historicas</h4>
                         <hr>
                         <div class="clearfix"></div>
@@ -133,11 +133,12 @@ $perfil = $_SESSION["idCargo"];
             })
 
             function cargarFuncionarias() {
-                $("#tablaFuncionarias").empty();
                 var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADODESHABILITADAS';
+                console.log("url_json" + url_json);
                 $.getJSON(
                         url_json,
                         function (datos) {
+                            console.log("datos");
                             $.each(datos, function (k, v) {
                                 var contenido = "<tr>";
                                 contenido += "<td>" + v.runFuncionaria + "</td>";
@@ -180,11 +181,10 @@ $perfil = $_SESSION["idCargo"];
                 $.messager.confirm('Restituir Funcionaria', 'Esta segura(o) que desea restituir a la funcionaria?', function (r) {
                     if (r) {
                         var url_json = '../Servlet/administrarFuncionaria.php?accion=REESTABLECER_FUNCIONARIA&runFuncionaria=' + runFuncionaria;
-                        console.log('url_json' + url_json);
+
                         $.getJSON(
                                 url_json,
                                 function (datos) {
-                                    console.log('datos: ' + datos);
                                     if (datos.errorMsg) {
                                         $.messager.alert('Error', datos.errorMsg, 'error');
                                     } else {

@@ -289,7 +289,7 @@ $perfil = $_SESSION["idCargo"];
             </div>
         </div>
         <!-- Fin Modal -->
-        
+
         <!-- Modal Productos Usados-->
         <div class="modal fade" id="modalProductosUsados" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -383,10 +383,10 @@ $perfil = $_SESSION["idCargo"];
                                         url_json,
                                         function (datos) {
                                             $.each(datos, function (k, v) {
-                                                 if (v.idCategoria != 1 && v.idCategoria != 5) {
-                                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
-                                                $("#idCategoria").append(contenido);
-                                            }
+                                                if (v.idCategoria != 1 && v.idCategoria != 5) {
+                                                    var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
+                                                    $("#idCategoria").append(contenido);
+                                                }
                                             });
                                         }
                                 );
@@ -614,7 +614,7 @@ $perfil = $_SESSION["idCargo"];
 
                                 window.open("generarReporteProductosUsados.php?" + $("#fm-datos-generales").serialize() + " & " + $("#fm-periodo-productos-usados").serialize() + "&fechaActual=" + fechaActual + "&fechaActualEspecifica=" + fechaActualEspecifica);
                             }
-                            
+
                             function sinPeriodoProductosUsados() {
                                 if (document.getElementById("sinFechasProductosUsados").checked) {
                                     document.getElementById("fechaInicioProductosUsados").disabled = true;

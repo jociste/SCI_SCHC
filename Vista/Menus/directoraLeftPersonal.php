@@ -10,7 +10,7 @@
             </li>   
             <li style="padding-top: 14px">
                 <a>
-                    <i class="icon-remove-sign" onClick="location.href = 'AdministrarFuncionariasHabilitadasDesvincular.php'"></i>
+                    <i class="icon-list-ol" onClick="location.href = 'AdministrarFuncionariasHabilitadasDesvincular.php'"></i>
                     <a>Desvincular Funcionaria</a>
                 </a>
             </li>
