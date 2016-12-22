@@ -113,7 +113,7 @@ $idCategoria = $_REQUEST["idCategoria"];
                                         <div class="control-group">
                                             <label class="control-label" for="idCargo">Permiso de Visualización *</label>
                                             <div class="controls">
-                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="4" required style="width: 286px"></select>
                                             </div>
                                         </div>
                                         <div class="controls">
@@ -142,7 +142,6 @@ $idCategoria = $_REQUEST["idCategoria"];
                 <footer>
                     <p>
                         <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                     </p>
                 </footer>
             </div>
@@ -152,94 +151,97 @@ $idCategoria = $_REQUEST["idCategoria"];
 
         <script>
 
-                                                $(function () {
-                                                    cargarCargos();
-                                                });
+                                            $(function () {
+                                                cargarCargos();
+                                            });
 
-                                                function cargarCargos() {
-                                                    var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                $.each(datos, function (k, v) {
-                                                                    var idCargo = v.idCargo;
-                                                                    var cargo = v.nombre;
-                                                                    if (idCargo == 3) {
-                                                                        cargo = "Técnico";
-                                                                    }
-                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                            function cargarCargos() {
+                                                var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
+                                                $.getJSON(
+                                                        url_json,
+                                                        function (datos) {
+                                                            $.each(datos, function (k, v) {
+                                                                var idCargo = v.idCargo;
+                                                                var cargo = v.nombre;
+                                                                if (idCargo != 3 && idCargo != 6) {
+                                                                    var contenido = "<option value='" + idCargo + "'>" + cargo + "</option>";
                                                                     $("#idCargo").append(contenido);
-                                                                });
+                                                                }
+                                                            });
+                                                            cargar();
+                                                        }
+                                                );
+                                            }
 
-                                                                cargar();
-                                                            }
-                                                    );
-                                                }
+                                            function cargar() {
+                                                var idCategoria = document.getElementById("idCategoria").value;
+                                                var url_json = '../Servlet/administrarCategoria.php?accion=BUSCAR_BY_ID&idCategoria=' + idCategoria;
+                                                $.getJSON(
+                                                        url_json,
+                                                        function (datos) {
+                                                            document.getElementById("idCategoria").value = datos.categoria.idCategoria;
+                                                            document.getElementById("nombre").value = datos.categoria.nombre;
+                                                            document.getElementById("descripcion").value = datos.categoria.descripcion;
 
-                                                function cargar() {
-                                                    var idCategoria = document.getElementById("idCategoria").value;
-                                                    var url_json = '../Servlet/administrarCategoria.php?accion=BUSCAR_BY_ID&idCategoria=' + idCategoria;
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                document.getElementById("idCategoria").value = datos.categoria.idCategoria;
-                                                                document.getElementById("nombre").value = datos.categoria.nombre;
-                                                                document.getElementById("descripcion").value = datos.categoria.descripcion;
 
-                                                                $.each(datos.permisos, function (k, v) {
-                                                                    $("#idCargo > option[value='" + v.idCargo + "']").attr('selected', 'selected');
+                                                            $.each(datos.permisos, function (k, v) {
+                                                                var idCargo = v.idCargo;
+                                                                if (idCargo != 3 && idCargo != 6) {
+                                                                    $("#idCargo > option[value='" + idCargo + "']").attr('selected', 'selected');
                                                                     //document.getElementById("idCargo").selectedIndex =v.idCargo;
                                                                     //document.getElementById("idCargo").options[v.idCargo].selected = true; 
-                                                                });
-                                                            }
-                                                    );
-                                                }
-
-                                                function guardarCategoria() {
-                                                    document.getElementById("accion").value = "ACTUALIZAR";
-                                                    if (validar()) {
-                                                        $('#fm-Categoria').form('submit', {
-                                                            url: "../Servlet/administrarCategoria.php",
-                                                            onSubmit: function () {
-                                                                return $(this).form('validate');
-                                                            },
-                                                            success: function (result) {
-                                                                var result = eval('(' + result + ')');
-                                                                if (result.errorMsg) {
-                                                                    $.messager.alert('Error', result.errorMsg);
-                                                                } else {
-                                                                    window.location = "AdministrarCategoriasProducto.php";
-                                                                    $.messager.show({
-                                                                        title: 'Aviso',
-                                                                        msg: result.mensaje
-                                                                    });
-                                                                    //window.location = "AdministrarCategoriasProducto.php";
                                                                 }
+                                                            });
+                                                        }
+
+                                                );
+                                            }
+
+                                            function guardarCategoria() {
+                                                document.getElementById("accion").value = "ACTUALIZAR";
+                                                if (validar()) {
+                                                    $('#fm-Categoria').form('submit', {
+                                                        url: "../Servlet/administrarCategoria.php",
+                                                        onSubmit: function () {
+                                                            return $(this).form('validate');
+                                                        },
+                                                        success: function (result) {
+                                                            var result = eval('(' + result + ')');
+                                                            if (result.errorMsg) {
+                                                                $.messager.alert('Error', result.errorMsg);
+                                                            } else {
+                                                                window.location = "AdministrarCategoriasProducto.php";
+                                                                $.messager.show({
+                                                                    title: 'Aviso',
+                                                                    msg: result.mensaje
+                                                                });
+                                                                //window.location = "AdministrarCategoriasProducto.php";
                                                             }
-                                                        });
-                                                    }
-
+                                                        }
+                                                    });
                                                 }
 
-                                                function validar() {
-                                                    var nombre = document.getElementById("nombre").value;
-                                                    var descripcion = document.getElementById("descripcion").value;
-                                                    var idCargo = document.getElementById("idCargo").selectedIndex;
+                                            }
 
-                                                    if (nombre == "") {
-                                                        $.messager.alert('Error', "Debe ingresar un nombre");
-                                                        return false;
-                                                    }
-                                                    if (descripcion == "") {
-                                                        $.messager.alert('Error', "Debe ingresar una descripcion");
-                                                        return false;
-                                                    }
-                                                    if (idCargo == -1) {
-                                                        $.messager.alert('Error', "Debe seleccionar al menos un cargo ");
-                                                        return false;
-                                                    }
-                                                    return true;
+                                            function validar() {
+                                                var nombre = document.getElementById("nombre").value;
+                                                var descripcion = document.getElementById("descripcion").value;
+                                                var idCargo = document.getElementById("idCargo").selectedIndex;
+
+                                                if (nombre == "") {
+                                                    $.messager.alert('Error', "Debe ingresar un nombre");
+                                                    return false;
                                                 }
+                                                if (descripcion == "") {
+                                                    $.messager.alert('Error', "Debe ingresar una descripcion");
+                                                    return false;
+                                                }
+                                                if (idCargo == -1) {
+                                                    $.messager.alert('Error', "Debe seleccionar al menos un cargo ");
+                                                    return false;
+                                                }
+                                                return true;
+                                            }
         </script>
     </body>
 </html>

@@ -50,7 +50,7 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-         if ($perfil == 1) {
+        if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
         }
         if ($perfil == 2) {
@@ -123,7 +123,7 @@ $perfil = $_SESSION["idCargo"];
                                         <div class="control-group">
                                             <label class="control-label" for="idCargo">Permiso de Visualización *</label>
                                             <div class="controls">
-                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="4" required style="width: 286px"></select>
                                             </div>
                                         </div>
                                         <div class="controls">
@@ -172,11 +172,10 @@ $perfil = $_SESSION["idCargo"];
                                                                 $.each(datos, function (k, v) {
                                                                     var idCargo = v.idCargo;
                                                                     var cargo = v.nombre;
-                                                                    if (idCargo == 3) {
-                                                                        cargo = "Técnico";
+                                                                    if (idCargo != 3 && idCargo != 6) {
+                                                                        var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                        $("#idCargo").append(contenido);
                                                                     }
-                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
-                                                                    $("#idCargo").append(contenido);
                                                                 });
                                                             }
                                                     );

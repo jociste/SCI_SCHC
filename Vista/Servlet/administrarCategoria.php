@@ -55,10 +55,15 @@ if ($accion != null) {
 
         if (count($bienes) == 0 && count($productos) == 0) {
             $result = $control->removeCategoria($idCategoria);
+            $resultPermisos = $control->removePermiso_visualizacion_categoria_idCategoria($idCategoria);
             if ($result) {
-                echo json_encode(array('success' => true, 'mensaje' => "Categoria borrado correctamente"));
+                if ($resultPermisos) {
+                    echo json_encode(array('success' => true, 'mensaje' => "Categoria borrado correctamente"));
+                } else {
+                    echo json_encode(array('errorMsg' => 'Ha ocurrido un error al eliminar los permisos asociados a esta categoria.'));
+                }
             } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.'));
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al eliminar la categoria.'));
             }
         } else {
             echo json_encode(array('errorMsg' => 'No se puede eliminar la categoria, tiene bienes o productos asociados.'));
@@ -70,11 +75,11 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
-        
+
         $permisos = $control->getAllPermiso_visualizacion_categoriaByIdCategoria($idCategoria);
 
         $categoria = $control->getCategoriaByID($idCategoria);
-        $json = json_encode(array("categoria" => $categoria,"permisos" => $permisos));
+        $json = json_encode(array("categoria" => $categoria, "permisos" => $permisos));
         echo $json;
     } else if ($accion == "ACTUALIZAR") {
         $idCategoria = htmlspecialchars($_REQUEST['idCategoria']);
@@ -89,7 +94,7 @@ if ($accion != null) {
 
         $result = $control->updateCategoria($categoria);
         $resultDeletePermisos = $control->removePermiso_visualizacion_categoria_idCategoria($idCategoria);
-        
+
         foreach ($_REQUEST['idCargo'] as $id) {
             $permiso = new Permiso_visualizacion_categoriaDTO();
             $permiso->setIdCategoria($idCategoria);

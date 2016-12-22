@@ -75,7 +75,7 @@ $perfil = $_SESSION["idCargo"];
                 <div class="row-fluid">
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                      if ($perfil == 1) {
+                    if ($perfil == 1) {
                         include '../Menus/directoraLeftDocumentos.php';
                     }
                     if ($perfil == 2) {
@@ -112,7 +112,7 @@ $perfil = $_SESSION["idCargo"];
                                     <div class="control-group">
                                         <label class="control-label" for="idCargo">Permiso de Visualización *</label>
                                         <div class="controls">
-                                            <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                            <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="4" required style="width: 286px"></select>
                                         </div>
                                     </div>
                                     <div class="controls">
@@ -138,7 +138,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna Hogar De Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -161,11 +160,13 @@ $perfil = $_SESSION["idCargo"];
                                                             $.each(datos, function (k, v) {
                                                                 var idCargo = v.idCargo;
                                                                 var cargo = v.nombre;
-                                                                if (idCargo == 3) {
-                                                                    cargo = "Técnico";
+                                                                if (idCargo != 4 && idCargo != 6) {
+                                                                    if (idCargo == 3) {
+                                                                        cargo = "Técnico";
+                                                                    }
+                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                    $("#idCargo").append(contenido);
                                                                 }
-                                                                var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
-                                                                $("#idCargo").append(contenido);
                                                             });
                                                         }
                                                 );

@@ -51,16 +51,19 @@ if ($accion != null) {
         $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
         $cantidad = $control->Cuentacategoriadocumentosusadas($idTipoDocumento);
         if ($cantidad == 0) {
-             $result = $control->removeTipo_documento($idTipoDocumento);
-        }else{
-           $result = false;
-        }
-        
-       
-        if ($result) {
-            echo json_encode(array('success' => true, 'mensaje' => "Tipo_documento borrado correctamente"));
+            $result = $control->removeTipo_documento($idTipoDocumento);
+            $resultPermisos = $control->removePermiso_visualizacion_tipo_documento_idTipoDocumento($idTipoDocumento);
         } else {
-            echo json_encode(array('errorMsg' => 'Lo sentimos, no es posible eliminar esta categoría, ya que tiene documentos asociados'));
+            $result = false;
+        }
+        if ($result) {
+            if ($resultPermisos) {
+                echo json_encode(array('success' => true, 'mensaje' => "Tipo documento eliminado correctamente"));
+            } else {
+                echo json_encode(array('errorMsg' => 'Lo sentimos, ha ocurrido un error al intentar eliminar los permisos de visualización asociados'));
+            }
+        } else {
+            echo json_encode(array('errorMsg' => 'Lo sentimos, no es posible eliminar este tipo, ya que tiene documentos asociados'));
         }
     } else if ($accion == "BUSCAR") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);

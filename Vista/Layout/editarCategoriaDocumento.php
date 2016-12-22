@@ -127,7 +127,7 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                         <div class="control-group">
                                             <label class="control-label" for="idCargo">Permiso de Visualización *</label>
                                             <div class="controls">
-                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="6" required style="width: 286px"></select>
+                                                <select class="input-xlarge" id="idCargo" name="idCargo[]" multiple size="4" required style="width: 286px"></select>
                                             </div>
                                         </div>
                                         <div class="controls">
@@ -178,11 +178,13 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                                 $.each(datos, function (k, v) {
                                                                     var idCargo = v.idCargo;
                                                                     var cargo = v.nombre;
-                                                                    if (idCargo == 3) {
-                                                                        cargo = "Técnico";
+                                                                    if (idCargo != 4 && idCargo != 6) {
+                                                                        if (idCargo == 3) {
+                                                                            cargo = "Técnico";
+                                                                        }
+                                                                        var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                        $("#idCargo").append(contenido);
                                                                     }
-                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
-                                                                    $("#idCargo").append(contenido);
                                                                 });
 
                                                                 obtenerDatosCategoria();
@@ -201,9 +203,11 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                                 document.getElementById("fechaCreacion").value = dato.tipo_documento.fechaCreacion;
 
                                                                 $.each(dato.permisos, function (k, v) {
+                                                                     if (idCargo != 4 && idCargo != 6) {
                                                                     $("#idCargo > option[value='" + v.idCargo + "']").attr('selected', 'selected');
                                                                     //document.getElementById("idCargo").selectedIndex =v.idCargo;
                                                                     //document.getElementById("idCargo").options[v.idCargo].selected = true; 
+                                                                     }
                                                                 });
                                                             }
                                                     );
