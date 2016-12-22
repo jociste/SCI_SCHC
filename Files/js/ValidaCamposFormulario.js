@@ -73,13 +73,10 @@ function VaciaCamposFechas() {
 }
 function validaFechasNivel() {
     var fechaInicioNivel = document.getElementById('fechaInicioNivel').value;
-    var fechaInicioNivelAntigua = document.getElementById('fechaInicioNivelEditar').value;
-    var idNivelEditar = document.getElementById('idNivelEditar').value;
-    var idNivel = document.getElementById('idNivel').value;
+    
     var fechaTerminoNivel = document.getElementById('fechaTerminoNivel').value;
     var deshabilitaFechaNivel = document.getElementById("deshabilitaFecha2").checked;
     var hoy = fechaActual();
-    console.log('idNivelEditar');
 
 
     if (!(deshabilitaFechaNivel == true)) {
