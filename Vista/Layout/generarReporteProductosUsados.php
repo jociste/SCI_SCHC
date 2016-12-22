@@ -3,7 +3,11 @@ ob_start(); //Iniciar Buffer
 
 include_once '../../Controlador/SCI_SCHC.php';
 $control = SCI_SCHC::getInstancia();
-
+session_start();
+if ($_SESSION['autentificado'] != "SI") {
+    header("Location: ../../index.php");
+}
+$perfil = $_SESSION["idCargo"];
 $codigoEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['codigoEstablecimiento']));
 $nombreEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['nombreEstablecimiento']));
 $direccionCalleEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['direccionCalleEstablecimiento']));
@@ -28,7 +32,7 @@ $fechaActual = utf8_decode(htmlspecialchars($_REQUEST['fechaActual']));
 
 $lote_productos;
 if (isset($_REQUEST['sinFechasProductosUsados'])) {
-    $lote_productos = $control->getAllLote_producto_usadoss();
+    $lote_productos = $control->getAllLote_producto_usadosTablas($perfil);
 } else {
     $fechaInicio = utf8_decode(htmlspecialchars($_REQUEST['fechaInicioProductosUsados']));
     $fechaTermino = utf8_decode(htmlspecialchars($_REQUEST['fechaTerminoProductosUsados']));

@@ -54,12 +54,20 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIOR-->
         <?php
-        if ($perfil == 1) {
+            if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
-        } else if ($perfil == 6) {
-            include '../Menus/adminSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -69,23 +77,34 @@ $perfil = $_SESSION["idCargo"];
                 <div class="row-fluid">
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
-                    } else if ($perfil == 4) {
+                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
-                    } else if ($perfil == 6) {
-                        include '../Menus/adminLeftPersonal.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
                     }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
-                        if ($perfil == 1) {
+                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
-                        if ($perfil == 4) {
+                         if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
                             include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorProductos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -150,15 +169,9 @@ $perfil = $_SESSION["idCargo"];
                                                 cargarLotes()
                                             });
 
-                                            function cargarLotes() {
-                                                var url_json;
+                                            function cargarLotes() {                                                
                                                 var perfil = document.getElementById("perfil").value;
-                                                if (perfil == 1) {
-                                                    url_json = '../Servlet/administrarLote_producto.php?accion=LISTADO';
-                                                }
-                                                if (perfil == 4) {
-                                                    url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOAUXILIAR';
-                                                }
+                                                var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPORPERFIL&perfil='+perfil;                                             
 
                                                 $.getJSON(
                                                         url_json,

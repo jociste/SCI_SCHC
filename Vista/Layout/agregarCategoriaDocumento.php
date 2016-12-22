@@ -47,11 +47,15 @@ $perfil = $_SESSION["idCargo"];
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
         }
-        /* else if ($perfil == 2) {
-          include '../Menus/educadoraSuperior.php';
-          } else if ($perfil == 3) {
-          include '../Menus/apoderadoSuperior.php';
-          } */
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -71,14 +75,18 @@ $perfil = $_SESSION["idCargo"];
                 <div class="row-fluid">
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                      if ($perfil == 1) {
                         include '../Menus/directoraLeftDocumentos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftDocumentos.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoLeftDocumentos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftDocumentos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">

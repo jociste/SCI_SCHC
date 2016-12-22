@@ -202,8 +202,8 @@ class SCI_SCHC {
     public function getCargoLikeAtrr($cadena) {
         return $this->cargoDAO->findLikeAtrr($cadena);
     }
-    
-    public function getIdDisponible_Categoria(){
+
+    public function getIdDisponible_Categoria() {
         return $this->categoriaDAO->getIdDisponible();
     }
 
@@ -211,8 +211,8 @@ class SCI_SCHC {
         return $this->categoriaDAO->findAll();
     }
 
-    public function getAllCategoriasAuxiliar() {
-        return $this->categoriaDAO->findAllAuxiliar();
+    public function getAllCategoriasAuxiliar($perfil) {
+        return $this->categoriaDAO->findAllAuxiliar($perfil);
     }
 
     public function addCategoria($categoria) {
@@ -286,12 +286,13 @@ class SCI_SCHC {
     public function getAllDocumentos() {
         return $this->documentoDAO->findAll();
     }
-    public function getAllDocumentosVigentes() {
-        return $this->documentoDAO->findAllVigentes();
+
+    public function getAllDocumentosVigentes($perfil) {
+        return $this->documentoDAO->findAllVigentes($perfil);
     }
 
-    public function getAllDocumentosPapelera() {
-        return $this->documentoDAO->findAllPapelera();
+    public function getAllDocumentosPapelera($perfil) {
+        return $this->documentoDAO->findAllPapelera($perfil);
     }
 
     public function addDocumento($documento) {
@@ -314,12 +315,14 @@ class SCI_SCHC {
         return $this->documentoDAO->findLikeAtrr($cadena, $idTipoDocumento);
     }
 
-    public function getDocumentoLikeAtrrPapelera($cadena) {
-        return $this->documentoDAO->findLikeAtrrPapelera($cadena);
+    public function getDocumentoLikeAtrrPapelera($cadena, $perfil) {
+        return $this->documentoDAO->findLikeAtrrPapelera($cadena, $perfil);
     }
- public function getDocumentoLikeAtrrDocumentosValidos($cadena) {
-        return $this->documentoDAO->findLikeAtrrDocumentosValidos($cadena);
+
+    public function getDocumentoLikeAtrrDocumentosValidos($cadena, $perfil) {
+        return $this->documentoDAO->findLikeAtrrDocumentosValidos($cadena, $perfil);
     }
+
     public function getIdEntidadAdministradoraDisponible() {
         return $this->entidad_administradoraDAO->getIDDisponible();
     }
@@ -436,16 +439,16 @@ class SCI_SCHC {
         return $this->lote_productoDAO->findAll();
     }
 
-    public function getAllLote_productos_auxiliar() {
-        return $this->lote_productoDAO->findAllAuxiliar();
+    public function getAllLote_productos_auxiliar($perfil) {
+        return $this->lote_productoDAO->findAllAuxiliar($perfil);
     }
 
     public function getAllLote_productosPorVencer() {
         return $this->lote_productoDAO->findAllOrdenadosPorVencimiento();
     }
 
-    public function getAllLote_productosPorVencerAuxiliar() {
-        return $this->lote_productoDAO->findAllOrdenadosPorVencimientoAuxiliar();
+    public function getAllLote_productosPorVencerAuxiliar($perfil) {
+        return $this->lote_productoDAO->findAllOrdenadosPorVencimientoAuxiliar($perfil);
     }
 
     public function cuentaProductosPorVencer() {
@@ -456,16 +459,16 @@ class SCI_SCHC {
         return $this->lote_productoDAO->CuentaProductosBajoStock();
     }
 
-    public function getAllLote_productosPorStock() {
-        return $this->lote_productoDAO->findAllOrdenadosPorStock();
+    public function getAllLote_productosPorStock($perfil) {
+        return $this->lote_productoDAO->findAllOrdenadosPorStock($perfil);
     }
 
     public function getAllLote_productosBajoStock() {
         return $this->lote_productoDAO->findAllOrdenadosPorBajoStock();
     }
 
-    public function getAllLote_productosBajoStockAuxiliar() {
-        return $this->lote_productoDAO->findAllOrdenadosPorBajoStockAuxiliar();
+    public function getAllLote_productosBajoStockAuxiliar($perfil) {
+        return $this->lote_productoDAO->findAllOrdenadosPorBajoStockAuxiliar($perfil);
     }
 
     public function addLote_producto($lote_producto) {
@@ -491,7 +494,8 @@ class SCI_SCHC {
     public function CuentaLote_productoByIdProducto($idProducto) {
         return $this->lote_productoDAO->cuenta($idProducto);
     }
-     public function Cuentacategoriadocumentosusadas($idTipoDocumento) {
+
+    public function Cuentacategoriadocumentosusadas($idTipoDocumento) {
         return $this->tipo_documentoDAO->cuenta($idTipoDocumento);
     }
 
@@ -505,6 +509,10 @@ class SCI_SCHC {
 
     public function getAllLote_producto_usadoss() {
         return $this->lote_producto_usadosDAO->buscarProductosUsados();
+    }
+
+    public function getAllLote_producto_usadosTablas($perfil) {
+        return $this->lote_producto_usadosDAO->buscarProductosUsadosTablas($perfil);
     }
 
     public function getAllLote_producto_usadoss_auxiliar() {
@@ -622,7 +630,7 @@ class SCI_SCHC {
     public function removePermiso_visualizacion_categoria($idCargo) {
         return $this->permiso_visualizacion_categoriaDAO->delete($idCargo);
     }
-    
+
     public function removePermiso_visualizacion_categoria_idCategoria($idCategoria) {
         return $this->permiso_visualizacion_categoriaDAO->delete_idCategoria($idCategoria);
     }
@@ -634,7 +642,7 @@ class SCI_SCHC {
     public function getPermiso_visualizacion_categoriaByID($idCargo) {
         return $this->permiso_visualizacion_categoriaDAO->findByID($idCargo);
     }
-    
+
     public function getAllPermiso_visualizacion_categoriaByIdCategoria($idCategoria) {
         return $this->permiso_visualizacion_categoriaDAO->findByIDCategoria($idCategoria);
     }
@@ -679,8 +687,8 @@ class SCI_SCHC {
         return $this->productoDAO->findAll();
     }
 
-    public function getAllProductosAuxiliar() {
-        return $this->productoDAO->findAllAuxiliar();
+    public function getAllProductosAuxiliar($perfil) {
+        return $this->productoDAO->findAllAuxiliar($perfil);
     }
 
     public function addProducto($producto) {
@@ -723,8 +731,8 @@ class SCI_SCHC {
         return $this->tipo_documentoDAO->getIdDisponible();
     }
 
-    public function getAllTipo_documentos() {
-        return $this->tipo_documentoDAO->findAll();
+    public function getAllTipo_documentos($perfil) {
+        return $this->tipo_documentoDAO->findAll($perfil);
     }
 
     public function addTipo_documento($tipo_documento) {

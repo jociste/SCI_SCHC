@@ -12,7 +12,8 @@ if ($accion != null) {
         echo $json;
     }
     if ($accion == "LISTADOAUXILIAR") {
-        $categorias = $control->getAllCategoriasAuxiliar();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $categorias = $control->getAllCategoriasAuxiliar($perfil);
         $json = json_encode($categorias);
         echo $json;
     } else if ($accion == "AGREGAR") {

@@ -12,7 +12,8 @@ if ($accion != null) {
         echo $json;
     }
     if ($accion == "LISTADOAUXILIAR") {
-        $productos = $control->getAllProductosAuxiliar();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $productos = $control->getAllProductosAuxiliar($perfil);
         $json = json_encode($productos);
         echo $json;
     } else if ($accion == "AGREGAR") {

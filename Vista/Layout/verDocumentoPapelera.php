@@ -59,16 +59,20 @@ $documento = $control->getDocumentoByID($idDocumento);
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 5) {
             include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
         <div class="wrap">
-
             <!-- ALERTA -->
             <div class="container-fluid" style="display: none;">
                 <div class="row-fluid">
@@ -79,42 +83,34 @@ $documento = $control->getDocumentoByID($idDocumento);
                 </div>
             </div>
             <!-- FIN ALERTA -->
-
             <div class="container-fluid">
                 <div class="row-fluid">
-
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftDocumentos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftDocumentos.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoLeftDocumentos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftDocumentos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
-                          <!-- AQUI VA EL MENU INTERIOR-->
-                        <?php
-                        if ($perfil == 1) {
-                            include '../Menus/directoraMenuInteriorDocumentos.php';
-                        }
-                        if ($perfil == 4) {
-                            include '../Menus/auxiliarMenuInteriorProductos.php';
-                        }
-                        ?>
-                        <!-- FIN MENU INTERIOR-->
-                        <hr>
-                        <hr><div class="row-fluid" style="align-content: center">
+                          <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-documento" class="form-horizontal well" enctype="multipart/form-data" method="POST" style="align-content: center">
-
-                                        <div class="form-actions" style="height: 30px;">
+                                      <div class="form-actions" style="height: 30px;">
                                             <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Documento</h4> 
                                         </div>
+                                    <form id="fm-documento" class="form-horizontal well" enctype="multipart/form-data" method="POST" style="align-content: center">
+
+                                      
                                         <div class="control-group">
                                             <label class="control-label" for="idTipoDocumento">Categoria Documento</label>
                                             <div class="controls">
@@ -159,6 +155,7 @@ $documento = $control->getDocumentoByID($idDocumento);
                                             <button type="button" onClick="location.href = 'AdministrarPapeleraDocumentos.php'" class="btn">Volver Atras</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
+                                        <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                                     </form>
                                     <!-- FIN FORMULARIO-->
                                 </div>
@@ -174,8 +171,7 @@ $documento = $control->getDocumentoByID($idDocumento);
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
+                        <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
                     </p>
                 </footer>
             </div>
@@ -189,7 +185,8 @@ $documento = $control->getDocumentoByID($idDocumento);
                                                 });
 
                                                 function cargarCategorias() {
-                                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
+                                                    var perfil = document.getElementById("perfil").value;
+                                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO&perfil=' + perfil;
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {

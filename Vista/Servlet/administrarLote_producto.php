@@ -11,8 +11,9 @@ if ($accion != null) {
         $json = json_encode($lote_productos);
         echo $json;
     }
-    if ($accion == "LISTADOAUXILIAR") {
-        $lote_productos = $control->getAllLote_productos_auxiliar();
+    if ($accion == "LISTADOPORPERFIL") {
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $lote_productos = $control->getAllLote_productos_auxiliar($perfil);
         $json = json_encode($lote_productos);
         echo $json;
     }
@@ -22,7 +23,8 @@ if ($accion != null) {
         echo $json;
     }
     if ($accion == "LISTADOPRODUCTOSPORVENCERAUXILIAR") {
-        $lote_productos = $control->getAllLote_productosPorVencerAuxiliar();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $lote_productos = $control->getAllLote_productosPorVencerAuxiliar($perfil);
         $json = json_encode($lote_productos);
         echo $json;
     }
@@ -39,12 +41,15 @@ if ($accion != null) {
         $json = json_encode($lote_productos);
         echo $json;
     } else if ($accion == "LISTADOPRODUCTOSORDENADOSPORSTOCK") {
-        $lote_productos = $control->getAllLote_productosPorStock();
+         $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $lote_productos = $control->getAllLote_productosPorStock($perfil);
         $json = json_encode($lote_productos);
         echo $json;
-    }    
+     
+     }   
     else if ($accion == "LISTADOPRODUCTOSBAJOSTOCKAUXILIAR") {
-        $lote_productos = $control->getAllLote_productosBajoStockAuxiliar();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $lote_productos = $control->getAllLote_productosBajoStockAuxiliar($perfil);
         $json = json_encode($lote_productos);
         echo $json;
     } else if ($accion == "AGREGAR") {

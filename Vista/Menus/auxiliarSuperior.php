@@ -14,16 +14,16 @@ $sexo = $_SESSION["sexo"];
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-group"></i>&nbsp;Inventario Productos</a>
                         <ul class="dropdown-menu">
-                            <li><a href="AdministrarLotesProducto.php">Lotes de Productos</a></li>                                    
-                            <li><a href="MostrarLoteProductosUsados.php">Productos Usados</a></li>
-<!--                            <li><a href="AdministrarCategoriasProducto.php">Gestionar Categorias</a></li>-->
-                            <li><a href="AdministrarProductos.php">Gestionar Productos</a></li>                            
-                            <li><a href="RetirarProducto.php">Retirar Productos</a></li>
+                            <li><a href="agregarLoteProducto.php">Ingreso de Productos</a></li>   
+                            <li><a href="AdministrarProductos.php">Gestionar Productos</a></li>                           
+                            <li><a href="RetirarProducto.php">Retirar Productos</a></li>  
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a class=" dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-archive"></i>&nbsp;Consultar Productos</a>
-                        <ul class="dropdown-menu">                            
+                        <ul class="dropdown-menu"> 
+                            <li><a href="MostrarStockActual.php">Stock Actual</a></li>
+                            <li><a href="MostrarLoteProductosUsados.php">Productos Retirados</a></li>                            
                             <li><a href="MostrarLoteProductosOrdenadosPorStock.php">Productos Bajo Stock</a></li>
                             <li><a href="MostrarLoteProductosOrdenadosPorVencer.php">Productos Por Vencer</a></li>
                             <li><a href="AdministrarReportesProductos.php">Generar Reportes</a></li>

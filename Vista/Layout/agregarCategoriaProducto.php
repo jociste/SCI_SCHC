@@ -50,12 +50,20 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
             include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -81,11 +89,15 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">

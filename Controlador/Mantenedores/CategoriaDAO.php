@@ -51,11 +51,10 @@ class CategoriaDAO {
         return $categorias;
     }
 
-    public function findAllAuxiliar() {
+    public function findAllAuxiliar($perfil) {
         $this->conexion->conectar();
         $query = "SELECT * FROM categoria as C JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
-where ca.idCargo = 4
- ";
+        where ca.idCargo = ".$perfil;
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $categorias = array();

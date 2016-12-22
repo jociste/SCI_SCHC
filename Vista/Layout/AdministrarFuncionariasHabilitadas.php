@@ -88,14 +88,19 @@ $perfil = $_SESSION["idCargo"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-                     <!-- AQUI VA EL MENU interior-->
-                    <?php
-                    if ($perfil == 1) {
-                        include '../Menus/directoraMenuInteriorFuncionarias.php';
-                    } 
-                    ?>
-                    <!-- FIN MENU interior-->
-                    <hr>
+                        <!-- AQUI VA EL MENU interior-->
+                        <?php
+                        if ($perfil == 1) {
+                            include '../Menus/directoraMenuInteriorFuncionarias.php';
+                        }
+                        if ($perfil == 6) {
+                            include '../Menus/adminMenuInteriorFuncionarias.php';
+                        }
+                        
+                        
+                        ?>
+                        <!-- FIN MENU interior-->
+                        <hr>
                         <h4>Funcionarias</h4>
                         <div class="clearfix"></div>
                         <div class="clearfix"></div>                           
@@ -139,79 +144,98 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/Nuevas/jquery.dataTables.min.js"></script>-->
 
         <script>
-                                $(function () {
-                                    cargarFuncionarias();
-                                })
+            $(function () {
+                cargarFuncionarias();
+            })
 
-                                function cargarFuncionarias() {
-                                    $("#tablaFuncionarias").empty();
-                                    var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
-                                    $.getJSON(
-                                            url_json,
-                                            function (datos) {
-                                                $.each(datos, function (k, v) {
-                                                    var run = v.runFuncionaria;
-                                                    var contenido = "<tr>";
-                                                    contenido += "<td>" + run + "</td>";
-                                                    contenido += "<td>" + v.nombres + "</td>";
-                                                    contenido += "<td>" + v.apellidos + "</td>";
-                                                    contenido += "<td>" + v.sexo + "</td>";
-                                                    contenido += "<td>" + v.direccion + "</td>";
-                                                    contenido += "<td>" + v.telefono + "</td>";
-                                                    contenido += "<td>" + v.nombreCargo + "</td>";
-                                                    contenido += "<td>" + v.profesion + "</td>";
-                                                    contenido += "<td>" + v.nombreNivel + "</td>";
-                                                    contenido += "<td>";
-                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-                                                   // contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
-                                                    contenido += "</td>";
-                                                    contenido += "</tr>";
-                                                    $("#grid").append(contenido);
-                                                });
-                                                $('#grid').DataTable(
-                                                        {
-                                                            "oLanguage": {
-                                                                "oPaginate": {
-                                                                    "sNext": "Siguiente",
-                                                                    "sPrevious": "Anterior"
-                                                                },
-                                                                "sLengthMenu": "Mostrar _MENU_ Resultados",
-                                                                "sSearch": "Buscar",
-                                                                "sZeroRecords": "No se encontraron Resultados",
-                                                                "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
-                                                                "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
-                                                                "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
-                                                            }
-                                                        }
-                                                );
-                                            }
-                                    );
-                                }
-
-                                function editar(runFuncionaria) {
-                                    window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
-                                }
-
-                                function borrarFuncionaria(runFuncionaria) {
-                                    $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea dar de baja a la funcionaria?', function (r) {
-                                        if (r) {
-                                            var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
-                                            $.getJSON(
-                                                    url_json,
-                                                    function (datos) {
-                                                        if (datos.errorMsg) {
-                                                            $.messager.alert('Error', datos.errorMsg, 'error');
-                                                        } else {
-                                                            window.location = "FuncionariasHistoricas.php";
-                                                        }
-                                                    }
-                                            );
-                                        } else {
-
+            function cargarFuncionarias() {
+                $("#tablaFuncionarias").empty();
+                var url_json = '../Servlet/administrarFuncionaria.php?accion=LISTADOHABILITADAS';
+                $.getJSON(
+                        url_json,
+                        function (datos) {
+                            $.each(datos, function (k, v) {
+                                var run = v.runFuncionaria + "-" + jQuery.calculaDigitoVerificador(v.runFuncionaria);
+                                var contenido = "<tr>";
+                                contenido += "<td>" + run + "</td>";
+                                contenido += "<td>" + v.nombres + "</td>";
+                                contenido += "<td>" + v.apellidos + "</td>";
+                                contenido += "<td>" + v.sexo + "</td>";
+                                contenido += "<td>" + v.direccion + "</td>";
+                                contenido += "<td>" + v.telefono + "</td>";
+                                contenido += "<td>" + v.nombreCargo + "</td>";
+                                contenido += "<td>" + v.profesion + "</td>";
+                                contenido += "<td>" + v.nombreNivel + "</td>";
+                                contenido += "<td>";
+                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
+                                // contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                contenido += "</td>";
+                                contenido += "</tr>";
+                                $("#grid").append(contenido);
+                            });
+                            $('#grid').DataTable(
+                                    {
+                                        "oLanguage": {
+                                            "oPaginate": {
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
+                                            "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                            "sSearch": "Buscar",
+                                            "sZeroRecords": "No se encontraron Resultados",
+                                            "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                            "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                            "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
                                         }
-                                    });
-                                }
+                                    }
+                            );
+                        }
+                );
+            }
 
+            function editar(runFuncionaria) {
+                window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+            }
+
+            function borrarFuncionaria(runFuncionaria) {
+                $.messager.confirm('Despedir Funcionaria', '¿Está Segura(o) que desea dar de baja a la funcionaria?', function (r) {
+                    if (r) {
+                        var url_json = '../Servlet/administrarFuncionaria.php?accion=BORRAR&runFuncionaria=' + runFuncionaria;
+                        $.getJSON(
+                                url_json,
+                                function (datos) {
+                                    if (datos.errorMsg) {
+                                        $.messager.alert('Error', datos.errorMsg, 'error');
+                                    } else {
+                                        window.location = "FuncionariasHistoricas.php";
+                                    }
+                                }
+                        );
+                    } else {
+
+                    }
+                });
+            }
+            $.calculaDigitoVerificador = function (rut) {
+                // type check
+                if (!rut || !rut.length || typeof rut !== 'string') {
+                    return -1;
+                }
+                // serie numerica
+                var secuencia = [2, 3, 4, 5, 6, 7, 2, 3];
+                var sum = 0;
+                //
+                for (var i = rut.length - 1; i >= 0; i--) {
+                    var d = rut.charAt(i)
+                    sum += new Number(d) * secuencia[rut.length - (i + 1)];
+                }
+                ;
+                // sum mod 11
+                var rest = 11 - (sum % 11);
+                // si es 11, retorna 0, sino si es 10 retorna K,
+                // en caso contrario retorna el numero
+                return rest === 11 ? 0 : rest === 10 ? "K" : rest;
+            };
 
         </script>
     </body>

@@ -89,7 +89,7 @@ class ComprobanteDAO {
     public function save($comprobante) {
         $this->conexion->conectar();
         $query = "INSERT INTO comprobante (idRegistro,numeroComprobante,proveedor,fechaComprobante)"
-                . " VALUES ( " . $comprobante->getIdRegistro() . " ,  " . $comprobante->getNumeroComprobante() . " , '" . $comprobante->getProveedor() . "' , '" . $comprobante->getFechaComprobante() . "' )";
+                . " VALUES ( " . $comprobante->getIdRegistro() . " ,  '" . $comprobante->getNumeroComprobante() . "' , '" . $comprobante->getProveedor() . "' , '" . $comprobante->getFechaComprobante() . "' )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -98,7 +98,7 @@ class ComprobanteDAO {
     public function update($comprobante) {
         $this->conexion->conectar();
         $query = "UPDATE comprobante SET "
-                . "  numeroComprobante =  " . $comprobante->getNumeroComprobante() . " ,"
+                . "  numeroComprobante =  '" . $comprobante->getNumeroComprobante() . "' ,"
                 . "  proveedor = '" . $comprobante->getProveedor() . "' ,"
                 . "  fechaComprobante = '" . $comprobante->getFechaComprobante() . "' "
                 . " WHERE  idRegistro =  " . $comprobante->getIdRegistro() . " ";

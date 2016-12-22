@@ -7,7 +7,8 @@ $control = SCI_SCHC::getInstancia();
 $accion = htmlspecialchars($_REQUEST['accion']);
 if ($accion != null) {
     if ($accion == "LISTADO") {
-        $tipo_documentos = $control->getAllTipo_documentos();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $tipo_documentos = $control->getAllTipo_documentos($perfil);
         $json = json_encode($tipo_documentos);
         echo $json;
     } else if ($accion == "AGREGAR") {

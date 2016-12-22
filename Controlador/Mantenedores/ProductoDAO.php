@@ -38,11 +38,12 @@ class ProductoDAO {
         return $productos;
     }
 
-    public function findAllAuxiliar() {
+    public function findAllAuxiliar($perfil) {
         $this->conexion->conectar();
         $query = "SELECT P.idProducto, P.idCategoria, P.nombre, C.nombre as nombreCategoria 
-FROM producto P JOIN categoria C ON P.idCategoria = C.idCategoria JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
-where ca.idCargo = 4";
+        FROM producto P JOIN categoria C ON P.idCategoria = C.idCategoria LEFT JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria
+        LEFT join cargo as ca on ca.idCargo = pvc.idCargo 
+        where ca.idCargo = ".$perfil;
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $productos = array();

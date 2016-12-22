@@ -53,10 +53,20 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+          if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -77,27 +87,34 @@ $perfil = $_SESSION["idCargo"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
                     }
                     if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
-                        if ($perfil == 1) {
+                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
-                        if ($perfil == 4) {
+                         if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
                             include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorProductos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -129,7 +146,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -144,27 +160,14 @@ $perfil = $_SESSION["idCargo"];
             })
 
             function cargarProductosOrdenados() {
-                $("#tablaFuncionarias").empty();
                 var perfil = document.getElementById("perfil").value;
-                if (perfil == 1) {
-                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSORDENADOSPORSTOCK';
-                }
-                if (perfil == 4) {
-                    var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSORDENADOSPORSTOCK';
-                }
+                var url_json = '../Servlet/administrarLote_producto.php?accion=LISTADOPRODUCTOSORDENADOSPORSTOCK&perfil=' + perfil;
                 $.getJSON(
                         url_json,
                         function (datos) {
                             $.each(datos, function (k, v) {
                                 var contenido = "<tr>";
-
                                 contenido += "<td>" + v.nombreCategoria + "</td>";
-
-//                                if (v.fechaVencimiento == '0000-00-00') {
-//                                    contenido += "<td>Sin Fecha Vencimiento</td>";
-//                                } else {
-//                                    contenido += "<td>" + v.fechaVencimiento + "</td>";
-//                                }
                                 contenido += "<td>" + v.nombre + "</td>";
                                 contenido += "<td>" + v.cantidad + "</td>";
                                 if (v.cantidad == 0) {

@@ -11,11 +11,13 @@ if ($accion != null) {
         $json = json_encode($documentos);
         echo $json;
     } if ($accion == "LISTADO_PAPELERA") {
-        $documentos = $control->getAllDocumentosPapelera();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $documentos = $control->getAllDocumentosPapelera($perfil);
         $json = json_encode($documentos);
         echo $json;
     } if ($accion == "LISTADO_VIGENTES") {
-        $documentos = $control->getAllDocumentosVigentes();
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $documentos = $control->getAllDocumentosVigentes($perfil);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "AGREGAR") {
@@ -181,14 +183,14 @@ if ($accion != null) {
         echo $json;
     } else if ($accion == "BUSCAR_PAPELERA") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
-
-        $documentos = $control->getDocumentoLikeAtrrPapelera($cadena);
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $documentos = $control->getDocumentoLikeAtrrPapelera($cadena, $perfil);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "BUSCAR_DOCUMENTO_VALIDOS") {
         $cadena = htmlspecialchars($_REQUEST['cadena']);
-
-        $documentos = $control->getDocumentoLikeAtrrDocumentosValidos($cadena);
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $documentos = $control->getDocumentoLikeAtrrDocumentosValidos($cadena, $perfil);
         $json = json_encode($documentos);
         echo $json;
     } else if ($accion == "BUSCAR_BY_ID") {

@@ -1,17 +1,17 @@
 <div class="span1">
     <!-- start: Main Menu -->
     <div id="sidebar-nav" >
-        <ul id="dashboard-menu" >  
-             <li>
+        <ul id="dashboard-menu" >
+            <li style="padding-top: 6px">
                 <a>
-                    <i class="icon-group" onClick="location.href = 'AdministrarFuncionariasHabilitadas.php'"></i>
-                    <span>Funcionarias</span>
+                    <i class="icon-user" onClick="location.href = 'agregarFuncionaria.php'"></i>
+                    <a>Agregar Funcionaria</a>
                 </a>
-            </li>
-             <li>
+            </li>   
+            <li style="padding-top: 14px">
                 <a>
-                    <i class="icon-archive" onClick="location.href = 'FuncionariasHistoricas.php'"></i>
-                    <span>Historicas</span>
+                    <i class="icon-list-ol" onClick="location.href = 'AdministrarFuncionariasHabilitadasDesvincular.php'"></i>
+                    <a>Desvincular Funcionaria</a>
                 </a>
             </li>
         </ul>

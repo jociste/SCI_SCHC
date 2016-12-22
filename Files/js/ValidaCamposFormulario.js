@@ -63,16 +63,31 @@ function validarCargoNivelFuncionaria() {
     }
     return false;
 }
+function VaciaCamposFechas() {
+    var idNivelEditar = document.getElementById('idNivelEditar').value;
+    var idNivel = document.getElementById('idNivel').value;
+    if (idNivel != idNivelEditar) {
+        document.getElementById("fechaInicioNivel").value = '';
+        document.getElementById("fechaTerminoNivel").value = '';
+    }
+}
 function validaFechasNivel() {
     var fechaInicioNivel = document.getElementById('fechaInicioNivel').value;
+    var fechaInicioNivelAntigua = document.getElementById('fechaInicioNivelEditar').value;
+    var idNivelEditar = document.getElementById('idNivelEditar').value;
+    var idNivel = document.getElementById('idNivel').value;
     var fechaTerminoNivel = document.getElementById('fechaTerminoNivel').value;
     var deshabilitaFechaNivel = document.getElementById("deshabilitaFecha2").checked;
     var hoy = fechaActual();
+    console.log('idNivelEditar');
+
+
     if (!(deshabilitaFechaNivel == true)) {
         if (fechaInicioNivel != "") {
             if (fechaTerminoNivel != "" && fechaTerminoNivel != null) {
                 if (fechaTerminoNivel >= hoy && fechaTerminoNivel > fechaInicioNivel) {
-                    return true;
+                       return true;
+                    
                 } else {
                     $.messager.alert("Alerta", "Debe ingresar una fecha de término del nivel valida");
                 }

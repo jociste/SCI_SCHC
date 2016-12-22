@@ -11,6 +11,12 @@ if ($accion != null) {
         $json = json_encode($lote_producto_usadoss);
         echo $json;
     } 
+    if ($accion == "LISTADOPRODUCTOSUSADOSTABLAS") {
+        $perfil = htmlspecialchars($_REQUEST['perfil']);
+        $lote_producto_usadoss = $control->getAllLote_producto_usadosTablas($perfil);
+        $json = json_encode($lote_producto_usadoss);
+        echo $json;
+    } 
     if ($accion == "LISTADOPRODUCTOSUSADOSAUXILIAR") {
         $lote_producto_usadoss = $control->getAllLote_producto_usadoss_auxiliar();
         $json = json_encode($lote_producto_usadoss);

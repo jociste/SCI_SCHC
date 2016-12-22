@@ -15,7 +15,7 @@ $sexo = $_SESSION["sexo"];
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-group"></i>&nbsp;Personal</a>
                         <ul class="dropdown-menu">
                             <li><a href="AdministrarFuncionariasHabilitadas.php">Gestionar Funcionarias</a></li>	
-                            <li><a href="FuncionariasHistoricas.php">Funcionarias Historicas</a></li>	
+                            <li><a href="FuncionariasHistoricas.php">Funcionarias Desvinculadas</a></li>	
                         </ul>
                     </li>
                 </ul>                      

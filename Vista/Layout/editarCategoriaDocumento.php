@@ -50,11 +50,15 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
         }
-//        else if ($perfil == 2) {
-//            include '../Menus/educadoraSuperior.php';
-//        } else if ($perfil == 3) {
-//            include '../Menus/apoderadoSuperior.php';
-//        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -75,13 +79,17 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
                     if ($perfil == 1) {
-                        include '../Menus/directoraLeftPersonal.php';
+                        include '../Menus/directoraLeftDocumentos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftDocumentos.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoLeftDocumentos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftDocumentos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
@@ -191,11 +199,11 @@ $idTipoDocumento = htmlspecialchars($_REQUEST['idTipoDocumento']);
                                                                 document.getElementById("nombre").value = dato.tipo_documento.nombre;
                                                                 document.getElementById("descripcion").value = dato.tipo_documento.descripcion;
                                                                 document.getElementById("fechaCreacion").value = dato.tipo_documento.fechaCreacion;
-                                                                
+
                                                                 $.each(dato.permisos, function (k, v) {
                                                                     $("#idCargo > option[value='" + v.idCargo + "']").attr('selected', 'selected');
-                                                                     //document.getElementById("idCargo").selectedIndex =v.idCargo;
-                                                                     //document.getElementById("idCargo").options[v.idCargo].selected = true; 
+                                                                    //document.getElementById("idCargo").selectedIndex =v.idCargo;
+                                                                    //document.getElementById("idCargo").options[v.idCargo].selected = true; 
                                                                 });
                                                             }
                                                     );

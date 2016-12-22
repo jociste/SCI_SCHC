@@ -90,14 +90,14 @@ $idCategoria = $_REQUEST["idCategoria"];
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
-                        <hr><div class="row-fluid" style="align-content: center">
+                        <div class="row-fluid" style="align-content: center">
                             <div class="span12" style="align-content: center">
                                 <div class="row-fluid" style="align-content: center">
-                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center">
+                                    <div class="form-actions" style="height: 30px;">
+                                        <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 35%">Datos Categoría Producto</h4> 
+                                    </div>  
+                                    <form id="fm-Categoria" class="form-horizontal well" style="align-content: center; padding-left: 15%">
 
-                                        <div class="form-actions" style="height: 30px;">
-                                            <h4 style="width: 550px; align-content: center; margin: 0; padding-left: 30%">Datos Categoría Producto</h4> 
-                                        </div>                                                                                               
                                         <div class="control-group">
                                             <label class="control-label" for="nombre">Nombre *</label>
                                             <div class="controls">
@@ -119,13 +119,14 @@ $idCategoria = $_REQUEST["idCategoria"];
                                         <div class="controls">
                                             (*) campos Obligatorios
                                         </div>
-                                        <div class="form-actions" style="align-content: center">
-                                            <button type="button" onclick="guardarCategoria()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarCategoriasProducto.php'" class="btn">Cancelar</button>
-                                        </div>
+
                                         <input type="hidden" id="accion" name="accion" value="">
                                         <input type="hidden" id="idCategoria" name="idCategoria" value="<?= $idCategoria ?>">
                                     </form>
+                                    <div class="form-actions" style="align-content: center; padding-left: 40%">
+                                        <button type="button" onclick="guardarCategoria()" class="btn btn-primary">Guardar Cambios</button>
+                                        <button type="button" onClick="location.href = 'AdministrarCategoriasProducto.php'" class="btn">Cancelar</button>
+                                    </div>
                                     <!-- FIN FORMULARIO-->
                                 </div>
                             </div>
@@ -140,7 +141,7 @@ $idCategoria = $_REQUEST["idCategoria"];
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
+                        <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
                         <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                     </p>
                 </footer>
@@ -149,8 +150,8 @@ $idCategoria = $_REQUEST["idCategoria"];
         <script src="../../Files/js/modernizr.custom.js"></script>
         <script src="../../Files/js/toucheffects.js"></script>
 
-        <script>            
-                                                
+        <script>
+
                                                 $(function () {
                                                     cargarCargos();
                                                 });
@@ -174,21 +175,21 @@ $idCategoria = $_REQUEST["idCategoria"];
                                                             }
                                                     );
                                                 }
-                                                
-                                                function cargar(){
+
+                                                function cargar() {
                                                     var idCategoria = document.getElementById("idCategoria").value;
-                                                    var url_json = '../Servlet/administrarCategoria.php?accion=BUSCAR_BY_ID&idCategoria='+idCategoria;                                                    
+                                                    var url_json = '../Servlet/administrarCategoria.php?accion=BUSCAR_BY_ID&idCategoria=' + idCategoria;
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {
-                                                                    document.getElementById("idCategoria").value = datos.categoria.idCategoria;
-                                                                    document.getElementById("nombre").value = datos.categoria.nombre;
-                                                                    document.getElementById("descripcion").value = datos.categoria.descripcion;
-                                                                    
-                                                                    $.each(datos.permisos, function (k, v) {
+                                                                document.getElementById("idCategoria").value = datos.categoria.idCategoria;
+                                                                document.getElementById("nombre").value = datos.categoria.nombre;
+                                                                document.getElementById("descripcion").value = datos.categoria.descripcion;
+
+                                                                $.each(datos.permisos, function (k, v) {
                                                                     $("#idCargo > option[value='" + v.idCargo + "']").attr('selected', 'selected');
-                                                                     //document.getElementById("idCargo").selectedIndex =v.idCargo;
-                                                                     //document.getElementById("idCargo").options[v.idCargo].selected = true; 
+                                                                    //document.getElementById("idCargo").selectedIndex =v.idCargo;
+                                                                    //document.getElementById("idCargo").options[v.idCargo].selected = true; 
                                                                 });
                                                             }
                                                     );
@@ -219,17 +220,17 @@ $idCategoria = $_REQUEST["idCategoria"];
                                                     }
 
                                                 }
-                                                
+
                                                 function validar() {
                                                     var nombre = document.getElementById("nombre").value;
                                                     var descripcion = document.getElementById("descripcion").value;
                                                     var idCargo = document.getElementById("idCargo").selectedIndex;
-                                                    
-                                                    if(nombre == ""){
+
+                                                    if (nombre == "") {
                                                         $.messager.alert('Error', "Debe ingresar un nombre");
                                                         return false;
                                                     }
-                                                    if(descripcion == ""){
+                                                    if (descripcion == "") {
                                                         $.messager.alert('Error', "Debe ingresar una descripcion");
                                                         return false;
                                                     }

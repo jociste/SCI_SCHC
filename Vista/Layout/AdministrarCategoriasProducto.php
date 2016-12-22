@@ -44,8 +44,8 @@ $perfil = $_SESSION["idCargo"];
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/jquery-easyui-1.4.2/demo/demo.css">
         <script src="../../Files/Complementos/lib/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
-        
-         <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/datatables/css/jquery.dataTables.css">
+
+        <link rel="stylesheet" type="text/css" href="../../Files/Complementos/lib/datatables/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="../../Files/Complementos/lib/datatables/jquery.dataTables.js"></script>
 
 
@@ -55,10 +55,18 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
             include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -84,11 +92,15 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
@@ -97,43 +109,52 @@ $perfil = $_SESSION["idCargo"];
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
+                         if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorProductos.php';
+                        }
                         ?>
                         <!-- FIN MENU INTERIOR-->
 
                         <hr>
                         <div class="row-fluid">
                             <div class="span12">
-                                    <div class="header">
-                                        <h4>Categorias de Producto</h4>
+                                <div class="header">
+                                    <h4>Categorias de Producto</h4>
+                                </div>
+                                <div class="body" style="text-align: center;">
+                                    <div>
+                                        <a class="btn btn-success btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarCategoriaProducto.php'">
+                                            Agregar Categoría <i class="icon-book" ></i>
+                                        </a>
                                     </div>
-                                    <div class="body" style="text-align: center;">
-                                        <div>
-                                            <a class="btn btn-success btn-block" style="width: 200px;float: right; margin-bottom: 1%" onClick="location.href = 'agregarCategoriaProducto.php'">
-                                                Agregar Categoría <i class="icon-book" ></i>
-                                            </a>
-                                        </div>
-                                        <div class="row-fluid">
-                                            <!-- CONTENIDO AQUI -->
-                                            <div class="table-responsive">
-                                                <table id="tablaCategorias" class="table table-striped table-bordered dt-responsive nowrap">
-                                                    <thead> 
-                                                        <tr> 
-                                                            <th>Id</th> 
-                                                            <th>Nombre</th> 
-                                                            <th>Descripción</th> 
-                                                            <th>Gestionar</th>
-                                                        </tr> 
-                                                    </thead>
-                                                    <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
+                                    <div class="row-fluid">
+                                        <!-- CONTENIDO AQUI -->
+                                        <div class="table-responsive">
+                                            <table id="tablaCategorias" class="table table-striped table-bordered dt-responsive nowrap">
+                                                <thead> 
+                                                    <tr> 
+                                                        <th>Id</th> 
+                                                        <th>Nombre</th> 
+                                                        <th>Descripción</th> 
+                                                        <th>Gestionar</th>
+                                                    </tr> 
+                                                </thead>
+                                                <tbody id="grid" class="table table-striped table-bordered dt-responsive nowrap">
 
-                                                    </tbody>
-                                                </table>
-                                                <input type="hidden" id="accion" name="accion" value="">
+                                                </tbody>
+                                            </table>
+                                            <input type="hidden" id="accion" name="accion" value="">
 
 
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
                             </div>                  
 
                         </div>
@@ -147,8 +168,7 @@ $perfil = $_SESSION["idCargo"];
             <div class="container-fluid m-t-large">
                 <footer>
                     <p>
-                        <span class="pull-left">© <a href="" target="_blank">uExel</a> 2013</span>
-                        <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
+                        <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
                     </p>
                 </footer>
             </div>
@@ -157,78 +177,77 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                                                $(function () {
-                                                    cargarCategorias();
-                                                });
+                                            $(function () {
+                                                cargarCategorias();
+                                            });
 
-                                                function cargarCategorias() {
-                                                    var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
-                                                    $.getJSON(
-                                                            url_json,
-                                                            function (datos) {
-                                                                $.each(datos, function (k, v) {
-                                                                    var contenido = "<tr>";
-                                                                    contenido += "<td>" + v.idCategoria + "</td>";
-                                                                    contenido += "<td>" + v.nombre + "</td>";
-                                                                    contenido += "<td>" + v.descripcion + "</td>";
-                                                                    if (v.idCategoria > 5 || v.idCategoria < 1) {
-                                                                        contenido += "<td>";
-                                                                        contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idCategoria + ")'></button>";
-                                                                        contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idCategoria + ")'></button>";
-                                                                        contenido += "</td>";
-                                                                    } else {
-                                                                         contenido += "<td>No Permitido</td>";
-                                                                    }
+                                            function cargarCategorias() {
+                                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
+                                                $.getJSON(
+                                                        url_json,
+                                                        function (datos) {
+                                                            $.each(datos, function (k, v) {
+                                                                var contenido = "<tr>";
+                                                                contenido += "<td>" + v.idCategoria + "</td>";
+                                                                contenido += "<td>" + v.nombre + "</td>";
+                                                                contenido += "<td>" + v.descripcion + "</td>";
+                                                                if (v.idCategoria > 5 || v.idCategoria < 1) {
+                                                                    contenido += "<td>";
+                                                                    contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.idCategoria + ")'></button>";
+                                                                    contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrar(" + v.idCategoria + ")'></button>";
+                                                                    contenido += "</td>";
+                                                                } else {
+                                                                    contenido += "<td>No Permitido</td>";
+                                                                }
 
 
-                                                                    contenido += "</tr>";
-                                                                    $("#grid").append(contenido);
-                                                                });
-                                                                   $('#tablaCategorias').DataTable(
-                                                        {
-                                                            
-                                                            "oLanguage": {
-                                                                "oPaginate": {
-                                                                    "sNext": "Siguiente",
-                                                                    "sPrevious": "Anterior"
-                                                                },
-                                                                "sLengthMenu": "Mostrar _MENU_ Resultados",
-                                                                "sSearch": "Buscar",
-                                                                "sZeroRecords": "No se encontraron Resultados",
-                                                                "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
-                                                                "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
-                                                                "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
-                                                            },
-                                                        }
-                                                );
-                                                            }
-                                                    );
-                                                }
-                                                function editar(idCategoria) {
-                                                    window.location = "editarCategoriaProducto.php?idCategoria=" + idCategoria;
-                                                }
-
-                                                function borrar(idCategoria) {
-                                                    $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la categoria?', function (r) {
-                                                        if (r) {
-                                                            var url_json = '../Servlet/administrarCategoria.php?accion=BORRAR&idCategoria=' + idCategoria;
-                                                            $.getJSON(
-                                                                    url_json,
-                                                                    function (datos) {
-                                                                        if (datos.errorMsg) {
-                                                                            $.messager.alert('Error', datos.errorMsg, 'error');
-                                                                        } else {
-                                                                            $.messager.show({
-                                                                                title: 'Aviso',
-                                                                                msg: datos.mensaje
-                                                                            });
-                                                                            window.location = "AdministrarCategoriasProducto.php";
-                                                                        }
+                                                                contenido += "</tr>";
+                                                                $("#grid").append(contenido);
+                                                            });
+                                                            $('#tablaCategorias').DataTable(
+                                                                    {
+                                                                        "oLanguage": {
+                                                                            "oPaginate": {
+                                                                                "sNext": "Siguiente",
+                                                                                "sPrevious": "Anterior"
+                                                                            },
+                                                                            "sLengthMenu": "Mostrar _MENU_ Resultados",
+                                                                            "sSearch": "Buscar",
+                                                                            "sZeroRecords": "No se encontraron Resultados",
+                                                                            "sInfo": "Mostrar desde el _START_ hasta el _END_ de un total de _TOTAL_ Resultados",
+                                                                            "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
+                                                                            "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
+                                                                        },
                                                                     }
                                                             );
                                                         }
-                                                    });
-                                                }
+                                                );
+                                            }
+                                            function editar(idCategoria) {
+                                                window.location = "editarCategoriaProducto.php?idCategoria=" + idCategoria;
+                                            }
+
+                                            function borrar(idCategoria) {
+                                                $.messager.confirm('Confirmar', '¿Esta seguro de eliminar la categoria?', function (r) {
+                                                    if (r) {
+                                                        var url_json = '../Servlet/administrarCategoria.php?accion=BORRAR&idCategoria=' + idCategoria;
+                                                        $.getJSON(
+                                                                url_json,
+                                                                function (datos) {
+                                                                    if (datos.errorMsg) {
+                                                                        $.messager.alert('Error', datos.errorMsg, 'error');
+                                                                    } else {
+                                                                        $.messager.show({
+                                                                            title: 'Aviso',
+                                                                            msg: datos.mensaje
+                                                                        });
+                                                                        window.location = "AdministrarCategoriasProducto.php";
+                                                                    }
+                                                                }
+                                                        );
+                                                    }
+                                                });
+                                            }
         </script>
     </body>
 </html>

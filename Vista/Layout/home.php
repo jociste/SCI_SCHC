@@ -48,9 +48,20 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperiorInicio.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaSuperiorInicio.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperiorInicio.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperiorInicio.php';
-        } else if ($perfil == 6) {
+        } 
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperiorInicio.php';
+        }
+        if ($perfil == 6) {
             include '../Menus/adminSuperiorInicio.php';
         }
         ?>
@@ -62,9 +73,20 @@ $perfil = $_SESSION["idCargo"];
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraBotonesInterior.php';
-                    } else if ($perfil == 4) {
+                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesBotonesInterior.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoBotonesInterior.php';
+                    }
+                    if ($perfil == 4) {
                         include '../Menus/auxiliarBotonesInterior.php';
-                    } else if ($perfil == 6) {
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraBotonesInterior.php';
+                    }
+                    if ($perfil == 6) {
                         include '../Menus/adminBotonesInterior.php';
                     }
                     ?>

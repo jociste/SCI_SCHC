@@ -49,7 +49,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-       } else if ($perfil == 6) {
+        } else if ($perfil == 6) {
             include '../Menus/adminSuperior.php';
         }
         ?>
@@ -73,7 +73,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                     <?php
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftPersonal.php';
-                     } else if ($perfil == 6) {
+                    } else if ($perfil == 6) {
                         include '../Menus/adminLeftPersonal.php';
                     }
                     ?>
@@ -137,15 +137,12 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                             <div class="controls">
                                                 <input type="text" class="input-xlarge" id="profesion" name="profesion">
                                             </div>
-                                        </div>     
+                                        </div>    
                                         <div class="control-group">
                                             <label class="control-label" for="idCargo">Cargo *</label>
                                             <div class="controls">
-                                                <select class="input-xlarge" id="idCargo" name="idCargo" style="height: 32px; width: 286px">
-                                                    <option value="1">Directora</option>
-                                                    <option value="2">Encargada Materiales</option>
-                                                    <option value="3">Educadora/Técnico</option>
-                                                    <option value="4">Auxiliar</option>                                                                
+                                                <select  class="input-xlarge focused" id="idCargo" name="idCargo" required style="height: 32px; width: 286px">
+                                                    <option value="-1">Seleccionar...</option>
                                                 </select>
                                             </div>
                                         </div> 
@@ -162,18 +159,16 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                 <input type="checkbox" id="deshabilitaFecha" name="deshabilitaFecha" onclick="deshabilitaCampo()">&nbsp;Indefinido &nbsp;&nbsp;
                                             </div>
                                         </div> 
+
                                         <div class="control-group">
                                             <label class="control-label" for="idNivel">Nivel *</label>
                                             <div class="controls">
-                                                <select class="input-xlarge" id="idNivel" name="idNivel" style="height: 32px; width: 286px" >
-                                                    <option value="2">Menor</option>
-                                                    <option value="3">Medio Menor</option>
-                                                    <option value="1">Heterogéneo</option>
-                                                    <option value="4">Medio Mayor</option>
-                                                    <option value="5">Mayor</option>                                                                 
+                                                <select  class="input-xlarge focused" id="idNivel" name="idNivel" required style="height: 32px; width: 286px">
+                                                    <option value="-1">Seleccionar...</option>
                                                 </select>
                                             </div>
                                         </div> 
+
                                         <div class="control-group">
                                             <label class="control-label" for="fechaInicioNivel">Fecha Inicio en Nivel *</label>
                                             <div class="controls">
@@ -204,7 +199,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarFuncionaria()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'administrarFuncionariaDirectora.php'" class="btn">Cancelar</button>
+                                            <button type="button" onClick="location.href = 'AdministrarFuncionariashabilitadas.php'" class="btn">Cancelar</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
                                         <input type="hidden" id="runEditar" name="runEditar" value="<?php echo $runFuncionaria; ?>">
@@ -212,6 +207,8 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         <input type="hidden" id="idCargoFuncionariaEditar" name="idCargoFuncionariaEditar" value="">
                                         <input type="hidden" id="idNivelEditar" name="idNivelEditar" value="">
                                         <input type="hidden" id="idCargoEditar" name="idCargoEditar" value="">
+                                        <input type="hidden" id="fechaInicioCargoEditar" name="fechaInicioCargoEditar" value="">
+                                        <input type="hidden" id="fechaInicioNivelEditar" name="fechaInicioNivelEditar" value="">
                                     </form>
                                     <!-- FIN FORMULARIO-->
                                 </div>
@@ -243,6 +240,9 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
     <script>
                                                 //APODERADOS
                                                 $(function () {
+
+                                                    cargarCargos();
+                                                    cargarNiveles();
                                                     obtenerDatosFuncionaria();
 
                                                 })
@@ -254,7 +254,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                             url_json,
                                                             function (dato) {
                                                                 console.log(jQuery.calculaDigitoVerificador(dato.runFuncionaria));
-                                                                document.getElementById("runFuncionaria").value = dato.runFuncionaria+""+jQuery.calculaDigitoVerificador(dato.runFuncionaria);
+                                                                document.getElementById("runFuncionaria").value = dato.runFuncionaria + "" + jQuery.calculaDigitoVerificador(dato.runFuncionaria);
                                                                 document.getElementById("nombres").value = dato.nombres;
                                                                 document.getElementById("apellidos").value = dato.apellidos;
                                                                 document.getElementById("fechaNacimiento").value = dato.fechaNacimiento;
@@ -272,6 +272,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                 document.getElementById("idCargoEditar").value = dato.idCargo;
                                                                 document.getElementById("idCargoFuncionariaEditar").value = dato.idCargoFuncionaria;
                                                                 document.getElementById("fechaInicio").value = dato.fechaInicio;
+                                                                document.getElementById("fechaInicioCargoEditar").value = dato.fechaInicio;
                                                                 if (dato.fechaTermino != '0000-00-00' && dato.fechaTermino != null && dato.fechaTermino != '') {
                                                                     document.getElementById("fechaTermino").value = dato.fechaTermino;
 
@@ -283,12 +284,25 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                 document.getElementById("idNivelEditar").value = dato.idNivel;
                                                                 document.getElementById("idNivelFuncionariaEditar").value = dato.idNivelFuncionaria;
                                                                 document.getElementById("fechaInicioNivel").value = dato.fechaInicioNivel;
+                                                                document.getElementById("fechaInicioNivelEditar").value = dato.fechaInicioNivel;
                                                                 if (dato.fechaTerminoNivel != '0000-00-00' && dato.fechaTerminoNivel != null && dato.fechaTerminoNivel != '') {
                                                                     document.getElementById("fechaTerminoNivel").value = dato.fechaTerminoNivel;
                                                                 } else {
                                                                     document.getElementById("deshabilitaFecha2").checked = true;
                                                                     deshabilitaCampo2();
                                                                 }
+                                                            }
+                                                    );
+                                                }
+                                                function cargarNiveles() {
+                                                    var url_json = '../Servlet/administrarNivel.php?accion=LISTADO';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var contenido = "<option value='" + v.idNivel + "'>" + v.nombre + "</option>";
+                                                                    $("#idNivel").append(contenido);
+                                                                });
                                                             }
                                                     );
                                                 }
@@ -318,7 +332,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                 };
 
                                                 function guardarFuncionaria() {
-                                                    document.getElementById("accion").value = "ACTUALIZAR";
+                                                    document.getElementById("accion").value = "ACTUALIZAR";                                                   
                                                     if (validarFuncionaria() && validarCargoNivelFuncionaria()) {
                                                         $('#fm-Funcionaria').form('submit', {
                                                             url: "../Servlet/administrarFuncionaria.php",
@@ -326,7 +340,6 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                 return $(this).form('validate');
                                                             },
                                                             success: function (result) {
-                                                                console.log(result);
                                                                 var result = eval('(' + result + ')');
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
@@ -337,7 +350,23 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                         });
                                                     }
                                                 }
-
+                                                function cargarCargos() {
+                                                    var url_json = '../Servlet/administrarCargo.php?accion=LISTADO';
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $.each(datos, function (k, v) {
+                                                                    var idCargo = v.idCargo;
+                                                                    var cargo = v.nombre;
+                                                                    if (idCargo == 3) {
+                                                                        cargo = "Técnico";
+                                                                    }
+                                                                    var contenido = "<option value='" + v.idCargo + "'>" + cargo + "</option>";
+                                                                    $("#idCargo").append(contenido);
+                                                                });
+                                                            }
+                                                    );
+                                                }
 
                                                 /*
                                                  function validar() {

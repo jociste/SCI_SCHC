@@ -10,9 +10,10 @@ class Tipo_documentoDAO {
     public function Tipo_documentoDAO() {
         $this->conexion = new ConexionMySQL();
     }
+
     public function cuenta($idTipoDocumento) {
         $this->conexion->conectar();
-        $query = "SELECT count(*) FROM documento d JOIN tipo_documento tp ON d.idTipoDocumento = tP.idTipoDocumento  WHERE d.idTipoDocumento = ". $idTipoDocumento;
+        $query = "SELECT count(*) FROM documento d JOIN tipo_documento tp ON d.idTipoDocumento = tP.idTipoDocumento  WHERE d.idTipoDocumento = " . $idTipoDocumento;
         $result = $this->conexion->ejecutar($query);
         $cantidad = 0;
         while ($fila = $result->fetch_row()) {
@@ -21,6 +22,7 @@ class Tipo_documentoDAO {
         $this->conexion->desconectar();
         return $cantidad;
     }
+
     public function getIdDisponible() {
         $this->conexion->conectar();
         $query = "SELECT (max(idTipoDocumento) + 1) as id FROM tipo_documento";
@@ -43,9 +45,11 @@ class Tipo_documentoDAO {
         return $result;
     }
 
-    public function findAll() {
+    public function findAll($perfil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM tipo_documento";
+        $query = "SELECT * FROM tipo_documento as tp 
+        LEFT JOIN permiso_visualizacion_tipo_documento as pvtd on tp.idTipoDocumento = pvtd.idTipoDocumento 
+        LEFT JOIN cargo as ca on ca.idCargo = pvtd.idCargo where ca.idCargo = ".$perfil;
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $tipo_documentos = array();

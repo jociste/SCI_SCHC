@@ -2,8 +2,12 @@
 ob_start(); //Iniciar Buffer
 
 include_once '../../Controlador/SCI_SCHC.php';
+session_start();
+if ($_SESSION['autentificado'] != "SI") {
+    header("Location: ../../index.php");
+}
 $control = SCI_SCHC::getInstancia();
-
+$perfil = $_SESSION["idCargo"];
 $codigoEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['codigoEstablecimiento']));
 $nombreEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['nombreEstablecimiento']));
 $direccionCalleEstablecimiento = utf8_decode(htmlspecialchars($_REQUEST['direccionCalleEstablecimiento']));
@@ -26,7 +30,7 @@ $emailRepresentanteLegal = utf8_decode(htmlspecialchars($_REQUEST['emailRepresen
 $fechaActualEspecifica = htmlspecialchars($_REQUEST['fechaActualEspecifica']);
 $fechaActual = utf8_decode(htmlspecialchars($_REQUEST['fechaActual']));
 
-$lote_productos = $control->getAllLote_productosPorVencer();
+$lote_productos = $control->getAllLote_productosPorVencerAuxiliar($perfil);
 
 ?>
 
@@ -34,7 +38,6 @@ $lote_productos = $control->getAllLote_productosPorVencer();
     <head>
         <style type="text/css">
             body{
-                //font-family: Calibri;
                 font-family:Arial, sans-serif;
                 font-size: 11px;
                 font-style: normal;

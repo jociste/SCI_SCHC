@@ -53,10 +53,20 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -77,22 +87,34 @@ $perfil = $_SESSION["idCargo"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                   if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
                     }
                     if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
                     }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
-                        if ($perfil == 1) {
+                          if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
-                        if ($perfil == 4) {
+                         if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
                             include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorProductos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -144,14 +166,7 @@ $perfil = $_SESSION["idCargo"];
 
             function cargarFuncionarias() {
                 var perfil = document.getElementById("perfil").value;
-                var url_json;
-                if (perfil == 1) {
-                    url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOS';
-                } else {
-                    if (perfil == 4) {
-                        url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOSAUXILIAR';
-                    }
-                }
+                var url_json = '../Servlet/administrarLote_producto_usados.php?accion=LISTADOPRODUCTOSUSADOSTABLAS&perfil=' + perfil;
                 $.getJSON(
                         url_json,
                         function (datos) {
@@ -172,12 +187,12 @@ $perfil = $_SESSION["idCargo"];
                             });
                             $('#grid').DataTable(
                                     {
-                                       "aaSorting": [[0, "desc"]],
+                                        "aaSorting": [[0, "desc"]],
                                         "oLanguage": {
-                                            "oPaginate":{
-                                             "sNext": "Siguiente",
-                                             "sPrevious": "Anterior"
-                                        },
+                                            "oPaginate": {
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
                                             "sLengthMenu": "Mostrar _MENU_ Resultados",
                                             "sSearch": "Buscar",
                                             "sZeroRecords": "No se encontraron Resultados",
@@ -185,10 +200,8 @@ $perfil = $_SESSION["idCargo"];
                                             "sInfoEmpty": "Mostrar desde el 0 Hasta el 0 de un total de 0 Resultados",
                                             "sInfoFiltered": "(Filtrado desde un total de _MAX_ Resultados)"
                                         },
-                                        
-                                               
                                     }
-                                            );
+                            );
 
                         }
                 );

@@ -51,14 +51,21 @@ $idProducto = $_REQUEST["idProducto"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+          if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
         }
-//        else if ($perfil == 3) {
-//            include '../Menus/apoderadoSuperior.php';
-//        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -80,14 +87,18 @@ $idProducto = $_REQUEST["idProducto"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                  if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
@@ -149,14 +160,8 @@ $idProducto = $_REQUEST["idProducto"];
                                                 });
 
                                                 function cargarCategorias() {
-                                                    var url_json;
                                                     var perfil = document.getElementById("perfil").value;
-                                                    if (perfil == 1) {
-                                                        url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
-                                                    }
-                                                    if (perfil == 4) {
-                                                        url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
-                                                    }
+                                                   var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR&perfil='+perfil;
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {

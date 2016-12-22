@@ -53,12 +53,20 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+             if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
             include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -79,21 +87,34 @@ $perfil = $_SESSION["idCargo"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                   if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
-                        if ($perfil == 1) {
+                          if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorProductos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -220,8 +241,9 @@ $perfil = $_SESSION["idCargo"];
                                                         <a onclick="reporteControlFlujoExistencia()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Control Flujo de Existencias</a>                                                        
                                                         <a onclick="reporteProductosPorVencer()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Por Vencer</a>
                                                         <a onclick="reporteProductosBajoSctok()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Bajo Stock</a>
-                                                        <a onclick="reporteProductosUsados()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Usados</a>
+                                                        <a onclick="reporteProductosUsados()" class="btn btn-info"><i class="icon-group"></i>&nbsp;Productos Retirados</a>
                                                         <input type="hidden" id="accion" name="accion" value="">
+                                                        <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                                                     </div>                                                    
                                                 </div>
                                             </div>
@@ -240,7 +262,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -349,6 +370,7 @@ $perfil = $_SESSION["idCargo"];
                             });
 
                             function cargarDatosGenerales() {
+                                var perfil = document.getElementById("perfil").value;
                                 var url_json = '../Servlet/administrarEstablecimiento.php?accion=LISTADO';
                                 $.getJSON(
                                         url_json,
@@ -378,7 +400,8 @@ $perfil = $_SESSION["idCargo"];
                             }
 
                             function cargarCategorias() {
-                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
+                                var perfil = document.getElementById("perfil").value;
+                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR&perfil=' + perfil;
                                 $.getJSON(
                                         url_json,
                                         function (datos) {

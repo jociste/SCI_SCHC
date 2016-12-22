@@ -46,14 +46,21 @@ $runFuncionaria = $_SESSION["run"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
         }
-//        else if ($perfil == 2) {
-//            include '../Menus/educadoraSuperior.php';
-//        } else if ($perfil == 3) {
-//            include '../Menus/apoderadoSuperior.php';
-//        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
+            include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -75,79 +82,93 @@ $runFuncionaria = $_SESSION["run"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                  if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 4) {
+                        include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
 
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
-                        if ($perfil == 1) {
+                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 4) {
+                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorProductos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
                         <hr>
                         <div class="row-fluid">
                             <div class="social-box social-bordered social-blue" id="vista-solicitud">
-                                    <div class="span12 content-panels  content-tab2" style="width: 100%">
-                                        <a href="#" class="pull-right btn btn-warning" onclick="retirarProductos()"><i class="icon-check"></i> Confirmar Retiro</a>
-                                        <a href="#" class="pull-right btn btn-primary" onclick="agregarProducto()" id="botton-agregarProducto" style="display: none;"><i class="icon-plus"></i> Otro Producto</a>
-                                        <h4>Retirar Productos</h4><hr>
-                                        <form id="fm" method="POST">
-                                            <div class="basic-info" id="lista-productos" style="width: 100%">  
-                                                <div class="row-fluid">
-                                                    <div class="span3">
-                                                        <label class="sr-only">Categoria</label>
-                                                    </div>
-                                                    <div class="span3">
-                                                        <label class="sr-only">Producto</label>
-                                                    </div>
-                                                    <div class="span1">
-                                                        <label class="sr-only">Cantidad</label>
-                                                    </div>
-                                                    <div class="span2">
-                                                        <label class="sr-only">Fecha Retiro</label>
-                                                    </div>
-                                                    <div class="span3">
-                                                        <label class="sr-only">Destino</label>
-                                                    </div>
+                                <div class="span12 content-panels  content-tab2" style="width: 100%">
+                                    <a href="#" class="pull-right btn btn-warning" onclick="retirarProductos()"><i class="icon-check"></i> Confirmar Retiro</a>
+                                    <a href="#" class="pull-right btn btn-primary" onclick="agregarProducto()" id="botton-agregarProducto" style="display: none;"><i class="icon-plus"></i> Otro Producto</a>
+                                    <h4>Retirar Productos</h4><hr>
+                                    <form id="fm" method="POST">
+                                        <div class="basic-info" id="lista-productos" style="width: 100%">  
+                                            <div class="row-fluid">
+                                                <div class="span3">
+                                                    <label class="sr-only">Categoria</label>
                                                 </div>
-                                                <div class="row-fluid">
-                                                    <div class="span3">
-                                                        <select  class="form-control" id="idCategoria_1" name="idCategoria_1" required onchange="obtenerProductos(1);
-                                                                revisarCasillas(1);
-                                                                 ">                                                    
-                                                        </select>
-                                                    </div>
-                                                    <div class="span3">
-                                                        <select class="form-control" id="idProducto_1" name="idProducto_1" required onchange="revisarCasillas(1);">   
-                                                        </select>
-                                                    </div>
-                                                    <div class="span1">
-                                                        <input class="form-control" id="cantidad_1" name="cantidad_1" type="number" min="1" placeholder="Cantidad" style="width: 90%;" required onchange="revisarCasillas(1);">
-                                                    </div>
-                                                    <div class="span2">
-                                                        <input class="form-control" id="fechaRetiro_1" name="fechaRetiro_1" type="date" placeholder="Fecha Retiro" style="width: 90%;" required onchange="revisarCasillas(1);">
-                                                    </div>
-                                                    <div class="span3">
-                                                        <input class="form-control" id="destino_1" name="destino_1" type="text" placeholder="Destino" required onchange="revisarCasillas(1);">
-                                                    </div>
+                                                <div class="span3">
+                                                    <label class="sr-only">Producto</label>
                                                 </div>
-
+                                                <div class="span1">
+                                                    <label class="sr-only">Cantidad</label>
+                                                </div>
+                                                <div class="span2">
+                                                    <label class="sr-only">Fecha Retiro</label>
+                                                </div>
+                                                <div class="span3">
+                                                    <label class="sr-only">Destino</label>
+                                                </div>
                                             </div>
-                                            <a href="AdministrarLotesProducto.php" class="pull-right btn btn-info"><i class="icon-trash"></i>Cancelar</a>
-                                            <input type="hidden" id="cantidadProductos" name="cantidadProductos" value="1">
-                                            <input type="hidden" id="accion" name="accion" value="RETIRAR_PRODUCTOS">
-                                        </form>
-                                    </div>
+                                            <div class="row-fluid">
+                                                <div class="span3">
+                                                    <select  class="form-control" id="idCategoria_1" name="idCategoria_1" required onchange="obtenerProductos(1);
+                                                            revisarCasillas(1);
+                                                             ">                                                    
+                                                    </select>
+                                                </div>
+                                                <div class="span3">
+                                                    <select class="form-control" id="idProducto_1" name="idProducto_1" required onchange="revisarCasillas(1);">   
+                                                    </select>
+                                                </div>
+                                                <div class="span1">
+                                                    <input class="form-control" id="cantidad_1" name="cantidad_1" type="number" min="1" placeholder="Cantidad" style="width: 90%;" required onchange="revisarCasillas(1);">
+                                                </div>
+                                                <div class="span2">
+                                                    <input class="form-control" id="fechaRetiro_1" name="fechaRetiro_1" type="date" placeholder="Fecha Retiro" style="width: 90%;" required onchange="revisarCasillas(1);">
+                                                </div>
+                                                <div class="span3">
+                                                    <input class="form-control" id="destino_1" name="destino_1" type="text" placeholder="Destino" required onchange="revisarCasillas(1);">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <a href="AdministrarLotesProducto.php" class="pull-right btn btn-info"><i class="icon-trash"></i>Cancelar</a>
+                                        <input type="hidden" id="cantidadProductos" name="cantidadProductos" value="1">
+                                        <input type="hidden" id="accion" name="accion" value="RETIRAR_PRODUCTOS">
+                                        <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
+                                    </form>
+                                </div>
                                 <!-- FIN FORMULARIO-->
                             </div>
 
@@ -237,92 +258,92 @@ $runFuncionaria = $_SESSION["run"];
     <!-- Libreria para Validar Rut-->
     <script src="../../Files/js/validarut.js"></script>
     <script>
-                                                            var categorias;
-                                                            $(function () {
-                                                                cargarCategorias();
-                                                            });
+                                                        var categorias;
+                                                        $(function () {
+                                                            cargarCategorias();
+                                                        });
 
-                                                            function cargarCategorias() {
-                                                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
-                                                                $.getJSON(
-                                                                        url_json,
-                                                                        function (datos) {
-                                                                            categorias = datos;
-                                                                            $("#idCategoria_1").append("<option value='-1'>Seleccionar</option>");
-                                                                            $.each(datos, function (k, v) {
-                                                                                 if (v.idCategoria != 1 && v.idCategoria != 5) {
+                                                        function cargarCategorias() {
+                                                            var perfil = document.getElementById("perfil").value;
+                                                            var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR&perfil=' + perfil;
+                                                            $.getJSON(
+                                                                    url_json,
+                                                                    function (datos) {
+                                                                        categorias = datos;
+                                                                        $("#idCategoria_1").append("<option value='-1'>Seleccionar</option>");
+                                                                        $.each(datos, function (k, v) {
+                                                                            if (v.idCategoria != 1 && v.idCategoria != 5) {
                                                                                 var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
                                                                                 $("#idCategoria_1").append(contenido);
                                                                             }
-                                                                            });
-                                                                        }
-                                                                );
-                                                            }
+                                                                        });
+                                                                    }
+                                                            );
+                                                        }
 
-                                                            function obtenerProductos(pos) {
-                                                                var codigoCategoria = $("#idCategoria_" + pos).val();
-                                                                var url_json = '../Servlet/administrarProducto.php?accion=BUSCAR_BY_ID_CATEGORIA&idCategoria=' + codigoCategoria;
-                                                                $.getJSON(
-                                                                        url_json,
-                                                                        function (datos) {
-                                                                            $("#idProducto_" + pos).empty()
-                                                                            $.each(datos, function (k, v) {
-                                                                                var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
-                                                                                $("#idProducto_" + pos).append(contenido);
-                                                                            });
-                                                                        }
-                                                                );
-                                                            }
+                                                        function obtenerProductos(pos) {
+                                                            var codigoCategoria = $("#idCategoria_" + pos).val();
+                                                            var url_json = '../Servlet/administrarProducto.php?accion=BUSCAR_BY_ID_CATEGORIA&idCategoria=' + codigoCategoria;
+                                                            $.getJSON(
+                                                                    url_json,
+                                                                    function (datos) {
+                                                                        $("#idProducto_" + pos).empty()
+                                                                        $.each(datos, function (k, v) {
+                                                                            var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
+                                                                            $("#idProducto_" + pos).append(contenido);
+                                                                        });
+                                                                    }
+                                                            );
+                                                        }
 
-                                                            function agregarProducto() {
-                                                                var cantidadProductos = document.getElementById("cantidadProductos").value;
-                                                                cantidadProductos++;
-                                                                var contenido = "<div class='row-fluid'>"
-                                                                        + "<div class='span3'>"
-                                                                        + "<select  class='form-control' id='idCategoria_" + cantidadProductos + "' name='idCategoria_" + cantidadProductos + "' onchange='obtenerProductos(" + cantidadProductos + "); revisarCasillas(" + cantidadProductos + ");' required>"
-                                                                        + "</select>"
-                                                                        + "</div>"
-                                                                        + "<div class='span3'>"
-                                                                        + "<select class='form-control' id='idProducto_" + cantidadProductos + "' name='idProducto_" + cantidadProductos + "' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
-                                                                        + "</select>"
-                                                                        + "</div>"
-                                                                        + "<div class='span1'>"
-                                                                        + "<input class='form-control' id='cantidad_" + cantidadProductos + "' name='cantidad_" + cantidadProductos + "' type='number' min='1' placeholder='Cantidad' style='width: 90%;' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
-                                                                        + "</div>"
-                                                                        + "<div class='span2'>"
-                                                                        + "<input class='form-control' id='fechaRetiro_" + cantidadProductos + "' name='fechaRetiro_" + cantidadProductos + "' type='date' placeholder='Fecha Retiro' style='width: 90%;' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
-                                                                        + "</div>"
-                                                                        + "<div class='span3'>"
-                                                                        + "<input class='form-control' id='destino_" + cantidadProductos + "' name='destino_" + cantidadProductos + "' type='text' placeholder='Destino' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
-                                                                        + "</div>"
-                                                                        + "</div>";
-                                                                $("#lista-productos").append(contenido);
-                                                                document.getElementById("cantidadProductos").value = cantidadProductos;
-                                                                $("#idCategoria_" + cantidadProductos).append("<option value='-1'>Seleccionar</option>");
-                                                                $.each(categorias, function (k, v) {
+                                                        function agregarProducto() {
+                                                            var cantidadProductos = document.getElementById("cantidadProductos").value;
+                                                            cantidadProductos++;
+                                                            var contenido = "<div class='row-fluid'>"
+                                                                    + "<div class='span3'>"
+                                                                    + "<select  class='form-control' id='idCategoria_" + cantidadProductos + "' name='idCategoria_" + cantidadProductos + "' onchange='obtenerProductos(" + cantidadProductos + "); revisarCasillas(" + cantidadProductos + ");' required>"
+                                                                    + "</select>"
+                                                                    + "</div>"
+                                                                    + "<div class='span3'>"
+                                                                    + "<select class='form-control' id='idProducto_" + cantidadProductos + "' name='idProducto_" + cantidadProductos + "' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
+                                                                    + "</select>"
+                                                                    + "</div>"
+                                                                    + "<div class='span1'>"
+                                                                    + "<input class='form-control' id='cantidad_" + cantidadProductos + "' name='cantidad_" + cantidadProductos + "' type='number' min='1' placeholder='Cantidad' style='width: 90%;' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
+                                                                    + "</div>"
+                                                                    + "<div class='span2'>"
+                                                                    + "<input class='form-control' id='fechaRetiro_" + cantidadProductos + "' name='fechaRetiro_" + cantidadProductos + "' type='date' placeholder='Fecha Retiro' style='width: 90%;' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
+                                                                    + "</div>"
+                                                                    + "<div class='span3'>"
+                                                                    + "<input class='form-control' id='destino_" + cantidadProductos + "' name='destino_" + cantidadProductos + "' type='text' placeholder='Destino' onchange='revisarCasillas(" + cantidadProductos + ")' required>"
+                                                                    + "</div>"
+                                                                    + "</div>";
+                                                            $("#lista-productos").append(contenido);
+                                                            document.getElementById("cantidadProductos").value = cantidadProductos;
+                                                            $("#idCategoria_" + cantidadProductos).append("<option value='-1'>Seleccionar</option>");
+                                                            $.each(categorias, function (k, v) {
+                                                                if (v.idCategoria != 1 && v.idCategoria != 5) {
                                                                     var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
                                                                     $("#idCategoria_" + cantidadProductos).append(contenido);
-                                                                });
-                                                                document.getElementById("botton-agregarProducto").style.display = 'none';
-                                                            }
+                                                                }
+                                                            });
+                                                            document.getElementById("botton-agregarProducto").style.display = 'none';
+                                                        }
 
-                                                            function revisarCasillas(pos) {
-                                                                var cantidad = document.getElementById("cantidadProductos").value;
-                                                                if (cantidad == pos) {
-                                                                    var idCategoria = document.getElementById("idCategoria_" + pos).value;
-                                                                    var idProducto = document.getElementById("idProducto_" + pos).value;
-                                                                    var cantidad = document.getElementById("cantidad_" + pos).value;
-                                                                    var fechaRetiro = document.getElementById("fechaRetiro_" + pos).value;
-                                                                    var destino = document.getElementById("destino_" + pos).value;
-                                                                    if (idCategoria != "") {
-                                                                        if (idProducto != "") {
-                                                                            if (cantidad != "") {
-                                                                                if (fechaRetiro != "") {
-                                                                                    if (destino != "") {
-                                                                                        document.getElementById("botton-agregarProducto").style.display = 'block';
-                                                                                    } else {
-                                                                                        document.getElementById("botton-agregarProducto").style.display = 'none';
-                                                                                    }
+                                                        function revisarCasillas(pos) {
+                                                            var cantidad = document.getElementById("cantidadProductos").value;
+                                                            if (cantidad == pos) {
+                                                                var idCategoria = document.getElementById("idCategoria_" + pos).value;
+                                                                var idProducto = document.getElementById("idProducto_" + pos).value;
+                                                                var cantidad = document.getElementById("cantidad_" + pos).value;
+                                                                var fechaRetiro = document.getElementById("fechaRetiro_" + pos).value;
+                                                                var destino = document.getElementById("destino_" + pos).value;
+                                                                if (idCategoria != "") {
+                                                                    if (idProducto != "") {
+                                                                        if (cantidad != "") {
+                                                                            if (fechaRetiro != "") {
+                                                                                if (destino != "") {
+                                                                                    document.getElementById("botton-agregarProducto").style.display = 'block';
                                                                                 } else {
                                                                                     document.getElementById("botton-agregarProducto").style.display = 'none';
                                                                                 }
@@ -335,131 +356,139 @@ $runFuncionaria = $_SESSION["run"];
                                                                     } else {
                                                                         document.getElementById("botton-agregarProducto").style.display = 'none';
                                                                     }
+                                                                } else {
+                                                                    document.getElementById("botton-agregarProducto").style.display = 'none';
                                                                 }
                                                             }
+                                                        }
 
-                                                            function retirarProductos() {
-                                                                if (validar()) {
-                                                                    $('#fm').form('submit', {
-                                                                        url: "../Servlet/administrarLote_producto.php",
-                                                                        onSubmit: function () {
-                                                                            return $(this).form('validate');
-                                                                        },
-                                                                        success: function (result) {
-                                                                            var result = eval('(' + result + ')');
-                                                                            mostrarProductoDisponible(result.lotesUtilizados)
-                                                                            mostrarProductoSinDisponiblilidad(result.productosNoDisponibles);
+                                                        function retirarProductos() {
+                                                            if (validar()) {
+                                                                $('#fm').form('submit', {
+                                                                    url: "../Servlet/administrarLote_producto.php",
+                                                                    onSubmit: function () {
+                                                                        return $(this).form('validate');
+                                                                    },
+                                                                    success: function (result) {
+                                                                        var result = eval('(' + result + ')');
+                                                                        mostrarProductoDisponible(result.lotesUtilizados)
+                                                                        mostrarProductoSinDisponiblilidad(result.productosNoDisponibles);
 
-                                                                            if (result.errorMsg) {
-                                                                                $.messager.alert('Error', result.errorMsg);
-                                                                            } else {
-                                                                                document.getElementById("vista-solicitud").style.display = "none";
-                                                                                $.messager.show({
-                                                                                    title: 'Aviso',
-                                                                                    msg: result.mensaje
-                                                                                });
-                                                                            }
+                                                                        if (result.errorMsg) {
+                                                                            $.messager.alert('Error', result.errorMsg);
+                                                                        } else {
+                                                                            document.getElementById("vista-solicitud").style.display = "none";
+                                                                            $.messager.show({
+                                                                                title: 'Aviso',
+                                                                                msg: result.mensaje
+                                                                            });
                                                                         }
-                                                                    });
-                                                                }
-                                                            }
-
-                                                            function validar() {
-                                                                var cantidadProductos = document.getElementById("cantidadProductos").value;
-                                                                var n_productos = 0;
-                                                                for (var i = 1; i <= cantidadProductos; i++) {
-                                                                    var idCategoria = document.getElementById("idCategoria_" + i).value;
-                                                                    var idProducto = document.getElementById("idProducto_" + i).value;
-                                                                    var cantidad = document.getElementById("cantidad_" + i).value;
-                                                                    var fechaRetiro = document.getElementById("fechaRetiro_" + i).value;
-                                                                    var destino = document.getElementById("destino_" + i).value;
-                                                                    if (idCategoria != -1) {
-                                                                        if (idCategoria == "") {
-                                                                            $.messager.alert('Error', "Debe seleccionar una categoria en la fila " + i);
-                                                                            $("#idCategoria_" + i).focus();
-                                                                            return false;
-                                                                        } else if (idProducto == "") {
-                                                                            $.messager.alert('Error', "Debe seleccionar un producto en la fila " + i);
-                                                                            $("#idProducto_" + i).focus();
-                                                                            return false;
-                                                                        } else if (cantidad == "") {
-                                                                            $.messager.alert('Error', "Debe ingresar una cantidad en la fila " + i);
-                                                                            $("#cantidad_" + i).focus();
-                                                                            return false;
-                                                                        } else if (fechaRetiro == "") {
-                                                                            $.messager.alert('Error', "Debe ingresar una fecha de retiro en la fila " + i);
-                                                                            $("#fechaRetiro_" + i).focus();
-                                                                            return false;
-                                                                        } else if (destino == "") {
-                                                                            $.messager.alert('Error', "Debe ingresar un destino en la fila " + i);
-                                                                            $("#destino_" + i).focus();
-                                                                            return false;
-                                                                        }
-                                                                        n_productos++;
                                                                     }
-                                                                }
-                                                                if (n_productos == 0) {
-                                                                    $.messager.alert('Error', "Debe ingresar al menos 1 producto.");
-                                                                    return false;
-                                                                }
-                                                                return true;
-                                                            }
-
-                                                            function mostrarProductoDisponible(lotesUtilizados) {
-                                                                var count = 0;
-                                                                $.each(lotesUtilizados, function (k, v) {
-                                                                    var contenido = "<div class='row-fluid'>"
-                                                                            + " <div class='span3'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Producto' value='" + v.nombre + "' readonly>"
-                                                                            + " </div>"
-                                                                            + " <div class='span1'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Cantidad' value='" + v.cantidad + "' readonly style='width: 90%;'>"
-                                                                            + " </div>"
-                                                                            + " <div class='span2'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Numero Boleta' value='" + v.numeroBoleta + "' readonly style='width: 90%;'>"
-                                                                            + " </div>"
-                                                                            + " <div class='span3'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Fecha Vencimiento' value='" + v.fechaVencimiento + "' readonly>"
-                                                                            + " </div>"
-                                                                            + " <div class='span3'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Fecha Ingreso' value='" + v.fechaIngreso + "' readonly>"
-                                                                            + " </div>"
-                                                                            + " </div>";
-
-                                                                    $("#lista-productos-retirados").append(contenido);
-                                                                    count++;
                                                                 });
-                                                                if (count == 0) {
-                                                                    document.getElementById("vista-disponibles").style.display = "none";
-                                                                } else {
-                                                                    document.getElementById("vista-disponibles").style.display = "block";
+                                                            }
+                                                        }
+
+                                                        function validar() {
+                                                            var cantidadProductos = document.getElementById("cantidadProductos").value;
+                                                            var n_productos = 0;
+                                                            for (var i = 1; i <= cantidadProductos; i++) {
+                                                                var idCategoria = document.getElementById("idCategoria_" + i).value;
+                                                                var idProducto = document.getElementById("idProducto_" + i).value;
+                                                                var cantidad = document.getElementById("cantidad_" + i).value;
+                                                                var fechaRetiro = document.getElementById("fechaRetiro_" + i).value;
+                                                                var destino = document.getElementById("destino_" + i).value;
+                                                                if (idCategoria != -1) {
+                                                                    if (idCategoria == "") {
+                                                                        $.messager.alert('Error', "Debe seleccionar una categoria en la fila " + i);
+                                                                        $("#idCategoria_" + i).focus();
+                                                                        return false;
+                                                                    } else if (idProducto == "") {
+                                                                        $.messager.alert('Error', "Debe seleccionar un producto en la fila " + i);
+                                                                        $("#idProducto_" + i).focus();
+                                                                        return false;
+                                                                    } else if (cantidad == "") {
+                                                                        $.messager.alert('Error', "Debe ingresar una cantidad en la fila " + i);
+                                                                        $("#cantidad_" + i).focus();
+                                                                        return false;
+                                                                    } else if (fechaRetiro == "") {
+                                                                        $.messager.alert('Error', "Debe ingresar una fecha de retiro en la fila " + i);
+                                                                        $("#fechaRetiro_" + i).focus();
+                                                                        return false;
+                                                                    } else if (destino == "") {
+                                                                        $.messager.alert('Error', "Debe ingresar un destino en la fila " + i);
+                                                                        $("#destino_" + i).focus();
+                                                                        return false;
+                                                                    }
+                                                                    n_productos++;
                                                                 }
                                                             }
-
-                                                            function mostrarProductoSinDisponiblilidad(productosNoDisponibles) {
-                                                                var count = 0;
-                                                                $.each(productosNoDisponibles, function (k, v) {
-                                                                    var contenido = "<div class='row-fluid'>"
-                                                                            + " <div class='span3'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Producto' value='" + v.nombre + "' readonly>"
-                                                                            + " </div>"
-                                                                            + " <div class='span3'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Cantidad' value='" + v.cantidad + "' readonly>"
-                                                                            + " </div>"
-                                                                            + " <div class='span3'>"
-                                                                            + "     <input class='form-control' type='text' placeholder='Estado' value='Stock Agotado' readonly>"
-                                                                            + " </div>"
-                                                                            + " </div>";
-
-                                                                    $("#lista-productos-sin-stock").append(contenido);
-                                                                    count++;
-                                                                });
-                                                                if (count == 0) {
-                                                                    document.getElementById("vista-no-disponibles").style.display = "none";
-                                                                } else {
-                                                                    document.getElementById("vista-no-disponibles").style.display = "block";
-                                                                }
+                                                            if (n_productos == 0) {
+                                                                $.messager.alert('Error', "Debe ingresar al menos 1 producto.");
+                                                                return false;
                                                             }
+                                                            return true;
+                                                        }
+
+                                                        function mostrarProductoDisponible(lotesUtilizados) {
+                                                            var count = 0;
+                                                            $.each(lotesUtilizados, function (k, v) {
+                                                                var fechaVencimiento = v.fechaVencimiento;
+                                                                if (fechaVencimiento == '0000-00-00') {
+                                                                    fechaVencimiento = 'Sin Fecha Vencimiento';
+                                                                }
+                                                                var contenido = "<div class='row-fluid'>"
+                                                                        + " <div class='span3'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Producto' value='" + v.nombre + "' readonly>"
+                                                                        + " </div>"
+                                                                        + " <div class='span1'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Cantidad' value='" + v.cantidad + "' readonly style='width: 90%;'>"
+                                                                        + " </div>"
+                                                                        + " <div class='span2'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Numero Boleta' value='" + v.numeroBoleta + "' readonly style='width: 90%;'>"
+                                                                        + " </div>"
+                                                                        + " <div class='span3'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Fecha Vencimiento' value='" + fechaVencimiento + "' readonly>"
+                                                                        + " </div>"
+
+                                                                        + " <div class='span3'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Fecha Ingreso' value='" + v.fechaIngreso + "' readonly>"
+                                                                        + " </div>"
+                                                                        + " </div>";
+
+                                                                $("#lista-productos-retirados").append(contenido);
+                                                                count++;
+                                                            });
+                                                            if (count == 0) {
+                                                                document.getElementById("vista-disponibles").style.display = "none";
+                                                            } else {
+                                                                document.getElementById("vista-disponibles").style.display = "block";
+                                                            }
+                                                        }
+
+                                                        function mostrarProductoSinDisponiblilidad(productosNoDisponibles) {
+                                                            var count = 0;
+                                                            $.each(productosNoDisponibles, function (k, v) {
+                                                                var contenido = "<div class='row-fluid'>"
+                                                                        + " <div class='span3'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Producto' value='" + v.nombre + "' readonly>"
+                                                                        + " </div>"
+                                                                        + " <div class='span3'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Cantidad' value='" + v.cantidad + "' readonly>"
+                                                                        + " </div>"
+                                                                        + " <div class='span3'>"
+                                                                        + "     <input class='form-control' type='text' placeholder='Estado' value='Stock Agotado' readonly>"
+                                                                        + " </div>"
+                                                                        + " </div>";
+
+                                                                $("#lista-productos-sin-stock").append(contenido);
+                                                                count++;
+                                                            });
+                                                            if (count == 0) {
+                                                                document.getElementById("vista-no-disponibles").style.display = "none";
+                                                            } else {
+                                                                document.getElementById("vista-no-disponibles").style.display = "block";
+                                                            }
+                                                        }
 
     </script>
 </body>

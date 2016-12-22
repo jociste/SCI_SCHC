@@ -47,7 +47,16 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } 
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
+        }
         ?>
         <!-- FIN MENU SUPERIOR-->
         <!-- start: Header -->
@@ -59,11 +68,15 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftDocumentos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftDocumentos.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoLeftDocumentos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftDocumentos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%;">
@@ -72,8 +85,14 @@ $perfil = $_SESSION["idCargo"];
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorDocumentos.php';
                         }
-                        if ($perfil == 4) {
-                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorDocumentos.php';
+                        }
+                         if ($perfil == 3) {
+                            include '../Menus/tecnicoMenuInteriorDocumentos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorDocumentos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -88,6 +107,7 @@ $perfil = $_SESSION["idCargo"];
                                         <input class="input-block-level" placeholder="Buscar por nombre o coincidencia (opcional)" id="cadena" name="cadena" type="text">
                                         <a class="btn btn-primary" onclick="buscar()"><i class="icon-search"></i> Buscar</a>
                                     </div>
+                                     <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                                 </form>
                             </div>
                         </div> 
@@ -111,49 +131,50 @@ $perfil = $_SESSION["idCargo"];
     <script src="../../Files/js/toucheffects.js"></script>
 
     <script>
-                                $(function () {
-                                    cargarCategorias();
-                                });
+                                            $(function () {
+                                                cargarCategorias();
+                                            });
 
-                                function cargarCategorias() {
-                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
-                                    $.getJSON(
-                                            url_json,
-                                            function (datos) {
-                                                $("#idTipoDocumento").empty();
-                                                var contenido2 = "<option data-tokens='-1' value='-1' >Seleccione Tipo</option>";
-                                                $("#idTipoDocumento").append(contenido2);
-                                                $.each(datos, function (k, v) {
-                                                    var contenido = "<option data-tokens='" + v.idTipoDocumento + "' value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
-                                                    $("#idTipoDocumento").append(contenido);
-                                                });
-                                                $('.selectpicker').selectpicker('refresh');
+                                            function cargarCategorias() {
+                                                var perfil = document.getElementById("perfil").value;
+                                                var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO&perfil='+perfil;
+                                                $.getJSON(
+                                                        url_json,
+                                                        function (datos) {
+                                                            $("#idTipoDocumento").empty();
+                                                            var contenido2 = "<option data-tokens='-1' value='-1' >Seleccione Tipo</option>";
+                                                            $("#idTipoDocumento").append(contenido2);
+                                                            $.each(datos, function (k, v) {
+                                                                var contenido = "<option data-tokens='" + v.idTipoDocumento + "' value='" + v.idTipoDocumento + "'>" + v.nombre + "</option>";
+                                                                $("#idTipoDocumento").append(contenido);
+                                                            });
+                                                            $('.selectpicker').selectpicker('refresh');
+                                                        }
+                                                );
                                             }
-                                    );
-                                }
 
-                                function buscar() {
-                                    var idTipoDocumento = document.getElementById('idTipoDocumento').value;
-                                    if (idTipoDocumento == -1) {
-                                       $.messager.alert('Error', "Debe Seleccionar un tipo de documento");
-                                    }else{
-                                        var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR&' + $("#fm-buscar").serialize();
-                                        $.getJSON(
-                                                url_json,
-                                                function (datos) {
-                                                    $("#resultado-busqueda").empty();
-                                                    $.each(datos, function (k, v) {
-                                                        //+ "<a class='pull-left' href='#'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC'></a>"
-                                                        var contenido = "<div class='media well-small'>"
-                                                                + "<a class='pull-left' href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/" + v.formato + ".png'></a>"
-                                                                + "<div class='media-body'>"
-                                                                + "<h5 class='media-heading'><a href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><b>" + v.nombre + "</b></a></h5>" + v.descripcion + "</div></div>";
-                                                        $("#resultado-busqueda").append(contenido);
-                                                    });
+                                            function buscar() {
+                                                var idTipoDocumento = document.getElementById('idTipoDocumento').value;
+                                                if (idTipoDocumento == -1) {
+                                                    $.messager.alert('Error', "Debe Seleccionar un tipo de documento");
+                                                } else {
+                                                    var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR&' + $("#fm-buscar").serialize();
+                                                    $.getJSON(
+                                                            url_json,
+                                                            function (datos) {
+                                                                $("#resultado-busqueda").empty();
+                                                                $.each(datos, function (k, v) {
+                                                                    //+ "<a class='pull-left' href='#'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC'></a>"
+                                                                    var contenido = "<div class='media well-small'>"
+                                                                            + "<a class='pull-left' href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><img class='media-object' data-src='holder.js/120x120' alt='120x120' src='../../Files/img/Archivos Icon/" + v.formato + ".png'></a>"
+                                                                            + "<div class='media-body'>"
+                                                                            + "<h5 class='media-heading'><a href='editarDocumento.php?idDocumento=" + v.idDocumento + "'><b>" + v.nombre + "</b></a></h5>" + v.descripcion + "</div></div>";
+                                                                    $("#resultado-busqueda").append(contenido);
+                                                                });
+                                                            }
+                                                    );
                                                 }
-                                        );
-                                    }
-                                }
+                                            }
 
     </script>
 </body>

@@ -45,13 +45,14 @@ ORDER by p.fechaVencimiento";
         $this->conexion->desconectar();
         return $lote_productos;
     }
-     public function findAllOrdenadosPorVencimientoAuxiliar() {
+
+    public function findAllOrdenadosPorVencimientoAuxiliar($perfil) {
         $this->conexion->conectar();
         $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, p.cantidad, p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
         FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto JOIN categoria C ON pp.idCategoria = C.idCategoria 
-JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo  
-        WHERE  p.cantidad>0 and p.fechaVencimiento <> '0000-00-00' and p.fechaVencimiento <= DATE_ADD(NOW(),INTERVAL 60 DAY)  and ca.idCargo = 4
-ORDER by p.fechaVencimiento";
+        JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo  
+        WHERE  p.cantidad>0 and p.fechaVencimiento <> '0000-00-00' and p.fechaVencimiento <= DATE_ADD(NOW(),INTERVAL 60 DAY)  and ca.idCargo = ".$perfil."
+        ORDER by p.fechaVencimiento";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -86,14 +87,15 @@ ORDER by p.fechaVencimiento";
         $this->conexion->desconectar();
         return $cantidad;
     }
-public function findAllOrdenadosPorBajoStockAuxiliar() {
+
+    public function findAllOrdenadosPorBajoStockAuxiliar($perfil) {
         $this->conexion->conectar();
         $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
-FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto JOIN categoria C ON pp.idCategoria = C.idCategoria 
-JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo  
-WHERE (select sum(cantidad) FROM lote_producto where idProducto = p.idProducto)<11 and ca.idCargo = 4
-group by p.idProducto
-ORDER by p.cantidad";
+        FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto JOIN categoria C ON pp.idCategoria = C.idCategoria 
+        JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo  
+        WHERE (select sum(cantidad) FROM lote_producto where idProducto = p.idProducto) < 11 and ca.idCargo = " . $perfil . "
+        group by p.idProducto
+        ORDER by p.cantidad";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -114,6 +116,7 @@ ORDER by p.cantidad";
         $this->conexion->desconectar();
         return $lote_productos;
     }
+
     public function findAllOrdenadosPorBajoStock() {
         $this->conexion->conectar();
         $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, p.stockInicial, pp.nombre 
@@ -141,13 +144,16 @@ ORDER by p.cantidad";
         $this->conexion->desconectar();
         return $lote_productos;
     }
-     public function findAllOrdenadosPorStock() {
+
+    public function findAllOrdenadosPorStock($perfil) {
         $this->conexion->conectar();
-        $query = "SELECT p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, 
-        p.stockInicial, pp.nombre , cat.nombre
+        $query = "SELECT  p.idLote, p.idProducto, p.numeroBoleta, p.proveedor, sum(p.cantidad), p.fechaVencimiento, p.fechaIngreso, 
+        p.stockInicial, pp.nombre , cat.nombre        
         FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto 
-        join categoria as cat on pp.idCategoria = cat.idCategoria
-        
+        left join categoria as cat on pp.idCategoria = cat.idCategoria 
+        left JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = cat.idCategoria 
+        join cargo as ca on ca.idCargo = pvc.idCargo 
+        where  ca.idCargo =" . $perfil . "
         group by p.idProducto
         ORDER by p.cantidad";
         $result = $this->conexion->ejecutar($query);
@@ -171,7 +177,8 @@ ORDER by p.cantidad";
         $this->conexion->desconectar();
         return $lote_productos;
     }
-        public function CuentaProductosBajoStock() {
+
+    public function CuentaProductosBajoStock() {
         $this->conexion->conectar();
         $query = "SELECT count(DISTINCT p.idProducto)
         FROM lote_producto as p join producto as pp on pp.idProducto = p.idProducto  
@@ -209,12 +216,13 @@ ORDER by p.cantidad";
         $this->conexion->desconectar();
         return $lote_productos;
     }
-    public function findAllAuxiliar() {
+
+    public function findAllAuxiliar($perfil) {
         $this->conexion->conectar();
         $query = "SELECT L.idLote,L.idProducto,L.numeroBoleta,L.proveedor,L.cantidad,L.fechaVencimiento,L.fechaIngreso, L.stockInicial, P.nombre , cat.idCategoria
-FROM lote_producto L LEFT JOIN producto P ON L.idProducto = P.idProducto LEFT JOIN categoria as cat on cat.idCategoria = p.idCategoria
-JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = cat.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
-where ca.idCargo = 4";
+        FROM lote_producto L LEFT JOIN producto P ON L.idProducto = P.idProducto LEFT JOIN categoria as cat on cat.idCategoria = p.idCategoria
+        JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = cat.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
+        where ca.idCargo =" . $perfil;
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $lote_productos = array();
@@ -274,9 +282,10 @@ where ca.idCargo = 4";
         $this->conexion->desconectar();
         return $lote_producto;
     }
-        public function cuenta($idProducto) {
+
+    public function cuenta($idProducto) {
         $this->conexion->conectar();
-        $query = "SELECT count(*) FROM lote_producto LP JOIN producto P ON LP.idProducto = P.idProducto  WHERE LP.idProducto = ". $idProducto;
+        $query = "SELECT count(*) FROM lote_producto LP JOIN producto P ON LP.idProducto = P.idProducto  WHERE LP.idProducto = " . $idProducto;
         $result = $this->conexion->ejecutar($query);
         $cantidad = 0;
         while ($fila = $result->fetch_row()) {
@@ -312,7 +321,7 @@ where ca.idCargo = 4";
     public function save($lote_producto) {
         $this->conexion->conectar();
         $query = "INSERT INTO lote_producto (idProducto,numeroBoleta,proveedor,cantidad,fechaVencimiento,fechaIngreso,stockInicial)"
-                . " VALUES ( " . $lote_producto->getIdProducto() . " ,  " . $lote_producto->getNumeroBoleta() . " , '" . $lote_producto->getProveedor() . "' ,  " . $lote_producto->getCantidad() . " , '" . $lote_producto->getFechaVencimiento() . "' , '" . $lote_producto->getFechaIngreso() . "', " . $lote_producto->getStockInicial() . " )";
+                . " VALUES ( " . $lote_producto->getIdProducto() . " ,  '" . $lote_producto->getNumeroBoleta() . "' , '" . $lote_producto->getProveedor() . "' ,  " . $lote_producto->getCantidad() . " , '" . $lote_producto->getFechaVencimiento() . "' , '" . $lote_producto->getFechaIngreso() . "', " . $lote_producto->getStockInicial() . " )";
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
@@ -322,7 +331,7 @@ where ca.idCargo = 4";
         $this->conexion->conectar();
         $query = "UPDATE lote_producto SET "
                 . "  idProducto =  " . $lote_producto->getIdProducto() . " ,"
-                . "  numeroBoleta =  " . $lote_producto->getNumeroBoleta() . " ,"
+                . "  numeroBoleta =  '" . $lote_producto->getNumeroBoleta() . "' ,"
                 . "  proveedor = '" . $lote_producto->getProveedor() . "' ,"
                 . "  cantidad =  " . $lote_producto->getCantidad() . " ,"
                 . "  fechaVencimiento = '" . $lote_producto->getFechaVencimiento() . "' ,"

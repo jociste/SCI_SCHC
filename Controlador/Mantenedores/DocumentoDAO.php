@@ -44,9 +44,10 @@ class DocumentoDAO {
         return $documentos;
     }
 
-    public function findAllVigentes() {
+    public function findAllVigentes($perfil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM documento WHERE estado = 1 ";
+        $query = "SELECT * FROM documento as d LEFT JOIN permiso_visualizacion_tipo_documento as pvtd on d.idTipoDocumento = pvtd.idTipoDocumento 
+        LEFT JOIN cargo as ca on ca.idCargo = pvtd.idCargo where ca.idCargo = ".$perfil." and d.estado = 1 ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $documentos = array();
@@ -69,9 +70,10 @@ class DocumentoDAO {
         return $documentos;
     }
 
-    public function findAllPapelera() {
+    public function findAllPapelera($perfil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM documento WHERE estado = 0 ";
+        $query = "SELECT * FROM documento as d LEFT JOIN permiso_visualizacion_tipo_documento as pvtd on d.idTipoDocumento = pvtd.idTipoDocumento 
+        LEFT JOIN cargo as ca on ca.idCargo = pvtd.idCargo where ca.idCargo = ".$perfil." and d.estado = 0 ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $documentos = array();
@@ -143,9 +145,11 @@ class DocumentoDAO {
         return $documentos;
     }
 
-    public function findLikeAtrrDocumentosValidos($cadena) {
+    public function findLikeAtrrDocumentosValidos($cadena, $perfil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM documento WHERE estado = 1 AND (upper(runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(nombre) LIKE upper('%" . $cadena . "%')  OR  upper(descripcion) LIKE upper('%" . $cadena . "%'))";
+        $query = "SELECT * FROM documento as d LEFT JOIN permiso_visualizacion_tipo_documento as pvtd on d.idTipoDocumento = pvtd.idTipoDocumento 
+        LEFT JOIN cargo as ca on ca.idCargo = pvtd.idCargo where ca.idCargo = ".$perfil." and d.estado = 1 AND (upper(d.runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(d.nombre) LIKE upper('%" . $cadena . "%')  OR  
+        upper(d.descripcion) LIKE upper('%" . $cadena . "%')) ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $documentos = array();
@@ -170,9 +174,11 @@ class DocumentoDAO {
         return $documentos;
     }
 
-    public function findLikeAtrrPapelera($cadena) {
+    public function findLikeAtrrPapelera($cadena, $perfil) {
         $this->conexion->conectar();
-        $query = "SELECT * FROM documento WHERE estado = 0 AND (upper(runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(nombre) LIKE upper('%" . $cadena . "%')  OR  upper(descripcion) LIKE upper('%" . $cadena . "%'))";
+        $query = "SELECT * FROM documento as d LEFT JOIN permiso_visualizacion_tipo_documento as pvtd on d.idTipoDocumento = pvtd.idTipoDocumento 
+LEFT JOIN cargo as ca on ca.idCargo = pvtd.idCargo where ca.idCargo = ".$perfil." and d.estado = 0 AND (upper(d.runFuncionaria) LIKE upper('%" . $cadena . "%') OR  upper(d.nombre) LIKE upper('%" . $cadena . "%')  OR  
+  upper(d.descripcion) LIKE upper('%" . $cadena . "%')) ";
         $result = $this->conexion->ejecutar($query);
         $i = 0;
         $documentos = array();

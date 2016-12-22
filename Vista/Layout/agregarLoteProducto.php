@@ -50,12 +50,20 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-        if ($perfil == 1) {
+         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -78,17 +86,18 @@ $perfil = $_SESSION["idCargo"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                  if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
                     }
                     if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="width: 1100px; align-content: center">
@@ -219,21 +228,14 @@ $perfil = $_SESSION["idCargo"];
         <script src="../../Files/js/toucheffects.js"></script>
 
         <script>
-                            $(function () {
-                                var perfil = document.getElementById("perfil").value;
-                                if (perfil == 1) {
+                            $(function () {   
                                     cargarCategorias();
                                     cargarProductos();
-                                }
-                                if (perfil == 4) {
-                                    cargarCategoriasAuxiliar();
-                                    cargarProductosAuxiliar();
-                                }
-
                             });
 
                             function cargarCategorias() {
-                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
+                                var perfil = document.getElementById("perfil").value;
+                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR&perfil='+perfil;
                                 $.getJSON(
                                         url_json,
                                         function (datos) {
@@ -247,35 +249,9 @@ $perfil = $_SESSION["idCargo"];
                                         }
                                 );
                             }
-                            function cargarCategoriasAuxiliar() {
-                                var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
-                                $.getJSON(
-                                        url_json,
-                                        function (datos) {
-                                            $.each(datos, function (k, v) {
-                                                var contenido = "<option value='" + v.idCategoria + "'>" + v.nombre + "</option>";
-                                                $("#idCategoriaProducto").append(contenido);
-                                            });
-                                        }
-                                );
-                            }
                             function cargarProductos() {
-                                var url_json = '../Servlet/administrarProducto.php?accion=LISTADO';
-                                $.getJSON(
-                                        url_json,
-                                        function (datos) {
-                                            document.getElementById("idProducto").innerHTML = "<option value='-1'>Seleccionar...</option>";
-                                            $.each(datos, function (k, v) {
-                                                var contenido = "<option value='" + v.idProducto + "'>" + v.nombre + "</option>";
-                                                $("#idProducto").append(contenido);
-                                            });
-                                        }
-                                );
-                            }
-
-
-                            function cargarProductosAuxiliar() {
-                                var url_json = '../Servlet/administrarProducto.php?accion=LISTADOAUXILIAR';
+                                   var perfil = document.getElementById("perfil").value;
+                                var url_json = '../Servlet/administrarProducto.php?accion=LISTADOAUXILIAR&perfil='+perfil;
                                 $.getJSON(
                                         url_json,
                                         function (datos) {
@@ -374,11 +350,9 @@ $perfil = $_SESSION["idCargo"];
                                             } else {
                                                 document.getElementById("fm-producto").reset();
                                                 $('#myModal').modal('toggle');
-                                                if (perfil == 1) {
+                                              
                                                     cargarProductos();
-                                                } else if (perfil == 4) {
-                                                    cargarProductosAuxiliar();
-                                                }
+                                                
                                                 $.messager.show({
                                                     title: 'Aviso',
                                                     msg: result.mensaje

@@ -52,8 +52,18 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 4) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 4) {
             include '../Menus/auxiliarSuperior.php';
+        }
+        if ($perfil == 5) {
+            include '../Menus/educadoraSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -63,11 +73,17 @@ $perfil = $_SESSION["idCargo"];
                 <div class="row-fluid">
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                   if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftInventarioProductos.php';
                     }
                     if ($perfil == 4) {
                         include '../Menus/auxiliarLeftInventarioProductos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftInventarioProductos.php';
                     }
                     ?>
                     <!-- FIN MENU LEFT-->
@@ -128,14 +144,9 @@ $perfil = $_SESSION["idCargo"];
                                                 });
 
                                                 function cargarCategorias() {
-                                                    var url_json;
                                                     var perfil = document.getElementById("perfil").value;
-                                                    if (perfil == 1) {
-                                                        url_json = '../Servlet/administrarCategoria.php?accion=LISTADO';
-                                                    }
-                                                    if (perfil == 4) {
-                                                        url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR';
-                                                    }
+                                                    var url_json = '../Servlet/administrarCategoria.php?accion=LISTADOAUXILIAR&perfil='+perfil;
+                                                    
                                                     $.getJSON(
                                                             url_json,
                                                             function (datos) {

@@ -1,9 +1,9 @@
 <div id="container" class="span9" style="width: 100%; height: 600px">
     <div class="span12">
         <div class="span5">
-            <div class="alert alert-block alert-error" id="AlertaPorVencer" style="float: left; width: 80% ; display: none">
+            <div class="alert alert-block alert-error" id="AlertaPorVencer" style="float: left; width: 60% ; display: none">
                 <button type="button" class="close" data-dismiss="alert">×</button> 
-                <h4><b> Advertencia</b></h4>
+                <h4><b><i class="icon-warning-sign"></i> Advertencia</b></h4>
                 <hr style="padding: 0px; margin-top: 10px">
                 <h5>Existen Productos Vencidos o Por Vencer.</h5>
                 <br>
@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="span5">
-            <div class="alert alert-block alert-danger" id="AlertaBajoStock" style="float: right; width: 80% ; display: none">
+            <div class="alert alert-block alert-danger" id="AlertaBajoStock" style="float: right; width: 60% ; display: none">
                 <button type="button" class="close" data-dismiss="alert">×</button> 
-                <h4><b> Advertencia</b> </h4>
+                <h4><b><i class="icon-warning-sign"></i> Advertencia</b> </h4>
                 <hr style="padding: 0px; margin-top: 10px">
                 <h5>Existen Productos con bajo stock. </h5>
                 <br>

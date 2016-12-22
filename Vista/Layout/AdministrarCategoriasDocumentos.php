@@ -55,10 +55,15 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 5) {
             include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -78,14 +83,18 @@ $perfil = $_SESSION["idCargo"];
                 <div class="row-fluid">
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                    if ($perfil == 1) {
+                       if ($perfil == 1) {
                         include '../Menus/directoraLeftDocumentos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftDocumentos.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoLeftDocumentos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftDocumentos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" > 
@@ -94,8 +103,14 @@ $perfil = $_SESSION["idCargo"];
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorDocumentos.php';
                         }
-                        if ($perfil == 4) {
-                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorDocumentos.php';
+                        }
+                         if ($perfil == 3) {
+                            include '../Menus/tecnicoMenuInteriorDocumentos.php';
+                        }
+                         if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorDocumentos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -119,6 +134,7 @@ $perfil = $_SESSION["idCargo"];
                                 </tbody>
                             </table>
                             <input type="hidden" id="accion" name="accion" value="">
+                            <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                         </div>
                     </div>
                 </div>
@@ -129,7 +145,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -144,8 +159,9 @@ $perfil = $_SESSION["idCargo"];
                                 });
 
                                 function cargarCategorias() {
-                                    $("#grid").empty();
-                                    var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO';
+                                    var perfil = document.getElementById("perfil").value;
+                                                var url_json = '../Servlet/administrarTipo_documento.php?accion=LISTADO&perfil='+perfil;
+                                    
                                     $.getJSON(
                                             url_json,
                                             function (datos) {

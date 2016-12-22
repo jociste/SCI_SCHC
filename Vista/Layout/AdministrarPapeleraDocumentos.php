@@ -55,10 +55,15 @@ $perfil = $_SESSION["idCargo"];
         <?php
         if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
-        } else if ($perfil == 2) {
+        }
+        if ($perfil == 2) {
+            include '../Menus/encargadaMaterialesSuperior.php';
+        }
+        if ($perfil == 3) {
+            include '../Menus/tecnicoSuperior.php';
+        }
+        if ($perfil == 5) {
             include '../Menus/educadoraSuperior.php';
-        } else if ($perfil == 3) {
-            include '../Menus/apoderadoSuperior.php';
         }
         ?>
         <!-- FIN MENU SUPERIOR-->
@@ -71,21 +76,31 @@ $perfil = $_SESSION["idCargo"];
                     if ($perfil == 1) {
                         include '../Menus/directoraLeftDocumentos.php';
                     }
-//                    else if ($perfil == 2) {
-//                        include '../Menus/educadoraLeft.php';
-//                    } else if ($perfil == 3) {
-//                        include '../Menus/apoderadoLeft.php';
-//                    }
+                    if ($perfil == 2) {
+                        include '../Menus/encargadaMaterialesLeftDocumentos.php';
+                    }
+                    if ($perfil == 3) {
+                        include '../Menus/tecnicoLeftDocumentos.php';
+                    }
+                    if ($perfil == 5) {
+                        include '../Menus/educadoraLeftDocumentos.php';
+                    }
                     ?>
                     <!-- FIN MENU LEFT-->
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
-                          <!-- AQUI VA EL MENU INTERIOR-->
+                        <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
                         if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorDocumentos.php';
                         }
-                        if ($perfil == 4) {
-                            include '../Menus/auxiliarMenuInteriorProductos.php';
+                        if ($perfil == 2) {
+                            include '../Menus/encargadaMaterialesMenuInteriorDocumentos.php';
+                        }
+                        if ($perfil == 3) {
+                            include '../Menus/tecnicoMenuInteriorDocumentos.php';
+                        }
+                        if ($perfil == 5) {
+                            include '../Menus/educadoraMenuInteriorDocumentos.php';
                         }
                         ?>
                         <!-- FIN MENU INTERIOR-->
@@ -97,11 +112,12 @@ $perfil = $_SESSION["idCargo"];
                                         <input class="input-block-level" placeholder="Buscar por nombre o coincidencia" id="cadena" name="cadena" type="text">
                                         <a class="btn btn-primary" onclick="buscar()"><i class="icon-search"></i> Buscar</a>
                                     </div>
+                                    <input type="hidden" id="perfil" name="perfil" value="<?php echo $perfil; ?>">
                                 </form>
                             </div>
 
                         </div>                                                
-                        <h4> Resultados Obtenidos </h4>
+                        <h4> Documentos en Papelera </h4>
                         <hr>
                         <div id="resultado-busqueda">
 
@@ -125,7 +141,8 @@ $perfil = $_SESSION["idCargo"];
                                             });
 
                                             function listarArchivos() {
-                                                var url_json = '../Servlet/administrarDocumento.php?accion=LISTADO_PAPELERA';
+                                                var perfil = document.getElementById("perfil").value;
+                                                var url_json = '../Servlet/administrarDocumento.php?accion=LISTADO_PAPELERA&perfil='+perfil;
                                                 $.getJSON(
                                                         url_json,
                                                         function (datos) {
@@ -143,8 +160,9 @@ $perfil = $_SESSION["idCargo"];
                                             }
 
                                             function buscar() {
+                                            var perfil = document.getElementById("perfil").value;
                                                 var cadena = document.getElementById("cadena").value;
-                                                var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR_PAPELERA&cadena=' + cadena;
+                                                var url_json = '../Servlet/administrarDocumento.php?accion=BUSCAR_PAPELERA&cadena='+cadena+'&perfil='+perfil;
                                                 $.getJSON(
                                                         url_json,
                                                         function (datos) {
