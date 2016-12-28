@@ -188,31 +188,37 @@ if ($accion != null) {
         $motivo = htmlspecialchars($_REQUEST['motivo']);
         $hoy = date('Y') . "-" . date('m') . "-" . date('d');
         $fechaBaja = htmlspecialchars($_REQUEST['fechaBaja']);
-        $objetoNivelBienAnterior = $control->getBien_nivelByID($idNivelBien);
-        $objetoNivelBienAnterior->setFechaTermino($hoy);
-        $resultObjetoNivelBienAnterior = $control->updateBien_nivel($objetoNivelBienAnterior);
-        $idBaja = $control->BuscaMaximoIdBaja();
-        if ($idBaja == NULL || $idBaja == '') {
-            $idBaja = 1;
-        }
-        $nuevaBaja = new BajaDTO();
-        $nuevaBaja->setIdBaja($idBaja);
-        $nuevaBaja->setIdBien($idBien);
-        $nuevaBaja->setMotivo($motivo);
-        $nuevaBaja->setFechaBaja($fechaBaja);
-        $resultBaja = $control->addBaja($nuevaBaja);
 
-        if ($resultBaja) {
-            if ($resultObjetoNivelBienAnterior) {
-                echo json_encode(array(
-                    'success' => true,
-                    'mensaje' => "Bien Dado de Baja correctamente."
-                ));
+        $objetoNivelBienAnterior = $control->getBien_nivelByID($idNivelBien);
+        //COMPARA FECHA INICIO (ADQUISICION) CON FECHA DE BAJA
+        if ($objetoNivelBienAnterior->getFechaInicio() < $fechaBaja) {
+            $objetoNivelBienAnterior->setFechaTermino($hoy);
+            $resultObjetoNivelBienAnterior = $control->updateBien_nivel($objetoNivelBienAnterior);
+            $idBaja = $control->BuscaMaximoIdBaja();
+            if ($idBaja == NULL || $idBaja == '') {
+                $idBaja = 1;
+            }
+            $nuevaBaja = new BajaDTO();
+            $nuevaBaja->setIdBaja($idBaja);
+            $nuevaBaja->setIdBien($idBien);
+            $nuevaBaja->setMotivo($motivo);
+            $nuevaBaja->setFechaBaja($fechaBaja);
+            $resultBaja = $control->addBaja($nuevaBaja);
+
+            if ($resultBaja) {
+                if ($resultObjetoNivelBienAnterior) {
+                    echo json_encode(array(
+                        'success' => true,
+                        'mensaje' => "Bien Dado de Baja correctamente."
+                    ));
+                } else {
+                    echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar los datos del Bien Dado de Baja.'));
+                }
             } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al actualizar los datos del Bien Dado de Baja.'));
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error al dar de Baja el Bien.'));
             }
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error al dar de Baja el Bien.'));
+            echo json_encode(array('errorMsg' => 'La fecha de baja no puede ser menor a la fecha de adquisición.'));
         }
     }
 }

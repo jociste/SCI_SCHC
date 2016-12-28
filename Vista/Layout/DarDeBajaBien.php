@@ -222,7 +222,7 @@ $perfil = $_SESSION["idCargo"];
                                         }
                                 );
                             }
-                            function abrirModaldarDeBaja(idBien, idNivelBien) {
+                            function abrirModaldarDeBaja(idBien, idNivelBien,fechaInicio) {
                                 $('#myModal').modal('toggle');
                                 document.getElementById('myModal').style.display = 'block';
                                 document.getElementById('idBien').value = idBien;
