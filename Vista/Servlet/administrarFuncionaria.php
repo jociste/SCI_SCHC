@@ -230,7 +230,7 @@ if ($accion != null) {
         $direccion = htmlspecialchars($_REQUEST['direccion']);
         $profesion = htmlspecialchars($_REQUEST['profesion']);
         $sexo = htmlspecialchars($_REQUEST['sexo']);
-        var_dump($runFuncionaria);
+        //var_dump($runFuncionaria);
         //buscar la funcionaria y la actualizo        
         $funcionaria = $control->getFuncionariaById($runFuncionaria);
         $funcionaria->setRunFuncionaria($runFuncionaria);

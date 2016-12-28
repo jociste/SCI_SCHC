@@ -141,7 +141,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         <div class="control-group">
                                             <label class="control-label" for="idCargo">Cargo *</label>
                                             <div class="controls">
-                                                <select  class="input-xlarge focused" id="idCargo" name="idCargo" required style="height: 32px; width: 286px">
+                                                <select  class="input-xlarge focused" id="idCargo" name="idCargo" required style="height: 32px; width: 286px" onchange="cambiarCargo()">
                                                     <option value="-1">Seleccionar...</option>
                                                 </select>
                                             </div>
@@ -163,7 +163,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         <div class="control-group">
                                             <label class="control-label" for="idNivel">Nivel *</label>
                                             <div class="controls">
-                                                <select  class="input-xlarge focused" id="idNivel" name="idNivel" required style="height: 32px; width: 286px">
+                                                <select  class="input-xlarge focused" id="idNivel" name="idNivel" required style="height: 32px; width: 286px" onchange="cambiarNivel()">
                                                     <option value="-1">Seleccionar...</option>
                                                 </select>
                                             </div>
@@ -340,6 +340,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                 return $(this).form('validate');
                                                             },
                                                             success: function (result) {
+                                                                console.log(result);
                                                                 var result = eval('(' + result + ')');
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
@@ -366,6 +367,15 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                 });
                                                             }
                                                     );
+                                                }
+                                                
+                                                function cambiarCargo() {
+                                                    $("#fechaInicio").val("");
+                                                    $("#fechaInicioNivel").val("");
+                                                }
+                                                
+                                                function cambiarNivel() {
+                                                    $("#fechaInicioNivel").val("");
                                                 }
 
                                                 /*
