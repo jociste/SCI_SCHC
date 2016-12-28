@@ -134,7 +134,6 @@ $perfil = $_SESSION["idCargo"];
             <footer>
                 <p>
                     <span class="pull-left">© <a href="" target="_blank">Sala Cuna y Jardín Infantil Hogar de Cristo</a> 2016</span>
-                    <span class="hidden-phone pull-right">Powered by: <a href="#">uAdmin Dashboard</a></span>
                 </p>
             </footer>
         </div>
@@ -167,8 +166,8 @@ $perfil = $_SESSION["idCargo"];
                                 contenido += "<td>" + v.profesion + "</td>";
                                 contenido += "<td>" + v.nombreNivel + "</td>";
                                 contenido += "<td>";
-                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil'  onclick='editar(" + v.runFuncionaria + ")'></button>";
-                                // contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                contenido += "<button type='button' class='btn btn-warning btn-circle icon-pencil' title ='Editar Datos' onclick='editar(" + v.runFuncionaria + ")'></button>";
+                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-list' title='Ver Antecedentes' onclick='mostrarContratos(" + v.runFuncionaria + ")'></button>";
                                 contenido += "</td>";
                                 contenido += "</tr>";
                                 $("#grid").append(contenido);
@@ -195,6 +194,9 @@ $perfil = $_SESSION["idCargo"];
 
             function editar(runFuncionaria) {
                 window.location = "editarFuncionaria.php?runFuncionaria=" + runFuncionaria;
+            }
+            function mostrarContratos(runFuncionaria) {
+                window.location = "mostrarContratosFuncionaria.php?runFuncionaria=" + runFuncionaria;
             }
 
             function borrarFuncionaria(runFuncionaria) {

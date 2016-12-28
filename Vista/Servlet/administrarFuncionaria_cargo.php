@@ -10,6 +10,12 @@ if ($accion != null) {
         $funcionaria_cargos = $control->getAllFuncionaria_cargos();
         $json = json_encode($funcionaria_cargos);
         echo $json;
+    }
+    if ($accion == "LISTADOCARGOSFUNCIONARIA") {
+        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
+        $funcionaria_cargos = $control->getFuncionaria_cargosOpc($runFuncionaria);
+        $json = json_encode($funcionaria_cargos);
+        echo $json;
     } else if ($accion == "AGREGAR") {
         $idCargo = htmlspecialchars($_REQUEST['idCargo']);
         $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
@@ -63,11 +69,11 @@ if ($accion != null) {
         $fechaInicio = htmlspecialchars($_REQUEST['fechaInicio']);
         $fechaTermino = htmlspecialchars($_REQUEST['fechaTermino']);
 
-            $funcionaria_cargo = new Funcionaria_cargoDTO();
-            $funcionaria_cargo->setIdCargo($idCargo);
-            $funcionaria_cargo->setRunFuncionaria($runFuncionaria);
-            $funcionaria_cargo->setFechaInicio($fechaInicio);
-            $funcionaria_cargo->setFechaTermino($fechaTermino);
+        $funcionaria_cargo = new Funcionaria_cargoDTO();
+        $funcionaria_cargo->setIdCargo($idCargo);
+        $funcionaria_cargo->setRunFuncionaria($runFuncionaria);
+        $funcionaria_cargo->setFechaInicio($fechaInicio);
+        $funcionaria_cargo->setFechaTermino($fechaTermino);
 
         $result = $control->updateFuncionaria_cargo($funcionaria_cargo);
         if ($result) {
@@ -80,3 +86,4 @@ if ($accion != null) {
         }
     }
 }
+    

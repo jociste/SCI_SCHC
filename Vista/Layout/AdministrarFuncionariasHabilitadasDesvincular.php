@@ -160,7 +160,7 @@ $perfil = $_SESSION["idCargo"];
                                 contenido += "<td>" + v.nombreCargo + "</td>";
                                 contenido += "<td>" + v.nombreNivel + "</td>";
                                 contenido += "<td>";
-                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
+                                contenido += "<button type='button' class='btn btn-danger btn-circle icon-trash'  title = 'Desvincular Funcionaria' onclick='borrarFuncionaria(" + v.runFuncionaria + ")'></button>";
                                 contenido += "</td>";
                                 contenido += "</tr>";
                                 $("#grid").append(contenido);

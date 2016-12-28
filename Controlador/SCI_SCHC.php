@@ -410,7 +410,9 @@ class SCI_SCHC {
     public function getAllFuncionaria_cargos() {
         return $this->funcionaria_cargoDAO->findAll();
     }
-
+    public function getFuncionaria_cargosOpc($runFuncionaria) {
+        return $this->funcionaria_cargoDAO->findByIDOPC($runFuncionaria);
+    }
     public function addFuncionaria_cargo($funcionaria_cargo) {
         return $this->funcionaria_cargoDAO->save($funcionaria_cargo);
     }
