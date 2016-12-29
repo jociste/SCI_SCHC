@@ -257,7 +257,7 @@ if ($accion != null) {
         $resultCargoFuncionariaNueva;
         $funcionaria_cargo = $control->getFuncionaria_CargoById($idCargoFuncionaria); //CARGO ACTUAL
         if ($idCargoNuevo == $idCargoAnterior) {//MANTIENE EL CARGO
-            $funcionaria_cargo->setFechaInicio($fechaInicio);
+            $funcionaria_cargo->setFechaInicio($fechaInicio); //No modificar 
             $funcionaria_cargo->setFechaTermino($fechaTermino);
             $resultCargoFuncionaria = $control->updateFuncionaria_cargo($funcionaria_cargo);
         } else {//CAMBIO EL CARGO
@@ -277,6 +277,7 @@ if ($accion != null) {
                 $resultCargoFuncionariaNueva = $control->addFuncionaria_Cargo($funcionaria_cargo_nueva);
             }
         }
+        $fechaPermitidaNivel = true;
         if ($fechaPermitida) {//VALIDAR QUE LA EDICION DEL CARGO ESTE CORRECTO
             //funcionariaNivel
             $idNivelFuncionaria = htmlspecialchars($_REQUEST['idNivelFuncionariaEditar']);
@@ -289,28 +290,49 @@ if ($accion != null) {
             }
             $nivel_funcionaria = $control->getNivel_FuncionariaById($idNivelFuncionaria);
             if ($idNivelNuevo == $idNivelAnterior) {
-                $nivel_funcionaria->setFechaInicio($fechaInicioNivel);
+                $nivel_funcionaria->setFechaInicio($fechaInicioNivel); //No modificar 
                 $nivel_funcionaria->setFechaTermino($fechaTerminoNivel);
-                $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
+                if ($fechaTerminoNivel <= $fechaTermino) {//la fecha de termino del nivel debe ser menor o igual a la de termino del contrato
+                    $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
+                } else {
+                    $fechaPermitidaNivel = false;
+                }
             } else {
-                $nivel_funcionaria->setFechaTermino($hoy);
+                if ($nivel_funcionaria->getFechaTermino() == "0000-00-00") {//Si el cargo anterior tenia fecha de termino respetar esa fecha.
+                    $nivel_funcionaria->setFechaTermino($hoy);
+                }
+
                 $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
                 $nivel_funcionaria_nueva = new Nivel_funcionariaDTO();
                 $nivel_funcionaria_nueva->setIdNivel($idNivelNuevo);
                 $nivel_funcionaria_nueva->setRunFuncionaria($runFuncionaria);
                 $nivel_funcionaria_nueva->setFechaInicio($fechaInicioNivel);
                 $nivel_funcionaria_nueva->setFechaTermino($fechaTerminoNivel);
-                $resultNivelFuncionariaNueva = $control->addNivel_funcionaria($nivel_funcionaria_nueva);
-            }
-            $result = $resultFuncionaria && ($resultCargoFuncionaria || ($resultCargoFuncionaria && $resultCargoFuncionariaNueva)) && ($resultNivelFuncionaria || ($resultNivelFuncionaria && $resultNivelFuncionariaNueva)) ? true : false;
 
-            if ($result) {
-                echo json_encode(array(
-                    'success' => true,
-                    'mensaje' => "Funcionaria actualizada correctamente"
-                ));
+                if ($fechaTerminoNivel <= $fechaTermino) {//la fecha de termino del nivel debe ser menor o igual a la de termino del contrato
+                    if ($nivel_funcionaria->getFechaTermino() < $fechaInicioNivel) {//Validar que la fecha de inicio del nuevo nivel sea mayor a la de termino del nivel anterior
+                        $resultNivelFuncionariaNueva = $control->addNivel_funcionaria($nivel_funcionaria_nueva);
+                    } else {
+                        $fechaPermitidaNivel = false;
+                    }
+                } else {
+                    $fechaPermitidaNivel = false;
+                }
+            }
+
+            if ($fechaPermitidaNivel) {//Si la fecha del nivel es correcta
+                $result = $resultFuncionaria && ($resultCargoFuncionaria || ($resultCargoFuncionaria && $resultCargoFuncionariaNueva)) && ($resultNivelFuncionaria || ($resultNivelFuncionaria && $resultNivelFuncionariaNueva)) ? true : false;
+
+                if ($result) {
+                    echo json_encode(array(
+                        'success' => true,
+                        'mensaje' => "Funcionaria actualizada correctamente"
+                    ));
+                } else {
+                    echo json_encode(array('errorMsg' => 'Ha ocurrido un error.' . $resultNivelFuncionaria));
+                }
             } else {
-                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.' . $resultNivelFuncionaria));
+                echo json_encode(array('errorMsg' => 'La fecha de termino del nivel tiene que ser menor a la de termino del contrato, y/o la fecha de inicio debe ser mayor a la de termino del nivel anterior.'));
             }
         } else {
             echo json_encode(array('errorMsg' => 'La fecha de inicio del nuevo cargo debe ser mayor a ' . $funcionaria_cargo->getFechaTermino()));
