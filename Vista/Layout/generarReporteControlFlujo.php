@@ -281,12 +281,12 @@ $lotesUtilizados = $control->getLotesProductosUsadosPorProductoByIdCategoriaAndF
                             /* Registro */
                             $datos = $registrosYutilizados[$j]['datos'];
                             $stock_inicial = $stock_inicial + $datos->getStockInicial();
-                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . $datos->getProveedor() . '</td><td class="td-borde alto-xs right">' . $datos->getStockInicial() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                            echo '<tr><td class="td-borde alto-xs">' . $datos->getNumeroBoleta() . '</td><td class="td-borde alto-xs">' . $datos->getFechaIngreso() . '</td><td class="td-borde alto-xs">' . utf8_decode($datos->getProveedor()) . '</td><td class="td-borde alto-xs right">' . $datos->getStockInicial() . '</td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
                         } else {
                             /* Utilizado */
                             $datos = $registrosYutilizados[$j]['datos'];
                             $stock_inicial = $stock_inicial - $datos->getCantidad();
-                            echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $datos->getFechaRetiro() . '</td><td class="td-borde alto-xs">' . $datos->getNombres() . '</td><td class="td-borde alto-xs right">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs">' . substr($datos->getDestino(), 0, 16) . '...</td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
+                            echo '<tr><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs"></td><td class="td-borde alto-xs">' . $datos->getFechaRetiro() . '</td><td class="td-borde alto-xs">' . utf8_decode($datos->getNombres()) . '</td><td class="td-borde alto-xs right">' . $datos->getCantidad() . '</td><td class="td-borde alto-xs">' . substr(utf8_decode($datos->getDestino()), 0, 16) . '...</td><td class="td-borde alto-xs right">' . $stock_inicial . '</td><td class="td-borde alto-xs"></td></tr>';
                         }
                         $totalRegistros++;
                     }
