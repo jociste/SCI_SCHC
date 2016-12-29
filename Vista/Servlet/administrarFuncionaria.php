@@ -72,9 +72,9 @@ if ($accion != null) {
     }//listo
     else if ($accion == "AGREGAR") {
         // Funcionaria
-        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);       
+        $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
         $runFuncionaria = substr($runFuncionaria, 0, -1);
-        
+
         $clave = htmlspecialchars($_REQUEST['clave']);
         $nombres = htmlspecialchars($_REQUEST['nombres']);
         $apellidos = htmlspecialchars($_REQUEST['apellidos']);
@@ -252,54 +252,68 @@ if ($accion != null) {
         if (isset($_REQUEST['fechaTermino'])) {
             $fechaTermino = htmlspecialchars($_REQUEST['fechaTermino']);
         }
-        $funcionaria_cargo = $control->getFuncionaria_CargoById($idCargoFuncionaria);
-        if ($idCargoNuevo == $idCargoAnterior) {
+        $fechaPermitida = true;
+        $resultCargoFuncionaria;
+        $resultCargoFuncionariaNueva;
+        $funcionaria_cargo = $control->getFuncionaria_CargoById($idCargoFuncionaria); //CARGO ACTUAL
+        if ($idCargoNuevo == $idCargoAnterior) {//MANTIENE EL CARGO
             $funcionaria_cargo->setFechaInicio($fechaInicio);
             $funcionaria_cargo->setFechaTermino($fechaTermino);
             $resultCargoFuncionaria = $control->updateFuncionaria_cargo($funcionaria_cargo);
-        } else {
-            $funcionaria_cargo->setFechaTermino($hoy);
-            $resultCargoFuncionaria = $control->updateFuncionaria_cargo($funcionaria_cargo);
+        } else {//CAMBIO EL CARGO
+            if ($funcionaria_cargo->getFechaTermino() == "0000-00-00") {//Si el cargo anterior tenia fecha de termino respetar esa fecha.
+                $funcionaria_cargo->setFechaTermino($hoy);
+            }
             $funcionaria_cargo_nueva = new Funcionaria_cargoDTO();
             $funcionaria_cargo_nueva->setIdCargo($idCargoNuevo);
             $funcionaria_cargo_nueva->setRunFuncionaria($runFuncionaria);
             $funcionaria_cargo_nueva->setFechaInicio($fechaInicio);
             $funcionaria_cargo_nueva->setFechaTermino($fechaTermino);
-            $resultCargoFuncionariaNueva = $control->addFuncionaria_Cargo($funcionaria_cargo_nueva);
-        }
-        //funcionariaNivel
-        $idNivelFuncionaria = htmlspecialchars($_REQUEST['idNivelFuncionariaEditar']);
-        $idNivelNuevo = htmlspecialchars($_REQUEST['idNivel']);
-        $idNivelAnterior = htmlspecialchars($_REQUEST['idNivelEditar']);
-        $fechaInicioNivel = htmlspecialchars($_REQUEST['fechaInicioNivel']);
-        $fechaTerminoNivel = null;
-        if (isset($_REQUEST['fechaTerminoNivel'])) {
-            $fechaTerminoNivel = htmlspecialchars($_REQUEST['fechaTerminoNivel']);
-        }
-        $nivel_funcionaria = $control->getNivel_FuncionariaById($idNivelFuncionaria);
-        if ($idNivelNuevo == $idNivelAnterior) {
-            $nivel_funcionaria->setFechaInicio($fechaInicioNivel);
-            $nivel_funcionaria->setFechaTermino($fechaTerminoNivel);
-            $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
-        } else {
-            $nivel_funcionaria->setFechaTermino($hoy);
-            $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
-            $nivel_funcionaria_nueva = new Nivel_funcionariaDTO();
-            $nivel_funcionaria_nueva->setIdNivel($idNivelNuevo);
-            $nivel_funcionaria_nueva->setRunFuncionaria($runFuncionaria);
-            $nivel_funcionaria_nueva->setFechaInicio($fechaInicioNivel);
-            $nivel_funcionaria_nueva->setFechaTermino($fechaTerminoNivel);
-            $resultNivelFuncionariaNueva = $control->addNivel_funcionaria($nivel_funcionaria_nueva);
-        }
-        $result = $resultFuncionaria && ($resultCargoFuncionaria || ($resultCargoFuncionaria && $resultCargoFuncionariaNueva)) && ($resultNivelFuncionaria || ($resultNivelFuncionaria && $resultNivelFuncionariaNueva)) ? true : false;
 
-        if ($result) {
-            echo json_encode(array(
-                'success' => true,
-                'mensaje' => "Funcionaria actualizada correctamente"
-            ));
+            if ($funcionaria_cargo->getFechaTermino() > $fechaInicio) {//Validar que la fecha de inicio del nuevo cargo sea mayor a la de termnino del cargo anterior
+                $fechaPermitida = false;
+            } else {
+                $resultCargoFuncionaria = $control->updateFuncionaria_cargo($funcionaria_cargo);
+                $resultCargoFuncionariaNueva = $control->addFuncionaria_Cargo($funcionaria_cargo_nueva);
+            }
+        }
+        if ($fechaPermitida) {//VALIDAR QUE LA EDICION DEL CARGO ESTE CORRECTO
+            //funcionariaNivel
+            $idNivelFuncionaria = htmlspecialchars($_REQUEST['idNivelFuncionariaEditar']);
+            $idNivelNuevo = htmlspecialchars($_REQUEST['idNivel']);
+            $idNivelAnterior = htmlspecialchars($_REQUEST['idNivelEditar']);
+            $fechaInicioNivel = htmlspecialchars($_REQUEST['fechaInicioNivel']);
+            $fechaTerminoNivel = null;
+            if (isset($_REQUEST['fechaTerminoNivel'])) {
+                $fechaTerminoNivel = htmlspecialchars($_REQUEST['fechaTerminoNivel']);
+            }
+            $nivel_funcionaria = $control->getNivel_FuncionariaById($idNivelFuncionaria);
+            if ($idNivelNuevo == $idNivelAnterior) {
+                $nivel_funcionaria->setFechaInicio($fechaInicioNivel);
+                $nivel_funcionaria->setFechaTermino($fechaTerminoNivel);
+                $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
+            } else {
+                $nivel_funcionaria->setFechaTermino($hoy);
+                $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
+                $nivel_funcionaria_nueva = new Nivel_funcionariaDTO();
+                $nivel_funcionaria_nueva->setIdNivel($idNivelNuevo);
+                $nivel_funcionaria_nueva->setRunFuncionaria($runFuncionaria);
+                $nivel_funcionaria_nueva->setFechaInicio($fechaInicioNivel);
+                $nivel_funcionaria_nueva->setFechaTermino($fechaTerminoNivel);
+                $resultNivelFuncionariaNueva = $control->addNivel_funcionaria($nivel_funcionaria_nueva);
+            }
+            $result = $resultFuncionaria && ($resultCargoFuncionaria || ($resultCargoFuncionaria && $resultCargoFuncionariaNueva)) && ($resultNivelFuncionaria || ($resultNivelFuncionaria && $resultNivelFuncionariaNueva)) ? true : false;
+
+            if ($result) {
+                echo json_encode(array(
+                    'success' => true,
+                    'mensaje' => "Funcionaria actualizada correctamente"
+                ));
+            } else {
+                echo json_encode(array('errorMsg' => 'Ha ocurrido un error.' . $resultNivelFuncionaria));
+            }
         } else {
-            echo json_encode(array('errorMsg' => 'Ha ocurrido un error.' . $resultNivelFuncionaria));
+            echo json_encode(array('errorMsg' => 'La fecha de inicio del nuevo cargo debe ser mayor a ' . $funcionaria_cargo->getFechaTermino()));
         }
     } else if ($accion == "ACTUALIZAR_MI_PERFIL_FUNCIONARIA") {
         $RunFuncionaria = htmlspecialchars($_REQUEST['runFuncionariaEditar']);
