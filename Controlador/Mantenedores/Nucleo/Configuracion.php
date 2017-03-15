@@ -9,16 +9,16 @@ class Configuracion {
     public $puerto;
 
     public function __construct() {
-//        $this->user = "jociste";
-//        $this->password = "r2L99kq2";
-//        $this->host = "146.83.196.166";
-//        $this->db = "jociste";
-//        $this->puerto = "3306";        
-        $this->user = "root";
-        $this->password = "";
+        $this->user = "jociste";
+        $this->password = "r2L99kq2";
         $this->host = "localhost";
         $this->db = "jociste";
-        $this->puerto = "";
+        $this->puerto = "";        
+//        $this->user = "root";
+//        $this->password = "";
+//        $this->host = "localhost";
+//        $this->db = "scg_schc";
+//        $this->puerto = "";
     }
 
     public function getUser() {

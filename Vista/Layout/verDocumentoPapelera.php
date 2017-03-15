@@ -243,6 +243,7 @@ $documento = $control->getDocumentoByID($idDocumento);
                                                             $.getJSON(
                                                                     url_json,
                                                                     function (datos) {
+                                                                        console.log("Resultado: "+ datos);
                                                                         if (datos.errorMsg) {
                                                                             $.messager.alert('Error', datos.errorMsg, 'error');
                                                                         } else {

@@ -102,7 +102,7 @@ JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria j
         LEFT JOIN funcionaria as f on lpu.runFuncionaria = f.runFuncionaria 
         LEFT JOIN lote_producto as lp on lp.idLote = lpu.idLote
         LEFT JOIN producto as p on p.idProducto = lp.idProducto
-        left JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = P.idCategoria 
+        left JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = p.idCategoria 
         join cargo as ca on ca.idCargo = pvc.idCargo 
         where  ca.idCargo = ".$perfil."
         order by lpu.fechaRetiro desc";
@@ -135,7 +135,7 @@ JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = C.idCategoria j
         join funcionaria as f on lpu.runFuncionaria = f.runFuncionaria 
         LEFT JOIN lote_producto as lp on lp.idLote = lpu.idLote
         LEFT JOIN producto as p on p.idProducto = lp.idProducto 
-        LEFT JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = P.idCategoria 
+        LEFT JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = p.idCategoria 
         LEFT JOIN cargo as ca on ca.idCargo = pvc.idCargo 
         where  ca.idCargo = 4 AND lpu.fechaRetiro <= '" . $fechaTermino . "' AND lpu.fechaRetiro >= '" . $fechaInicio . "'";
         $result = $this->conexion->ejecutar($query);

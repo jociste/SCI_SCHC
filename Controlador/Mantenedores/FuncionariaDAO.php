@@ -57,7 +57,7 @@ class FuncionariaDAO {
 
     public function findByID($runFuncionaria) {
         $this->conexion->conectar();
-        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo, f.indicadorVigente  From funcionaria AS F where F.runFuncionaria= '".$runFuncionaria."'";
+        $query = "SELECT F.runFuncionaria, F.nombres, F.apellidos, F.fechaNacimiento, F.telefono, F.direccion, F.profesion, F.clave, F.sexo, F.indicadorVigente  From funcionaria AS F where F.runFuncionaria= '".$runFuncionaria."'";
         $result = $this->conexion->ejecutar($query);
         $funcionaria = new FuncionariaDTO();
         while ($fila = $result->fetch_row()) {

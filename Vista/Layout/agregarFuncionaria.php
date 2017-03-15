@@ -275,7 +275,7 @@ $perfil = $_SESSION["idCargo"];
                                                                 title: 'Aviso',
                                                                 msg: result.mensaje
                                                             });
-                                                            window.location = "AdministrarFuncionariashabilitadas.php";
+                                                            window.location = "AdministrarFuncionariasHabilitadas.php";
                                                         }
                                                     }
                                                 });

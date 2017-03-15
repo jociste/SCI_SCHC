@@ -22,8 +22,8 @@ if (($run != null || $run != "") && ($clave != null || $clave != "")) {
                 $_SESSION["idCargo"] = $cargo->getIdCargo();
                 $_SESSION["run"] = $funcionaria->getRunFuncionaria();
 
-                $nombres = split(" ", $funcionaria->getNombres());
-                $apellidos = split(" ", $funcionaria->getApellidos());
+                $nombres = explode(" ", $funcionaria->getNombres());
+                $apellidos = explode(" ", $funcionaria->getApellidos());
                 $_SESSION["nombre"] = $nombres[0] . " " . $apellidos[0];
                 $_SESSION["sexo"] = $funcionaria->getSexo();
 

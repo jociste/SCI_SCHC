@@ -344,7 +344,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                                 if (result.errorMsg) {
                                                                     $.messager.alert('Error', result.errorMsg);
                                                                 } else {
-                                                                    window.location = "administrarFuncionariasHabilitadas.php";
+                                                                    window.location = "AdministrarFuncionariasHabilitadas.php";
                                                                 }
                                                             }
                                                         });

@@ -48,6 +48,7 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
+                        console.log(result);
                         var result = eval('(' + result + ')');
                         if (!result.success) {
                             $.messager.alert('Error', result.mensaje);

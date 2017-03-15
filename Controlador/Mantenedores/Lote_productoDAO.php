@@ -220,7 +220,7 @@ ORDER by p.fechaVencimiento";
     public function findAllAuxiliar($perfil) {
         $this->conexion->conectar();
         $query = "SELECT L.idLote,L.idProducto,L.numeroBoleta,L.proveedor,L.cantidad,L.fechaVencimiento,L.fechaIngreso, L.stockInicial, P.nombre , cat.idCategoria
-        FROM lote_producto L LEFT JOIN producto P ON L.idProducto = P.idProducto LEFT JOIN categoria as cat on cat.idCategoria = p.idCategoria
+        FROM lote_producto L LEFT JOIN producto as P ON L.idProducto = P.idProducto LEFT JOIN categoria as cat on cat.idCategoria = P.idCategoria
         JOIN permiso_visualizacion_categoria AS pvc on pvc.idCategoria = cat.idCategoria join cargo as ca on ca.idCargo = pvc.idCargo 
         where ca.idCargo =" . $perfil;
         $result = $this->conexion->ejecutar($query);
@@ -345,7 +345,7 @@ ORDER by p.fechaVencimiento";
 
     public function lotesProductosRegistradosPorProductoByIdCategoriaAndFechas($idCategoria, $fechaInicio, $fechaTermino) {
         $this->conexion->conectar();
-        $query = "SELECT lp.idLote, lp.idProducto, lp.numeroBoleta, lp.proveedor, lp.cantidad, lp.fechaVencimiento, lp.fechaIngreso,lp.stockInicial, p.nombre FROM lote_producto lp JOIN producto p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY lp.idProducto, lp.fechaIngreso;";
+        $query = "SELECT lp.idLote, lp.idProducto, lp.numeroBoleta, lp.proveedor, lp.cantidad, lp.fechaVencimiento, lp.fechaIngreso,lp.stockInicial, p.nombre FROM lote_producto lp JOIN producto as p ON lp.idProducto = p.idProducto WHERE p.idCategoria = " . $idCategoria . " AND lp.fechaIngreso BETWEEN '" . $fechaInicio . "' AND '" . $fechaTermino . "' ORDER BY lp.idProducto, lp.fechaIngreso;";
         $result = $this->conexion->ejecutar($query);
         $lote_productos = array();
         while ($fila = $result->fetch_row()) {
