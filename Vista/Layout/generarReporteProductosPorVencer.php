@@ -31,7 +31,6 @@ $fechaActualEspecifica = htmlspecialchars($_REQUEST['fechaActualEspecifica']);
 $fechaActual = utf8_decode(htmlspecialchars($_REQUEST['fechaActual']));
 
 $lote_productos = $control->getAllLote_productosPorVencerAuxiliar($perfil);
-
 ?>
 
 <html>
@@ -237,11 +236,10 @@ $lote_productos = $control->getAllLote_productosPorVencerAuxiliar($perfil);
                 foreach ($lote_productos as $producto) {
                     $estado = "";
                     if ($producto->getFechaVencimiento() <= $fechaActualEspecifica) {
-                        $estado = "Vencido";
+                        $estado ="Vencido";
                     } else {
-                        $estado = "Por Vencer";
+                        $estado = "Por vencer";
                     }
-
                     echo '<tr><td class="td-borde alto-xs">' . $producto->getFechaVencimiento() . '</td><td class="td-borde alto-xs">' . $producto->getNombre() . '</td><td class="td-borde alto-xs right">' . $producto->getCantidad() . '</td><td class="td-borde alto-xs center">' . $estado . '</td></tr>';
                     $count++;
                 }

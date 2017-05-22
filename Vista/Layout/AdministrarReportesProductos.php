@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<?php
-session_start();
+<?php session_start();
 if ($_SESSION['autentificado'] != "SI") {
     header("Location: ../../index.php");
 }
@@ -53,7 +51,7 @@ $perfil = $_SESSION["idCargo"];
     <body >
         <!-- AQUI VA EL MENU SUPERIROR-->
         <?php
-             if ($perfil == 1) {
+        if ($perfil == 1) {
             include '../Menus/directoraSuperior.php';
         }
         if ($perfil == 2) {
@@ -87,7 +85,7 @@ $perfil = $_SESSION["idCargo"];
 
                     <!-- AQUI VA EL MENU LEFT-->
                     <?php
-                   if ($perfil == 1) {
+                    if ($perfil == 1) {
                         include '../Menus/directoraLeftInventarioProductos.php';
                     }
                     if ($perfil == 2) {
@@ -104,16 +102,16 @@ $perfil = $_SESSION["idCargo"];
                     <div id="content" class="span9" style="background-color: #fff; width: 90%" >
                         <!-- AQUI VA EL MENU INTERIOR-->
                         <?php
-                          if ($perfil == 1) {
+                        if ($perfil == 1) {
                             include '../Menus/directoraMenuInteriorProductos.php';
                         }
-                         if ($perfil == 2) {
+                        if ($perfil == 2) {
                             include '../Menus/encargadaMaterialesMenuInteriorProductos.php';
                         }
-                         if ($perfil == 4) {
+                        if ($perfil == 4) {
                             include '../Menus/auxiliarMenuInteriorProductos.php';
                         }
-                         if ($perfil == 5) {
+                        if ($perfil == 5) {
                             include '../Menus/educadoraMenuInteriorProductos.php';
                         }
                         ?>
@@ -591,7 +589,15 @@ $perfil = $_SESSION["idCargo"];
                                 var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
                                 var f = new Date();
                                 var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
-                                var fechaActualEspecifica = f.getFullYear() + " - " + f.getMonth() + " - " + f.getDate();
+                                var mes = (f.getMonth()+1);
+                                if(mes < 10){
+                                    mes = "0"+(f.getMonth()+1);
+                                }
+                                var dia = f.getDate();
+                                if(dia < 10){
+                                    dia = "0"+(f.getDate());
+                                }
+                                var fechaActualEspecifica = f.getFullYear() + "-" + mes + "-" + dia;
 
                                 window.open("generarReporteProductosPorVencer.php?" + $("#fm-datos-generales").serialize() + "&fechaActual=" + fechaActual + "&fechaActualEspecifica=" + fechaActualEspecifica);
                             }
@@ -600,7 +606,15 @@ $perfil = $_SESSION["idCargo"];
                                 var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
                                 var f = new Date();
                                 var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
-                                var fechaActualEspecifica = f.getFullYear() + " - " + f.getMonth() + " - " + f.getDate();
+                                var mes = (f.getMonth()+1);
+                                if(mes < 10){
+                                    mes = "0"+(f.getMonth()+1);
+                                }
+                                var dia = f.getDate();
+                                if(dia < 10){
+                                    dia = "0"+(f.getDate());
+                                }
+                                var fechaActualEspecifica = f.getFullYear() + "-" + mes + "-" + dia;
 
                                 window.open("generarReporteProductosBajoSctok.php?" + $("#fm-datos-generales").serialize() + "&fechaActual=" + fechaActual + "&fechaActualEspecifica=" + fechaActualEspecifica);
                             }
@@ -613,7 +627,15 @@ $perfil = $_SESSION["idCargo"];
                                 var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
                                 var f = new Date();
                                 var fechaActual = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
-                                var fechaActualEspecifica = f.getFullYear() + " - " + f.getMonth() + " - " + f.getDate();
+                                var mes = (f.getMonth()+1);
+                                if(mes < 10){
+                                    mes = "0"+(f.getMonth()+1);
+                                }
+                                var dia = f.getDate();
+                                if(dia < 10){
+                                    dia = "0"+(f.getDate());
+                                }
+                                var fechaActualEspecifica = f.getFullYear() + "-" + mes + "-" + dia;
 
 
                                 var fechaInicio = $("#fechaInicioProductosUsados").val();

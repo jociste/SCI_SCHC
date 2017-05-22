@@ -89,7 +89,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         <div class="control-group">
                                             <label class="control-label" for="runFuncionaria">Run *</label>
                                             <div class="controls">
-                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()">
+                                                <input class="input-xlarge focused" id="runFuncionaria" name="runFuncionaria" type="text" placeholder="112223334" onkeyup="eliminarCaracteres()" readonly>
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -199,7 +199,7 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                         </div>
                                         <div class="form-actions" style="align-content: center">
                                             <button type="button" onclick="guardarFuncionaria()" class="btn btn-primary">Guardar Cambios</button>
-                                            <button type="button" onClick="location.href = 'AdministrarFuncionariashabilitadas.php'" class="btn">Cancelar</button>
+                                            <button type="button" onClick="location.href = 'AdministrarFuncionariasHabilitadas.php'" class="btn">Cancelar</button>
                                         </div>
                                         <input type="hidden" id="accion" name="accion" value="">
                                         <input type="hidden" id="runEditar" name="runEditar" value="<?php echo $runFuncionaria; ?>">
@@ -377,64 +377,6 @@ $runFuncionaria = htmlspecialchars($_REQUEST['runFuncionaria']);
                                                     $("#fechaInicioNivel").val("");
                                                 }
 
-                                                /*
-                                                 function validar() {
-                                                 if (Rut(document.getElementById('Run').value)) {
-                                                 if (document.getElementById('Nombres').value != "") {
-                                                 if (document.getElementById('Apellidos').value != "") {
-                                                 if (document.getElementById('SexoM').checked || document.getElementById('SexoF').checked) {
-                                                 if (document.getElementById('FechaNacimiento').value != "") {
-                                                 if (document.getElementById('Direccion').value != "") {
-                                                 var telefono = document.getElementById('Telefono').value;
-                                                 if (telefono != "" && telefono.length > 5) {
-                                                 if (!isNaN(telefono)) {
-                                                 if (document.getElementById('Titulo').value != "") {
-                                                 if (document.getElementById('Cargo').value) {
-                                                 var cadenaPass = document.getElementById('Clave').value;
-                                                 if (cadenaPass.length >= 4) {
-                                                 if (cadenaPass == document.getElementById('ClaveRepetida').value) {
-                                                 return true;
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Las contraseñas no coinciden");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "La contraseña debe tener minimo 4 caracteres");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "El Cargo no es valido");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "El Titulo no es valido");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "El telefono contiene caracteres no validos");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Debe ingresar una telefono de contacto con al menos 6 digitos");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Debe ingresar una direccion");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Debe ingresar una fecha de nacimiento");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Debe seleccionar su sexo");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Debe ingresar sus apellidos");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "Debe ingresar sus nombres");
-                                                 }
-                                                 } else {
-                                                 $.messager.alert("Alerta", "El run del menor ingresado no es valido");
-                                                 }
-                                                 return false;
-                                                 }
-                                                 
-                                                 
-                                                 */
     </script>
 </body>
 </html>

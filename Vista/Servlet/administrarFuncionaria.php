@@ -257,13 +257,17 @@ if ($accion != null) {
         $resultCargoFuncionariaNueva;
         $funcionaria_cargo = $control->getFuncionaria_CargoById($idCargoFuncionaria); //CARGO ACTUAL
         if ($idCargoNuevo == $idCargoAnterior) {//MANTIENE EL CARGO
-            $funcionaria_cargo->setFechaInicio($fechaInicio); //No modificar 
+            //$funcionaria_cargo->setFechaInicio($fechaInicio); //No modificar 
             $funcionaria_cargo->setFechaTermino($fechaTermino);
             $resultCargoFuncionaria = $control->updateFuncionaria_cargo($funcionaria_cargo);
         } else {//CAMBIO EL CARGO
             if ($funcionaria_cargo->getFechaTermino() == "0000-00-00") {//Si el cargo anterior tenia fecha de termino respetar esa fecha.
                 $funcionaria_cargo->setFechaTermino($hoy);
+            }else if($funcionaria_cargo->getFechaTermino() > $hoy){
+                $funcionaria_cargo->setFechaTermino($hoy);
             }
+            
+            
             $funcionaria_cargo_nueva = new Funcionaria_cargoDTO();
             $funcionaria_cargo_nueva->setIdCargo($idCargoNuevo);
             $funcionaria_cargo_nueva->setRunFuncionaria($runFuncionaria);
@@ -289,7 +293,7 @@ if ($accion != null) {
                 $fechaTerminoNivel = htmlspecialchars($_REQUEST['fechaTerminoNivel']);
             }
             $nivel_funcionaria = $control->getNivel_FuncionariaById($idNivelFuncionaria);
-            if ($idNivelNuevo == $idNivelAnterior) {
+            if ($idNivelNuevo == $idNivelAnterior) {//No se modifico el nivel
                 $nivel_funcionaria->setFechaInicio($fechaInicioNivel); //No modificar 
                 $nivel_funcionaria->setFechaTermino($fechaTerminoNivel);
                 if ($fechaTerminoNivel <= $fechaTermino) {//la fecha de termino del nivel debe ser menor o igual a la de termino del contrato
@@ -300,7 +304,7 @@ if ($accion != null) {
             } else {
                 if ($nivel_funcionaria->getFechaTermino() == "0000-00-00") {//Si el cargo anterior tenia fecha de termino respetar esa fecha.
                     $nivel_funcionaria->setFechaTermino($hoy);
-                }
+                }                
 
                 $resultNivelFuncionaria = $control->updateNivel_funcionaria($nivel_funcionaria);
                 $nivel_funcionaria_nueva = new Nivel_funcionariaDTO();
