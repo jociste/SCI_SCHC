@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<?php
-session_start();
+<?php session_start();
 if ($_SESSION['autentificado'] != "SI") {
     header("Location: ../../index.php");
 }
 $perfil = $_SESSION["idCargo"];
 ?>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -180,7 +179,7 @@ $perfil = $_SESSION["idCargo"];
                                                         onSubmit: function () {
                                                             return $(this).form('validate');
                                                         },
-                                                        success: function (result) {
+                                                        success: function (result) {                                                            
                                                             var result = eval('(' + result + ')');
                                                             if (result.errorMsg) {
                                                                 $.messager.alert('Error', result.errorMsg);

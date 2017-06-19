@@ -20,7 +20,7 @@ if ($accion != null) {
         if (($object->getIdTipoDocumento() == null || $object->getIdTipoDocumento() == "")) {
 
             $idTipoDocumento = $control->getIdTipoDocumentoDisponible();
-
+            
             $tipo_documento = new Tipo_documentoDTO();
             $tipo_documento->setIdTipoDocumento($idTipoDocumento);
             $tipo_documento->setNombre($nombre);

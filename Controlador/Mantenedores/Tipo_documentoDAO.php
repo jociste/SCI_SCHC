@@ -25,10 +25,10 @@ class Tipo_documentoDAO {
 
     public function getIdDisponible() {
         $this->conexion->conectar();
-        $query = "SELECT (max(idTipoDocumento) + 1) as id FROM tipo_documento";
-        $result = $this->conexion->ejecutar($query);
+        $query = "SELECT (IFNULL(max(idTipoDocumento),0) + 1) as id FROM tipo_documento";
+        $result = $this->conexion->ejecutar($query);        
         $id = 1;
-        if ($result) {
+        if ($result != NULL) {
             while ($fila = $result->fetch_row()) {
                 $id = $fila[0];
             }
@@ -120,7 +120,7 @@ class Tipo_documentoDAO {
     public function save($tipo_documento) {
         $this->conexion->conectar();
         $query = "INSERT INTO tipo_documento (idTipoDocumento, nombre,descripcion,fechaCreacion)"
-                . " VALUES (" . $tipo_documento->getIdTipoDocumento() . " , '" . $tipo_documento->getNombre() . "' , '" . $tipo_documento->getDescripcion() . "' , now() )";
+                . " VALUES (" . $tipo_documento->getIdTipoDocumento() . " , '" . $tipo_documento->getNombre() . "' , '" . $tipo_documento->getDescripcion() . "' , now() )";        
         $result = $this->conexion->ejecutar($query);
         $this->conexion->desconectar();
         return $result;
